@@ -1,0 +1,6 @@
+name: 詳しい商品一覧
+code: AdminProductListPlus
+event: AdminProductListPlus
+version: 1.1.0
+service:
+    - AdminProductListPlusServiceProvider

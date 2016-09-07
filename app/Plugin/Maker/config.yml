@@ -1,0 +1,8 @@
+name: Maker
+event: Maker
+code: Maker
+version: 0.0.2
+service: 
+    - MakerServiceProvider
+orm.path:
+    - /Resource/doctrine

@@ -1,0 +1,26 @@
+<span>
+    <div style="margin-top: 10px;">
+    {{ Product.price02_min|price }}
+    {% if Product.price02_min != Product.price02_max %} ～ {{ Product.price02_max|price }}
+    {% endif %}
+
+    ／ 在庫：
+    {% if Product.stock_unlimited_min == 0 %}
+        {% if Product.stock_min == "" %}
+            {{ Product.stock_max }}
+        {% else %}
+            {{ Product.stock_min }}
+        {% endif %}
+
+    {% else %}
+        無制限
+    {% endif %}
+    {% if Product.stock_unlimited_min != Product.stock_unlimited_max %} ～
+        {% if Product.stock_unlimited_max == 0 %}
+            {{ Product.stock_max }}
+        {% else %}
+            無制限
+        {% endif %}
+    {% endif %}
+    </div>
+</span>

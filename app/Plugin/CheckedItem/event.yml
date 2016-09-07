@@ -1,0 +1,2 @@
+eccube.event.controller.product_detail.before:
+    - [onControllerProductDetailBefore, NORMAL]

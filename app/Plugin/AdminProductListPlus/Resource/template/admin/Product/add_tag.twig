@@ -1,0 +1,7 @@
+<ul style="margin-top: 10px;">
+{% for ProductTag in Product.ProductTag %}
+    <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" style="display:inline-block; padding-right: 10px;">
+        {{ ProductTag.Tag }}
+    </li>
+{% endfor %}
+</ul>
