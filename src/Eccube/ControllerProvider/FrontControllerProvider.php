@@ -103,6 +103,9 @@ class FrontControllerProvider implements ControllerProviderInterface
         $c->match('/mypage/withdraw_complete', '\Eccube\Controller\Mypage\WithdrawController::complete')->bind('mypage_withdraw_complete');
 
         // products
+        $c->match('/simfree-sumaho/', '\Eccube\Controller\ProductController::index')->value('category_id',4)->bind('product_sumaho');
+        $c->match('/simcard/', '\Eccube\Controller\ProductController::index')->bind('product_sim');
+
         $c->match('/products/list', '\Eccube\Controller\ProductController::index')->bind('product_list');
         $c->match('/products/detail/{id}', '\Eccube\Controller\ProductController::detail')->bind('product_detail')->assert('id', '\d+');
 
