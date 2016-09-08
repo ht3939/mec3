@@ -19,25 +19,19 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-{% macro tree(Category) %}
-    <li>
-        <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
-            {{ Category.name }}
-        </a>
-        {% if Category.children|length > 0 %}
-            <ul>
-            {% for ChildCategory in Category.children %}
-                    {{ _self.tree(ChildCategory) }}
-            {% endfor %}
-            </ul>
-        {% endif %}
-    </li>
-{% endmacro %}
-
-<nav id="category" class="drawer_block pc">
-    <ul class="category-nav">
-    {% for Category in Categories %}
-        {{ _self.tree(Category) }}
-    {% endfor %}
-    </ul> <!-- category-nav -->
-</nav>
+<div id="navi">
+    <div class="inner">
+        <ul class="navi-box">
+            <li class="navi-list js-navi1"><a href="{{ url('homepage') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+            <li class="navi-list js-navi2"><a href="{{ url('product_sumaho') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+            <li class="navi-list js-navi3"><a href="{{ url('product_sim') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+            <li class="navi-list js-navi4"><a href="{{ url('help_guide') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+        </ul>
+        <p class="shopping-cart-btn">
+            <a href="{{ url('cart') }}" class="js-cart-hover-btn">
+                <img src="{{ app.config.front_urlpath }}/img/common/navi-cart.png" alt="カート">
+                <span class="number-in-cart">100</span>
+            </a>
+        </p>
+    </div>
+</div>

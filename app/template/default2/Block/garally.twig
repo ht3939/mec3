@@ -19,19 +19,45 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-<div class="item_gallery">
-    <ul class="row">
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img10.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img11.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img12.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img13.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img14.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img15.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img16.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img17.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img18.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img19.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img20.jpg"></a></li>
-        <li class="col-sm-2 col-xs-4"><a href="{{ url('product_detail', {id : 2}) }}" class="item_photo"><img src="{{ app.config.front_urlpath }}/img/top/img21.jpg"></a></li>
-    </ul>
+<div class="products-section">
+	<div class="_container">
+		<h2 class="heading"><img class="" src="{{ app.config.front_urlpath }}/img/top/products-ttl.png" alt="取り扱い商品"></h2>
+		<p class="products-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/products-text.png" alt="ここでしか手に入らない商品も！SIMフリースマホ・SIMカード掲載数 日本最大級！"></p>
+		<div class="item01">
+			<ul class="item01_container">
+				<li class="ckks">
+					<p class="img"><img src="{{ app.config.front_urlpath }}/img/top/ckks-text.png" alt="月額29万8千円超高速高額スマホ"></p>
+					<p class="text">ユーザー一人ひとりのために、まさかの専用回線を設置。24時間、いつでもどこでも超高速通信。</p>
+					<p class="inner-button"><a href="<!--{$smarty.const.ACW_BASE_URL}-->simcard/ckks.php"><img class="" src="{{ app.config.front_urlpath }}/img/top/button.png" alt=""></a></p>
+				</li>
+				<li class="cggs">
+					<p class="img"><img src="{{ app.config.front_urlpath }}/img/top/cggs-text.png" alt="超激混み激安スマホ"></p>
+					<p class="text">多数のユーザーで、一つの回線を共同利用。他社プランの何倍も詰め込むことで、この価格を実現。</p>
+					<p class="inner-button"><a href="<!--{$smarty.const.ACW_BASE_URL}-->simcard/cggs.php"><img class="" src="{{ app.config.front_urlpath }}/img/top/button.png" alt=""></a></p>
+				</li>
+			</ul>
+			<div class="sumako_sumao_img">
+				<p class="sumako"><img src="{{ app.config.front_urlpath }}/img/top/products-bg-sumako.png" alt=""></p>
+				<p class="sumao"><img src="{{ app.config.front_urlpath }}/img/top/products-bg-sumao.png" alt=""></p>
+			</div>
+		</div>
+		<div class="item02">
+			<ul class="item02_container">
+				<li class="popular-item-sumaho">
+					<p class="img-left"><img class="" src="{{ app.config.front_urlpath }}/img/top/sumaho.png" alt="SIMフリースマホ"></p>
+					<div class="inner-right">
+						<p class="inner-right-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/sumaho-text.png" alt="SIMフリースマホ"></p>
+						<p class="inner-right-button"><a href="<!--{$smarty.const.ACW_BASE_URL}-->simfree-sumaho/"><img class="" src="{{ app.config.front_urlpath }}/img/top/sumaho-button.png" alt=""></a></p>
+					</div>
+				</li>
+				<li class="popular-item-sim">
+					<p class="img-left"><img class="" src="{{ app.config.front_urlpath }}/img/top/sim.png" alt="SIMカード"></p>
+					<div class="inner-right">
+						<p class="inner-right-text2"><img class="" src="{{ app.config.front_urlpath }}/img/top/sim-text.png" alt="SIMカード"></p>
+						<p class="inner-right-button"><a href="<!--{$smarty.const.ACW_BASE_URL}-->simcard/"><img class="" src="{{ app.config.front_urlpath }}/img/top/sim-button.png" alt=""></a></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>

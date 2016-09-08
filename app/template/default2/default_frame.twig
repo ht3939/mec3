@@ -5,7 +5,7 @@ This file is part of EC-CUBE
 Copyright(c) 2000-2015 LOCKON CO.,LTD. All Rights Reserved.
 
 http://www.lockon.co.jp/
-
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} / {{ subtitle }}{% elseif title is defined and title is not empty %} / {{ title }}{% endif %}</title>
+<title>sasssasasa{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} / {{ subtitle }}{% elseif title is defined and title is not empty %} / {{ title }}{% endif %}</title>
 {% if PageLayout.author is not empty %}
     <meta name="author" content="{{ PageLayout.author }}">
 {% endif %}
@@ -42,6 +42,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/style.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/slick.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/default.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
+<link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/general/common.css">
+<link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/general/index.css">
+
 <!-- for original theme CSS -->
 {% block stylesheet %}{% endblock %}
 
@@ -176,6 +179,12 @@ $(function () {
     });
 });
 </script>
-{% block javascript %}{% endblock %}
+
+{% block javascript %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script>window.jQuery.easing.def || document.write('<script src="{{ app.config.front_urlpath }}/js/front/jquery.easing.min.js"><\/script>');</script>
+<script src="{{ app.config.front_urlpath }}/js/front/jquery.colorbox-min.js"></script>
+<script src="{{ app.config.front_urlpath }}/js/front/common.js"></script>
+{% endblock %}
 </body>
 </html>
