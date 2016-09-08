@@ -26,6 +26,8 @@ namespace Eccube\ControllerProvider;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class FrontControllerProvider implements ControllerProviderInterface
 {
@@ -105,6 +107,14 @@ class FrontControllerProvider implements ControllerProviderInterface
         // products
         $c->match('/simfree-sumaho/', '\Eccube\Controller\ProductController::index')->value('category_id',4)->bind('product_sumaho');
         $c->match('/simcard/', '\Eccube\Controller\ProductController::index')->bind('product_sim');
+        //$c->match('/simcard2/', '\Eccube\Controller\ProductController::index')->bind('product_sim');
+
+        //複数のURLを１つのコントローラにする場合。
+        //$app->match('/simcard2/', function () use ($app) {
+        //    // /helloへのリダイレクト
+        //    $subRequest = Request::create($app['url_generator']->generate('product_sim'), 'GET');
+        //    return $app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        //});
 
         $c->match('/products/list', '\Eccube\Controller\ProductController::index')->bind('product_list');
         $c->match('/products/detail/{id}', '\Eccube\Controller\ProductController::detail')->bind('product_detail')->assert('id', '\d+');
