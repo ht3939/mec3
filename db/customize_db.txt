@@ -1,0 +1,7 @@
+# layout テーブルへ追加
+# DBのurlの値とFrontContrlerのbindを値を合わせる。
+
+
+INSERT INTO `mecq3`.`dtb_page_layout` (`page_id`, `device_type_id`, `page_name`, `url`, `file_name`, `edit_flg`, `create_date`, `update_date`) VALUES ('', '10', '商品一覧ページ', 'product_simcard', 'Product/list', '2', '2016-07-22 03:55:59', '2016-07-22 03:55:59')	
+
+
