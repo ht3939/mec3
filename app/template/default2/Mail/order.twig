@@ -1,23 +1,11 @@
 {#
-This file is part of EC-CUBE
-
-Copyright(c) 2000-2015 LOCKON CO.,LTD. All Rights Reserved.
-
-http://www.lockon.co.jp/
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+* Plugin Name : ProductOption
+*
+* Copyright (C) 2015 BraTech Co., Ltd. All Rights Reserved.
+* http://www.bratech.co.jp/
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
 #}
 {{ Order.name01 }} {{ Order.name02 }} 様
 
@@ -40,6 +28,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% for OrderDetail in Order.OrderDetails %}
 商品コード: {{ OrderDetail.product_code }}
 商品名: {{ OrderDetail.product_name }}  {{ OrderDetail.classcategory_name1 }}  {{ OrderDetail.classcategory_name2 }}
+{% if plgOrderDetails[OrderDetail.id] is defined %}
+{% for label in plgOrderDetails[OrderDetail.id] %}
+　　　  {{ label }}
+{% endfor %}
+{% endif %}
 単価： {{ calc_inc_tax(OrderDetail.price, OrderDetail.tax_rate, OrderDetail.tax_rule)|price }}
 数量： {{ OrderDetail.quantity|number_format }}
 
@@ -48,11 +41,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -------------------------------------------------
 小　計 {{ Order.subtotal|price }}{% if Order.tax > 0 %}(うち消費税 {{ Order.tax|price }}){% endif %}
 
-手数料 {{ Order.charge|price }}
 送　料 {{ Order.delivery_fee_total|price}}
-{% if Order.discount > 0 %}
-値引き {{ (0 - Order.discount)|price}}
-{% endif %}
+手数料 {{ Order.charge|price }}
 ============================================
 合　計 {{ Order.payment_total|price }}
 
@@ -100,6 +90,11 @@ FAX番号 ：{{ Shipping.fax01 }}-{{ Shipping.fax02 }}-{{ Shipping.fax03 }}
 {%  for ShipmentItem in Shipping.ShipmentItems %}
 商品コード: {{ ShipmentItem.product_code }}
 商品名: {{ ShipmentItem.product_name }}  {{ ShipmentItem.classcategory_name1 }}  {{ ShipmentItem.classcategory_name2 }}
+{% if plgShipmentItems[ShipmentItem.id] is defined %}
+{% for label in plgShipmentItems[ShipmentItem.id] %}
+　　　  {{ label }}
+{% endfor %}
+{% endif %}
 数量：{{ ShipmentItem.quantity|number_format }}
 
 {% endfor %}
