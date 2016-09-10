@@ -1,0 +1,74 @@
+{% extends 'default_frame.twig' %}
+
+{% block title %}「同じカテゴリの商品を自動で表示」設定画面{% endblock %}
+{% block sub_title %}{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal" method="post" action="{{ url('plugin_HSDSameCategory_config') }}">
+
+                <div class="form-group {% if form.max_count.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示数 <span class="text-danger">*</span><br />(初期設定は4)</label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.max_count) }}
+                        {{ form_errors(form.max_count) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">タイトル <span class="text-danger">*</span>(全角64文字まで)<br />(初期設定は「同じカテゴリの商品」)</label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if mode.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示順 <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.mode) }}
+                        {{ form_errors(form.mode) }}
+                    </div>
+                </div>
+
+                <div style="margin-top: 70px;"></div>
+
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">登録</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 70px;"></div>
+
+                <div class="wall">
+                    <h3>各項目の説明</h3>
+                        <ul>
+                            <li>【表示数】</li>
+                            <li>
+                                <p>
+                                    表示する個数を指定します。
+                                </p>
+                            </li>
+                            <li>【タイトル】</li>
+                            <li>
+                                <p>
+                                    「同じカテゴリの商品を自動で表示」を設置したブロックに表示されるタイトルです。<br />
+                                </p>
+                            </li>
+                            <li>【表示順】</li>
+                            <li>
+                                <p>
+                                    「同じカテゴリの商品を自動で表示」を設置したブロックに、左から商品が表示される際の順序の決め方です。<br />
+                                </p>
+                            </li>
+                        </ul>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock main %}

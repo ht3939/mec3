@@ -1,0 +1,17 @@
+# admin page event
+admin.product.edit.initialize:
+    - [onAdminProductEditInitialize, NORMAL]
+admin.product.edit.complete:
+    - [onAdminProductEditComplete, NORMAL]
+
+admin.product.category.index.initialize:
+    - [onAdminProductCategoryIndexInitialize, NORMAL]
+admin.product.category.index.complete:
+    - [onAdminProductCategoryEditComplete, NORMAL]
+
+#Product/list.twig:
+#    - [onRenderProductList, NORMAL]
+
+# front page event
+eccube.event.front.response:
+    - [onRenderFrontPage, NORMAL]

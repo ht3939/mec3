@@ -1,0 +1,7 @@
+name: この商品をみた人はこんな商品もみています
+code: HSDRelatedProduct
+version: 1.0.2
+service:
+    - HSDRelatedProductServiceProvider
+orm.path:
+    - /Resource/doctrine

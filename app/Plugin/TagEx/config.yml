@@ -1,0 +1,8 @@
+name: 商品タグ機能拡張
+code: TagEx
+event: TagEx
+version: 1.0.0
+service:
+    - TagExServiceProvider
+orm.path:
+    - /Resource/doctrine

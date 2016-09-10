@@ -1,0 +1,137 @@
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block javascript %}
+
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/spin.min.js"></script>
+<script>
+
+var ImageSpinner;
+
+$(function() {
+
+    var opts = {
+        lines: 13,
+        length: 30,
+        width: 2,
+        radius: 12,
+        corners: 1,
+        rotate: 0,
+        direction: 1,
+        color: '#BBB',
+        speed: 1,
+        trail: 67,
+        shadow: true,
+        hwaccel: false,
+        className: 'spinner',
+        zIndex: 2e9,
+        top: top
+    };
+
+    ImageSpinner = new Spinner(opts).spin(document.getElementById('spinner'));
+    ImageSpinner.stop();
+
+    $('#setting_btn').click(function() {
+        $('#close_btn').prop("disabled", true);
+        $('#setting_btn').prop("disabled", true);
+        ImageSpinner.spin(document.getElementById('spinner'));
+
+        tagupdate();
+
+        return false;
+    });
+});
+
+function tagupdate() {
+    // Tag更新
+    var data = {};
+    data.mode = 'update';
+
+    var _token = $("[name='admin_update_status[_token]']").val();
+
+    var status = 1;
+    if($('input[name="admin_update_status[Status]"]:eq(0)').prop('checked')) {
+        status = 1;
+    } else if($('input[name="admin_update_status[Status]"]:eq(1)').prop('checked')) {
+        status = 2;
+    }
+
+    var form_param = { 'Status' : status, '_token' : _token };
+    data.admin_update_status = form_param;
+
+    var status_page_status = $("[name='status_page_status']").val();
+    data.status = status_page_status;
+
+    $.ajax({
+        'type' : 'POST',
+        url : "{{ url('plg_ssc_update') }}",
+        data : data,
+        datetype : 'json',
+        timeout: 300000,
+        error: function(data) {
+            ImageSpinner.stop();
+            alert('更新に失敗しました');
+
+            $('#setting_btn').prop("disabled", false);
+            $('#close_btn').prop("disabled", false);
+            return;
+        },
+        success : function (data, dataType) {
+            if(data.ret == 1) {
+                // success
+
+                if(data.update_count == 0) {
+                    ImageSpinner.stop();
+                    alert('更新対象がありませんでした');
+                    $('#setting_btn').prop("disabled", false);
+                    $('#close_btn').prop("disabled", false);
+                    return;
+                }
+
+                // 再検索
+                if(status_page_status == "") {
+                    $("#search_form").submit();
+
+                } else {
+                    location.href = window.location.href;
+                }
+
+            } else {
+                ImageSpinner.stop();
+                alert('更新に失敗しました');
+
+                $('#setting_btn').prop("disabled", false);
+                $('#close_btn').prop("disabled", false);
+            }
+        }
+    })
+}
+
+</script>
+{% endblock %}
+
+<strong>{{ title }}</strong>
+<br><br>
+<p>{{ sub_title }}</p>
+<div class="">
+{{ form_widget(form._token) }}
+<div id="spinner"></div>
+    <table class="table">
+    <tr>
+        <th style="width: 64px;">種別：</th>
+        <td>
+            <div class="col-sm-12 col-lg-12">
+            {{ form_widget(form.Status) }}
+            {{ form_errors(form.Status) }}
+            </div>
+        </td>
+    </tr>
+    </table>
+    {% if detail is not empty %}
+    <p>{{ detail }}</p>
+    {% endif %}
+    <div class="modal-footer">
+    <button id="close_btn" type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+      <button id="setting_btn" type="button" class="btn btn-primary">{{ button }}</button>
+    </div>
+</div>

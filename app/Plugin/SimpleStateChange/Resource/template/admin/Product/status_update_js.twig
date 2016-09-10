@@ -1,0 +1,39 @@
+<script>
+
+function statusModalShow(param) {
+    $("[name='status_update_mode']").val(param);
+    $('#statusModal').modal('show');
+}
+
+
+$(function() {
+
+    $('#statusModal').on('show.bs.modal', function (event) {
+
+        var status_update_mode = $("[name='status_update_mode']").val();
+
+        var modal = $('#statusModal');
+
+        modal.find('.modal-body').text('読込中・・・');
+
+        $.ajax({
+            url: "{{ url('plg_ssc_update') }}",
+            cache: false,
+            data: {
+                'status_update_mode' : status_update_mode,
+            },
+        }).done(function(data, textStatus, jqXHR){
+
+            $("#modal_footer").css("display", "none");
+
+            modal.find('.modal-body').html(data);
+
+        }).fail(function(data, textStatus, errorThrown){
+            modal.find('.modal-body').text('取得に失敗しました。');
+        });
+    });
+
+
+});
+</script>
+{% endblock javascript %}

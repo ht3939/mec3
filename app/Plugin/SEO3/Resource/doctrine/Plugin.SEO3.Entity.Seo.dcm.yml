@@ -1,0 +1,39 @@
+Plugin\SEO3\Entity\Seo:
+    type: entity
+    repositoryClass: Plugin\SEO3\Repository\SeoRepository
+    table: plg_seo
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        productId:
+            type: integer
+            nullable: true
+            unsigned: false
+            column: product_id
+        categoryId:
+            type: integer
+            nullable: true
+            unsigned: false
+            column: category_id
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        keywords:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+        title:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+    lifecycleCallbacks: {  }

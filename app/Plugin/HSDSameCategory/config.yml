@@ -1,0 +1,7 @@
+name: 同じカテゴリの商品を自動で表示
+code: HSDSameCategory
+version: 1.0.2
+service:
+    - HSDSameCategoryServiceProvider
+orm.path:
+    - /Resource/doctrine

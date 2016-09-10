@@ -1,0 +1,8 @@
+name: SEO管理プラグイン
+code: SEO3
+version: 3.0.1
+event: SEO3Event
+service:
+    - SEO3ServiceProvider
+orm.path:
+    - /Resource/doctrine

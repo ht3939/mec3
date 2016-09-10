@@ -1,0 +1,14 @@
+<div style="margin-top: 10px;">
+{% if Product.isEnable %}
+{# 公開状態#}
+{% set ssc_btn_class = '' %}
+{% set ssc_btn_msg = '非公開にする' %}
+
+{% else %}
+{# 非公開状態#}
+{% set ssc_btn_class = 'btn-primary' %}
+{% set ssc_btn_msg = '公開する' %}
+
+{% endif %}
+<button type="submit" id='ssc_btn_{{ Product.id }}' class="btn btn-default btn-sm {{ ssc_btn_class }}" onclick="state_change({{ Product.id }});">{{ ssc_btn_msg }}</button>
+</div>
