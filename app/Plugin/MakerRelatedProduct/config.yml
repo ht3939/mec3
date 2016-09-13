@@ -1,0 +1,7 @@
+name: この商品と同じメーカーの商品
+code: MakerRelatedProduct
+version: 1.0.0
+service:
+    - MakerRelatedProductServiceProvider
+orm.path:
+    - /Resource/doctrine
