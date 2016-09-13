@@ -18,7 +18,7 @@ class MakerRelatedProductServiceProvider implements ServiceProviderInterface
             return $app['orm.em']->getRepository('Plugin\MakerRelatedProduct\Entity\MakerRelatedProductSetting');
         });
 
-        $app->match('/' . $app['config']['admin_route'] . '/plugin/HSDRelatedProduct/config', 'Plugin\MakerRelatedProduct\Controller\ConfigController::index')->bind('plugin_MakerRelatedProduct_config');
+        $app->match('/' . $app['config']['admin_route'] . '/plugin/MakerRelatedProduct/config', 'Plugin\MakerRelatedProduct\Controller\ConfigController::index')->bind('plugin_MakerRelatedProduct_config');
 
         // Form
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {

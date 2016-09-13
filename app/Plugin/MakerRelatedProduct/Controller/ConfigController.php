@@ -21,26 +21,23 @@ class ConfigController
         if ( !$gfe ) {
             $gfe = new MakerRelatedProductSetting();
         }
-        $form = $app['form.factory']->createBuilder('Maker_related_product_setting_config', $gfe)->getForm();
+        $form = $app['form.factory']->createBuilder('maker_related_product_setting_config', $gfe)->getForm();
 
         if ('POST' === $request->getMethod()) {
 
             $form->handleRequest($request);
 
-            //if ($form->isValid()) {
-                $Relationproduct = $form->getData();
+            $Relationproduct = $form->getData();
 
-                // IDは1固定
             $Relationproduct->setId(1);
 
-                $app['orm.em']->persist($Relationproduct);
-                $app['orm.em']->flush();
-                $app->addSuccess('admin.relatedproductsetting.save.complete', 'admin');
-            //}
+            $app['orm.em']->persist($Relationproduct);
+            $app['orm.em']->flush();
+            $app->addSuccess('admin.relatedproductsetting.save.complete', 'admin');
 
         }
 
-        return $app->render('HSDRelatedProduct/Resource/template/admin/config.twig', array(
+        return $app->render('MakerRelatedProduct/Resource/template/admin/config.twig', array(
             'form' => $form->createView()
         ));
 

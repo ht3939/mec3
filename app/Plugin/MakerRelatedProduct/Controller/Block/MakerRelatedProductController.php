@@ -1,10 +1,10 @@
 <?php
 
-namespace Plugin\HSDRelatedProduct\Controller\Block;
+namespace Plugin\MakerRelatedProduct\Controller\Block;
 
 use Eccube\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Plugin\HSDRelatedProduct\Entity\HSDRelatedProduct;
+use Plugin\MakerRelatedProduct\Entity\MakerRelatedProduct;
 
 
 class MakerRelatedProductController

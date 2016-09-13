@@ -13,7 +13,7 @@ use Eccube\Entity\BlockPosition;
 class PluginManager extends AbstractPluginManager
 {
 
-    const BLOCKNAME = "この商品と同じメーカーの製品";
+    const BLOCKNAME = "この商品と同じメーカーの商品";
     const BLOCKFILENAME = "maker_related_product";
     private $block;
 

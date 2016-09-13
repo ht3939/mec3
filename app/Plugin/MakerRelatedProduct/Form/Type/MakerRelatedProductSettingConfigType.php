@@ -51,7 +51,7 @@ class MakerRelatedProductSettingConfigType extends AbstractType
 
     public function getName()
     {
-        return 'hsd_related_product_setting_config';
+        return 'maker_related_product_setting_config';
     }
 }
 
