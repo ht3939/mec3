@@ -30,7 +30,7 @@ class HSDSameCategorySettingConfigType extends AbstractType
                 ),
             ))
             ->add('mode', 'choice', array(
-                'choices' => array('price_desc' => '価格の高い順', 'price_asc' => '価格の低い順', 'update_desc' => '更新日が新しい順', 'update_asc' => '更新日が古い順'),
+                'choices' => array('price_desc' => '価格の高い順', 'price_asc' => '価格の低い順', 'update_desc' => '更新日が新しい順', 'update_asc' => '更新日が古い順', 'random' => 'ランダム'),
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),

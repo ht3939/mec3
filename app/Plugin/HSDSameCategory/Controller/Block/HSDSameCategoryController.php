@@ -60,6 +60,9 @@ class HSDSameCategoryController
             $stmt->execute();
             $rs = $stmt->fetchAll();
 
+            // 表示する個数内にランダムに収まるようシャッフル
+            shuffle($rs);
+
             // もし現在の商品以外のproduct idなら保持
             foreach($rs as $pid){
                 if($pid['product_id'] != $id && ($dmy_count < $this->_show_count) ){
@@ -86,6 +89,7 @@ class HSDSameCategoryController
                 $mode = 'price_desc'; //デフォルト
             }
 
+            $israndom = false;
             switch($mode){
                 case 'price_desc':
                     // 価格が高い順にソートする場合
@@ -106,13 +110,34 @@ class HSDSameCategoryController
                     // 更新日が古い順にソートする場合
                     $sort_str = 'ecp.update_date ASC';
                     break;
+
+                case 'random':
+                    $or_str = "ecp.product_id in (";
+                    $dmy_count = 0;
+                    foreach($pid_ar as $item){
+                        if($dmy_count < $this->_show_count){
+                            $or_str .= $item . ',';
+                            $dmy_count++;
+                        }
+                    }
+                    $or_str = substr($or_str, 0, strlen($or_str)-1);
+                    $or_str .= ')';
+                    $israndom = true;
+                    break;
+
             }
 
-            $stmt = $app['orm.em']->getConnection()->prepare('
-                SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ' . $or_str . ' ORDER BY ' . $sort_str);
+            if( $israndom ) {
+                $stmt = $app['orm.em']->getConnection()->prepare('SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ecp.product_id = ecpi.product_id AND ecpi.rank = 1 AND ' . $or_str);
+            }else{
+                $stmt = $app['orm.em']->getConnection()->prepare('SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ' . $or_str . ' ORDER BY ' . $sort_str);
+            }
 
             $stmt->execute();
             $this->_rp = $stmt->fetchAll();
+
+            // 表示をシャッフル
+            shuffle($this->_rp);
         }
 
         return $app['view']->render("Block/hsd_same_category.twig", array(
