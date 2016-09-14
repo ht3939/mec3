@@ -22,7 +22,7 @@ $(function() {
         {% endif %}
     {% endfor %}      
 });
-
+{% set isActive=true %}
 function func_submit(optionId, setValue) {
     var $sele_option = $("[name=productoption" + optionId + "]");
     if($sele_option && $sele_option.length){
