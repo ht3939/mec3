@@ -45,7 +45,6 @@ class Maker
             if (!$response instanceof RedirectResponse) {
                 return;
             }
-
             if (empty($id)) {
                 $location = explode('/', $response->headers->get('location'));
                 $url = explode('/', $this->app->url('admin_product_product_edit', array('id' => '0')));
@@ -125,7 +124,7 @@ class Maker
 
         if ('POST' === $app['request']->getMethod()) {
 
-            if ($form->isValid()) {
+            if ($form->get('maker')->isValid()) {
 
                 $maker_id = $form->get('maker')->getData();
                 if ($maker_id) {
