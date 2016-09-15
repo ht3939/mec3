@@ -1,9 +1,18 @@
 <span>
     <div style="margin-top: 10px;">
+    関連商品：{{RelatedProduct|length}}
+    お気に入り：{{Product.CustomerFavoriteProducts | length}}
+    {% if Product.className1 or Product.className2 %}
+    タイプ：
+    {{ Product.className1 }},
+    {{ Product.className2 }}
+    ／ 料金：
+    {% else %}
+    料金：
+    {% endif %}
     {{ Product.price02_min|price }}
     {% if Product.price02_min != Product.price02_max %} ～ {{ Product.price02_max|price }}
     {% endif %}
-
     ／ 在庫：
     {% if Product.stock_unlimited_min == 0 %}
         {% if Product.stock_min == "" %}
