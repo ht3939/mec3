@@ -369,10 +369,10 @@ class CartController extends AbstractController
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_BUYSTEP_COMPLETE, $event);
 
-        if ($event->hasResponse()) {
-            return $event->getResponse();
-        }
+        //if ($event->hasResponse()) {
+        //    return $event->getResponse();
+        //}
 
-        return $app->redirect($app->url('shopping'));
+        return $app->redirect($app->url('shopping_nonmember'));
     }
 }
