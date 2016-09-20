@@ -143,7 +143,11 @@ class ProductClassType extends AbstractType
                 'required' => false,
                 'empty_value' => '指定なし',
             ))
-            ->add('add', 'checkbox', array(
+             ->add('delivery_date2', 'delivery_date', array(
+                'label' => 'お届け可能日2',
+                'required' => false,
+                'empty_value' => '指定なし',
+            ))           ->add('add', 'checkbox', array(
                 'label' => false,
                 'required' => false,
                 'value' => 1,

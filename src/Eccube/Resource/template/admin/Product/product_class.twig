@@ -219,6 +219,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <th id="result_box__header_delivery_fee">送料</th>
                                     {% endif %}
                                     <th id="result_box__header_delivery_date">お届け可能日</th>
+                                    <th id="result_box__header_delivery_date">お届け可能日2</th>
+
                                     {% if BaseInfo.option_product_tax_rule %}
                                     <th id="result_box__header_tax_rate">販売税率</th>
                                     {% endif %}
@@ -272,6 +274,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 {% endif %}
                                 <td id="result_box__delivery_date--{{ product_class_form.vars.name }}">
                                     {{ form_widget(product_class_form.delivery_date) }}
+                                    {{ form_errors(product_class_form.delivery_date) }}
+                                </td>
+                                <td id="result_box__delivery_date--{{ product_class_form.vars.name }}">
+                                    {{ form_widget(product_class_form.delivery_date2) }}
                                     {{ form_errors(product_class_form.delivery_date) }}
                                 </td>
                                 {% if BaseInfo.option_product_tax_rule %}

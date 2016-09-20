@@ -618,7 +618,15 @@ class ProductClass extends \Eccube\Entity\AbstractEntity
     {
         return $this->DeliveryDate;
     }
-
+    /**
+     * Get DeliveryDate
+     *
+     * @return \Eccube\Entity\DeliveryDate 
+     */
+    public function getDeliveryDate2()
+    {
+        return $this->DeliveryDate;
+    }
     /**
      * Set Creator
      *
