@@ -19,19 +19,94 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-<div id="navi">
+
+{% block stylesheet %}
+<style type="text/css">
+#navi {
+    background: #ce0b20;
+}
+#navi .inner {
+    position: relative;
+/*    width: 1000px;
+    margin: 0 auto;*/
+}
+
+#navi .inner ul{
+    text-align: center;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+#navi .inner ul li{
+    display: table-cell;
+}
+#genaral-page-header .inner, #navi .navi-box, #genaral-page-footer .inner {
+    overflow: hidden;
+}
+#navi .navi-list:last-child {
+    border-right: none;
+}
+#navi .navi-list {
+/*    float: left;*/
+    border-right: 1px dotted #fff;
+    text-align: center;
+}
+#navi .navi-list a.nav-pagelink-btn {
+/*    width: 190px;*/
+    min-height: 26px;
+    padding: 12px 0;
+}
+#navi .navi-list.active a {
+    background: #b71022;
+}
+#navi .navi-list a {
+    display: block;
+}
+
+</style>
+{% endblock %}
+
+{% macro tree(Category) %}
+    <li>
+        <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
+            {{ Category.name }}
+        </a>
+        {% if Category.children|length > 0 %}
+            <ul>
+            {% for ChildCategory in Category.children %}
+                    {{ _self.tree(ChildCategory) }}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+
+<nav id="category" class="drawer_block sp" style="display:none!important;">
+    <ul class="category-nav">
+    <li><a href="/">トップ</a></li>
+    <li><a href="{{ url('product_list') }}">SIMフリースマホ</a></li>
+    <li><a href="{{ url('product_list') }}">SIMカード</a></li>
+    <li><a href="/guide.php">ご利用ガイド</a></li>
+    </ul> <!-- category-nav -->
+</nav>
+
+
+<nav id="category" class="drawer_block pc">
+    <ul class="category-nav">
+    {% for Category in Categories %}
+        {{ _self.tree(Category) }}
+    {% endfor %}
+    </ul> <!-- category-nav -->
+</nav>
+
+<div id="navi" class="drawer_block pc">
     <div class="inner">
         <ul class="navi-box">
-            <li class="navi-list js-navi1"><a href="{{ url('homepage') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
-            <li class="navi-list js-navi2"><a href="{{ url('product_sumaho') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
-            <li class="navi-list js-navi3"><a href="{{ url('product_sim') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
-            <li class="navi-list js-navi4"><a href="{{ url('help_guide') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+            <li class="navi-list js-navi1"><a href="/" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+            <li class="navi-list js-navi2"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+            <li class="navi-list js-navi3"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+            <li class="navi-list js-navi4"><a href="/guide.php" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
         </ul>
-        <p class="shopping-cart-btn">
-            <a href="{{ url('cart') }}" class="js-cart-hover-btn">
-                <img src="{{ app.config.front_urlpath }}/img/common/navi-cart.png" alt="カート">
-                <span class="number-in-cart">100</span>
-            </a>
-        </p>
     </div>
 </div>

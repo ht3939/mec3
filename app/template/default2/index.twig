@@ -36,22 +36,110 @@ $(function(){
 </script>
 {% endblock %}
 
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+.pc.mainv-section {
+    background: url({{ app.config.front_urlpath }}/img/top/mainv-bg.png) #d9051c center no-repeat;
+    height: 445px;
+
+    margin-top: -30px;
+}
+.pc.mainv-section ._container {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+.pc.mainv-section ._container .sumako {
+    float: left;
+    width: 34%;
+/*    margin-left: 26px;*/
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.pc.mainv-section ._container .mainv-text {
+    float: left;
+    width: 50%;
+    padding-top: 62px;
+    margin-left: -90px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.pc.mainv-section ._container .sumao {
+    float: left;
+    width: 34%;
+    margin-left: -130px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+
+/* ======== SP ==========*/
+.sp.mainv-section {
+    background: url({{ app.config.front_urlpath }}/img/sp/top/main-bg.png) #d9051c center no-repeat;
+    background-size: 100%;
+}
+.sp.mainv-section .mainv-bg-left {
+    position: relative;
+    width: 100%;
+    background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-left.png) no-repeat top left;
+    background-size: 100%;
+}
+.sp.mainv-section .mainv-bg-left .mainv-bg-right {
+    position: relative;
+    width: 100%;
+    background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-right.png) no-repeat top right;
+    background-size: 100%;
+}
+.sp ._container {
+    width: 320px;
+    margin: 0 auto;
+}
+.sp.mainv-section .mainv-bg-left .mainv-bg-right ._container .mainv-text {
+    width: 240px;
+    margin: 0 auto;
+    padding: 30px 0 43px;
+}
+.sp.mainv-section .mainv-bg-left .mainv-bg-right ._container .mainv-sumako {
+    position: absolute;
+    width: 320px;
+    bottom: 0;
+    margin-bottom:0px;
+}
+.sp.mainv-section .mainv-bg-left .mainv-bg-right ._container .mainv-sumako img {
+    width: 100%;
+}
+
+</style>
+{% endblock %}
+
 {% block main %}
 
+<div class="row">
+   <div class="col-sm-12">
 
-    <div class="row">
-       <div class="col-sm-12">
-<div class="mainv-section">
-	<div class="_container" style="width:100%">
-		<p class="sumako"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumako.png" alt="SIMフリースマホってどうして安いの？格安スマホって何？"></p>
-		<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-text.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト"></h1>
-		<p class="sumao"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumao.png" alt="スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></p>
+		<div class="mainv-section sp">
+			<div class="mainv-bg-left">
+				<div class="mainv-bg-right">
+					<div class="_container">
+						<h1 class="mainv-text"><img class="_img-w" src="{{ app.config.front_urlpath }}/img/sp/top/mainv-text.png" alt="スマホ販売・比較総合サイト"></h1>
+						<p class="mainv-sumako"><img src="{{ app.config.front_urlpath }}/img/sp/top/mainv-sumako-sumao.png" alt=""></p>
+					</div>
+				</div>
+			</div>
+		</div>
 
-	</div>
-</div>
 
-        </div>
+		<div class="mainv-section pc">
+			<div class="_container">
+				<p class="sumako"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumako.png" alt="SIMフリースマホってどうして安いの？格安スマホって何？"></p>
+				<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-text.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト"></h1>
+				<p class="sumao"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumao.png" alt="スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></p>
+			</div>
+		</div>
+
     </div>
+</div>
 
 {#
     
