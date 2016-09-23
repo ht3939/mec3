@@ -45,6 +45,79 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </script>
 {% endblock %}
 
+{% block stylesheet %}
+<style type="text/css">
+.col-sm-3.col-xs-6 .td-inf{
+    font-size: 14px;
+    font-weight: bold;
+}
+.col-sm-3.col-xs-6 .td-inf span {
+    font-size: 11px;
+    display: block;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+.col-sm-3.col-xs-6 .item_price {
+    font-size: 11px;
+    color: #f20051;
+
+    margin: 8px 0;
+}
+.col-sm-3.col-xs-6 .item_price span {
+    font-size: 18px;
+    font-weight: bold;
+}
+.col-sm-3.col-xs-6 .tag-list {
+    overflow: hidden;
+}
+ol, ul {
+    list-style: none;
+}
+.col-sm-3.col-xs-6 .tag-list li {
+    float: left;
+    font-size: 11px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    padding: 3px 6px;
+    background: #f1f1f1;
+    font-weight: normal;
+    color: #333;
+}
+.col-sm-3.col-xs-6 .td-spec dt {
+    font-size: 13px;
+    width: 5.5em;
+    float: left;
+    clear: both;
+    font-weight: bold;
+    color: #333;
+}
+.col-sm-3.col-xs-6 .td-spec dd {
+    padding-bottom: 6px;
+    color: #333;
+}
+.col-sm-3.col-xs-6 .btn-detail {
+    display: block;
+    /*width: 98px;*/
+    padding: 5px 0;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #df8900;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff922d));
+    background: -moz-linear-gradient(#ffa51d,#ff922d);
+    background: -webkit-linear-gradient(#ffa51d,#ff922d);
+    background: linear-gradient(#ffa51d,#ff922d);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    transition: all 0.2s ease 0s;
+}
+</style>
+{% endblock %}
+
 {% block main %}
     <form name="form1" id="form1" method="get" action="?">
         {{ form_widget(search_form) }}
@@ -111,23 +184,48 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <img src="{{ app.config.image_save_urlpath }}/{{ Product.main_list_image|no_image_product }}">
                             </div>
                             <dl id="result_list__detail--{{ Product.id }}">
-                                <dt id="result_list__name--{{ Product.id }}" class="item_name">{{ Product.name }}</dt>
+                                <div class="td-inf">
+                                    <dt id="result_list__name--{{ Product.id }}" class="item_name"><span>Huawei</span>{{ Product.name }}</dt>
+
+                                    <ul class="tag-list">
+                                        <li>LTE対応</li>
+                                        <li>新品</li>
+                                    </ul>
+                                </div>
+
                                 {% if Product.description_list %}
                                     <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
                                 {% endif %}
                                 {% if Product.hasProductClass %}
                                     {% if Product.getPrice02Min == Product.getPrice02Max %}
                                     <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                        {{ Product.getPrice02IncTaxMin|price }}
+                                        <span>{{ Product.getPrice02IncTaxMin|price }}</span>
                                     </dd>
                                     {% else %}
                                     <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                        {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
+                                        <span>{{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}</span>
                                     </dd>
                                     {% endif %}
                                 {% else %}
-                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">{{ Product.getPrice02IncTaxMin|price }}</dd>
+                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                        <span>{{ Product.getPrice02IncTaxMin|price }}</span>
+                                    </dd>
                                 {% endif %}
+
+                                <div class="td-spec">
+                                    <dl>
+                                        <dt>O　　S</dt>
+                                        <dd>Android</dd>
+                                        <dt>液　　晶</dt>
+                                        <dd>5.0インチ</dd>
+                                        <dt>カ  メ  ラ</dt>
+                                        <dd>1,310万画素</dd>
+                                        <dt>電池容量</dt>
+                                        <dd>2,580mAh</dd>
+                                    </dl>
+                                </div>
+
+                                <a href="/simfree-sumaho/arrows-m03.php" class="btn-detail">詳細を見る</a>
                             </dl>
                         </a>
                     </div>
