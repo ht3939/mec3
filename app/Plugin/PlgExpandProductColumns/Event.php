@@ -323,6 +323,12 @@ EOD;
                     $valuetext = '';
             }
 
+            $product_st[$column->getColumnName()] = array(
+                'id' => $column->getColumnId(),
+                'name' => $column->getColumnName(),
+                'value' => $value
+                ,'valuetext'=> $valuetext
+            );
 
             $product_ex[$column->getColumnId()] = array(
                 'id' => $column->getColumnId(),
@@ -331,7 +337,13 @@ EOD;
                 ,'valuetext'=> $valuetext
             );
         }
-//dump($product_ex);
+        ksort($product_st);
+        $product_ex=array();
+        foreach($product_st as $ex){
+            $product_ex[$ex['id']] = $ex;
+        }
+
+//dump($product_st);
         return $product_ex;
     }
 

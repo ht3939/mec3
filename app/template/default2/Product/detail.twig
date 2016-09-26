@@ -249,6 +249,29 @@ $(function(){
 
             </section>
             <!--詳細ここまで-->
+
+            <section id="item_detail_area" class="col-sm-6">
+{% for k,i in __EX_PRODUCT %}
+{% if i.name!='' %}
+<p>{{ k }},{{ i.name }} , {{ i.valuetext }}</p>
+{% endif %}
+{% endfor %}          
+
+{% for ProductClass in Product.ProductClasses %}
+<p>{{ProductClass.id}}</p>
+<p>{{ProductClass.Price01}}</p>
+<p>{{ProductClass.ProductType.id}}</p>
+<p>{{ProductClass.ClassCategory1.id}}</p>
+<p>{{ProductClass.ClassCategory1.Name}}</p>
+<p>{{ProductClass.ClassCategory2.id}}</p>
+<p>{{ProductClass.ClassCategory2.Name}}</p>
+{% for cs in ProductClass %}
+<p>{{2}}</p>
+{% endfor %}          
+<p>{{Product.id}}</p>
+{% endfor %}          
+
+            </section>
         </div>
 
         {# フリーエリア #}
