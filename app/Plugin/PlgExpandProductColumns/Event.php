@@ -262,6 +262,7 @@ EOD;
     {
         $product_ex = array();
         $columns = $column_repository->findAll();
+//dump("test");
 
         /** @var \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns $column */
         foreach ($columns as $column) {
@@ -283,14 +284,54 @@ EOD;
                 default :
                     $value = empty($value) ? '' : $value->getValue();
             }
+            $valuetext = '';
+            $valset = explode("\r\n",$column->getColumnSetting());
+            //dump($valset);
+            $vss = array();
+            foreach($valset as $vs){
+                if(!empty($vs)){
+
+                    $vs =  explode(':',$vs);
+                    if(isset($vs[0])){
+                    $vss[$vs[0]] = $vs[1];
+                    }
+                }
+            }
+            //dump($vss);
             
+
+            switch ($column->getColumnType()) {
+                case EX_TYPE_CHECKBOX :
+                    if (empty($value)) {
+                        $valuetext = '';
+                    } else {
+                        foreach($value as $v){
+                            $valuetext[] = $vss[$v];
+                        }
+                    }
+                    break;
+
+                case EX_TYPE_SELECT :
+                case EX_TYPE_RADIO :
+                    if (empty($value)) {
+                        $valuetext = '';
+                    } else {
+                        $valuetext = $vss[$value];
+                    }
+                    break;
+                default :
+                    $valuetext = '';
+            }
+
+
             $product_ex[$column->getColumnId()] = array(
                 'id' => $column->getColumnId(),
                 'name' => $column->getColumnName(),
                 'value' => $value
+                ,'valuetext'=> $valuetext
             );
         }
-
+//dump($product_ex);
         return $product_ex;
     }
 
