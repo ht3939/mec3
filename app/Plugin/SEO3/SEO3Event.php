@@ -130,18 +130,34 @@ class SEO3Event
         // todo page_idの取り方が分かれば基本的には全ページ行ける
         $meta = null;
 
+        $db = @unserialize(@file_get_contents(__DIR__ . '/Resource/db.txt'));
+//dump($db);
+        $BaseInfo = $this->app['eccube.repository.base_info']->get();
+
         // 一覧
         if ($id = $request->query->get('category_id')) {
             $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByCategoryId($id);
-            // 詳細
+            if (!empty($db['title'])) {
+                if($meta){
+                $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+
+                }
+            }
+
+        // 詳細
         } else if ($id = $request->attributes->get('id')) {
             $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByProductId($id);
-        } else if ($request->attributes->get('_route') == 'homepage') {
-            $db = @unserialize(@file_get_contents(__DIR__ . '/Resource/db.txt'));
             if (!empty($db['title'])) {
-                $meta['title'] = $db['title'];
+                if($meta){
+                $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+                }
+            }
+        } else if ($request->attributes->get('_route') == 'homepage') {
+            if (!empty($db['title'])) {
+                $meta['title']=$db['title'];
             }
         }
+//dump($meta);
 
         if (!$meta) return;
 
@@ -204,7 +220,7 @@ class SEO3Event
             'text',
             array(
                 'required' => false,
-                'label' => false,
+                'label' => 'title',
                 'mapped' => false,
                 'attr' => array(
                     'placeholder' => 'title (最大32文字程度入力)',
@@ -218,7 +234,7 @@ class SEO3Event
             'text',
             array(
                 'required' => false,
-                'label' => false,
+                'label' => 'description',
                 'mapped' => false,
                 'attr' => array(
                     'placeholder' => 'description (最大124文字程度入力)',
@@ -231,7 +247,7 @@ class SEO3Event
             'text',
             array(
                 'required' => false,
-                'label' => false,
+                'label' => 'keywords',
                 'mapped' => false,
                 'attr' => array(
                     'placeholder' => 'keywords (, 区切り)',
