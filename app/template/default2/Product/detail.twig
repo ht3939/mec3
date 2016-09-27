@@ -253,7 +253,18 @@ $(function(){
             <section id="item_detail_area" class="col-sm-6">
 {% for k,i in __EX_PRODUCT %}
 {% if i.name!='' %}
-<p>{{ k }},{{ i.name }} , {{ i.valuetext }}</p>
+
+<p>{{ k }},{{ i.name }} , 
+{% if i.valuetext is iterable %}
+    {% for kk,vv in i.valuetext %}
+        {{ vv }}:
+    {% endfor %}          
+
+{% else %}
+    {{ i.valuetext }}
+
+{% endif %}
+</p>
 {% endif %}
 {% endfor %}          
 
@@ -265,10 +276,8 @@ $(function(){
 <p>{{ProductClass.ClassCategory1.Name}}</p>
 <p>{{ProductClass.ClassCategory2.id}}</p>
 <p>{{ProductClass.ClassCategory2.Name}}</p>
-{% for cs in ProductClass %}
-<p>{{2}}</p>
-{% endfor %}          
-<p>{{Product.id}}</p>
+         
+<p>ProductId:{{Product.id}}</p>
 {% endfor %}          
 
             </section>

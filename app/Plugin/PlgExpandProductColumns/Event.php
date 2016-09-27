@@ -38,7 +38,7 @@ class Event
     public function saveExColValue(FilterResponseEvent $event)
     {
         $app = $this->app;
-
+//dump($app);
         if ('POST' === $app['request']->getMethod()) {
 
             // ProductControllerの登録成功時のみ処理を通す
@@ -58,15 +58,15 @@ class Event
             /* @var $Product \Eccube\Entity\Product */
             $Product = $this->getTargetProduct($event);
             $builder = $app['form.factory']->createBuilder('admin_product');
-
+//dump($builder);
             if ($Product->hasProductClass()) {
                 $builder->remove('class');
             }
 
             $form = $builder->getForm();
             $form->handleRequest($app['request']);
-
-            if ($form->isValid()) {
+//dump($form);die();
+            if ($form->get('admin_plg_expand_product_columns_value')->isValid()) {
                 $save_data = $app['plgExpandProductColumnsValue_temp'];
                 $repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue');
 
@@ -85,6 +85,7 @@ class Event
                 }
 
                 unset($app['plgExpandProductColumnsValue_temp']);
+//dump($event);die();
             }
         }
     }
@@ -320,7 +321,7 @@ EOD;
                     }
                     break;
                 default :
-                    $valuetext = '';
+                    $valuetext = $value;
             }
 
             $product_st[$column->getColumnName()] = array(
