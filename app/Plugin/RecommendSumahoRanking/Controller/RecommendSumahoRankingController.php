@@ -21,7 +21,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\recommendsumahorankingSumahoRanking\Controller;
+namespace Plugin\RecommendSumahoRanking
+\Controller;
 
 use Eccube\Application;
 use Eccube\Controller\AbstractController;
@@ -31,7 +32,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class recommendsumahorankingSumahoRankingController extends AbstractController
+class RecommendSumahoRanking
+Controller extends AbstractController
 {
 
     private $main_title;
@@ -56,7 +58,8 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
 
         $pagination = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findList();
 
-        return $app->render('recommendsumahorankingSumahoRanking/Resource/template/admin/index.twig', array(
+        return $app->render('RecommendSumahoRanking
+/Resource/template/admin/index.twig', array(
             'pagination' => $pagination,
             'totalItemCount' => count($pagination)
         ));
@@ -84,7 +87,8 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
             $form->handleRequest($request);
             $data = $form->getData();
             if ($form->isValid()) {
-                $status = $service->createrecommendsumahorankingSumahoRanking($data);
+                $status = $service->createRecommendSumahoRanking
+($data);
 
                 if (!$status) {
                     $app->addError('admin.recommendsumahoranking.notfound', 'admin');
@@ -127,24 +131,30 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
         $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findById($id);
+        $RecommendSumahoRanking
+ = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findById($id);
 
-        if (is_null($recommendsumahorankingSumahoRanking)) {
+        if (is_null($RecommendSumahoRanking
+)) {
             $app->addError('admin.recommendsumahoranking.notfound', 'admin');
             return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
-        $recommendsumahorankingSumahoRanking = $recommendsumahorankingSumahoRanking[0];
+        $RecommendSumahoRanking
+ = $RecommendSumahoRanking
+[0];
 
         // formの作成
         $form = $app['form.factory']
-            ->createBuilder('admin_recommendsumahoranking', $recommendsumahorankingSumahoRanking)
+            ->createBuilder('admin_recommendsumahoranking', $RecommendSumahoRanking
+)
             ->getForm();
 
         if ('POST' === $request->getMethod()) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $status = $service->updaterecommendsumahorankingSumahoRanking($form->getData());
+                $status = $service->updateRecommendSumahoRanking
+($form->getData());
 
                 if (!$status) {
                     $app->addError('admin.recommendsumahoranking.notfound', 'admin');
@@ -160,7 +170,8 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
             $app,
             array(
                 'form' => $form->createView(),
-                'Product' => $recommendsumahorankingSumahoRanking->getProduct()
+                'Product' => $RecommendSumahoRanking
+->getProduct()
             )
         );
     }
@@ -190,7 +201,8 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
         $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // おすすめ商品情報を削除する
-        if ($service->deleterecommendsumahorankingSumahoRanking($id)) {
+        if ($service->deleteRecommendSumahoRanking
+($id)) {
             $app->addSuccess('admin.plugin.recommendsumahoranking.delete.success', 'admin');
         } else {
             $app->addError('admin.recommendsumahoranking.notfound', 'admin');
@@ -220,8 +232,10 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
         $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
-        if (is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking
+ = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
+        if (is_null($RecommendSumahoRanking
+)) {
             $app->addError('admin.recommendsumahoranking.notfound', 'admin');
             return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
@@ -254,8 +268,10 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
         $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
-        if (is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking
+ = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
+        if (is_null($RecommendSumahoRanking
+)) {
             $app->addError('admin.recommendsumahoranking.notfound', 'admin');
             return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
@@ -281,7 +297,8 @@ class recommendsumahorankingSumahoRankingController extends AbstractController
             'searchProductModalForm' => $searchProductModalForm->createView(),
         );
         $viewParameters += $parameters;
-        return $app->render('recommendsumahorankingSumahoRanking/Resource/template/admin/regist.twig', $viewParameters);
+        return $app->render('RecommendSumahoRanking
+/Resource/template/admin/regist.twig', $viewParameters);
     }
 
 }

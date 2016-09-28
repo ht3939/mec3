@@ -21,75 +21,101 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\recommendsumahorankingSumahoRanking\ServiceProvider;
+namespace Plugin\RecommendSumahoRanking
+\ServiceProvider;
 
 use Silex\Application as BaseApplication;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class recommendsumahorankingSumahoRankingServiceProvider implements ServiceProviderInterface
+class RecommendSumahoRanking
+ServiceProvider implements ServiceProviderInterface
 {
 
     public function register(BaseApplication $app)
     {
         // おすすめ情報テーブルリポジトリ
         $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product'] = $app->share(function () use ($app) {
-            return $app['orm.em']->getRepository('Plugin\recommendsumahorankingSumahoRanking\Entity\recommendsumahorankingSumahoRankingProduct');
+            return $app['orm.em']->getRepository('Plugin\RecommendSumahoRanking
+\Entity\RecommendSumahoRanking
+Product');
         });
 
         // おすすめ商品の一覧
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::index')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::index')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_recommendsumahoranking_list');
 
         // おすすめ商品の新規先
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/new', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::create')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/new', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::create')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_recommendsumahoranking_new');
 
         // おすすめ商品の新規作成・編集確定
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/commit', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::commit')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/commit', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::commit')
         ->value('id', null)->assert('id', '\d+|')
         ->bind('admin_recommendsumahoranking_commit');
 
         // おすすめ商品の編集
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/edit/{id}', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::edit')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/edit/{id}', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::edit')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_recommendsumahoranking_edit');
 
         // おすすめ商品の削除
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/delete/{id}', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::delete')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/delete/{id}', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::delete')
         ->value('id', null)->assert('id', '\d+|')
         ->bind('admin_recommendsumahoranking_delete');
 
         // おすすめ商品のランク移動（上）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_up/{id}', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::rankUp')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_up/{id}', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::rankUp')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_recommendsumahoranking_rank_up');
 
         // おすすめ商品のランク移動（下）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_down/{id}', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingController::rankDown')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_down/{id}', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+Controller::rankDown')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_recommendsumahoranking_rank_down');
 
         // 商品検索画面表示
-        $app->post('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/search/product', '\Plugin\recommendsumahorankingSumahoRanking\Controller\recommendsumahorankingSumahoRankingSearchModelController::searchProduct')
+        $app->post('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/search/product', '\Plugin\RecommendSumahoRanking
+\Controller\RecommendSumahoRanking
+SearchModelController::searchProduct')
             ->bind('admin_recommendsumahoranking_search_product');
 
         // ブロック
-        $app->match('/block/recommendsumahoranking_product_block', '\Plugin\recommendsumahorankingSumahoRanking\Controller\Block\recommendsumahorankingSumahoRankingController::index')
+        $app->match('/block/recommendsumahoranking_product_block', '\Plugin\RecommendSumahoRanking
+\Controller\Block\RecommendSumahoRanking
+Controller::index')
             ->bind('block_recommendsumahoranking_product_block');
 
 
         // 型登録
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {
-            $types[] = new \Plugin\recommendsumahorankingSumahoRanking\Form\Type\recommendsumahorankingSumahoRankingProductType($app);
+            $types[] = new \Plugin\RecommendSumahoRanking
+\Form\Type\RecommendSumahoRanking
+ProductType($app);
             return $types;
         }));
 
         // サービスの登録
         $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'] = $app->share(function () use ($app) {
-            return new \Plugin\recommendsumahorankingSumahoRanking\Service\recommendsumahorankingSumahoRankingService($app);
+            return new \Plugin\RecommendSumahoRanking
+\Service\RecommendSumahoRanking
+Service($app);
         });
 
         // メッセージ登録
