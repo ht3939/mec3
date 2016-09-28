@@ -21,12 +21,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend\Service;
+namespace Plugin\RecommendSimRanking\Service;
 
 use Eccube\Application;
 use Eccube\Common\Constant;
 
-class RecommendService
+class RecommendSimRankingService
 {
     /** @var \Eccube\Application */
     public $app;
@@ -49,14 +49,14 @@ class RecommendService
      * @param $data
      * @return bool
      */
-    public function createRecommend($data) {
+    public function createRecommendSimRanking($data) {
         // おすすめ商品詳細情報を生成する
-        $Recommend = $this->newRecommend($data);
+        $RecommendSimRanking = $this->newRecommendSimRanking($data);
 
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を登録する
-        $em->persist($Recommend);
+        $em->persist($RecommendSimRanking);
 
         $em->flush();
 
@@ -68,23 +68,23 @@ class RecommendService
      * @param $data
      * @return bool
      */
-    public function updateRecommend($data) {
+    public function updateRecommendSimRanking($data) {
         $dateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $Recommend =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($data['id']);
-        if(is_null($Recommend)) {
+        $RecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($data['id']);
+        if(is_null($RecommendSimRanking)) {
             false;
         }
 
         // おすすめ商品情報を書き換える
-        $Recommend->setComment($data['comment']);
-        $Recommend->setProduct($data['Product']);
-        $Recommend->setUpdateDate($dateTime);
+        $RecommendSimRanking->setComment($data['comment']);
+        $RecommendSimRanking->setProduct($data['Product']);
+        $RecommendSimRanking->setUpdateDate($dateTime);
 
         // おすすめ商品情報を更新する
-        $em->persist($Recommend);
+        $em->persist($RecommendSimRanking);
 
         $em->flush();
 
@@ -96,21 +96,21 @@ class RecommendService
      * @param $recommendId
      * @return bool
      */
-    public function deleteRecommend($recommendId) {
+    public function deleteRecommendSimRanking($recommendId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $Recommend =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
-        if(is_null($Recommend)) {
+        $RecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        if(is_null($RecommendSimRanking)) {
             false;
         }
         // おすすめ商品情報を書き換える
-        $Recommend->setDelFlg(Constant::ENABLED);
-        $Recommend->setUpdateDate($currentDateTime);
+        $RecommendSimRanking->setDelFlg(Constant::ENABLED);
+        $RecommendSimRanking->setUpdateDate($currentDateTime);
 
         // おすすめ商品情報を登録する
-        $em->persist($Recommend);
+        $em->persist($RecommendSimRanking);
 
         $em->flush();
 
@@ -127,29 +127,29 @@ class RecommendService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $Recommend =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
-        if(is_null($Recommend)) {
+        $RecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        if(is_null($RecommendSimRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetRecommend =$this->app['eccube.plugin.recommend.repository.recommend_product']
-                                ->findByRankUp($Recommend->getRank());
-        if(is_null($TargetRecommend)) {
+        $TargetRecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']
+                                ->findByRankUp($RecommendSimRanking->getRank());
+        if(is_null($TargetRecommendSimRanking)) {
             false;
         }
         
         // ランクを入れ替える
-        $rank = $TargetRecommend->getRank();
-        $TargetRecommend->setRank($Recommend->getRank());
-        $Recommend->setRank($rank);
+        $rank = $TargetRecommendSimRanking->getRank();
+        $TargetRecommendSimRanking->setRank($RecommendSimRanking->getRank());
+        $RecommendSimRanking->setRank($rank);
         
         // 更新日設定
-        $Recommend->setUpdateDate($currentDateTime);
-        $TargetRecommend->setUpdateDate($currentDateTime);
+        $RecommendSimRanking->setUpdateDate($currentDateTime);
+        $TargetRecommendSimRanking->setUpdateDate($currentDateTime);
         
         // 更新
-        $em->persist($Recommend);
-        $em->persist($TargetRecommend);
+        $em->persist($RecommendSimRanking);
+        $em->persist($TargetRecommendSimRanking);
 
         $em->flush();
 
@@ -166,29 +166,29 @@ class RecommendService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $Recommend =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
-        if(is_null($Recommend)) {
+        $RecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        if(is_null($RecommendSimRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetRecommend =$this->app['eccube.plugin.recommend.repository.recommend_product']
-                                ->findByRankDown($Recommend->getRank());
-        if(is_null($TargetRecommend)) {
+        $TargetRecommendSimRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']
+                                ->findByRankDown($RecommendSimRanking->getRank());
+        if(is_null($TargetRecommendSimRanking)) {
             false;
         }
         
         // ランクを入れ替える
-        $rank = $TargetRecommend->getRank();
-        $TargetRecommend->setRank($Recommend->getRank());
-        $Recommend->setRank($rank);
+        $rank = $TargetRecommendSimRanking->getRank();
+        $TargetRecommendSimRanking->setRank($RecommendSimRanking->getRank());
+        $RecommendSimRanking->setRank($rank);
         
         // 更新日設定
-        $Recommend->setUpdateDate($currentDateTime);
-        $TargetRecommend->setUpdateDate($currentDateTime);
+        $RecommendSimRanking->setUpdateDate($currentDateTime);
+        $TargetRecommendSimRanking->setUpdateDate($currentDateTime);
         
         // 更新
-        $em->persist($Recommend);
-        $em->persist($TargetRecommend);
+        $em->persist($RecommendSimRanking);
+        $em->persist($TargetRecommendSimRanking);
 
         $em->flush();
 
@@ -198,22 +198,22 @@ class RecommendService
     /**
      * おすすめ商品情報を生成する
      * @param $data
-     * @return \Plugin\Recommend\Entity\RecommendProduct
+     * @return \Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct
      */
-    protected function newRecommend($data) {
+    protected function newRecommendSimRanking($data) {
         $dateTime = new \DateTime();
 
         $rank = $this->app['eccube.plugin.recommend.repository.recommend_product']->getMaxRank();
 
-        $Recommend = new \Plugin\Recommend\Entity\RecommendProduct();
-        $Recommend->setComment($data['comment']);
-        $Recommend->setProduct($data['Product']);
-        $Recommend->setRank(($rank ? $rank : 0) + 1);
-        $Recommend->setDelFlg(Constant::DISABLED);
-        $Recommend->setCreateDate($dateTime);
-        $Recommend->setUpdateDate($dateTime);
+        $RecommendSimRanking = new \Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct();
+        $RecommendSimRanking->setComment($data['comment']);
+        $RecommendSimRanking->setProduct($data['Product']);
+        $RecommendSimRanking->setRank(($rank ? $rank : 0) + 1);
+        $RecommendSimRanking->setDelFlg(Constant::DISABLED);
+        $RecommendSimRanking->setCreateDate($dateTime);
+        $RecommendSimRanking->setUpdateDate($dateTime);
 
-        return $Recommend;
+        return $RecommendSimRanking;
     }
 
 }

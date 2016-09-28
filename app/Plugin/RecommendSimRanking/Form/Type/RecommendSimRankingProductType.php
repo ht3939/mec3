@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend\Form\Type;
+namespace Plugin\RecommendSimRanking\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormEvents;
 use Eccube\Form\DataTransformer;
 
-class RecommendProductType extends AbstractType
+class RecommendSimRankingProductType extends AbstractType
 {
 
     private $app;
@@ -85,11 +85,11 @@ class RecommendProductType extends AbstractType
                 if (empty($Product)) {
                     $form['comment']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $RecommendProduct = $app['eccube.plugin.recommend.repository.recommend_product']->findBy(array('Product' => $Product));
+                    $RecommendSimRankingProduct = $app['eccube.plugin.recommend.repository.recommend_product']->findBy(array('Product' => $Product));
 
-                    if ($RecommendProduct) {
+                    if ($RecommendSimRankingProduct) {
                         //check existing Product, except itself
-                        if (($RecommendProduct[0]->getId() != $data['id'])) {
+                        if (($RecommendSimRankingProduct[0]->getId() != $data['id'])) {
                             $form['comment']->addError(new FormError('既に商品が追加されています。'));
                         }
                     }
@@ -106,7 +106,7 @@ class RecommendProductType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Plugin\Recommend\Entity\RecommendProduct',
+            'data_class' => 'Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct',
         ));
     }
 

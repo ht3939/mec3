@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend;
+namespace Plugin\RecommendSimRanking;
 
 use Eccube\Common\Constant;
 use Eccube\Entity\BlockPosition;

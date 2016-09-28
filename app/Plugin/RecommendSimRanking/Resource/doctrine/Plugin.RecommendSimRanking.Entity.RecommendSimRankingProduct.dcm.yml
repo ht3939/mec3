@@ -1,7 +1,7 @@
-Plugin\Recommend\Entity\RecommendProduct:
+Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct:
     type: entity
     table: plg_recommend_product
-    repositoryClass: Plugin\Recommend\Repository\RecommendProductRepository
+    repositoryClass: Plugin\RecommendSimRanking\Repository\RecommendSimRankingProductRepository
     id:
         id:
             type: integer
@@ -33,7 +33,7 @@ Plugin\Recommend\Entity\RecommendProduct:
     manyToOne:
         Product:
             targetEntity: Eccube\Entity\Product
-            inversedBy: RecommendProduct
+            inversedBy: RecommendSimRankingProduct
             joinColumn:
                 name: product_id
                 referencedColumnName: product_id

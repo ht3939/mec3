@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Eccube\Common\Constant;
 
-class RecommendSearchModelController
+class RecommendSimRankingSearchModelController
 {
 
     private $main_title;
@@ -86,7 +86,7 @@ class RecommendSearchModelController
                 $addCartForm = $builder->getForm();
                 $forms[$Product->getId()] = $addCartForm->createView();
             }
-            return $app->render('Recommend/Resource/template/admin/search_product.twig', array(
+            return $app->render('RecommendSimRanking/Resource/template/admin/search_product.twig', array(
                 'forms' => $forms,
                 'Products' => $Products,
             ));

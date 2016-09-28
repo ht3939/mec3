@@ -38,7 +38,7 @@ class Version201510211300 extends AbstractMigration
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->createRecommendProduct($schema);
+        $this->createRecommendSimRankingProduct($schema);
     }
 
     /**
@@ -55,7 +55,7 @@ class Version201510211300 extends AbstractMigration
      * おすすめ商品テーブル作成
      * @param Schema $schema
      */
-    protected function createRecommendProduct(Schema $schema)
+    protected function createRecommendSimRankingProduct(Schema $schema)
     {
         $table = $schema->createTable("plg_recommend_product");
         $table->addColumn('recommend_product_id', 'integer', array(
