@@ -1,7 +1,7 @@
-Plugin\Recommend\Entity\RecommendProduct:
+Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct:
     type: entity
     table: plg_recommend_product
-    repositoryClass: Plugin\Recommend\Repository\RecommendProductRepository
+    repositoryClass: Plugin\RecommendSumahoRanking\Repository\RecommendSumahoRankingProductRepository
     id:
         id:
             type: integer
@@ -33,7 +33,7 @@ Plugin\Recommend\Entity\RecommendProduct:
     manyToOne:
         Product:
             targetEntity: Eccube\Entity\Product
-            inversedBy: RecommendProduct
+            inversedBy: RecommendSumahoRankingProduct
             joinColumn:
                 name: product_id
                 referencedColumnName: product_id

@@ -21,12 +21,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend\Controller\Block;
+namespace Plugin\RecommendSumahoRanking\Controller\Block;
 
 use Eccube\Application;
 use Eccube\Entity\Master\Disp;
 
-class RecommendController
+class RecommendSumahoRankingController
 {
     /**
      * @param Application $app
@@ -34,10 +34,10 @@ class RecommendController
     public function index(Application $app)
     {
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $RecommendProducts = $app['eccube.plugin.recommend.repository.recommend_product']->getRecommendProduct($Disp);
+        $RecommendSumahoRankingProducts = $app['eccube.plugin.recommend.repository.recommend_product']->getRecommendSumahoRankingProduct($Disp);
 
         return $app['view']->render('Block/recommend_product_block.twig', array(
-            'RecommendProducts' => $RecommendProducts,
+            'RecommendSumahoRankingProducts' => $RecommendSumahoRankingProducts,
         ));
     }
 }
