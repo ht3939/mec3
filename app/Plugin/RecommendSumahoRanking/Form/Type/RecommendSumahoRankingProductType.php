@@ -21,8 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\RecommendSumahoRanking
-\Form\Type;
+namespace Plugin\recommendsumahorankingSumahoRanking\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,8 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormEvents;
 use Eccube\Form\DataTransformer;
 
-class RecommendSumahoRanking
-ProductType extends AbstractType
+class recommendsumahorankingSumahoRankingProductType extends AbstractType
 {
 
     private $app;
@@ -87,14 +85,11 @@ ProductType extends AbstractType
                 if (empty($Product)) {
                     $form['comment']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $RecommendSumahoRanking
-Product = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findBy(array('Product' => $Product));
+                    $recommendsumahorankingSumahoRankingProduct = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findBy(array('Product' => $Product));
 
-                    if ($RecommendSumahoRanking
-Product) {
+                    if ($recommendsumahorankingSumahoRankingProduct) {
                         //check existing Product, except itself
-                        if (($RecommendSumahoRanking
-Product[0]->getId() != $data['id'])) {
+                        if (($recommendsumahorankingSumahoRankingProduct[0]->getId() != $data['id'])) {
                             $form['comment']->addError(new FormError('既に商品が追加されています。'));
                         }
                     }
@@ -111,9 +106,7 @@ Product[0]->getId() != $data['id'])) {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Plugin\RecommendSumahoRanking
-\Entity\RecommendSumahoRanking
-Product',
+            'data_class' => 'Plugin\recommendsumahorankingSumahoRanking\Entity\recommendsumahorankingSumahoRankingProduct',
         ));
     }
 

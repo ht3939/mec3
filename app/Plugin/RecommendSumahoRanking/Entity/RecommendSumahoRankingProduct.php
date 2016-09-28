@@ -20,19 +20,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-namespace Plugin\RecommendSumahoRanking
-\Entity;
+namespace Plugin\recommendsumahorankingSumahoRanking\Entity;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Eccube\Util\EntityUtil;
 
 /**
- * RecommendSumahoRanking
-Product
+ * recommendsumahorankingSumahoRankingProduct
  */
-class RecommendSumahoRanking
-Product extends \Eccube\Entity\AbstractEntity
+class recommendsumahorankingSumahoRankingProduct extends \Eccube\Entity\AbstractEntity
 {
 
     /**
