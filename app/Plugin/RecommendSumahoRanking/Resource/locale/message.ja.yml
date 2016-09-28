@@ -1,0 +1,7 @@
+admin.recommendsumahoranking.notfound: おすすめ商品が存在しません。
+admin.recommendsumahoranking.recommendsumahoranking_id.notexists: おすすめ商品IDがありません。
+admin.plugin.recommendsumahoranking.regist.success: おすすめ商品を登録しました。
+admin.plugin.recommendsumahoranking.update.success: おすすめ商品を修正しました。
+admin.plugin.recommendsumahoranking.delete.success: おすすめ商品を削除しました。
+admin.plugin.recommendsumahoranking.complete.up: おすすめ商品を上へ移動しました。
+admin.plugin.recommendsumahoranking.complete.down: おすすめ商品を下へ移動しました。

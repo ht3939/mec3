@@ -1,0 +1,41 @@
+Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct:
+    type: entity
+    table: plg_recommendsimranking_product
+    repositoryClass: Plugin\RecommendSimRanking\Repository\RecommendSimRankingProductRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: recommendsimranking_product_id
+            generator:
+                strategy: AUTO
+    fields:
+        comment:
+            type: text
+            nullable: true
+        rank:
+            type: integer
+            nullable: false
+            default: '1'
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        Product:
+            targetEntity: Eccube\Entity\Product
+            inversedBy: RecommendSimRankingProduct
+            joinColumn:
+                name: product_id
+                referencedColumnName: product_id
+    lifecycleCallbacks: {  }
+    

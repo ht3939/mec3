@@ -1,0 +1,7 @@
+name: SIMおすすめ商品ランキング管理プラグイン
+code: RecommendSimRanking
+version: 1.0.0
+service:
+    - RecommendSimRankingServiceProvider
+orm.path:
+    - /Resource/doctrine
