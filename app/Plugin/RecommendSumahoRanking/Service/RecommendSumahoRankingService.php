@@ -21,12 +21,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\recommendsumahorankingSumahoRanking\Service;
+namespace Plugin\RecommendSumahoRanking\Service;
 
 use Eccube\Application;
 use Eccube\Common\Constant;
 
-class recommendsumahorankingSumahoRankingService
+class RecommendSumahoRankingService
 {
     /** @var \Eccube\Application */
     public $app;
@@ -49,14 +49,14 @@ class recommendsumahorankingSumahoRankingService
      * @param $data
      * @return bool
      */
-    public function createrecommendsumahorankingSumahoRanking($data) {
+    public function createRecommendSumahoRanking($data) {
         // おすすめ商品詳細情報を生成する
-        $recommendsumahorankingSumahoRanking = $this->newrecommendsumahorankingSumahoRanking($data);
+        $RecommendSumahoRanking = $this->newRecommendSumahoRanking($data);
 
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を登録する
-        $em->persist($recommendsumahorankingSumahoRanking);
+        $em->persist($RecommendSumahoRanking);
 
         $em->flush();
 
@@ -68,23 +68,23 @@ class recommendsumahorankingSumahoRankingService
      * @param $data
      * @return bool
      */
-    public function updaterecommendsumahorankingSumahoRanking($data) {
+    public function updateRecommendSumahoRanking($data) {
         $dateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($data['id']);
-        if(is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($data['id']);
+        if(is_null($RecommendSumahoRanking)) {
             false;
         }
 
         // おすすめ商品情報を書き換える
-        $recommendsumahorankingSumahoRanking->setComment($data['comment']);
-        $recommendsumahorankingSumahoRanking->setProduct($data['Product']);
-        $recommendsumahorankingSumahoRanking->setUpdateDate($dateTime);
+        $RecommendSumahoRanking->setComment($data['comment']);
+        $RecommendSumahoRanking->setProduct($data['Product']);
+        $RecommendSumahoRanking->setUpdateDate($dateTime);
 
         // おすすめ商品情報を更新する
-        $em->persist($recommendsumahorankingSumahoRanking);
+        $em->persist($RecommendSumahoRanking);
 
         $em->flush();
 
@@ -96,21 +96,21 @@ class recommendsumahorankingSumahoRankingService
      * @param $recommendsumahorankingId
      * @return bool
      */
-    public function deleterecommendsumahorankingSumahoRanking($recommendsumahorankingId) {
+    public function deleteRecommendSumahoRanking($recommendsumahorankingId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
-        if(is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
+        if(is_null($RecommendSumahoRanking)) {
             false;
         }
         // おすすめ商品情報を書き換える
-        $recommendsumahorankingSumahoRanking->setDelFlg(Constant::ENABLED);
-        $recommendsumahorankingSumahoRanking->setUpdateDate($currentDateTime);
+        $RecommendSumahoRanking->setDelFlg(Constant::ENABLED);
+        $RecommendSumahoRanking->setUpdateDate($currentDateTime);
 
         // おすすめ商品情報を登録する
-        $em->persist($recommendsumahorankingSumahoRanking);
+        $em->persist($RecommendSumahoRanking);
 
         $em->flush();
 
@@ -127,29 +127,29 @@ class recommendsumahorankingSumahoRankingService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
-        if(is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
+        if(is_null($RecommendSumahoRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetrecommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
-                                ->findByRankUp($recommendsumahorankingSumahoRanking->getRank());
-        if(is_null($TargetrecommendsumahorankingSumahoRanking)) {
+        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
+                                ->findByRankUp($RecommendSumahoRanking->getRank());
+        if(is_null($TargetRecommendSumahoRanking)) {
             false;
         }
         
         // ランクを入れ替える
-        $rank = $TargetrecommendsumahorankingSumahoRanking->getRank();
-        $TargetrecommendsumahorankingSumahoRanking->setRank($recommendsumahorankingSumahoRanking->getRank());
-        $recommendsumahorankingSumahoRanking->setRank($rank);
+        $rank = $TargetRecommendSumahoRanking->getRank();
+        $TargetRecommendSumahoRanking->setRank($RecommendSumahoRanking->getRank());
+        $RecommendSumahoRanking->setRank($rank);
         
         // 更新日設定
-        $recommendsumahorankingSumahoRanking->setUpdateDate($currentDateTime);
-        $TargetrecommendsumahorankingSumahoRanking->setUpdateDate($currentDateTime);
+        $RecommendSumahoRanking->setUpdateDate($currentDateTime);
+        $TargetRecommendSumahoRanking->setUpdateDate($currentDateTime);
         
         // 更新
-        $em->persist($recommendsumahorankingSumahoRanking);
-        $em->persist($TargetrecommendsumahorankingSumahoRanking);
+        $em->persist($RecommendSumahoRanking);
+        $em->persist($TargetRecommendSumahoRanking);
 
         $em->flush();
 
@@ -166,29 +166,29 @@ class recommendsumahorankingSumahoRankingService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $recommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
-        if(is_null($recommendsumahorankingSumahoRanking)) {
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
+        if(is_null($RecommendSumahoRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetrecommendsumahorankingSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
-                                ->findByRankDown($recommendsumahorankingSumahoRanking->getRank());
-        if(is_null($TargetrecommendsumahorankingSumahoRanking)) {
+        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
+                                ->findByRankDown($RecommendSumahoRanking->getRank());
+        if(is_null($TargetRecommendSumahoRanking)) {
             false;
         }
         
         // ランクを入れ替える
-        $rank = $TargetrecommendsumahorankingSumahoRanking->getRank();
-        $TargetrecommendsumahorankingSumahoRanking->setRank($recommendsumahorankingSumahoRanking->getRank());
-        $recommendsumahorankingSumahoRanking->setRank($rank);
+        $rank = $TargetRecommendSumahoRanking->getRank();
+        $TargetRecommendSumahoRanking->setRank($RecommendSumahoRanking->getRank());
+        $RecommendSumahoRanking->setRank($rank);
         
         // 更新日設定
-        $recommendsumahorankingSumahoRanking->setUpdateDate($currentDateTime);
-        $TargetrecommendsumahorankingSumahoRanking->setUpdateDate($currentDateTime);
+        $RecommendSumahoRanking->setUpdateDate($currentDateTime);
+        $TargetRecommendSumahoRanking->setUpdateDate($currentDateTime);
         
         // 更新
-        $em->persist($recommendsumahorankingSumahoRanking);
-        $em->persist($TargetrecommendsumahorankingSumahoRanking);
+        $em->persist($RecommendSumahoRanking);
+        $em->persist($TargetRecommendSumahoRanking);
 
         $em->flush();
 
@@ -198,22 +198,22 @@ class recommendsumahorankingSumahoRankingService
     /**
      * おすすめ商品情報を生成する
      * @param $data
-     * @return \Plugin\recommendsumahorankingSumahoRanking\Entity\recommendsumahorankingSumahoRankingProduct
+     * @return \Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct
      */
-    protected function newrecommendsumahorankingSumahoRanking($data) {
+    protected function newRecommendSumahoRanking($data) {
         $dateTime = new \DateTime();
 
         $rank = $this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->getMaxRank();
 
-        $recommendsumahorankingSumahoRanking = new \Plugin\recommendsumahorankingSumahoRanking\Entity\recommendsumahorankingSumahoRankingProduct();
-        $recommendsumahorankingSumahoRanking->setComment($data['comment']);
-        $recommendsumahorankingSumahoRanking->setProduct($data['Product']);
-        $recommendsumahorankingSumahoRanking->setRank(($rank ? $rank : 0) + 1);
-        $recommendsumahorankingSumahoRanking->setDelFlg(Constant::DISABLED);
-        $recommendsumahorankingSumahoRanking->setCreateDate($dateTime);
-        $recommendsumahorankingSumahoRanking->setUpdateDate($dateTime);
+        $RecommendSumahoRanking = new \Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct();
+        $RecommendSumahoRanking->setComment($data['comment']);
+        $RecommendSumahoRanking->setProduct($data['Product']);
+        $RecommendSumahoRanking->setRank(($rank ? $rank : 0) + 1);
+        $RecommendSumahoRanking->setDelFlg(Constant::DISABLED);
+        $RecommendSumahoRanking->setCreateDate($dateTime);
+        $RecommendSumahoRanking->setUpdateDate($dateTime);
 
-        return $recommendsumahorankingSumahoRanking;
+        return $RecommendSumahoRanking;
     }
 
 }
