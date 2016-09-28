@@ -34,9 +34,9 @@ class RecommendSimRankingController
     public function index(Application $app)
     {
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $RecommendSimRankingProducts = $app['eccube.plugin.recommend.repository.recommend_product']->getRecommendSimRankingProduct($Disp);
+        $RecommendSimRankingProducts = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->getRecommendSimRankingProduct($Disp);
 
-        return $app['view']->render('Block/recommend_product_block.twig', array(
+        return $app['view']->render('Block/recommendsimranking_product_block.twig', array(
             'RecommendSimRankingProducts' => $RecommendSimRankingProducts,
         ));
     }

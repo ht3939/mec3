@@ -1,6 +1,6 @@
 Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct:
     type: entity
-    table: plg_recommend_product
+    table: plg_recommendsimranking_product
     repositoryClass: Plugin\RecommendSimRanking\Repository\RecommendSimRankingProductRepository
     id:
         id:
@@ -8,7 +8,7 @@ Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct:
             nullable: false
             unsigned: false
             id: true
-            column: recommend_product_id
+            column: recommendsimranking_product_id
             generator:
                 strategy: AUTO
     fields:

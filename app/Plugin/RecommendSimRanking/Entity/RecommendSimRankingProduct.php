@@ -86,7 +86,7 @@ class RecommendSimRankingProduct extends \Eccube\Entity\AbstractEntity
     {}
 
     /**
-     * Get recommend product id
+     * Get recommendsimranking product id
      *
      * @return integer
      */
@@ -96,9 +96,9 @@ class RecommendSimRankingProduct extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * Set recommend product id
+     * Set recommendsimranking product id
      *
-     * @param integer $recommend_product_id
+     * @param integer $recommendsimranking_product_id
      * @return Module
      */
     public function setId($id)

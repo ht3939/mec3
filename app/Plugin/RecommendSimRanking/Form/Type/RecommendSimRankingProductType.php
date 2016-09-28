@@ -85,7 +85,7 @@ class RecommendSimRankingProductType extends AbstractType
                 if (empty($Product)) {
                     $form['comment']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $RecommendSimRankingProduct = $app['eccube.plugin.recommend.repository.recommend_product']->findBy(array('Product' => $Product));
+                    $RecommendSimRankingProduct = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->findBy(array('Product' => $Product));
 
                     if ($RecommendSimRankingProduct) {
                         //check existing Product, except itself
@@ -118,6 +118,6 @@ class RecommendSimRankingProductType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_recommend';
+        return 'admin_recommendsimranking';
     }
 }
