@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>sasssasasa{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} / {{ subtitle }}{% elseif title is defined and title is not empty %} / {{ title }}{% endif %}</title>
+<title>{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} - {{ subtitle }}{% elseif title is defined and title is not empty %} - {{ title }}{% endif %}</title>
 {% if PageLayout.author is not empty %}
     <meta name="author" content="{{ PageLayout.author }}">
 {% endif %}
@@ -37,7 +37,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% if PageLayout.meta_robots is not empty %}
     <meta name="robots" content="{{ PageLayout.meta_robots }}">
 {% endif %}
+
+    <meta property="og:url" content="{{app.request.getUri()}}">
+
+{% set currentPath = path(app.request.attributes.get('_route'),
+                           app.request.attributes.get('_route_params')) %}
+{% if currentPath=='/' %}
+    <meta property="og:type" content="website">
+{% else %}
+    <meta property="og:type" content="article">
+{% endif %}
+
+{% block meta_og_image %}
+    <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}{{ app.config.front_urlpath }}/img/og.png">
+
+{% endblock %}
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="{{app.request.getPathInfo()}}" >
 <link rel="icon" href="{{ app.config.front_urlpath }}/img/common/favicon.ico">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/style.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/slick.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">

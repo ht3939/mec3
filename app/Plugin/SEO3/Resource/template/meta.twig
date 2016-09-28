@@ -11,3 +11,11 @@ info@nob-log.info
 {% if meta.keywords is defined and meta.keywords is not empty %}
 <meta name="keywords" content="{{ meta.keywords }}">
 {% endif %}
+
+{% if meta.title is defined and meta.title is not empty %}
+    <meta property="og:title" content="{{ meta.title }}">
+{% endif %}
+
+{% if meta.description is defined and meta.description is not empty %}
+    <meta property="og:description" content="{{ meta.description }}">
+{% endif %}
