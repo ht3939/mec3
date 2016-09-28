@@ -33,52 +33,52 @@ class RecommendSumahoRankingServiceProvider implements ServiceProviderInterface
     public function register(BaseApplication $app)
     {
         // おすすめ情報テーブルリポジトリ
-        $app['eccube.plugin.recommend.repository.recommend_product'] = $app->share(function () use ($app) {
+        $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct');
         });
 
         // おすすめ商品の一覧
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::index')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::index')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_list');
+            ->bind('admin_recommendsumahoranking_list');
 
         // おすすめ商品の新規先
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/new', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::create')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/new', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::create')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_new');
+            ->bind('admin_recommendsumahoranking_new');
 
         // おすすめ商品の新規作成・編集確定
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/commit', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::commit')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/commit', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::commit')
         ->value('id', null)->assert('id', '\d+|')
-        ->bind('admin_recommend_commit');
+        ->bind('admin_recommendsumahoranking_commit');
 
         // おすすめ商品の編集
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/edit/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::edit')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/edit/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::edit')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_edit');
+            ->bind('admin_recommendsumahoranking_edit');
 
         // おすすめ商品の削除
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/delete/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::delete')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/delete/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::delete')
         ->value('id', null)->assert('id', '\d+|')
-        ->bind('admin_recommend_delete');
+        ->bind('admin_recommendsumahoranking_delete');
 
         // おすすめ商品のランク移動（上）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/rank_up/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::rankUp')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_up/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::rankUp')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_rank_up');
+            ->bind('admin_recommendsumahoranking_rank_up');
 
         // おすすめ商品のランク移動（下）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/rank_down/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::rankDown')
+        $app->match('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/rank_down/{id}', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingController::rankDown')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_rank_down');
+            ->bind('admin_recommendsumahoranking_rank_down');
 
         // 商品検索画面表示
-        $app->post('/' . $app["config"]["admin_route"] . '/recommend/search/product', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingSearchModelController::searchProduct')
-            ->bind('admin_recommend_search_product');
+        $app->post('/' . $app["config"]["admin_route"] . '/recommendsumahoranking/search/product', '\Plugin\RecommendSumahoRanking\Controller\RecommendSumahoRankingSearchModelController::searchProduct')
+            ->bind('admin_recommendsumahoranking_search_product');
 
         // ブロック
-        $app->match('/block/recommend_product_block', '\Plugin\RecommendSumahoRanking\Controller\Block\RecommendSumahoRankingController::index')
-            ->bind('block_recommend_product_block');
+        $app->match('/block/recommendsumahoranking_product_block', '\Plugin\RecommendSumahoRanking\Controller\Block\RecommendSumahoRankingController::index')
+            ->bind('block_recommendsumahoranking_product_block');
 
 
         // 型登録
@@ -88,7 +88,7 @@ class RecommendSumahoRankingServiceProvider implements ServiceProviderInterface
         }));
 
         // サービスの登録
-        $app['eccube.plugin.recommend.service.recommend'] = $app->share(function () use ($app) {
+        $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'] = $app->share(function () use ($app) {
             return new \Plugin\RecommendSumahoRanking\Service\RecommendSumahoRankingService($app);
         });
 
@@ -106,9 +106,9 @@ class RecommendSumahoRankingServiceProvider implements ServiceProviderInterface
 
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
-            $addNavi['id'] = 'admin_recommend';
+            $addNavi['id'] = 'admin_recommendsumahoranking';
             $addNavi['name'] = 'おすすめ管理';
-            $addNavi['url'] = 'admin_recommend_list';
+            $addNavi['url'] = 'admin_recommendsumahoranking_list';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {
                 if ('content' == $val['id']) {

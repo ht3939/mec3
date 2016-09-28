@@ -73,7 +73,7 @@ class RecommendSumahoRankingService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $RecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($data['id']);
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($data['id']);
         if(is_null($RecommendSumahoRanking)) {
             false;
         }
@@ -93,15 +93,15 @@ class RecommendSumahoRankingService
 
     /**
      * おすすめ商品情報を削除する
-     * @param $recommendId
+     * @param $recommendsumahorankingId
      * @return bool
      */
-    public function deleteRecommendSumahoRanking($recommendId) {
+    public function deleteRecommendSumahoRanking($recommendsumahorankingId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $RecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
         if(is_null($RecommendSumahoRanking)) {
             false;
         }
@@ -119,20 +119,20 @@ class RecommendSumahoRankingService
 
     /**
      * おすすめ商品情報の順位を上げる
-     * @param $recommendId
+     * @param $recommendsumahorankingId
      * @return bool
      */
-    public function rankUp($recommendId) {
+    public function rankUp($recommendsumahorankingId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $RecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
         if(is_null($RecommendSumahoRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']
+        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
                                 ->findByRankUp($RecommendSumahoRanking->getRank());
         if(is_null($TargetRecommendSumahoRanking)) {
             false;
@@ -158,20 +158,20 @@ class RecommendSumahoRankingService
 
     /**
      * おすすめ商品情報の順位を下げる
-     * @param $recommendId
+     * @param $recommendsumahorankingId
      * @return bool
      */
-    public function rankDown($recommendId) {
+    public function rankDown($recommendsumahorankingId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $RecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $RecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($recommendsumahorankingId);
         if(is_null($RecommendSumahoRanking)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommend.repository.recommend_product']
+        $TargetRecommendSumahoRanking =$this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']
                                 ->findByRankDown($RecommendSumahoRanking->getRank());
         if(is_null($TargetRecommendSumahoRanking)) {
             false;
@@ -203,7 +203,7 @@ class RecommendSumahoRankingService
     protected function newRecommendSumahoRanking($data) {
         $dateTime = new \DateTime();
 
-        $rank = $this->app['eccube.plugin.recommend.repository.recommend_product']->getMaxRank();
+        $rank = $this->app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->getMaxRank();
 
         $RecommendSumahoRanking = new \Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct();
         $RecommendSumahoRanking->setComment($data['comment']);

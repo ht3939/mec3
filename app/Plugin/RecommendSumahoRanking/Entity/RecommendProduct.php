@@ -86,7 +86,7 @@ class RecommendSumahoRankingProduct extends \Eccube\Entity\AbstractEntity
     {}
 
     /**
-     * Get recommend product id
+     * Get recommendsumahoranking product id
      *
      * @return integer
      */
@@ -96,9 +96,9 @@ class RecommendSumahoRankingProduct extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * Set recommend product id
+     * Set recommendsumahoranking product id
      *
-     * @param integer $recommend_product_id
+     * @param integer $recommendsumahoranking_product_id
      * @return Module
      */
     public function setId($id)

@@ -34,9 +34,9 @@ class RecommendSumahoRankingController
     public function index(Application $app)
     {
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $RecommendSumahoRankingProducts = $app['eccube.plugin.recommend.repository.recommend_product']->getRecommendSumahoRankingProduct($Disp);
+        $RecommendSumahoRankingProducts = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->getRecommendSumahoRankingProduct($Disp);
 
-        return $app['view']->render('Block/recommend_product_block.twig', array(
+        return $app['view']->render('Block/recommendsumahoranking_product_block.twig', array(
             'RecommendSumahoRankingProducts' => $RecommendSumahoRankingProducts,
         ));
     }

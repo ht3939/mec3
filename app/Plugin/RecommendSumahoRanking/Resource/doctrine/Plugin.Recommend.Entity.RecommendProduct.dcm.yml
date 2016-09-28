@@ -1,6 +1,6 @@
 Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct:
     type: entity
-    table: plg_recommend_product
+    table: plg_recommendsumahoranking_product
     repositoryClass: Plugin\RecommendSumahoRanking\Repository\RecommendSumahoRankingProductRepository
     id:
         id:
@@ -8,7 +8,7 @@ Plugin\RecommendSumahoRanking\Entity\RecommendSumahoRankingProduct:
             nullable: false
             unsigned: false
             id: true
-            column: recommend_product_id
+            column: recommendsumahoranking_product_id
             generator:
                 strategy: AUTO
     fields:

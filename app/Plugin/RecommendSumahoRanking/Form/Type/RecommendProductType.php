@@ -85,7 +85,7 @@ class RecommendSumahoRankingProductType extends AbstractType
                 if (empty($Product)) {
                     $form['comment']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $RecommendSumahoRankingProduct = $app['eccube.plugin.recommend.repository.recommend_product']->findBy(array('Product' => $Product));
+                    $RecommendSumahoRankingProduct = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findBy(array('Product' => $Product));
 
                     if ($RecommendSumahoRankingProduct) {
                         //check existing Product, except itself
@@ -118,6 +118,6 @@ class RecommendSumahoRankingProductType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_recommend';
+        return 'admin_recommendsumahoranking';
     }
 }

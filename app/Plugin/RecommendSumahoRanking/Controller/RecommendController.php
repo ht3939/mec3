@@ -54,7 +54,7 @@ class RecommendSumahoRankingController extends AbstractController
     {
         $pagination = null;
 
-        $pagination = $app['eccube.plugin.recommend.repository.recommend_product']->findList();
+        $pagination = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findList();
 
         return $app->render('RecommendSumahoRanking/Resource/template/admin/index.twig', array(
             'pagination' => $pagination,
@@ -73,10 +73,10 @@ class RecommendSumahoRankingController extends AbstractController
     public function create(Application $app, Request $request, $id)
     {
 
-        $builder = $app['form.factory']->createBuilder('admin_recommend');
+        $builder = $app['form.factory']->createBuilder('admin_recommendsumahoranking');
         $form = $builder->getForm();
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         $Product = null;
 
@@ -87,12 +87,12 @@ class RecommendSumahoRankingController extends AbstractController
                 $status = $service->createRecommendSumahoRanking($data);
 
                 if (!$status) {
-                    $app->addError('admin.recommend.notfound', 'admin');
+                    $app->addError('admin.recommendsumahoranking.notfound', 'admin');
                 } else {
-                    $app->addSuccess('admin.plugin.recommend.regist.success', 'admin');
+                    $app->addSuccess('admin.plugin.recommendsumahoranking.regist.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_recommend_list'));
+                return $app->redirect($app->url('admin_recommendsumahoranking_list'));
             }
 
             if (!is_null($data['Product'])) {
@@ -120,25 +120,25 @@ class RecommendSumahoRankingController extends AbstractController
     {
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsumahoranking.recommendsumahoranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $RecommendSumahoRanking = $app['eccube.plugin.recommend.repository.recommend_product']->findById($id);
+        $RecommendSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->findById($id);
 
         if (is_null($RecommendSumahoRanking)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError('admin.recommendsumahoranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
         $RecommendSumahoRanking = $RecommendSumahoRanking[0];
 
         // formの作成
         $form = $app['form.factory']
-            ->createBuilder('admin_recommend', $RecommendSumahoRanking)
+            ->createBuilder('admin_recommendsumahoranking', $RecommendSumahoRanking)
             ->getForm();
 
         if ('POST' === $request->getMethod()) {
@@ -147,12 +147,12 @@ class RecommendSumahoRankingController extends AbstractController
                 $status = $service->updateRecommendSumahoRanking($form->getData());
 
                 if (!$status) {
-                    $app->addError('admin.recommend.notfound', 'admin');
+                    $app->addError('admin.recommendsumahoranking.notfound', 'admin');
                 } else {
-                    $app->addSuccess('admin.plugin.recommend.update.success', 'admin');
+                    $app->addSuccess('admin.plugin.recommendsumahoranking.update.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_recommend_list'));
+                return $app->redirect($app->url('admin_recommendsumahoranking_list'));
             }
         }
 
@@ -182,21 +182,21 @@ class RecommendSumahoRankingController extends AbstractController
             throw new HttpException();
         }
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsumahoranking.recommendsumahoranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // おすすめ商品情報を削除する
         if ($service->deleteRecommendSumahoRanking($id)) {
-            $app->addSuccess('admin.plugin.recommend.delete.success', 'admin');
+            $app->addSuccess('admin.plugin.recommendsumahoranking.delete.success', 'admin');
         } else {
-            $app->addError('admin.recommend.notfound', 'admin');
+            $app->addError('admin.recommendsumahoranking.notfound', 'admin');
         }
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsumahoranking_list'));
 
     }
 
@@ -213,25 +213,25 @@ class RecommendSumahoRankingController extends AbstractController
         $this->isTokenValid($app);
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsumahoranking.recommendsumahoranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $RecommendSumahoRanking = $app['eccube.plugin.recommend.repository.recommend_product']->find($id);
+        $RecommendSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
         if (is_null($RecommendSumahoRanking)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError('admin.recommendsumahoranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
         // ランクアップ
         $service->rankUp($id);
 
-        $app->addSuccess('admin.plugin.recommend.complete.up', 'admin');
+        $app->addSuccess('admin.plugin.recommendsumahoranking.complete.up', 'admin');
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsumahoranking_list'));
     }
 
     /**
@@ -247,25 +247,25 @@ class RecommendSumahoRankingController extends AbstractController
         $this->isTokenValid($app);
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsumahoranking.recommendsumahoranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsumahoranking.service.recommendsumahoranking'];
 
         // IDからおすすめ商品情報を取得する
-        $RecommendSumahoRanking = $app['eccube.plugin.recommend.repository.recommend_product']->find($id);
+        $RecommendSumahoRanking = $app['eccube.plugin.recommendsumahoranking.repository.recommendsumahoranking_product']->find($id);
         if (is_null($RecommendSumahoRanking)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError('admin.recommendsumahoranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsumahoranking_list'));
         }
 
         // ランクアップ
         $service->rankDown($id);
 
-        $app->addSuccess('admin.plugin.recommend.complete.down', 'admin');
+        $app->addSuccess('admin.plugin.recommendsumahoranking.complete.down', 'admin');
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsumahoranking_list'));
     }
 
     /**

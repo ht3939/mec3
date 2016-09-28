@@ -47,7 +47,7 @@ class PluginManager extends AbstractPluginManager
     /**
      * @var string ブロックファイル名
      */
-    private $blockFileName = 'recommend_product_block';
+    private $blockFileName = 'recommendsumahoranking_product_block';
 
     public function __construct()
     {
