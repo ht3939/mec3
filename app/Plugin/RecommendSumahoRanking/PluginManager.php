@@ -42,7 +42,7 @@ class PluginManager extends AbstractPluginManager
     /**
      * @var string ブロック名
      */
-    private $blockName = 'おすすめ商品';
+    private $blockName = 'スマホおすすめ商品ランキング';
 
     /**
      * @var string ブロックファイル名

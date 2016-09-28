@@ -107,7 +107,7 @@ class RecommendSumahoRankingServiceProvider implements ServiceProviderInterface
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
             $addNavi['id'] = 'admin_recommendsumahoranking';
-            $addNavi['name'] = 'おすすめ管理';
+            $addNavi['name'] = 'スマホおすすめ商品ランキング管理';
             $addNavi['url'] = 'admin_recommendsumahoranking_list';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {
