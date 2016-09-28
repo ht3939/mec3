@@ -20,16 +20,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-namespace Plugin\Recommend\Entity;
+namespace Plugin\RecommendSumahoRanking\Entity;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Eccube\Util\EntityUtil;
 
 /**
- * RecommendProduct
+ * RecommendSumahoRankingProduct
  */
-class RecommendProduct extends \Eccube\Entity\AbstractEntity
+class RecommendSumahoRankingProduct extends \Eccube\Entity\AbstractEntity
 {
 
     /**
@@ -86,7 +86,7 @@ class RecommendProduct extends \Eccube\Entity\AbstractEntity
     {}
 
     /**
-     * Get recommend product id
+     * Get recommendsumahoranking product id
      *
      * @return integer
      */
@@ -96,9 +96,9 @@ class RecommendProduct extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * Set recommend product id
+     * Set recommendsumahoranking product id
      *
-     * @param integer $recommend_product_id
+     * @param integer $recommendsumahoranking_product_id
      * @return Module
      */
     public function setId($id)

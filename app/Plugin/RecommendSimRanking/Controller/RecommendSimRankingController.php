@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend\Controller;
+namespace Plugin\RecommendSimRanking\Controller;
 
 use Eccube\Application;
 use Eccube\Controller\AbstractController;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RecommendController extends AbstractController
+class RecommendSimRankingController extends AbstractController
 {
 
     private $main_title;
@@ -54,9 +54,9 @@ class RecommendController extends AbstractController
     {
         $pagination = null;
 
-        $pagination = $app['eccube.plugin.recommend.repository.recommend_product']->findList();
+        $pagination = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->findList();
 
-        return $app->render('Recommend/Resource/template/admin/index.twig', array(
+        return $app->render('RecommendSimRanking/Resource/template/admin/index.twig', array(
             'pagination' => $pagination,
             'totalItemCount' => count($pagination)
         ));
@@ -73,10 +73,10 @@ class RecommendController extends AbstractController
     public function create(Application $app, Request $request, $id)
     {
 
-        $builder = $app['form.factory']->createBuilder('admin_recommend');
+        $builder = $app['form.factory']->createBuilder('admin_recommendsimranking');
         $form = $builder->getForm();
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsimranking.service.recommendsimranking'];
 
         $Product = null;
 
@@ -84,15 +84,15 @@ class RecommendController extends AbstractController
             $form->handleRequest($request);
             $data = $form->getData();
             if ($form->isValid()) {
-                $status = $service->createRecommend($data);
+                $status = $service->createRecommendSimRanking($data);
 
                 if (!$status) {
-                    $app->addError('admin.recommend.notfound', 'admin');
+                    $app->addError('admin.recommendsimranking.notfound', 'admin');
                 } else {
-                    $app->addSuccess('admin.plugin.recommend.regist.success', 'admin');
+                    $app->addSuccess('admin.plugin.recommendsimranking.regist.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_recommend_list'));
+                return $app->redirect($app->url('admin_recommendsimranking_list'));
             }
 
             if (!is_null($data['Product'])) {
@@ -120,39 +120,39 @@ class RecommendController extends AbstractController
     {
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsimranking.recommendsimranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsimranking.service.recommendsimranking'];
 
         // IDからおすすめ商品情報を取得する
-        $Recommend = $app['eccube.plugin.recommend.repository.recommend_product']->findById($id);
+        $RecommendSimRanking = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->findById($id);
 
-        if (is_null($Recommend)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+        if (is_null($RecommendSimRanking)) {
+            $app->addError('admin.recommendsimranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
-        $Recommend = $Recommend[0];
+        $RecommendSimRanking = $RecommendSimRanking[0];
 
         // formの作成
         $form = $app['form.factory']
-            ->createBuilder('admin_recommend', $Recommend)
+            ->createBuilder('admin_recommendsimranking', $RecommendSimRanking)
             ->getForm();
 
         if ('POST' === $request->getMethod()) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $status = $service->updateRecommend($form->getData());
+                $status = $service->updateRecommendSimRanking($form->getData());
 
                 if (!$status) {
-                    $app->addError('admin.recommend.notfound', 'admin');
+                    $app->addError('admin.recommendsimranking.notfound', 'admin');
                 } else {
-                    $app->addSuccess('admin.plugin.recommend.update.success', 'admin');
+                    $app->addSuccess('admin.plugin.recommendsimranking.update.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_recommend_list'));
+                return $app->redirect($app->url('admin_recommendsimranking_list'));
             }
         }
 
@@ -160,7 +160,7 @@ class RecommendController extends AbstractController
             $app,
             array(
                 'form' => $form->createView(),
-                'Product' => $Recommend->getProduct()
+                'Product' => $RecommendSimRanking->getProduct()
             )
         );
     }
@@ -182,21 +182,21 @@ class RecommendController extends AbstractController
             throw new HttpException();
         }
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsimranking.recommendsimranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsimranking.service.recommendsimranking'];
 
         // おすすめ商品情報を削除する
-        if ($service->deleteRecommend($id)) {
-            $app->addSuccess('admin.plugin.recommend.delete.success', 'admin');
+        if ($service->deleteRecommendSimRanking($id)) {
+            $app->addSuccess('admin.plugin.recommendsimranking.delete.success', 'admin');
         } else {
-            $app->addError('admin.recommend.notfound', 'admin');
+            $app->addError('admin.recommendsimranking.notfound', 'admin');
         }
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsimranking_list'));
 
     }
 
@@ -213,25 +213,25 @@ class RecommendController extends AbstractController
         $this->isTokenValid($app);
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsimranking.recommendsimranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsimranking.service.recommendsimranking'];
 
         // IDからおすすめ商品情報を取得する
-        $Recommend = $app['eccube.plugin.recommend.repository.recommend_product']->find($id);
-        if (is_null($Recommend)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+        $RecommendSimRanking = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->find($id);
+        if (is_null($RecommendSimRanking)) {
+            $app->addError('admin.recommendsimranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
         // ランクアップ
         $service->rankUp($id);
 
-        $app->addSuccess('admin.plugin.recommend.complete.up', 'admin');
+        $app->addSuccess('admin.plugin.recommendsimranking.complete.up', 'admin');
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsimranking_list'));
     }
 
     /**
@@ -247,25 +247,25 @@ class RecommendController extends AbstractController
         $this->isTokenValid($app);
 
         if (is_null($id) || strlen($id) == 0) {
-            $app->addError("admin.recommend.recommend_id.notexists", "admin");
-            return $app->redirect($app->url('admin_recommend_list'));
+            $app->addError("admin.recommendsimranking.recommendsimranking_id.notexists", "admin");
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
-        $service = $app['eccube.plugin.recommend.service.recommend'];
+        $service = $app['eccube.plugin.recommendsimranking.service.recommendsimranking'];
 
         // IDからおすすめ商品情報を取得する
-        $Recommend = $app['eccube.plugin.recommend.repository.recommend_product']->find($id);
-        if (is_null($Recommend)) {
-            $app->addError('admin.recommend.notfound', 'admin');
-            return $app->redirect($app->url('admin_recommend_list'));
+        $RecommendSimRanking = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->find($id);
+        if (is_null($RecommendSimRanking)) {
+            $app->addError('admin.recommendsimranking.notfound', 'admin');
+            return $app->redirect($app->url('admin_recommendsimranking_list'));
         }
 
         // ランクアップ
         $service->rankDown($id);
 
-        $app->addSuccess('admin.plugin.recommend.complete.down', 'admin');
+        $app->addSuccess('admin.plugin.recommendsimranking.complete.down', 'admin');
 
-        return $app->redirect($app->url('admin_recommend_list'));
+        return $app->redirect($app->url('admin_recommendsimranking_list'));
     }
 
     /**
@@ -281,7 +281,7 @@ class RecommendController extends AbstractController
             'searchProductModalForm' => $searchProductModalForm->createView(),
         );
         $viewParameters += $parameters;
-        return $app->render('Recommend/Resource/template/admin/regist.twig', $viewParameters);
+        return $app->render('RecommendSimRanking/Resource/template/admin/regist.twig', $viewParameters);
     }
 
 }

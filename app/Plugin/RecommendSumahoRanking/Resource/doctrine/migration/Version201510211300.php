@@ -38,7 +38,7 @@ class Version201510211300 extends AbstractMigration
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->createRecommendProduct($schema);
+        $this->createRecommendSumahoRankingProduct($schema);
     }
 
     /**
@@ -47,18 +47,18 @@ class Version201510211300 extends AbstractMigration
     public function down(Schema $schema)
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $schema->dropTable('plg_recommend_product');
-        $schema->dropSequence('plg_recommend_product_recommend_product_id_seq');
+        $schema->dropTable('plg_recommendsumahoranking_product');
+        $schema->dropSequence('plg_recommendsumahoranking_product_recommendsumahoranking_product_id_seq');
     }
 
     /**
      * おすすめ商品テーブル作成
      * @param Schema $schema
      */
-    protected function createRecommendProduct(Schema $schema)
+    protected function createRecommendSumahoRankingProduct(Schema $schema)
     {
-        $table = $schema->createTable("plg_recommend_product");
-        $table->addColumn('recommend_product_id', 'integer', array(
+        $table = $schema->createTable("plg_recommendsumahoranking_product");
+        $table->addColumn('recommendsumahoranking_product_id', 'integer', array(
             'autoincrement' => true,
             'notnull' => true,
         ));
@@ -94,7 +94,7 @@ class Version201510211300 extends AbstractMigration
             'unsigned' => false,
         ));
 
-        $table->setPrimaryKey(array('recommend_product_id'));
+        $table->setPrimaryKey(array('recommendsumahoranking_product_id'));
     }
 
 }

@@ -1,14 +1,14 @@
-Plugin\Recommend\Entity\RecommendProduct:
+Plugin\RecommendSimRanking\Entity\RecommendSimRankingProduct:
     type: entity
-    table: plg_recommend_product
-    repositoryClass: Plugin\Recommend\Repository\RecommendProductRepository
+    table: plg_recommendsimranking_product
+    repositoryClass: Plugin\RecommendSimRanking\Repository\RecommendSimRankingProductRepository
     id:
         id:
             type: integer
             nullable: false
             unsigned: false
             id: true
-            column: recommend_product_id
+            column: recommendsimranking_product_id
             generator:
                 strategy: AUTO
     fields:
@@ -33,7 +33,7 @@ Plugin\Recommend\Entity\RecommendProduct:
     manyToOne:
         Product:
             targetEntity: Eccube\Entity\Product
-            inversedBy: RecommendProduct
+            inversedBy: RecommendSimRankingProduct
             joinColumn:
                 name: product_id
                 referencedColumnName: product_id

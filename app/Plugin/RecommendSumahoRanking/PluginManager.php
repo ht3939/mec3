@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\Recommend;
+namespace Plugin\RecommendSumahoRanking;
 
 use Eccube\Common\Constant;
 use Eccube\Entity\BlockPosition;
@@ -42,12 +42,12 @@ class PluginManager extends AbstractPluginManager
     /**
      * @var string ブロック名
      */
-    private $blockName = 'おすすめ商品';
+    private $blockName = 'スマホおすすめ商品ランキング';
 
     /**
      * @var string ブロックファイル名
      */
-    private $blockFileName = 'recommend_product_block';
+    private $blockFileName = 'recommendsumahoranking_product_block';
 
     public function __construct()
     {
