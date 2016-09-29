@@ -24,12 +24,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <title>{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} - {{ subtitle }}{% elseif title is defined and title is not empty %} - {{ title }}{% endif %}</title>
-{% if PageLayout.author is not empty %}
-    <meta name="author" content="{{ PageLayout.author }}">
-{% endif %}
+
+<meta property="og:title" content="{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} - {{ subtitle }}{% elseif title is defined and title is not empty %} - {{ title }}{% endif %}">
+
+
 {% if PageLayout.description is not empty %}
     <meta name="description" content="{{ PageLayout.description }}">
+    <meta property="og:description" content="{{ PageLayout.description }}">
 {% endif %}
 {% if PageLayout.keyword is not empty %}
     <meta name="keywords" content="{{ PageLayout.keyword }}">

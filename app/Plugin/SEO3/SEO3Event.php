@@ -137,19 +137,29 @@ class SEO3Event
         // 一覧
         if ($id = $request->query->get('category_id')) {
             $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByCategoryId($id);
-            if (!empty($db['title'])) {
-                if($meta){
-                $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+            if($meta){
 
+                if (!empty($meta['title'])) {
+                    $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
                 }
             }
 
         // 詳細
         } else if ($id = $request->attributes->get('id')) {
+            $Product = $this->app['eccube.repository.product']->get($request->attributes->get('id'));
             $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByProductId($id);
-            if (!empty($db['title'])) {
-                if($meta){
-                $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+            if($meta){
+                if (!empty($meta['title'])) {
+                    $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+                }else{
+                    if(empty($meta['title'])){
+                    $meta->setTitle($Product->getName()." - ".$BaseInfo['shop_name']);
+                    }else{
+                    $meta->setTitle($meta['title']." - ".$BaseInfo['shop_name']);
+
+                    }
+                    $meta->setDescription($Product->getName()."の".$meta['description']);
+
                 }
             }
         } else if ($request->attributes->get('_route') == 'homepage') {
@@ -174,13 +184,39 @@ class SEO3Event
         $oldHtml = $crawler->filter('head')->html();
         $oldHtml = html_entity_decode($oldHtml, ENT_NOQUOTES, 'UTF-8');
 
+        $tmpHtml = $oldHtml;
         // titleタグを除去する機能
         if ($meta['title']) {
             $reg = '/<title.*?>.*?<\/title>/mis';
-            $newHtml = preg_replace($reg, '', $oldHtml);
+            $newHtml = preg_replace($reg, '', $tmpHtml);
+            $reg = '/<meta property="og:title".*?>/mis';
+            $newHtml = preg_replace($reg, '', $newHtml);
+        } else {
+            $newHtml = $tmpHtml;
+        }
+
+        $tmpHtml = $newHtml;
+
+        if ($meta['keywords']) {
+            $reg = '/<meta name="keywords".*?>/mis';
+            $newHtml = preg_replace($reg, '', $tmpHtml);
+            $reg = '/<meta property="og:keywords".*?>/mis';
+            $newHtml = preg_replace($reg, '', $newHtml);
+        } else {
+            $newHtml = $tmpHtml;
+        }
+
+        $tmpHtml = $newHtml;
+
+        if ($meta['description']) {
+            $reg = '/<meta name="description".*?>/mis';
+            $newHtml = preg_replace($reg, '', $tmpHtml);
+            $reg = '/<meta property="og:description".*?>/mis';
+            $newHtml = preg_replace($reg, '', $newHtml);
         } else {
             $newHtml = $oldHtml;
         }
+
         $newHtml .= $addContents;
 
         $html = $this->getHtml($crawler);
