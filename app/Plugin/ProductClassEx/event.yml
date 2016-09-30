@@ -1,0 +1,10 @@
+# front page event
+#Product/list.twig:
+#    - [onRenderProductList, NORMAL]
+
+# admin page event
+admin.product.productclass.index.initialize:
+    - [onFormInitializeAdminProductCategory, NORMAL]
+admin.product.productclass.index.complete:
+    - [onAdminProductCategoryEditComplete, NORMAL]
+

@@ -1,0 +1,8 @@
+#name: ProductClassEx
+#event: ProductClassExEvent
+#code: ProductClassEx
+#version: 0.0.1
+#service:
+#    - ProductClassExServiceProvider
+#orm.path:
+#    - /Resource/doctrine
