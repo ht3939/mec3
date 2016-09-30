@@ -1,0 +1,279 @@
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+._container{width:1000px;margin:0 auto}#breadcrumbs{margin-bottom:0}#mainv{position:relative;width:100%;min-width:1000px;height:320px;border-bottom:3px solid #da1a1a;background:url("{{ app.config.front_urlpath }}/img/about-sim/bg-mainv.png") 0 0 repeat-x}.mainv-inner{width:1000px;margin:0 auto}.about-sim-index-section .about-contents-outer1{padding-bottom:100px;background:#f5f5f5}.about-sim-index-section .about-contents-outer2{padding:100px 0;background:#fff}.about-sim-index-section .about-contents-outer3{padding:100px 0;background:#f5f5f5}.about-sim-index-section .about-contents-outer4{padding:50px 0 95px;background:#fff}.about-sim-index-section .about-sim-nav{position:relative;width:1010px;margin:0 auto}.about-sim-index-section .about-sim-nav ul{display:table;width:1010px;text-align:center}.about-sim-index-section .about-sim-nav li{display:table-cell}.about-sim-index-section .about-sim-nav a{transition:all .2s}.about-sim-index-section .about-sim-nav a:hover{opacity:0.7}.about-sim-index-section .about-sim-nav-top{top:-40px}.about-sim-index-section .about-sim-nav-top a:hover{opacity:0.9}.about-sim-index-section .about-contents-heading{text-align:center}.about-sim-index-section .about-contents-heading-text{width:855px;margin:40px auto 0;font-size:14px;line-height:1.8;color:#333}.about-sim-index-section .about-contents-heading2{margin-top:90px;text-align:center}.about-sim-index-section .about-contents-inner{overflow:hidden;*zoom:1;margin-top:50px}.about-sim-index-section .about-contents-img{float:left;width:530px;text-align:center}.about-sim-index-section .about-contents-text{float:right;width:455px;margin-top:-30px;line-height:1.8}.about-sim-index-section .about-contents-text p{margin-top:30px}
+
+
+#contents{
+	padding-top:0px;
+}
+#breadcrumbs.bg-grey {
+    background: #f4f4f4;
+}
+#breadcrumbs {
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+#breadcrumbs .parent {
+    overflow: hidden;
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 11px 0;
+    color: #666;
+}
+#breadcrumbs .children {
+    float: left;
+    font-size: 10px;
+    position: relative;
+}
+#breadcrumbs a {
+    color: #666;
+    margin-right: 20px;
+}
+#breadcrumbs a:after {
+    content: ">";
+    position: absolute;
+    top: -1px;
+    right: 5px;
+}
+/* ======== PC ==========*/
+
+/* ======== SP ==========*/
+.clearfix,.page-navi-box{overflow:hidden}.mainv-box img{width:100%;vertical-align:bottom}.page-navi{position:relative;padding-bottom:4px;background:#f5f5f5}.page-navi-box{width:100%;border-top:2px solid #da0d0d;border-bottom:2px solid #da0d0d;background:#fff}.page-navi-box .page-navi-list{display:table;float:left;width:33.33%;border-left:2px solid #da0d0d;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}.page-navi-box .page-navi-list:first-child{border-left:none}.page-navi-box a{position:relative;display:table-cell;color:#da0d0d;width:100%;height:60px;font-size:1rem;font-weight:bold;text-align:center;vertical-align:middle;background:#fff}.page-navi-box a.about-cheap-smartphone span{background:url('{{ app.config.front_urlpath }}/img/about-sim/icon-smartphone.png?1460078797') no-repeat 0 center;background-size:28px auto}.page-navi-box a.about-simfree span{background:url('{{ app.config.front_urlpath }}/img/about-sim/icon-simfree.png?1460078797') no-repeat 0 center;background-size:26px auto}.page-navi-box a.about-simcard span{background:url('{{ app.config.front_urlpath }}/img/about-sim/icon-simcard.png?1460078797') no-repeat 0 center;background-size:28px auto}.page-navi-box a span{padding-left:28px;text-align:left;display:inline-block;line-height:1.2;min-height:29px}.page-navi-box.top-navi{box-shadow:0 2px 3px 0 rgba(0,0,0,0.35)}.page-navi-box.top-navi a:before{content:'';display:block;width:7px;height:7px;border-right:2px solid #da0d0d;border-bottom:2px solid #da0d0d;-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg);position:absolute;left:50%;margin-left:-4px;bottom:7px}.page-navi-box.top-navi a span{margin-top:-7px}.bg-grey{background:#f5f5f5}.content-box{position:relative;padding:30px 15px}.content-box .heading-pat1{margin-bottom:15px;text-align:center}.content-box .heading-pat2{padding-top:7px;margin-bottom:15px;text-align:center}.content-box .text-pat1{margin-bottom:20px;font-size:1.2rem;line-height:1.6}.content-box .text-pat1:last-child{margin-bottom:0}.content-box .img-pat1{margin-bottom:20px;text-align:center}
+
+.page-heading {
+    display: block;
+    position: relative;
+    padding: 10px 40px;
+    background-color: #333;
+    text-align: center;
+    font-size: 1.3rem;
+    text-decoration: none;
+    color: #fff;
+}
+.page-heading .page-heading-back {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
+    width: 30px;
+    height: 30px;
+    text-align: left;
+    text-indent: 100%;
+    line-height: 30px;
+}
+.page-heading .page-heading-back:before {
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+/* ==================== SP ==================== */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+</style>
+{% endblock %}
+
+<div class="pc">
+<p id="breadcrumbs" class="bg-grey">
+	<span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
+		<span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{ url('homepage') }}">スマホマニアトップ</a></span>
+		<span class="children" typeof="v:Breadcrumb">格安スマホって？格安SIMって？SIMフリースマホって？</span>
+	</span>
+</p>
+<div id="mainv">
+	<div class="mainv-inner">
+		<h1><img src="{{ app.config.front_urlpath }}/img/about-sim/mainv.png" alt="格安SIMって？SIMフリースマホって？"></h1>
+	</div>
+</div>
+<div id="contents" class="about-sim-index-section">
+	<div id="about-contents-outer1" class="about-contents-outer1">
+		<div class="_container about-sim-nav about-sim-nav-top">
+			<ul>
+				<li><a href="#about-contents-outer1" class="js-scroll" data-scroll-offset="150"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav1.png" alt="格安スマホとは？"></a></li>
+				<li><a href="#about-contents-outer2" class="js-scroll" data-scroll-offset="50"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav2.png" alt="SIMフリースマホとは？"></a></li>
+				<li><a href="#about-contents-outer3" class="js-scroll" data-scroll-offset="50"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav3.png" alt="SIMカードとは？"></a></li>
+			</ul>
+		</div>
+		<div class="_container about-contents">
+			<h2 class="about-contents-heading"><img src="{{ app.config.front_urlpath }}/img/about-sim/heading1.png" alt="格安スマホとは？"></h2>
+			<p class="about-contents-heading-text">「格安スマホ」テレビや雑誌でも最近よく特集が組まれていますが、いったいこれがどんなものなのか、今使っているスマートフォンと何が違うのか？安いからサービスとかエリアとかで不都合がでてきてしまうのか？などの疑問を解決していきます。</p>
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check1-1.png" alt="格安スマホについて"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img1-1.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>これまでのスマートフォンはドコモ・au・ソフトバンクなどの大手通信キャリアがスマートフォン本体と、SIMカードをセットにして販売していました。</p>
+					<p>格安スマホも同じくスマートフォン本体とSIMカードのセットの事ですが、それらをキャリアに縛られる事なく、安く提供しているサービスを選択して利用する事により毎月の料金を安くする事が出来ます。</p>
+					<p>安いのはありがたい事ですが、心配なのは電波の状況やサービス内容がどうなのか、詳しくみていきましょう。</p>
+				</div>
+			</div>
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check1-2.png" alt="低価格な理由と品質について"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img1-2.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>格安スマホで利用するSIMカードのサービス提供を行っているのはMVNOと呼ばれる会社です。</p>
+					<p>大手通信キャリアと何が違うかというと、実はMVNOは自社のネット回線を持っていないのですが、大手通信キャリアのネット回線をかりて通信しています。<br>そのため、ネット基地局を建てるなどの初期投資がないMVNOは料金を抑える事が可能になったわけです。</p>
+					<p>大手通信キャリアと同じ通信エリアをカバーしているため日本全国で利用が出来ます。</p>
+				</div>
+			</div>
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check1-3.png" alt="料金プランやサービス内容について"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img1-3.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>格安スマホの普及と共にMVNOも増えており、各社様々なプランが用意されています。</p>
+					<p>そのためご自身のニーズにあったプランを提供しているMVNOと契約する事で、より便利により安く携帯電話を使えるようになります。</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<div id="about-contents-outer2" class="about-contents-outer2">
+		<div class="_container about-contents">
+			<h2 class="about-contents-heading"><img src="{{ app.config.front_urlpath }}/img/about-sim/heading2.png" alt="SIMフリースマートフォンとは？"></h2>
+			<p class="about-contents-heading-text">テレビでもよく耳にするようになった「SIMフリースマートフォン」とはどんなものなのか？今使っているスマートフォンと何が違うのかなどの疑問を解決していきます。</p>
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check2-1.png" alt="SIMフリースマートフォンについて"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img2-1.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>スマートフォンで通信を行うにはSIMカードと呼ばれるICカードが必要になります。</p>
+					<p>これまでのスマートフォンは、ドコモ、au、ソフトバンクなどの大手通信キャリアで販売されているスマートフォンとSIMカードのセットを購入していましたが、キャリア間で乗り換えをした場合、使っているスマートフォンは使えなくなってしまったと思います。</p>
+					<p>これは、他のキャリアのSIMカードが使えないようにロックがかけられているためで、これをSIMロックと呼びます。</p>
+					<p>対してSIMフリースマートフォンは、どのキャリアで契約しても使える端末のことをいいます。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="about-contents-outer3" class="about-contents-outer3">
+		<div class="_container about-contents">
+
+			<h2 class="about-contents-heading"><img src="{{ app.config.front_urlpath }}/img/about-sim/heading3.png" alt="SIMカードとは？"></h2>
+			<p class="about-contents-heading-text">格安SIMカード（格安SIM）は、ドコモ、au、ソフトバンクなどの大手通信キャリア以外が販売しているSIMカードの事で、大手が販売する料金プランに比べ低価格なのが特徴です。その理由やSIMカードについて詳しくみていきましょう。</p>
+
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check3-1.png" alt="格安SIMカードについて"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img3-1.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>格安SIMは各社から様々な料金プランが提供されているため、用途にあったプランを選んでお得にスマートフォンを利用することが出来ます。</p>
+					<p>なぜ大手通信キャリアに比べ低価格なのかというと、自社で通信網を保有せず、大手通信キャリアが保有している通信網をかり受けサービス提供しているためです。<br>そのため、基本的にはエリアや通信(プランに寄ります)などは大手と変わらない品質といえます。</p>
+				</div>
+			</div>
+
+			<p class="about-contents-heading2"><img src="{{ app.config.front_urlpath }}/img/about-sim/check3-2.png" alt="カードのサイズについて"></p>
+			<div class="about-contents-inner">
+				<p class="about-contents-img"><img src="{{ app.config.front_urlpath }}/img/about-sim/img3-2.png" alt=""></p>
+				<div class="about-contents-text">
+					<p>SIMカードには「ナノSIM」「マイクロSIM」「標準SIM」のサイズがあり、端末にもそれぞれの大きさで挿入出来るカードサイズが決まっています。基本的に違うサイズのものは利用できませんので、お使いのスマートフォンがどのサイズに対応しているか調べておく必要があります。</p>
+					<p>SIMカードが小さい場合はスペーサーなどを利用したり、大きい場合はカットする事で利用できる場合もありますが、メーカー推奨ではないため、あらかじめマッチしているか調べて購入したほうがいいでしょう。</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="about-contents-outer4">
+
+		<div class="about-sim-nav">
+			<ul>
+				<li><a href="#about-contents-outer1" class="js-scroll" data-scroll-offset="150"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav-bottom1.png" alt="格安スマホとは？"></a></li>
+				<li><a href="#about-contents-outer2" class="js-scroll" data-scroll-offset="50"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav-bottom2.png" alt="SIMフリースマホとは？"></a></li>
+				<li><a href="#about-contents-outer3" class="js-scroll" data-scroll-offset="50"><img src="{{ app.config.front_urlpath }}/img/about-sim/nav-bottom3.png" alt="SIMカードとは？"></a></li>
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+</div>
+
+
+
+
+
+
+<div class="sp">
+<div class="page-heading">
+	<p><a href="<!--{$smarty.const.ACW_BASE_URL}-->" class="page-heading-back">戻る</a></p>
+	<h1>格安SIMって？SIMフリースマホって？</h1>
+</div>
+<p class="mainv-box"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/mainv.png" alt="格安SIMって？SIMフリースマホって？SIMフリースマホ、SIMカードの仕組みがわかる！"></p>
+<nav class="page-navi">
+	<ul class="page-navi-box top-navi">
+		<li class="page-navi-list"><a href="#about-contents-outer1" class="about-cheap-smartphone js-scroll"><span>格安スマホ<br>とは？</span></a></li>
+		<li class="page-navi-list"><a href="#about-contents-outer2" class="about-simfree js-scroll"><span>SIMフリー<br>スマホとは？</span></a></li>
+		<li class="page-navi-list"><a href="#about-contents-outer3" class="about-simcard js-scroll"><span>SIMカード<br>とは？</span></a></li>
+	</ul>
+</nav>
+<section id="about-contents-outer1" class="content-box bg-grey">
+	<h2 class="heading-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/heading-about-cheap-smartphone.png" alt="格安スマホとは？" height="19"></h2>
+	<p class="text-pat1">「格安スマホ」テレビや雑誌でも最近よく特集が組まれていますが、いったいこれがどんなものなのか、今使っているスマートフォンと何が違うのか？安いからサービスとかエリアとかで不都合がでてきてしまうのか？などの疑問を解決していきます。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-smartphone.png" alt="格安スマホについて" height="46"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-cheap-smartphone.png" alt="これまでのスマホ・格安スマホ" height="153"></p>
+	<p class="text-pat1">これまでのスマートフォンはドコモ・au・ソフトバンクなどの大手通信キャリアがスマートフォン本体と、SIMカードをセットにして販売していました。</p>
+	<p class="text-pat1">格安スマホも同じくスマートフォン本体とSIMカードのセットの事ですが、それらをキャリアに縛られる事なく、安く提供しているサービスを選択して利用する事により毎月の料金を安くする事が出来ます。</p>
+	<p class="text-pat1">安いのはありがたい事ですが、心配なのは電波の状況やサービス内容がどうなのか、詳しくみていきましょう。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-quality.png" alt="低価格な理由と品質について" height="48"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-quality.png" alt="大手通信キャリアの電波を借りて、低価格でユーザーに提供" height="203"></p>
+	<p class="text-pat1">格安スマホで利用するSIMカードのサービス提供を行っているのはMVNOと呼ばれる会社です。</p>
+	<p class="text-pat1">大手通信キャリアと何が違うかというと、実はMVNOは自社のネット回線を持っていないのですが、大手通信キャリアのネット回線をかりて通信しています。<br>そのため、ネット基地局を建てるなどの初期投資がないMVNOは料金を抑える事が可能になったわけです。</p>
+	<p class="text-pat1">大手通信キャリアと同じ通信エリアをカバーしているため日本全国で利用が出来ます。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-price-service.png" alt="料金プランやサービス内容について" height="48"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-price-service.png" alt="A社のサービス・B社のサービス。自分の利用スタイルに合ったサービスを提供していくところを選ぶ" height="149"></p>
+	<p class="text-pat1">格安スマホの普及と共にMVNOも増えており、各社様々なプランが用意さ れています。</p>
+	<p class="text-pat1">そのためご自身のニーズにあったプランを提供しているMVNOと契約する事で、より便利により安く携帯電話を使えるようになります。</p>
+</section>
+<section id="about-contents-outer2" class="content-box">
+	<h2 class="heading-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/heading-about-simfree.png" alt="SIMフリースマートフォンとは？" height="19"></h2>
+	<p class="text-pat1">テレビでもよく耳にするようになった「SIMフリースマートフォン」とはどんなものなのか？今使っているスマートフォンと何が違うのかなどの疑問を解決していきます。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-simfree.png" alt="SIMフリースマートフォンについて" height="46"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-simfree.png" alt="SIMロックのこれまでのスマホ・格安スマホ" height="158"></p>
+	<p class="text-pat1">スマートフォンで通信を行うにはSIMカードと呼ばれるICカードが必要になります。</p>
+	<p class="text-pat1">これは、他のキャリアのSIMカードが使えないようにロックがかけられているためで、これをSIMロックと呼びます。</p>
+	<p class="text-pat1">対してSIMフリースマートフォンは、どのキャリアで契約しても使える端末のことをいいます。</p>
+</section>
+<section id="about-contents-outer3" class="content-box bg-grey">
+	<h2 class="heading-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/heading-about-simcard.png" alt="SIMカードとは？" height="19"></h2>
+	<p class="text-pat1">格安SIMカード（格安SIM）は、ドコモ、au、ソフトバンクなどの大手通信キャリア以外が販売しているSIMカードの事で、大手が販売する料金プランに比べ低価格なのが特徴です。その理由やSIMカードについて詳しくみていきましょう。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-simcard.png" alt="格安SIMカードについて" height="48"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-simcard.png" alt="大手通信キャリアと変わらない質のまま、定額で利用できる" height="203"></p>
+	<p class="text-pat1">格安SIMは各社から様々な料金プランが提供されているため、用途にあ ったプランを選んでお得にスマートフォンを利用することが出来ます。</p>
+	<p class="text-pat1">なぜ大手通信キャリアに比べ低価格なのかというと、自社で通信網を保有せず、大手通信キャリアが保有している通信網をかり受けサービス提供しているためです。</p>
+	<p class="heading-pat2"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/check-about-cardsize.png" alt="カードのサイズについて" height="47"></p>
+	<p class="img-pat1"><img src="{{ app.config.front_urlpath }}/img/sp/about-sim/img-cardsize.png" alt="端末に合ったサイズのSIMカードを選ぶ" height="125"></p>
+	<p class="text-pat1">SIMカードには「ナノSIM」「マイクロSIM」「標準SIM」のサイズがあり、端末にもそれぞれの大きさで挿入出来る カードサイズが決まっています。基本的に違うサイズのものは利用できませんので、お使いのスマートフォンがどのサイズに対応しているか調べておく必要があります。</p>
+	<p class="text-pat1">SIMカードが小さい場合はスペーサーなどを利用したり、大きい場合はカットする事で利用できる場合もありますが、メーカー推奨ではないため、あらかじめマッチしているか調べて購入したほうがいいでしょう。</p>
+</section>
+<ul class="page-navi-box bottom-navi">
+	<li class="page-navi-list"><a href="#about-contents-outer1" class="about-cheap-smartphone js-scroll"><span>格安スマホ<br>とは？</span></a></li>
+	<li class="page-navi-list"><a href="#about-contents-outer2" class="about-simfree js-scroll"><span>SIMフリー<br>スマホとは？</span></a></li>
+	<li class="page-navi-list"><a href="#about-contents-outer3" class="about-simcard js-scroll"><span>SIMカード<br>とは？</span></a></li>
+</ul>
+</div>

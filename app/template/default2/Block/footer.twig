@@ -275,9 +275,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</ul>
 
 	<ul class="footer-nav2">
-		<li class="footer-nav2-item"><a href="/guide.php#payment">お支払い方法について</a></li>
-		<li class="footer-nav2-item"><a href="/guide.php#delivery">商品のお届けについて</a></li>
-		<li class="footer-nav2-item"><a href="/guide.php#time">営業時間について</a></li>
+		<li class="footer-nav2-item"><a href="{{ url('homepage') }}user_data/guide#payment">お支払い方法について</a></li>
+		<li class="footer-nav2-item"><a href="{{ url('homepage') }}user_data/guide#delivery">商品のお届けについて</a></li>
+		<li class="footer-nav2-item"><a href="{{ url('homepage') }}user_data/guide#time">営業時間について</a></li>
 		<li class="footer-nav2-item footer-nav2-item--2col"><a href="/company.php" class="js-footer-nav2-item">運営会社情報</a></li>
 		<li class="footer-nav2-item footer-nav2-item--2col"><a href="/privacy.php" class="js-footer-nav2-item">プライバシーポリシー</a></li>
 	</ul>
@@ -371,11 +371,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text3.png" alt="スマホマニアトピック"></dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->kakuyasusumaho-kousoku-ranking.php">格安スマホ高速ランキング</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->kakuyasusumaho-saiyasu-ranking.php">格安スマホ最安ランキング</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->about-sim/#about-contents-outer1">格安スマホとは？</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->about-sim/#about-contents-outer2">SIMフリースマホとは？</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->about-sim/#about-contents-outer3">格安SIMカードとは？</a></li>
+						<li><a href="{{ url('homepage') }}user_data/kakuyasusumaho_kousoku_ranking">格安スマホ高速ランキング</a></li>
+						<li><a href="{{ url('homepage') }}user_data/kakuyasusumaho_saiyasu_ranking">格安スマホ最安ランキング</a></li>
+						<li><a href="{{ url('homepage') }}user_data/about_sim#about-contents-outer1">格安スマホとは？</a></li>
+						<li><a href="{{ url('homepage') }}user_data/about_sim#about-contents-outer2">SIMフリースマホとは？</a></li>
+						<li><a href="{{ url('homepage') }}user_data/about_sim#about-contents-outer3">格安SIMカードとは？</a></li>
 					</ul>
 				</dd>
 			</dl>
@@ -383,10 +383,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text4.png" alt="ご利用ガイド"></dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->guide.php#guide-sectio-box1">お支払い方法</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->guide.php#guide-sectio-box2">商品のお届けについて</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->guide.php#guide-sectio-box3">営業時間について</a></li>
-						<li><a href="<!--{$smarty.const.ACW_BASE_URL}-->guide.php#guide-sectio-box4">ご注文のキャンセル</a></li>
+						<li><a href="{{ url('homepage') }}user_data/guide#guide-sectio-box1">お支払い方法</a></li>
+						<li><a href="{{ url('homepage') }}user_data/guide#guide-sectio-box2">商品のお届けについて</a></li>
+						<li><a href="{{ url('homepage') }}user_data/guide#guide-sectio-box3">営業時間について</a></li>
+						<li><a href="{{ url('homepage') }}user_data/guide#guide-sectio-box4">ご注文のキャンセル</a></li>
 					</ul>
 				</dd>
 			</dl>
@@ -398,8 +398,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<p class="logo"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="スマホマニアbyモバレコ"></a></p>
 			<p class="copy-text"><small>&copy; 2016 スマホマニア by モバレコ</small></p>
 			<ul class="footer-links">
-				<li><a href="{{ url('homepage') }}">プライバシーポリシー</a></li>
-				<li><a href="{{ url('homepage') }}">運営会社情報</a></li>
+				<li><a href="{{ url('homepage') }}user_data/privacy">プライバシーポリシー</a></li>
+				<li><a href="{{ url('homepage') }}user_data/company">運営会社情報</a></li>
 			</ul>
 		</div>
 	</div>

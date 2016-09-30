@@ -1,0 +1,375 @@
+{% extends 'default_frame.twig' %}
+
+{% block javascript %}
+<script>
+
+</script>
+{% endblock %}
+
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+.guide-sectio-box{margin:40px 0 80px}.guide-sectio-box .guide-info-heading{color:#da0d0d;font-size:18px;font-weight:bold;border-bottom:1px solid #ddd;padding:0 0 10px 0;margin-bottom:20px}.guide-sectio-box .text{line-height:1.8}.guide-sectio-box .guide-table{width:100%;margin:20px 0 10px}.guide-sectio-box .guide-table th,.guide-sectio-box .guide-table td{padding:20px;border:1px solid #ddd}.guide-sectio-box .guide-table th img,.guide-sectio-box .guide-table td img{margin-top:10px}.guide-sectio-box .guide-table th{width:190px;background-color:#f6f6f6}.guide-sectio-box .text-part1{font-size:10px;color:#999;text-indent:-1em;margin-left:10px}
+
+
+.subpage-heading {
+    position: relative;
+    margin-bottom: 25px;
+    padding: 12px 10px 12px 28px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    box-shadow: 0 1px 2px 1px #ccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+.subpage-heading:before {
+    content: '';
+    position: absolute;
+    margin: 6px 0;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    right: 0;
+    width: 8px;
+    max-height: 100%;
+    background-color: #da0d0d;
+    border-radius: 3px 0 0 3px;
+}
+
+#contents{
+	padding-top:0px;
+}
+#breadcrumbs.bg-grey {
+    background: #f4f4f4;
+}
+#breadcrumbs {
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+#breadcrumbs .parent {
+    overflow: hidden;
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 11px 0;
+    color: #666;
+}
+#breadcrumbs .children {
+    float: left;
+    font-size: 10px;
+    position: relative;
+}
+#breadcrumbs a {
+    color: #666;
+    margin-right: 20px;
+}
+#breadcrumbs a:after {
+    content: ">";
+    position: absolute;
+    top: -1px;
+    right: 5px;
+}
+/* ======== /PC ==========*/
+
+/* ======== SP ==========*/
+#contents {
+    padding-bottom: 40px;
+    line-height: 1.6;
+}
+.page-heading {
+    display: block;
+    position: relative;
+    padding: 10px 40px;
+    background-color: #333;
+    text-align: center;
+    font-size: 1.3rem;
+    text-decoration: none;
+    color: #fff;
+}
+.page-heading .page-heading-back {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
+    width: 30px;
+    height: 30px;
+    text-align: left;
+    text-indent: 100%;
+    line-height: 30px;
+}
+.page-heading .page-heading-back:before {
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+#contents .section-block {
+    padding: 20px 10px 0;
+}
+#contents .about-payment {
+    background-image: url({{ app.config.front_urlpath }}/img/sp/guide/icon-currency.png?1461059863);
+    background-size: 13px auto;
+    padding-left: 30px;
+}
+#contents .section-heading {
+    padding: 6px 0;
+    background: #eee;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+#contents .text {
+    margin-top: 12px;
+    font-size: 1rem;
+}
+#contents .table-pat1 {
+    width: 100%;
+    margin-top: 12px;
+    border: 1px solid #ddd;
+}
+#contents .table-pat1 th {
+    background: #eee;
+}
+
+#contents .table-pat1 th, #contents .table-pat1 td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+#contents .table-pat1 th, #contents .table-pat1 td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+#contents .table-pat1 .image {
+    margin-top: 3px;
+}
+#contents .about-delivery {
+    background-image: url({{ app.config.front_urlpath }}/img/sp/guide/icon-truck.png?1461059861);
+    background-size: 27px auto;
+    padding-left: 44px;
+}
+#contents .catution-text {
+    margin-top: 12px;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+#contents .catution-text li {
+    text-indent: -1em;
+}
+#contents .about-business-time {
+    background-image: url({{ app.config.front_urlpath }}/img/sp/guide/icon-clock.png?1461059861);
+    background-size: 18px auto;
+    padding-left: 35px;
+}
+#contents .site-features {
+    margin-top: 8px;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: 2px solid #333;
+}
+#contents .about-cancel {
+    background-image: url({{ app.config.front_urlpath }}/img/sp/guide/icon-cancel.png?1461119676);
+    background-size: 14px auto;
+    padding-left: 32px;
+}
+
+
+/* ======== /SP ==========*/
+
+
+</style>
+{% endblock %}
+
+{% block main %}
+
+<!-- ============ PC ============ -->
+<div id="container" class="pc">
+	<div id="container-inner">
+		<p id="breadcrumbs">
+			<span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
+				<span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="<!--{$smarty.const.ACW_URL_DOMAIN}--><!--{$smarty.const.ACW_BASE_URL}-->">スマホマニアトップ</a></span>
+				<span class="children" typeof="v:Breadcrumb"><span property="v:title">ご利用ガイド</span></span>
+			</span>
+		</p>
+		<h1 class="subpage-heading">ご利用ガイド</h1>
+
+		<div class="guide-section">
+			<div id="guide-sectio-box1" class="guide-sectio-box">
+				<h2 class="guide-info-heading">
+					<img src="{{ app.config.front_urlpath }}/img/common/about-payment.png" alt="お支払い方法について">
+				</h2>
+				<p class="text">スマホマニアでは、お申込みいただく端末やSIMカードによってお支払い方法が異なります。<br>製品詳細ページに記載がございますので、ご確認ください</p>
+				<table class="guide-table">
+					<tbody>
+						<tr>
+							<th>端末をご購入の場合</th>
+							<td>クレジットカード(一括) / クレジットカード(24回分割) / 代金引換</td>
+						</tr>
+						<tr>
+							<th>SIMカードをご購入の場合</th>
+							<td>クレジットカード / 口座振込み(TJCのみ)</td>
+						</tr>
+						<tr>
+							<th>対応クレジットカード</th>
+							<td>
+								<p>
+									VISA / JCB / AMERICAN EXPRESS / Master Card / Diners Club <span class="text-part1">(※)</span>
+								</p>
+								<p>
+									<img src="{{ app.config.front_urlpath }}/img/common/credit-card.png" alt="クレジットカード一覧" data-pin-nopin="true">
+								</p>
+							</td>
+						</tr>
+		  		</tbody>
+		   	</table>
+		   	<p class="text-part1">※ デビットカードはご利用いただけません。</p>
+			</div>
+
+			<div id="guide-sectio-box2" class="guide-sectio-box">
+				<h2 class="guide-info-heading">
+					<img src="{{ app.config.front_urlpath }}/img/common/about-delivery.png" alt="商品のお届けについて" data-pin-nopin="true">
+				</h2>
+				<p class="text">配送は、基本的に佐川急便にて行っております。商品によっては一部、クロネコヤマトで発送させていただく場合がございますのであらかじめご了承ください。また、送料は一律500円です。ご希望の時間にお届けさせていただきます。</p>
+				<table class="guide-table">
+					<tbody>
+						<tr>
+							<th>発送目安</th>
+							<td>最短翌日発送 <span class="text-part1">(※1)</span></td>
+						</tr>
+						<tr>
+							<th>配送料金</th>
+							<td>全国一律500円</td>
+						</tr>
+						<tr>
+							<th>配送業者</th>
+							<td>佐川急便 / クロネコヤマト<span class="text-part1">(※2)</span></td>
+						</tr>
+						<tr>
+							<th>配送時間</th>
+							<td>
+								<p>
+									8-12 / 12-14 / 14-16 / 16-18 / 20-21<span class="text-part1">(※3)</span>
+								</p>
+								<p>
+									<img src="{{ app.config.front_urlpath }}/img/common/delivery-time.png" alt="選べるお届け時間の画像" data-pin-nopin="true">
+								</p>
+							</td>
+						</tr>
+		  		</tbody>
+		   	</table>
+		   	<p class="text-part1">※1 お住まいの地域によって、到着の日時は異なります。</p>
+		   	<p class="text-part1">※2 お客様にて配達業者を選択することはできません、あらかじめご了承ください。 </p>
+		   	<p class="text-part1">※3 商品やプランによっては、到着の日時をお選びいただけない場合がございます。</p>
+			</div>
+
+			<div id="guide-sectio-box3" class="guide-sectio-box">
+				<h2 class="guide-info-heading">
+					<img src="{{ app.config.front_urlpath }}/img/common/about-business-hour.png" alt="営業時間について" data-pin-nopin="true">
+				</h2>
+				<p class="text">スマホマニアはより多くのお客様に格安スマホを手にしていただくため、年中無休 24時間営業しております。</p>
+			</div>
+
+			<div id="guide-sectio-box4" class="guide-sectio-box">
+				<h2 class="guide-info-heading">
+					<img src="{{ app.config.front_urlpath }}/img/common/about-cancel.png" alt="キャンセルについて" data-pin-nopin="true">
+				</h2>
+				<p class="text">お申込み後のキャンセルはお受けできませんのでご注意ください。</p>
+			</div>
+
+
+		</div>
+
+	</div>
+</div>
+<!-- ============ /PC ============ -->
+
+<!-- ============ SP ============ -->
+<div id="contents" class="sp">
+	<div class="page-heading">
+		<p><a href="/res/sp/" class="page-heading-back">戻る</a></p>
+		<h1>ご利用ガイド</h1>
+	</div>
+	<section id="payment" class="section-block">
+		<h2 class="section-heading about-payment">お支払い方法について</h2>
+		<p class="text">スマホマニアでは、お申込みいただく端末やSIMカードによってお支払い方法が異なります。<br>製品ページに記載がございますので、ご確認ください。</p>
+		<table class="table-pat1">
+			<tr>
+				<th>端末をご購入の場合</th>
+				<td>クレジットカード(一括) <br>
+				クレジットカード(24回分割) <br>
+				代金引換</td>
+			</tr>
+			<tr>
+				<th>SIMカードをご購入の場合</th>
+				<td>クレジットカード <br>口座振込み(TJCのみ)</td>
+			</tr>
+			<tr>
+				<th>対応クレジットカード</th>
+				<td>VISA / JCB / <br>
+				AMERICAN EXPRESS / <br>
+				Master Card / Diners Club(※)
+				<p class="image"><img src="{{ app.config.front_urlpath }}/img/sp/guide/credit-list.png" alt="クレジットカード一覧" width="147" height="18"></p></td>
+			</tr>
+		</table>
+		<p class="text">※ デビットカードはご利用いただけません。</p>
+	</section>
+	<section id="delivery" class="section-block">
+		<h2 class="section-heading about-delivery">商品のお届けについて</h2>
+		<p class="text">配送は、基本的に佐川急便にて行っております。商品によっては一部、クロネコヤマトで発送させていただく場合がございますのであらかじめご了承ください。また、送料は一律500円です。ご希望の時間にお届けさせていただきます。</p>
+		<table class="table-pat1">
+			<tr>
+				<th>発送目安</th>
+				<td>最短翌日発送 (※1)</td>
+			</tr>
+			<tr>
+				<th>配送料</th>
+				<td>全国一律500円</td>
+			</tr>
+			<tr>
+				<th>配送業者</th>
+				<td>佐川急便 / クロネコヤマト(※2)</td>
+			</tr>
+			<tr>
+				<th>配達時間</th>
+				<td>8-12 / 12-14 / 14-16 / 16-18 / 20-21(※3)</td>
+			</tr>
+		</table>
+		<ul class="catution-text">
+			<li>※1 お住まいの地域によって、到着の日時は異なります。</li>
+			<li>※2 お客様にて配達業者を選択することはできません、あらかじめご了承ください。</li>
+			<li>※3 商品やプランによっては、到着の日時をお選びいただけない場合がございます。</li>
+		</ul>
+	</section>
+	<section id="time" class="section-block">
+		<h2 class="section-heading about-business-time">営業時間について</h2>
+		<p class="text">スマホマニアはより多くのお客様に格安スマホを手にしていただくため、年中無休 24時間営業しております。</p>
+		<p class="site-features">Webお申し込み 24時間365日受付中!</p>
+	</section>
+	<section class="section-block">
+		<h2 class="section-heading about-cancel">ご注文のキャンセルについて</h2>
+		<p class="text">お申込み後のキャンセルはお受けできませんのでご注意ください。</p>
+	</section>
+</div>
+
+<!-- ============ /SP ============ -->
+
+
+{% endblock %}

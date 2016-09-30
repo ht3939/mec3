@@ -1,0 +1,475 @@
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+.item-dtl-sim {
+	width: 1000px;
+	margin-bottom: 65px;
+	background: #fff;
+}
+.item-dtl-sim dt {
+	border-top: 5px solid #333;
+	border-bottom: 1px solid #ccc;
+	padding: 15px 20px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #232f3e;
+	line-height: 1;
+}
+.item-dtl-sim dd {
+	padding: 25px 30px 30px;
+}
+.item-dtl-sim dd p {
+	margin-bottom: 20px;
+}
+.item-dtl-sim dd table {
+	width: 100%;
+	letter-spacing: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.item-dtl-sim dd table thead th {
+	padding: 12px 0;
+	background: #333;
+	color: #fff;
+	border-left: 1px solid #fff;
+	font-size: 14px;
+	text-align: center;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle;
+}
+.item-dtl-sim dd table thead th.fit_btn {
+	width: 145px;
+}
+.item-dtl-sim dd table tbody td.dtl-img {
+	width: 55px;
+	padding: 10px 0 10px 10px;
+}
+.item-dtl-sim dd table tbody td {
+	text-align: center;
+	padding: 10px;
+}
+.item-dtl-sim dd table tbody td.item-name-sim {
+	width: 370px;
+	text-align: left;
+}
+.item-dtl-sim dd table tbody td.dtl-img img {
+	width: 100%;
+}
+.item-dtl-sim dd table tbody td img {
+	float: left;
+	margin-right: 5px;
+}
+
+.item-dtl-sim dd table tbody td span {
+	font-size: 11px;
+	display: block;
+	text-align: left;
+}
+.item-dtl-sim dd table tbody td .btn-dtl-sim-outer {
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+	background-size: 100%;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff912e));
+	background-image: -moz-linear-gradient(#ffa51d,#ff912e);
+	background-image: -webkit-linear-gradient(#ffa51d,#ff912e);
+	background-image: linear-gradient(#ffa51d,#ff912e);
+	display: inline-block;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+.item-dtl-sim dd table tbody td .btn-dtl-sim {
+	width: 125px;
+	padding: 10px 0 10px 20px;
+	font-family: "メイリオ", sans-serif;
+	font-size: 12px;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	box-shadow: none;
+	line-height: 1;
+	cursor: pointer;
+	display: block;
+	background: transparent url({{ app.config.front_urlpath }}/img/product/icon-cart-sim.png?1468475547) no-repeat 9px center;
+}
+.item-dtl-sim dd table tbody td a {
+	text-decoration: underline;
+	font-size: 11px;
+	color: #3243c2;
+}
+.item-dtl-sim dd table tbody tr:nth-child(even) {
+	background: #fef5f4;
+}
+
+/* ======== 同じブランドから出ている商品 ==========*/
+.item-list-brand {
+	width: 1000px;
+	margin-bottom: 90px;
+}
+.item-list-brand h2 {
+	border-top: 1px solid #ccc;
+	padding: 25px 0 0;
+	font-size: 24px;
+	font-weight: bold;
+}
+.item-list-brand ul {
+	overflow: hidden;
+}
+.item-list-brand li {
+	width: 152px;
+	padding-right: 60px;
+	float: left;
+	font-size: 13px;
+}
+.item-list-brand li .image {
+	width: 120px;
+	margin: 0 auto;
+}
+.item-list-brand li>span {
+	font-size: 11px;
+	display: block;
+	margin-bottom: 5px;
+}
+.item-list-brand li a {
+	color: #3243c2;
+	text-decoration: underline;
+}
+.item-list-brand li .detail {
+	font-size: 12px;
+	padding-top: 5px;
+}
+.item-list-brand li .detail span {
+	color: #da0d0d;
+}
+.item-list-brand li.last {
+	padding-right: 0;
+}
+/* ======== /PC ==========*/
+
+/* ======== SP ==========*/
+.item-inf .inf-content {
+	padding: 0 10px;
+	border-top: 2px solid #ccc;
+}
+.item-inf .inf-content h2 {
+	padding: 10px 0;
+	font-size: 1.5rem;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 10px;
+}
+.item-inf #sp .sp-num {
+	font-size: 1rem;
+	margin-bottom: 15px;
+}
+.item-inf #sp .sp-num span {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #da0d0d;
+}
+.item-inf #sp .btn-show {
+	width: 76%;
+	margin: 0 auto;
+	padding: 12px 0;
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: bold;
+	border: 1px solid #ccc;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff),color-stop(100%, #eeeeee));
+	background: -moz-linear-gradient(#ffffff,#eeeeee);
+	background: -webkit-linear-gradient(#ffffff,#eeeeee);
+	background: linear-gradient(#ffffff,#eeeeee);
+	margin-bottom: 40px;
+	position: relative;
+}
+.item-inf #sp .btn-show:after {
+	content: '';
+	position: absolute;
+	border-top: 8px solid #1d2733;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 8px solid transparent;
+	right: 18px;
+	top: 50%;
+	margin-top: -4px;
+}
+.item-inf .more {
+	display: none;
+}
+.item-inf #sp .sp-list>ul {
+	overflow: hidden;
+}
+.item-inf #sp .sp-list>ul>li {
+	float: left;
+	width: 50%;
+	padding-bottom: 20px;
+	font-size: 1rem;
+}
+.item-inf #sp .sp-list a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+.item-inf #sp .sp-list .image img {
+	width: 100%;
+	height: auto;
+}
+.item-inf #sp .sp-list .brand, .item-inf #sp .sp-list .ttl, .item-inf #sp .sp-list .capa, .item-inf #sp .sp-list .price {
+	padding-right: 15px;
+}
+.item-inf #sp .sp-list .ttl {
+	color: #3243c2;
+	text-decoration: underline;
+	margin-bottom: 5px;
+	padding-top: 8px;
+}
+.item-inf #sp .sp-list .capa {
+	color: #666;
+	margin-bottom: 5px;
+}
+.brand-item {
+	padding: 15px 10px 30px;
+	border-top: 1px solid #ccc;
+}
+.brand-item h2 {
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.brand-item .brand-item-list {
+	overflow-x: auto;
+}
+.brand-item .brand-item-list ul {
+	overflow: hidden;
+}
+.brand-item .brand-item-list li {
+	width: 120px;
+	margin-right: 20px;
+	float: left;
+	font-size: 10px;
+	padding-bottom: 20px;
+}
+.brand-item .brand-item-list li a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+.brand-item .brand-item-list li .image img {
+	width: 100%;
+	height: auto;
+}
+.brand-item .brand-item-list li .ttl {
+	color: #3243c2;
+	text-decoration: underline;
+	margin-bottom: 15px;
+	padding-top: 8px;
+}
+.brand-item .brand-item-list li:last-child {
+	margin-right: 0;
+}
+
+/* ======== /SP ==========*/
+
+</style>
+{% endblock %}
+
+<!-- ============ PC ============ -->
+<dl class="item-dtl-sim pc">
+	<dt>対応する端末</dt>
+	<dd>
+		<p>U-mobile データ専用ダブルフィックスに対応している端末一覧です。こちらで掲載している端末は周波数などの情報をもとにしています。そのため地域や端末の特性によっては使用できない場合もございます。当方で動作を保証するものではございませんのでご了承下さい。ご購入前には必ず販売元へご確認下さいますようお願い致します。</p>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">製品名</th>
+					<th>キャリア</th>
+					<th>カードサイズ</th>
+					<th class="fit_btn">ご購入</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="dtl-img">
+						<img src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/iphone6/default/item-dtl-1.png" alt="iPhone 6">
+					</td>
+					<td class="item-name-sim">
+						<span>Apple</span>
+						iPhone 6
+					</td>
+					<td>SIMフリー</td>
+					<td>ナノSIM</td>
+					<td>
+						<input type="hidden" value="SP-0001" name="item_id" />
+						<input type="hidden" value="space-gary" name="color_id" />
+						<p class="btn-dtl-sim-outer js-matchcart-sp"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
+						<a href="/simfree-sumaho/iphone6.php">詳細ページを見る &gt;</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="dtl-img">
+						<img src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/iphone6/default/item-dtl-1.png" alt="iPhone 5">
+					</td>
+					<td class="item-name-sim">
+						<span>Apple</span>
+						iPhone 5
+					</td>
+					<td>SIMフリー</td>
+					<td>ナノSIM</td>
+					<td>
+						<input type="hidden" value="SP-0002" name="item_id" />
+						<input type="hidden" value="black" name="color_id" />
+						<p class="btn-dtl-sim-outer js-matchcart-sp"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
+						<a href="/simfree-sumaho/iphone5.php">詳細ページを見る &gt;</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</dd>
+</dl>
+
+<div class="item-list-brand pc">
+	<h2>同じブランドからでている製品</h2>
+	<ul>
+		<li >
+			<div class="image"><img alt="$sys.same_maker[row].sim_name" src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/iphone6/default/item-dtl-1.png"></div>
+			<span>U-mobile</span>
+			<a href="/simcard/umobile-data-doublefix.php">データ専用ダブルフィックス</a>
+			<p class="detail">容量│1GB～3GB
+			<br>月額料金：<span>680</span>円</p>
+		</li>
+		<li >
+			<div class="image"><img alt="$sys.same_maker[row].sim_name" src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/iphone6/default/item-dtl-1.png"></div>
+			<span>U-mobile</span>
+			<a href="/simcard/umobile-onsei-free.php">通話プラスLTE使い放題</a>
+			<p class="detail">容量│制限なし
+			<br>月額料金：<span>2980</span>円</p>
+		</li>
+	</ul>
+</div>
+<!-- ============ /PC ============ -->
+
+<!-- ============ SP ============ -->
+<div class="item-inf sp">
+	<div id="sp" class="inf-content js-scroll-referer-for-follow-header-navigation">
+		<h2>対応端末</h2>
+		<p class="sp-num">全<span></span>製品</p>
+		<div class="sp-list">
+			<ul>
+				<li>
+					<a href="/sp/simfree-sumaho/iphone6.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/iphone6/default/item-dtl-1.png" alt="Apple"></div>
+						<p class="brand js-available-product-brand">Apple</p>
+						<p class="ttl js-available-product-product-name">iPhone 6</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：ナノSIM</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simfree-sumaho/iphone5.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/iphone5/default/item-dtl-1.png" alt="Apple"></div>
+						<p class="brand js-available-product-brand">Apple</p>
+						<p class="ttl js-available-product-product-name">iPhone 5</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：ナノSIM</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simfree-sumaho/zenfone2.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/zenfone2/default/item-dtl-1.png" alt="ASUS"></div>
+						<p class="brand js-available-product-brand">ASUS</p>
+						<p class="ttl js-available-product-product-name">ZenFone 2</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：マイクロSIM</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simfree-sumaho/xm.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/xm/default/item-dtl-1.png" alt="FREETEL"></div>
+						<p class="brand js-available-product-brand">FREETEL</p>
+						<p class="ttl js-available-product-product-name">XM</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：マイクロSIM</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<p class="btn-show js-more-handle">すべての製品を見る</p>
+		<div class="sp-list more  js-more-target">
+			<ul>
+				<li>
+					<a href="/sp/simfree-sumaho/.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/priori2/default/item-dtl-1.png" alt="FREETEL"></div>
+						<p class="brand js-available-product-brand">FREETEL</p>
+						<p class="ttl js-available-product-product-name">priori2</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：標準SIM,マイクロSIM</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simfree-sumaho/.php">
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/smartphone/detail/priori2_lte/default/item-dtl-1.png" alt="FREETEL"></div>
+						<p class="brand js-available-product-brand">FREETEL</p>
+						<p class="ttl js-available-product-product-name">priori2 LTE</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：マイクロSIM</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="brand-item">
+		<h2>同じブランドからでている製品</h2>
+		<div class="brand-item-list">
+			<ul>
+				<li >
+					<a href="/sp/simcard/biglobe-data-6gb-light.php">
+						<p class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/biglobe/SIM-0043/item-dtl-1.png" alt="データ通信のみ 6GB ライトSプラン"></p>
+						<p class="brand js-same-brand-product-brand">BIGLOBE</p>
+						<p class="ttl js-same-brand-product-product-name">データ通信のみ 6GB ライトSプラン</p>
+						<p class="capa">容量｜6GB</p>
+						<p class="price">月額料金:<span>1450</span>円</p>
+					</a>
+				</li>
+				<li >
+					<a href="/sp/simcard/biglobe-data-sms-6gb-light.php">
+						<p class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/biglobe/SIM-0046/item-dtl-1.png" alt="データ通信＋SMS 6GB ライトSプラン"></p>
+						<p class="brand js-same-brand-product-brand">BIGLOBE</p>
+						<p class="ttl js-same-brand-product-product-name">データ通信＋SMS 6GB ライトSプラン</p>
+						<p class="capa">容量｜6GB</p>
+						<p class="price">月額料金:<span>1570</span>円</p>
+					</a>
+				</li>
+				<li >
+					<a href="/sp/simcard/biglobe-onsei-sms-3gb-entry.php">
+						<p class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/biglobe/SIM-0049/item-dtl-1.png" alt="音声通話(データ＋SMS＋音声通話) 3GB エントリープラン"></p>
+						<p class="brand js-same-brand-product-brand">BIGLOBE</p>
+						<p class="ttl js-same-brand-product-product-name">音声通話(データ＋SMS＋音声通話) 3GB エントリープラン</p>
+						<p class="capa">容量｜3GB</p>
+						<p class="price">月額料金:<span>1600</span>円</p>
+					</a>
+				</li>
+				<li >
+					<a href="/sp/simcard/biglobe-data-12gb.php">
+						<p class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/biglobe/SIM-0044/item-dtl-1.png" alt="データ通信のみ 12GB 12ギガプラン"></p>
+						<p class="brand js-same-brand-product-brand">BIGLOBE</p>
+						<p class="ttl js-same-brand-product-product-name">データ通信のみ 12GB 12ギガプラン</p>
+						<p class="capa">容量｜12GB</p>
+						<p class="price">月額料金:<span>2700</span>円</p>
+					</a>
+				</li>
+				<li class="last">
+					<a href="/sp/simcard/biglobe-data-sms-12gb.php">
+						<p class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/biglobe/SIM-0047/item-dtl-1.png" alt="データ通信＋SMS 12GB 12ギガプラン"></p>
+						<p class="brand js-same-brand-product-brand">BIGLOBE</p>
+						<p class="ttl js-same-brand-product-product-name">データ通信＋SMS 12GB 12ギガプラン</p>
+						<p class="capa">容量｜12GB</p>
+						<p class="price">月額料金:<span>2820</span>円</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- ============ /SP ============ -->

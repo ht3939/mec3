@@ -170,6 +170,7 @@
 	$(function() {
 		$('#' + $('#item-dtl-tab li.active').data('tab')).show();
 		$('#item-dtl-tab li').click(function(){
+		console.log('test');
 			if(!$(this).hasClass('active')){
 				$('#item-dtl-tab li').removeClass('active');
 				$(this).addClass('active');

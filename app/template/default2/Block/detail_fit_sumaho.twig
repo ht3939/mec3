@@ -1,0 +1,359 @@
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+.item-dtl-sim {
+	width: 1000px;
+	margin-bottom: 65px;
+	background: #fff;
+}
+.item-dtl-sim dt {
+	border-top: 5px solid #333;
+	border-bottom: 1px solid #ccc;
+	padding: 15px 20px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #232f3e;
+	line-height: 1;
+}
+.item-dtl-sim dd {
+	padding: 25px 30px 30px;
+}
+.item-dtl-sim dd p {
+	margin-bottom: 20px;
+}
+.item-dtl-sim dd table {
+	width: 100%;
+	letter-spacing: 0;
+}
+.item-dtl-sim dd table tbody tr:nth-child(even) {
+	background: #fef5f4;
+}
+.item-dtl-sim dd table thead th {
+	padding: 12px 0;
+	background: #333;
+	color: #fff;
+	border-left: 1px solid #fff;
+	font-size: 14px;
+	text-align: center;
+}
+.item-dtl-sim dd table thead th.btn_fit {
+	width: 145px;
+}
+.item-dtl-sim dd table tbody td.dtl-img {
+	width: 55px;
+	padding: 10px 0 10px 10px;
+}
+.item-dtl-sim dd table tbody td {
+	text-align: center;
+	padding: 10px;
+}
+.item-dtl-sim dd table tbody td.dtl-img img {
+	width: 100%;
+}
+.item-dtl-sim dd table tbody td img {
+	float: left;
+	margin-right: 5px;
+}
+.item-dtl-sim dd table tbody td span {
+	font-size: 11px;
+	display: block;
+	text-align: left;
+}
+.item-dtl-sim dd table tbody td .btn-dtl-sim-outer {
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+	background-size: 100%;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff912e));
+	background-image: -moz-linear-gradient(#ffa51d,#ff912e);
+	background-image: -webkit-linear-gradient(#ffa51d,#ff912e);
+	background-image: linear-gradient(#ffa51d,#ff912e);
+	display: inline-block;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+.item-dtl-sim dd p {
+	margin-bottom: 20px;
+}
+.item-dtl-sim dd table tbody td .btn-dtl-sim {
+	width: 125px;
+	padding: 10px 0 10px 20px;
+	font-family: "メイリオ", sans-serif;
+	font-size: 12px;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	box-shadow: none;
+	line-height: 1;
+	cursor: pointer;
+	display: block;
+	background: transparent url({{ app.config.front_urlpath }}/img/product/icon-cart-sim.png?1468475547) no-repeat 9px center;
+}
+.item-dtl-sim dd table tbody td a {
+	text-decoration: underline;
+	font-size: 11px;
+	color: #3243c2;
+}
+/* ======== /PC ==========*/
+
+/* ======== SP ==========*/
+.item-inf .inf-content {
+    padding: 0 10px;
+    border-top: 2px solid #ccc;
+}
+.item-inf .inf-content h2 {
+    padding: 10px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.item-inf #sim .sim-num {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.item-inf #sim .sim-num span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #da0d0d;
+}
+.item-inf #sim .sim-list>ul {
+    overflow: hidden;
+}
+.item-inf #sim .sim-list>ul>li {
+    float: left;
+    width: 50%;
+    padding-bottom: 20px;
+    font-size: 1rem;
+}
+.item-inf #sim .sim-list a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+.item-inf #sim .sim-list .tag-list {
+    overflow: hidden;
+}
+.item-inf #sim .sim-list .brand, .item-inf #sim .sim-list .ttl, .item-inf #sim .sim-list .capa, .item-inf #sim .sim-list .price {
+    padding-right: 15px;
+}
+.item-inf #sim .sim-list .ttl {
+    color: #3243c2;
+    text-decoration: underline;
+    margin-bottom: 5px;
+    padding-top: 8px;
+}
+.item-inf #sim .sim-list .brand, .item-inf #sim .sim-list .ttl, .item-inf #sim .sim-list .capa, .item-inf #sim .sim-list .price {
+    padding-right: 15px;
+}
+.item-inf #sim .sim-list .capa {
+    color: #666;
+    margin-bottom: 5px;
+}
+.item-inf #sim .sim-list .tag-list li {
+    padding: 1px 3px;
+    border: 1px solid #ccc;
+    background: #ececec;
+    float: left;
+    margin: 0 3px 3px 0;
+    font-size: 1rem;
+    font-weight: normal;
+}
+.item-inf #sim .sim-list .image img {
+    width: 100%;
+    height: auto;
+}
+.item-inf #sim .sim-list .price span {
+    color: #da0d0d;
+    font-weight: bold;
+}
+.item-inf #sim .btn-show {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff),color-stop(100%, #eeeeee));
+    background-image: -moz-linear-gradient(#ffffff,#eeeeee);
+    background-image: -webkit-linear-gradient(#ffffff,#eeeeee);
+    background-image: linear-gradient(#ffffff,#eeeeee);
+    width: 76%;
+    margin: 0 auto;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 40px;
+    position: relative;
+}
+.item-inf #sim .btn-show:after {
+    position: absolute;
+    content: '';
+    position: absolute;
+    content: '';
+    border-top: 8px solid #1d2733;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid transparent;
+    right: 18px;
+    top: 50%;
+    margin-top: -4px;
+}
+.item-inf .more {
+    display: none;
+}
+
+
+/* ======== /SP ==========*/
+
+
+</style>
+{% endblock %}
+
+<!-- =============== PC =============== -->
+<dl class="item-dtl-sim pc">
+	<dt>対応するSIMカード</dt>
+	<dd>
+		<p>Huawei Ascend G6に対応しているSIMカード一覧です。こちらで掲載しているSIMカードは周波数などの情報をもとにしています。そのため地域や端末の特性によっては使用できない場合もございます。当方で動作を保証するものではございませんのでご了承下さい。ご購入前には必ず販売元へご確認下さいますようお願い致します。</p>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">製品名</th>
+					<th>月額料金(税抜)</th>
+					<th>データ容量</th>
+					<th>通信速度(下り)</th>
+					<th>音声通話</th>
+					<th class="btn_fit">ご購入</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="dtl-img">
+						<img src="https://sumaho-mania.com/res/default/img/product/simcard/detail/u-mobile/SIM-0002/item-dtl-1.png" alt="データ専用ダブルフィックス" />
+					</td>
+					<td class="item-name">
+						<span>U-mobile</span>
+						データ専用ダブルフィックス
+					</td>
+					<td>680円</td>
+					<td>1GB～3GB/月</td>
+					<td>225</td>
+					<td>×</td>
+					<td>
+						<input type="hidden" value="SIM-0002" name="item_id">
+						<p class="btn-dtl-sim-outer js-matchcart-sim"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
+						<a href="/simcard/umobile-data-doublefix.php">詳細ページを見る &gt;</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="dtl-img">
+						<img src="https://sumaho-mania.com/res/default/img/product/simcard/detail/u-mobile/SIM-0003/item-dtl-1.png" alt="データ専用1GBプラン" />
+					</td>
+					<td class="item-name">
+						<span>U-mobile</span>
+						データ専用1GBプラン
+					</td>
+					<td>790円</td>
+					<td>1GB/月</td>
+					<td>225</td>
+					<td>×</td>
+					<td>
+						<input type="hidden" value="SIM-0003" name="item_id">
+						<p class="btn-dtl-sim-outer js-matchcart-sim"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
+						<a href="/simcard/umobile-data-1gb.php">詳細ページを見る &gt;</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- <p class="simlist-show js-simlist-show">もっと見る</p> -->
+	</dd>
+</dl>
+<!-- =============== /PC =============== -->
+
+<!-- =============== SP =============== -->
+<div class="item-inf sp">
+	<div id="sim" class="inf-content js-scroll-referer-for-follow-header-navigation">
+		<h2>対応SIMカード</h2>
+		<p class="sim-num">全<span>49</span>製品</p>
+		<div class="sim-list">
+			<ul>
+				<li>
+					<a href="/sp/simcard/umobile-data-doublefix.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0002/item-dtl-1.png" alt="データ専用ダブルフィックス"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">データ専用ダブルフィックス</p>
+						<p class="capa js-available-product-product-capacity">容量｜1GB～3GB</p>
+						<p class="price js-available-product-product-price">月額料金:<span>680</span>円</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simcard/umobile-data-1gb.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0003/item-dtl-1.png" alt="データ専用1GBプラン"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">データ専用1GBプラン</p>
+						<p class="capa js-available-product-product-capacity">容量｜1GB</p>
+						<p class="price js-available-product-product-price">月額料金:<span>790</span>円</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simcard/umobile-data-5gb.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0004/item-dtl-1.png" alt="データ専用5GBプラン"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">データ専用5GBプラン</p>
+						<p class="capa js-available-product-product-capacity">容量｜5GB</p>
+						<p class="price js-available-product-product-price">月額料金:<span>1,480</span>円</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simcard/umobile-data-free.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0005/item-dtl-1.png" alt="データ専用LTE使い放題プラン"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">データ専用LTE使い放題プラン</p>
+						<p class="capa js-available-product-product-capacity">容量｜制限なし</p>
+						<p class="price js-available-product-product-price">月額料金:<span>2,480</span>円</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<p class="btn-show js-more-handle">すべての製品を見る</p>
+		<div class="sim-list more js-more-target">
+			<ul>
+				<li>
+					<a href="/sp/simcard/umobile-onsei-doublefix.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0006/item-dtl-1.png" alt="通話プラスダブルフィックス"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">通話プラスダブルフィックス</p>
+						<p class="capa js-available-product-product-capacity">容量｜1GB～3GB</p>
+						<p class="price js-available-product-product-price">月額料金:<span>1,480</span>円</p>
+					</a>
+				</li>
+				<li>
+					<a href="/sp/simcard/umobile-onsei-3gb.php">
+						<ul class="tag-list">
+							<li>音声通話</li>
+						</ul>
+						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0007/item-dtl-1.png" alt="通話プラス3GB"></div>
+						<p class="brand js-available-product-brand">U-mobile</p>
+						<p class="ttl js-available-product-product-name">通話プラス3GB</p>
+						<p class="capa js-available-product-product-capacity">容量｜3GB</p>
+						<p class="price js-available-product-product-price">月額料金:<span>1,580</span>円</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- =============== /SP =============== -->
