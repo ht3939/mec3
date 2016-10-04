@@ -27,16 +27,16 @@ use Eccube\Common\Constant;
 use Eccube\Entity\ClassName;
 use Eccube\Entity\Product;
 //use Eccube\Entity\ProductClass;
-use Plugin\Entity\ProductClassEx;
+use Plugin\ProductClassEx\Entity\ProductClassEx;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
+use Eccube\Controller\Admin\Product\ProductClassController;
 
-
-class ProductClassExController
+class ProductClassExController extends ProductClassController
 {
 
     /**
@@ -166,11 +166,12 @@ dump($app);dump($Product);//die();
             ));
 
         } else {
-dump('has classes');die();
+dump('has classes');
             // 既に商品規格が登録されている場合、商品規格画面を表示する
 
             // 既に登録されている商品規格を取得
             $ProductClasses = $this->getProductClassesExcludeNonClass($Product);
+dump($ProductClasses);
 
             // 設定されている規格分類1、2を取得(商品規格の規格分類には必ず同じ値がセットされている)
             $ProductClass = $ProductClasses[0];
@@ -179,12 +180,15 @@ dump('has classes');die();
             if (!is_null($ProductClass->getClassCategory2())) {
                 $ClassName2 = $ProductClass->getClassCategory2()->getClassName();
             }
+dump($ProductClasses);
 
             // 規格分類が組み合わされた空の商品規格を取得
             $createProductClasses = $this->createProductClasses($app, $Product, $ClassName1, $ClassName2);
+dump($createProductClasses);
 
 
             $mergeProductClasses = array();
+dump('has classes');
 
             // 商品税率が設定されている場合、商品税率を項目に設定
             $BaseInfo = $app['eccube.repository.base_info']->get();
@@ -196,7 +200,8 @@ dump('has classes');die();
                 }
             }
 
-
+dump($mergeProductClasses);
+//die();
             // 登録済み商品規格と空の商品規格をマージ
             $flag = false;
             foreach ($createProductClasses as $createProductClass) {
@@ -247,7 +252,7 @@ dump('has classes');die();
 
             $productClassForm = $builder->getForm()->createView();
 
-            return $app->render('product_class.twig', array(
+            return $app->render('ProductClassEx/View/admin/product_class.twig', array(
                 'classForm' => $productClassForm,
                 'Product' => $Product,
                 'class_name1' => $ClassName1,

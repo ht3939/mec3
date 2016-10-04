@@ -100,10 +100,10 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
         ProductStock:
             targetEntity: Eccube\Entity\ProductStock
             cascade: ["persist", "remove"]
-            mappedBy: ProductClass
+            mappedBy: ProductClassEx
         TaxRule:
             targetEntity: Eccube\Entity\TaxRule
             cascade: ["persist", "remove"]
-            mappedBy: ProductClass
+            mappedBy: ProductClassEx
     lifecycleCallbacks: {  }
 
