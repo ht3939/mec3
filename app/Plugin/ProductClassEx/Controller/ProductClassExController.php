@@ -20,15 +20,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
 namespace Plugin\ProductClassEx\Controller;
 
 use Eccube\Application;
 use Eccube\Common\Constant;
 use Eccube\Entity\ClassName;
 use Eccube\Entity\Product;
-use Eccube\Entity\ProductClass;
+//use Eccube\Entity\ProductClass;
 use Plugin\Entity\ProductClassEx;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
@@ -38,7 +36,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-class ProductClassControllerEx
+class ProductClassExController
 {
 
     /**
@@ -55,7 +53,7 @@ class ProductClassControllerEx
             throw new NotFoundHttpException();
         }
 
-
+dump($app);dump($Product);//die();
         // 商品規格情報が存在しなければ新規登録させる
         if (!$Product->hasProductClass()) {
             // 登録画面を表示
@@ -85,7 +83,7 @@ class ProductClassControllerEx
                 ),
                 $request
             );
-            $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_INITIALIZE, $event);
+            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_INITIALIZE, $event);
 
             $form = $builder->getForm();
 
@@ -135,7 +133,7 @@ class ProductClassControllerEx
 
                         $builder
                             ->add('product_classes', 'collection', array(
-                                'type' => 'admin_product_class',
+                                'type' => 'admin_product_classex',
                                 'allow_add' => true,
                                 'allow_delete' => true,
                                 'data' => $ProductClasses,
@@ -149,7 +147,7 @@ class ProductClassControllerEx
                             ),
                             $request
                         );
-                        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
+                        //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
 
                         $productClassForm = $builder->getForm()->createView();
 
@@ -158,7 +156,7 @@ class ProductClassControllerEx
                 }
             }
 
-            return $app->render('Product/product_class.twig', array(
+            return $app->render('ProductClassEx/View/admin/product_classex.twig', array(
                 'form' => $form->createView(),
                 'classForm' => $productClassForm,
                 'Product' => $Product,
@@ -168,6 +166,7 @@ class ProductClassControllerEx
             ));
 
         } else {
+dump('has classes');die();
             // 既に商品規格が登録されている場合、商品規格画面を表示する
 
             // 既に登録されている商品規格を取得
@@ -230,7 +229,7 @@ class ProductClassControllerEx
 
             $builder
                 ->add('product_classes', 'collection', array(
-                    'type' => 'admin_product_class',
+                    'type' => 'admin_product_classex',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'data' => $ProductClasses,
@@ -244,11 +243,11 @@ class ProductClassControllerEx
                 ),
                 $request
             );
-            $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
+            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
 
             $productClassForm = $builder->getForm()->createView();
 
-            return $app->render('Product/product_class.twig', array(
+            return $app->render('product_class.twig', array(
                 'classForm' => $productClassForm,
                 'Product' => $Product,
                 'class_name1' => $ClassName1,
@@ -261,7 +260,6 @@ class ProductClassControllerEx
         }
 
     }
-
 
 
     /**
@@ -285,7 +283,7 @@ class ProductClassControllerEx
 
         $builder = $app['form.factory']->createBuilder();
         $builder
-                ->add('product_classesex', 'collection', array(
+                ->add('product_classes', 'collection', array(
                     'type' => 'admin_product_classex',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -298,7 +296,7 @@ class ProductClassControllerEx
             ),
             $request
         );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASSEX_EDIT_INITIALIZE, $event);
+        //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_INITIALIZE, $event);
 
         $form = $builder->getForm();
 
@@ -314,7 +312,7 @@ class ProductClassControllerEx
 
                     if (count($ProductClasses) > 0) {
                         // 既に登録されていれば最初の画面に戻す
-                        return $app->redirect($app->url('admin_product_product_classex', array('id' => $id)));
+                        return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
                     }
 
                     $addProductClasses = array();
@@ -345,7 +343,7 @@ class ProductClassControllerEx
                     $this->insertProductClass($app, $Product, $addProductClasses);
 
                     // デフォルトの商品規格を更新
-                    $defaultProductClass = $app['eccube.repository.product_class']
+                    $defaultProductClass = $app['eccube.repository.product_classex']
                             ->findOneBy(array('Product' => $Product, 'ClassCategory1' => null, 'ClassCategory2' => null));
 
                     $defaultProductClass->setDelFlg(Constant::ENABLED);
@@ -360,9 +358,9 @@ class ProductClassControllerEx
                         ),
                         $request
                     );
-                    $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_COMPLETE, $event);
+                    //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_COMPLETE, $event);
 
-                    $app->addSuccess('admin.product.product_class.save.complete', 'admin');
+                    $app->addSuccess('admin.product.product_classex.save.complete', 'admin');
 
                     break;
                 case 'update':
@@ -370,7 +368,7 @@ class ProductClassControllerEx
 
                     if (count($ProductClasses) == 0) {
                         // 商品規格が0件であれば最初の画面に戻す
-                        return $app->redirect($app->url('admin_product_product_class', array('id' => $id)));
+                        return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
                     }
 
                     $checkProductClasses = array();
@@ -460,9 +458,9 @@ class ProductClassControllerEx
                         ),
                         $request
                     );
-                    $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_UPDATE, $event);
+                    //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_UPDATE, $event);
 
-                    $app->addSuccess('admin.product.product_class.update.complete', 'admin');
+                    $app->addSuccess('admin.product.product_classex.update.complete', 'admin');
 
                     break;
                 case 'delete':
@@ -470,7 +468,7 @@ class ProductClassControllerEx
 
                     if (count($ProductClasses) == 0) {
                         // 既に商品が削除されていれば元の画面に戻す
-                        return $app->redirect($app->url('admin_product_product_class', array('id' => $id)));
+                        return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
                     }
 
                     foreach ($ProductClasses as $ProductClass) {
@@ -485,7 +483,7 @@ class ProductClassControllerEx
                     ));
 
                     // デフォルトの商品規格を更新
-                    $defaultProductClass = $app['eccube.repository.product_class']
+                    $defaultProductClass = $app['eccube.repository.product_classex']
                             ->findOneBy(array('Product' => $Product, 'ClassCategory1' => null, 'ClassCategory2' => null, 'del_flg' => Constant::ENABLED));
 
                     $defaultProductClass->setDelFlg(Constant::DISABLED);
@@ -500,9 +498,9 @@ class ProductClassControllerEx
                         ),
                         $request
                     );
-                    $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_DELETE, $event);
+                    //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_DELETE, $event);
 
-                    $app->addSuccess('admin.product.product_class.delete.complete', 'admin');
+                    $app->addSuccess('admin.product.product_classex.delete.complete', 'admin');
 
                     break;
                 default:
@@ -511,7 +509,7 @@ class ProductClassControllerEx
 
         }
 
-        return $app->redirect($app->url('admin_product_product_class', array('id' => $id)));
+        return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
     }
 
 
@@ -553,7 +551,7 @@ class ProductClassControllerEx
             ->getForm();
 
 
-        return $app->render('Product/product_class.twig', array(
+        return $app->render('ProductClassEx/View/admin/product_classex.twig', array(
             'form' => $form->createView(),
             'classForm' => $classForm->createView(),
             'Product' => $Product,
@@ -614,7 +612,7 @@ class ProductClassControllerEx
     {
         $ProductType = $app['eccube.repository.master.product_type']->find($app['config']['product_type_normal']);
 
-        $ProductClass = new ProductClass();
+        $ProductClass = new ProductClassEx();
         $ProductClass->setProductType($ProductType);
         return $ProductClass;
     }

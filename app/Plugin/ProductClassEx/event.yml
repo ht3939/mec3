@@ -3,8 +3,8 @@
 #    - [onRenderProductList, NORMAL]
 
 # admin page event
-admin.product.productclass.index.initialize:
-    - [onFormInitializeAdminProductCategory, NORMAL]
-admin.product.productclass.index.complete:
-    - [onAdminProductCategoryEditComplete, NORMAL]
+#admin.product.productclass.index.initialize:
+#    - [onFormInitializeAdminProductCategory, NORMAL]
+#admin.product.productclass.index.complete:
+#    - [onAdminProductCategoryEditComplete, NORMAL]
 

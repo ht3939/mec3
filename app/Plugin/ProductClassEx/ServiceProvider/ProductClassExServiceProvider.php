@@ -19,6 +19,7 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
 {
     public function register(BaseApplication $app)
     {
+
         // 不要？
         $app['eccube.plugin.product_classsex.repository.product_classex_plugin'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\ProductClassEx\Entity\ProductClassExPlugin');
@@ -30,21 +31,26 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
         });
 
 
+        // 商品リポジトリ
+        $app['eccube.plugin.product_classex.repository.productex'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Plugin\ProductClassEx\Entity\ProductEx');
+        });
+
+
         // ===========================================
         // 配信内容設定
         // ===========================================
         // 配信設定検索・一覧
-        $app->match('/' . $app["config"]["admin_route"] . '/mail', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::edit')
+        $app->match('/' . $app["config"]["admin_route"] . '/productclassex/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::index')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_product_classex');
+            ->bind('admin_productclassex');
+
 
         // 型登録
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {
                 // テンプレート設定
                 $types[] = new \Plugin\ProductClassEx\Form\Type\ProductClassExType($app);
 
-                // 配信内容設定
-                $types[] = new \Plugin\MailMagazine\Form\Type\MailMagazineType($app);
             return $types;
         }));
 
