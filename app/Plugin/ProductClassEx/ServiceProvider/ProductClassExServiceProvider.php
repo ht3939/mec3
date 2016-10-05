@@ -21,7 +21,7 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
     {
 
         // 不要？
-        $app['eccube.plugin.product_classsex.repository.product_classex_plugin'] = $app->share(function () use ($app) {
+        $app['eccube.plugin.product_classex.repository.product_classex_plugin'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\ProductClassEx\Entity\ProductClassExPlugin');
         });
 
@@ -44,7 +44,11 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
         $app->match('/' . $app["config"]["admin_route"] . '/productclassex/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::index')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_productclassex');
+        $app->post('/' . $app["config"]["admin_route"] . '/productclassex/edit/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::edit')
+            ->value('id', null)->assert('id', '\d+|')
+            ->bind('admin_productclassex_edit');
 
+            //'/product/product/class/edit/{id}', '\Eccube\Controller\Admin\Product\ProductClassController::edit')->assert('id', '\d+')->bind('admin_product_product_class_edit');
 
         // 型登録
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {

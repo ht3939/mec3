@@ -26,12 +26,11 @@ namespace Plugin\ProductClassEx\Entity;
 
 use Eccube\Common\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
-use Eccube\Common\Constant;
-use Eccube\Entity\Product;
+use Eccube\Entity\AbstractEntity;
 /**
  * Product
  */
-class ProductEx extends \Eccube\Entity\Product
+class ProductEx extends \Eccube\Entity\AbstractEntity
 {
     private $_calc = false;
     private $stockFinds = array();
@@ -487,6 +486,11 @@ class ProductEx extends \Eccube\Entity\Product
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    private $ProductClassesEx;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $CustomerFavoriteProducts;
 
     /**
@@ -510,6 +514,9 @@ class ProductEx extends \Eccube\Entity\Product
         $this->CustomerFavoriteProducts = new ArrayCollection();
         $this->ProductImage = new ArrayCollection();
         $this->ProductTag = new ArrayCollection();
+
+        $this->ProductClassesEx = new ArrayCollection();
+
     }
 
     public function __clone()
@@ -852,6 +859,7 @@ class ProductEx extends \Eccube\Entity\Product
     }
 
 
+
     /**
      * Add CustomerFavoriteProducts
      *
@@ -1018,4 +1026,60 @@ class ProductEx extends \Eccube\Entity\Product
     }
 
 
+
+
+
+    /**
+     * Add ProductClasses
+     *
+     * @param  \Eccube\Entity\ProductClass $productClasses
+     * @return Product
+     */
+    public function addProductClassEx(\Plugin\ProductClassEx\Entity\ProductClassEx $productClasses)
+    {
+        $this->ProductClassesEx[] = $productClasses;
+
+        return $this;
+    }
+
+    /**
+     * Remove ProductClasses
+     *
+     * @param \Eccube\Entity\ProductClass $productClasses
+     */
+    public function removeProductClassEx(\Plugin\ProductClassEx\Entity\ProductClassEx $productClasses)
+    {
+        $this->ProductClassesEx->removeElement($productClasses);
+    }
+
+    /**
+     * Get ProductClasses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductClassesEx()
+    {
+        return $this->ProductClassesEx;
+    }
+
+    public function hasProductClassEx()
+    {
+        // dump('hohohoge');
+        // $g = $this->ProductClassesEx;
+        // dump($g);
+        foreach ($this->ProductClassesEx as $ProductClass) {
+        // dump($ProductClass);
+
+            if (!is_null($ProductClass->getClassCategory1()) && $ProductClass->getDelFlg() == Constant::DISABLED) {
+                return true;
+            }
+        }
+        // dump('hohohoge false');
+
+        return false;
+    }
+
+
+
 }
+

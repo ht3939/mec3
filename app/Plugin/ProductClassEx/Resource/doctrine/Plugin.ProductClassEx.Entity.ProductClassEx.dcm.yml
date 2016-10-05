@@ -61,8 +61,8 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
                 default: '0'
     manyToOne:
         Product:
-            targetEntity: Eccube\Entity\Product
-            inversedBy: ProductClasses
+            targetEntity: Plugin\ProductClassEx\Entity\ProductEx
+            inversedBy: ProductClassesEx
             joinColumn:
                 name: product_id
                 referencedColumnName: product_id
@@ -96,14 +96,5 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
                 name: creator_id
                 referencedColumnName: member_id
                 nullable: false
-    oneToOne:
-        ProductStock:
-            targetEntity: Eccube\Entity\ProductStock
-            cascade: ["persist", "remove"]
-            mappedBy: ProductClassEx
-        TaxRule:
-            targetEntity: Eccube\Entity\TaxRule
-            cascade: ["persist", "remove"]
-            mappedBy: ProductClassEx
     lifecycleCallbacks: {  }
 

@@ -476,7 +476,7 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
      * @param  \Eccube\Entity\Product $product
      * @return ProductClass
      */
-    public function setProduct(\Eccube\Entity\Product $product)
+    public function setProduct(\Plugin\ProductClassEx\Entity\ProductEx $product)
     {
         $this->Product = $product;
 

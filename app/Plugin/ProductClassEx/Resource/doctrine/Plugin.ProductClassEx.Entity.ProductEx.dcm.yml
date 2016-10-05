@@ -86,3 +86,4 @@ Plugin\ProductClassEx\Entity\ProductEx:
             targetEntity: Eccube\Entity\CustomerFavoriteProduct
             mappedBy: Product
     lifecycleCallbacks: {  }
+
