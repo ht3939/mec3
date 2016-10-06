@@ -96,5 +96,11 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
                 name: creator_id
                 referencedColumnName: member_id
                 nullable: false
+    oneToMany:
+        ProductClassExImage:
+            targetEntity: Plugin\ProductClassEx\Entity\ProductClassExImage
+            cascade: ["persist"]
+            mappedBy: ProductClassEx
+
     lifecycleCallbacks: {  }
 

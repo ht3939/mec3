@@ -23,12 +23,12 @@ Plugin\ProductClassEx\Entity\ProductClassExImage:
             type: datetime
             nullable: false
     manyToOne:
-        Product:
-            targetEntity: Eccube\Entity\Product
-            inversedBy: ProductImage
+        ProductClassEx:
+            targetEntity: Plugin\ProductClassEx\Entity\ProductClassEx
+            inversedBy: ProductClassExImage
             joinColumn:
-                name: product_id
-                referencedColumnName: product_id
+                name: product_classex_id
+                referencedColumnName: product_classex_id
                 nullable: false
         Creator:
             targetEntity: Eccube\Entity\Member

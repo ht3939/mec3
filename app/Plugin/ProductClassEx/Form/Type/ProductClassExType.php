@@ -54,6 +54,34 @@ class ProductClassExType extends AbstractType
                 'label' => '商品コード',
                 'required' => false,
             ))
+            ->add('product_image', 'file', array(
+                'label' => '商品画像',
+                'multiple' => true,
+                'required' => false,
+                'mapped' => false,
+            ))
+            // 画像
+            ->add('images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('add_images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('delete_images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
             ->add('stock', 'number', array(
                 'label' => '在庫数',
                 'required' => false,

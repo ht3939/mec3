@@ -36,6 +36,11 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
             return $app['orm.em']->getRepository('Plugin\ProductClassEx\Entity\ProductEx');
         });
 
+        // 商品規格画像リポジトリ
+        $app['eccube.plugin.product_classex.repository.product_classex_image'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Plugin\ProductClassEx\Entity\ProductClassExImage');
+        });
+
 
         // ===========================================
         // 配信内容設定
@@ -47,6 +52,8 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
         $app->post('/' . $app["config"]["admin_route"] . '/productclassex/edit/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::edit')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_productclassex_edit');
+        $app->post('/' . $app["config"]["admin_route"] . '/productclassex/image/add', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::addImage')
+            ->bind('admin_productclassex_image_add');
 
             //'/product/product/class/edit/{id}', '\Eccube\Controller\Admin\Product\ProductClassController::edit')->assert('id', '\d+')->bind('admin_product_product_class_edit');
 

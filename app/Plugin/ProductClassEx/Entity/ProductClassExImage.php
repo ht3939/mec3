@@ -38,9 +38,9 @@ class ProductClassExImage extends \Eccube\Entity\AbstractEntity
     private $create_date;
 
     /**
-     * @var \Eccube\Entity\Product
+     * @var \Plugin\ProductClassEx\Entity\ProductClassEx
      */
-    private $Product;
+    private $ProductClassEx;
 
     /**
      * @var \Eccube\Entity\Member
@@ -133,9 +133,9 @@ class ProductClassExImage extends \Eccube\Entity\AbstractEntity
      * @param \Eccube\Entity\Product $product
      * @return ProductImage
      */
-    public function setProduct(\Eccube\Entity\Product $product)
+    public function setProductClassEx(\Plugin\ProductClassEx\Entity\ProductClassEx $productclassex)
     {
-        $this->Product = $product;
+        $this->ProductClassEx = $productclassex;
 
         return $this;
     }
@@ -145,9 +145,9 @@ class ProductClassExImage extends \Eccube\Entity\AbstractEntity
      *
      * @return \Eccube\Entity\Product 
      */
-    public function getProduct()
+    public function getProductClassEx()
     {
-        return $this->Product;
+        return $this->ProductClassEx;
     }
 
     /**

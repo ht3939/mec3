@@ -33,6 +33,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% endif %}
 
 {% block javascript %}
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/vendor/jquery.ui.widget.js"></script>
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.iframe-transport.js"></script>
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload.js"></script>
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload-process.js"></script>
+<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload-validate.js"></script>
+
 <script>
     $(function() {
 
@@ -137,6 +143,129 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     });
 </script>
+<script>
+$(function() {
+    $("#thumb").sortable({
+        cursor: 'move',
+        opacity: 0.7,
+        placeholder: 'ui-state-highlight',
+        update: function (event, ui) {
+            updateRank();
+        }
+    });
+    {% for product_class_form in classForm.product_classes %}
+
+    var proto_img = ''
+            + '<li class="ui-state-default">'
+            + '<img src="__path__" />'
+            + '<a class="delete-image">'
+            + '<svg class="cb cb-close">'
+            + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-close"></use>'
+            + '</svg>'
+            + '</a>'
+            + '</li>';
+    var proto_add = '{{ form_widget(product_class_form.add_images.vars.prototype) }}';
+    var proto_del = '{{ form_widget(product_class_form.delete_images.vars.prototype) }}';
+    {% for image in product_class_form.product_image %}
+    var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}'));
+    var $widget = $('{{ form_widget(image) }}');
+    $widget.val('{{ image.vars.value }}');
+    $("#thumb").append($img.append($widget));
+    {% endfor %}
+    {% for add_image in product_class_form.add_images %}
+    var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_temp_urlpath }}/{{ add_image.vars.value }}'));
+    var $widget = $('{{ form_widget(add_image) }}');
+    $widget.val('{{ add_image.vars.value }}');
+    $("#thumb").append($img.append($widget));
+    {% endfor %}
+    {% for delete_image in product_class_form.delete_images %}
+    $("#thumb").append('{{ form_widget(delete_image) }}');
+    {% endfor %}
+    var hideSvg = function () {
+        if ($("#thumb li").length > 0) {
+            $("#icon_no_image").css("display", "none");
+        } else {
+            $("#icon_no_image").css("display", "");
+        }
+    };
+    var updateRank = function () {
+        $("#thumb li").each(function (index) {
+            $(this).find(".rank_images").remove();
+            filename = $(this).find("input[type='hidden']").val();
+            $rank = $('<input type="hidden" class="rank_images" name="rank_images[]" />');
+            $rank.val(filename + '//' + parseInt(index + 1));
+            $(this).append($rank);
+        });
+    }
+    hideSvg();
+    updateRank();
+    // 画像削除時
+    var count_del = 0;
+    $("#thumb").on("click", ".delete-image", function () {
+        var $new_delete_image = $(proto_del.replace(/__name__/g, count_del));
+        var src = $(this).prev().attr('src')
+                .replace('{{ app.config.image_temp_urlpath }}/', '')
+                .replace('{{ app.config.image_save_urlpath }}/', '');
+        $new_delete_image.val(src);
+        $("#thumb").append($new_delete_image);
+        $(this).parent("li").remove();
+        hideSvg();
+        updateRank();
+        count_del++;
+    });
+    var count_add = {{ product_class_form.add_images|length|default(0) }};
+    $('#{{ product_class_form.product_image.vars.id }}').fileupload({
+        url: "{{ url('admin_productclassex_image_add') }}",
+        type: "post",
+        dataType: 'json',
+        done: function (e, data) {
+            $('#progress').hide();
+            $.each(data.result.files, function (index, file) {
+                var path = '{{ app.config.image_temp_urlpath }}/' + file;
+                var $img = $(proto_img.replace(/__path__/g, path));
+                var $new_img = $(proto_add.replace(/__name__/g, count_add));
+                $new_img.val(file);
+                $child = $img.append($new_img);
+                $('#thumb').append($child);
+                count_add++;
+            });
+            hideSvg();
+            updateRank();
+        },
+        fail: function (e, data) {
+            alert('アップロードに失敗しました。');
+        },
+        always: function (e, data) {
+            $('#progress').hide();
+            $('#progress .progress-bar').width('0%');
+        },
+        start: function (e, data) {
+            $('#progress').show();
+        },
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: 10000000,
+        maxNumberOfFiles: 10,
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+            );
+        },
+        processalways: function (e, data) {
+            if (data.files.error) {
+                alert("画像ファイルサイズが大きいか画像ファイルではありません。");
+            }
+        }
+    });
+    // 画像アップロード
+    $('#file_upload').on('click', function () {
+        $('#{{ product_class_form.product_image.vars.id }}').click();
+    });
+    {% endfor %}
+});
+</script>
+
 {% endblock javascript %}
 
 
@@ -210,6 +339,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <th id="result_box__header_class_category1">規格1</th>
                                     <th id="result_box__header_class_category2">規格2</th>
                                     <th id="result_box__header_code">商品コード</th>
+                                    <th id="result_box__header_product_image">商品画像</br><span class="small">620px以上推奨</span></th>
                                     <th id="result_box__header_stock">在庫数</th>
                                     <th id="result_box__header_sale_limit">販売制限数</th>
                                     <th id="result_box__header_price01">通常価格(円)</th>
@@ -241,6 +371,34 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <td id="result_box__code--{{ product_class_form.vars.name }}">
                                     {{ form_widget(product_class_form.code) }}
                                     {{ form_errors(product_class_form.code) }}
+                                </td>
+                                <td id="result_box__product_image--{{ product_class_form.vars.name }}">
+                            <div id="detail_box__image" class="form-group">
+                                <label class="col-sm-2 control-label" for="admin_productclassex_image">
+                                </label>
+                                <div id="detail_files_box" class="col-sm-9 col-lg-10">
+                                    <div class="photo_files" id="drag-drop-area">
+                                        <svg id="icon_no_image" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
+                                        <ul id="thumb" class="clearfix"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group marB30">
+                                <div id="detail_box__file_upload" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
+
+                                    <div id="progress" class="progress progress-striped active" style="display:none;">
+                                        <div class="progress-bar progress-bar-info"></div>
+                                    </div>
+
+                                    {{ form_widget(product_class_form.product_image, { attr : { accept : 'image/*', style : 'display:none;' } }) }}
+                                    <a id="file_upload" class="with-icon">
+                                        <svg class="cb cb-plus"> <use xlink:href="#cb-plus" /></svg>
+                                    </a>
+
+                                </div>
+                            </div>                                    
+                                    {# form_widget(product_class_form.product_image) #}
+                                    {# form_errors(product_class_form.product_image) #}
                                 </td>
                                 <td id="result_box__stock--{{ product_class_form.vars.name }}">
                                     {% if  product_class_form.vars.value.stock_unlimited %}

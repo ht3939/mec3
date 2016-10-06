@@ -225,6 +225,11 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
      */
     private $Creator;
 
+    /**
+     * @var \Plugin\ProductClassEx\Entity\ProductClassExImage
+     */
+    private $ProductClassExImage;
+
     public function __clone()
     {
         $this->id = null;
@@ -491,6 +496,29 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
     public function getProduct()
     {
         return $this->Product;
+    }
+
+    /**
+     * Set ProductClassExImage
+     *
+     * @param  \Plugin\ProductClassEx\Entity\ProductClassExImage
+     * @return ProductClass
+     */
+    public function setProductClassExImage(\Plugin\ProductClassEx\Entity\ProductClassExImage $productclasseximage = null)
+    {
+        $this->ProductClassExImage = $productclasseximage;
+
+        return $this;
+    }
+
+    /**
+     * Get Product
+     *
+     * @return \Plugin\ProductClassEx\Entity\ProductClassExImage
+     */
+    public function getProductClassExImage()
+    {
+        return $this->ProductClassExImage;
     }
 
     /**

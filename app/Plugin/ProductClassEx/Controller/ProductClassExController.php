@@ -29,8 +29,14 @@ use Eccube\Entity\Product;
 use Plugin\ProductClassEx\Entity\ProductEx;
 use Eccube\Entity\ProductClass;
 use Plugin\ProductClassEx\Entity\ProductClassEx;
+use Plugin\ProductClassEx\Entity\ProductClassExImage;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
+
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\FormView;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -379,6 +385,7 @@ dump($defaultProductClass);die();
                         $request
                     );
                     //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_COMPLETE, $event);
+                    //$app['eccube.event.dispatcher']->dispatch('admin.productclassex.edit.complete', $event);
 
                     $app->addSuccess('admin.product.product_classex.save.complete', 'admin');
 
@@ -483,7 +490,7 @@ dump($defaultProductClass);die();
                         ),
                         $request
                     );
-                    //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_UPDATE, $event);
+                    //$app['eccube.event.dispatcher']->dispatch('admin.productclassex.edit.update', $event);
 
                     $app->addSuccess('admin.product.product_classex.update.complete', 'admin');
 
@@ -508,7 +515,7 @@ dump($defaultProductClass);die();
                     ));
 
                     // デフォルトの商品規格を更新
-                    $defaultProductClass = $app['eccube.repository.product_classex']
+                    $defaultProductClass = $app['eccube.plugin.product_classex.repository.product_classex']
                             ->findOneBy(array('Product' => $Product, 'ClassCategory1' => null, 'ClassCategory2' => null, 'del_flg' => Constant::ENABLED));
 
                     //$defaultProductClass->setDelFlg(Constant::DISABLED);
@@ -523,7 +530,7 @@ dump($defaultProductClass);die();
                         ),
                         $request
                     );
-                    //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_EDIT_DELETE, $event);
+                    $app['eccube.event.dispatcher']->dispatch('admin.productclassex.edit.delete', $event);
 
                     $app->addSuccess('admin.product.product_classex.delete.complete', 'admin');
 
