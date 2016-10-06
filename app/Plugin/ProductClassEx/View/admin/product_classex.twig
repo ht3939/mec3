@@ -145,16 +145,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </script>
 <script>
 $(function() {
-    $("#thumb").sortable({
-        cursor: 'move',
-        opacity: 0.7,
-        placeholder: 'ui-state-highlight',
-        update: function (event, ui) {
-            updateRank();
-        }
-    });
     {% for product_class_form in classForm.product_classes %}
 
+    //$("#thumb--{{ product_class_form.vars.name }}").sortable({
+    //    cursor: 'move',
+    //    opacity: 0.7,
+    //    placeholder: 'ui-state-highlight',
+    //    update: function (event, ui) {
+    //        updateRank{{ product_class_form.vars.name }}();
+    //    }
+    //});
     var proto_img = ''
             + '<li class="ui-state-default">'
             + '<img src="__path__" />'
@@ -166,30 +166,34 @@ $(function() {
             + '</li>';
     var proto_add = '{{ form_widget(product_class_form.add_images.vars.prototype) }}';
     var proto_del = '{{ form_widget(product_class_form.delete_images.vars.prototype) }}';
+    
     {% for image in product_class_form.product_image %}
     var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}'));
     var $widget = $('{{ form_widget(image) }}');
     $widget.val('{{ image.vars.value }}');
-    $("#thumb").append($img.append($widget));
+    $("#thumb--{{ product_class_form.vars.name }}").append($img.append($widget));
     {% endfor %}
+
     {% for add_image in product_class_form.add_images %}
     var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_temp_urlpath }}/{{ add_image.vars.value }}'));
     var $widget = $('{{ form_widget(add_image) }}');
     $widget.val('{{ add_image.vars.value }}');
-    $("#thumb").append($img.append($widget));
+    $("#thumb--{{ product_class_form.vars.name }}").append($img.append($widget));
     {% endfor %}
+    
     {% for delete_image in product_class_form.delete_images %}
-    $("#thumb").append('{{ form_widget(delete_image) }}');
+    $("#thumb--{{ product_class_form.vars.name }}").append('{{ form_widget(delete_image) }}');
     {% endfor %}
-    var hideSvg = function () {
-        if ($("#thumb li").length > 0) {
-            $("#icon_no_image").css("display", "none");
+    
+    var hideSvg{{ product_class_form.vars.name }} = function () {
+        if ($("#thumb--{{ product_class_form.vars.name }} li").length > 0) {
+            $("#icon_no_image--{{ product_class_form.vars.name }}").css("display", "none");
         } else {
-            $("#icon_no_image").css("display", "");
+            $("#icon_no_image--{{ product_class_form.vars.name }}").css("display", "");
         }
     };
-    var updateRank = function () {
-        $("#thumb li").each(function (index) {
+    var updateRank{{ product_class_form.vars.name }} = function () {
+        $("#thumb--{{ product_class_form.vars.name }} li").each(function (index) {
             $(this).find(".rank_images").remove();
             filename = $(this).find("input[type='hidden']").val();
             $rank = $('<input type="hidden" class="rank_images" name="rank_images[]" />');
@@ -197,20 +201,20 @@ $(function() {
             $(this).append($rank);
         });
     }
-    hideSvg();
-    updateRank();
+    hideSvg{{ product_class_form.vars.name }}();
+    updateRank{{ product_class_form.vars.name }}();
     // 画像削除時
     var count_del = 0;
-    $("#thumb").on("click", ".delete-image", function () {
+    $("#thumb--{{ product_class_form.vars.name }}").on("click", ".delete-image", function () {
         var $new_delete_image = $(proto_del.replace(/__name__/g, count_del));
         var src = $(this).prev().attr('src')
                 .replace('{{ app.config.image_temp_urlpath }}/', '')
                 .replace('{{ app.config.image_save_urlpath }}/', '');
         $new_delete_image.val(src);
-        $("#thumb").append($new_delete_image);
+        $("#thumb--{{ product_class_form.vars.name }}").append($new_delete_image);
         $(this).parent("li").remove();
-        hideSvg();
-        updateRank();
+        hideSvg{{ product_class_form.vars.name }}();
+        updateRank{{ product_class_form.vars.name }}();
         count_del++;
     });
     var count_add = {{ product_class_form.add_images|length|default(0) }};
@@ -219,35 +223,35 @@ $(function() {
         type: "post",
         dataType: 'json',
         done: function (e, data) {
-            $('#progress').hide();
+            $('#progress--{{ product_class_form.vars.name }}').hide();
             $.each(data.result.files, function (index, file) {
                 var path = '{{ app.config.image_temp_urlpath }}/' + file;
                 var $img = $(proto_img.replace(/__path__/g, path));
                 var $new_img = $(proto_add.replace(/__name__/g, count_add));
                 $new_img.val(file);
                 $child = $img.append($new_img);
-                $('#thumb').append($child);
+                $('#thumb--{{ product_class_form.vars.name }}').append($child);
                 count_add++;
             });
-            hideSvg();
-            updateRank();
+            hideSvg{{ product_class_form.vars.name }}();
+            updateRank{{ product_class_form.vars.name }}();
         },
         fail: function (e, data) {
             alert('アップロードに失敗しました。');
         },
         always: function (e, data) {
-            $('#progress').hide();
-            $('#progress .progress-bar').width('0%');
+            $('#progress--{{ product_class_form.vars.name }}').hide();
+            $('#progress--{{ product_class_form.vars.name }} .progress-bar').width('0%');
         },
         start: function (e, data) {
-            $('#progress').show();
+            $('#progress--{{ product_class_form.vars.name }}').show();
         },
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         maxFileSize: 10000000,
         maxNumberOfFiles: 10,
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
+            $('#progress--{{ product_class_form.vars.name }} .progress-bar').css(
                     'width',
                     progress + '%'
             );
@@ -259,7 +263,7 @@ $(function() {
         }
     });
     // 画像アップロード
-    $('#file_upload').on('click', function () {
+    $('#file_upload--{{ product_class_form.vars.name }}').on('click', function () {
         $('#{{ product_class_form.product_image.vars.id }}').click();
     });
     {% endfor %}
@@ -378,20 +382,20 @@ $(function() {
                                 </label>
                                 <div id="detail_files_box" class="col-sm-9 col-lg-10">
                                     <div class="photo_files" id="drag-drop-area">
-                                        <svg id="icon_no_image" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
-                                        <ul id="thumb" class="clearfix"></ul>
+                                        <svg id="icon_no_image--{{ product_class_form.vars.name }}" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
+                                        <ul id="thumb--{{ product_class_form.vars.name }}" class="clearfix"></ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group marB30">
                                 <div id="detail_box__file_upload" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
 
-                                    <div id="progress" class="progress progress-striped active" style="display:none;">
+                                    <div id="progress--{{ product_class_form.vars.name }}" class="progress progress-striped active" style="display:none;">
                                         <div class="progress-bar progress-bar-info"></div>
                                     </div>
 
                                     {{ form_widget(product_class_form.product_image, { attr : { accept : 'image/*', style : 'display:none;' } }) }}
-                                    <a id="file_upload" class="with-icon">
+                                    <a id="file_upload--{{ product_class_form.vars.name }}" class="with-icon">
                                         <svg class="cb cb-plus"> <use xlink:href="#cb-plus" /></svg>
                                     </a>
 

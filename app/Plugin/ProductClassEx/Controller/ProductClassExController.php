@@ -965,4 +965,44 @@ dump($defaultProductClass);die();
         }
         return true;
     }
+
+    public function addImage(Application $app, Request $request)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new BadRequestHttpException();
+        }
+
+        $images = $request->files->get('admin_productclassex');
+
+        $files = array();
+        if (count($images) > 0) {
+            foreach ($images as $img) {
+                foreach ($img as $image) {
+                    //ファイルフォーマット検証
+                    $mimeType = $image->getMimeType();
+                    if (0 !== strpos($mimeType, 'image')) {
+                        throw new UnsupportedMediaTypeHttpException();
+                    }
+
+                    $extension = $image->getClientOriginalExtension();
+                    $filename = date('mdHis') . uniqid('_') . '.' . $extension;
+                    $image->move($app['config']['image_temp_realdir'], $filename);
+                    $files[] = $filename;
+                }
+            }
+        }
+
+        $event = new EventArgs(
+            array(
+                'images' => $images,
+                'files' => $files,
+            ),
+            $request
+        );
+        $app['eccube.event.dispatcher']->dispatch('admin.productclassex.add.image.complete', $event);
+        $files = $event->getArgument('files');
+
+        return $app->json(array('files' => $files), 200);
+    }
+
 }
