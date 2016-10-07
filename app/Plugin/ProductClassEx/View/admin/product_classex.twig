@@ -32,13 +32,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     {% form_theme classForm 'Form/bootstrap_3_horizontal_layout.html.twig' %}
 {% endif %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ app.config.admin_urlpath }}/assets/css/fileupload/jquery.fileupload.css">
+<link rel="stylesheet" href="{{ app.config.admin_urlpath }}/assets/css/fileupload/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<style>
+    .ui-state-highlight {
+        height: 148px;
+        border: dashed 1px #ccc;
+        background: #fff;
+    }
+</style>
+{% endblock stylesheet %}
+
 {% block javascript %}
 <script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/vendor/jquery.ui.widget.js"></script>
 <script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.iframe-transport.js"></script>
 <script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload.js"></script>
 <script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload-process.js"></script>
 <script src="{{ app.config.admin_urlpath }}/assets/js/vendor/fileupload/jquery.fileupload-validate.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script>
     $(function() {
 
@@ -143,18 +156,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     });
 </script>
-<script>
-$(function() {
-    {% for product_class_form in classForm.product_classes %}
 
-    //$("#thumb--{{ product_class_form.vars.name }}").sortable({
-    //    cursor: 'move',
-    //    opacity: 0.7,
-    //    placeholder: 'ui-state-highlight',
-    //    update: function (event, ui) {
-    //        updateRank{{ product_class_form.vars.name }}();
-    //    }
-    //});
+{% if classForm  %}
+
+
+<script>
+{% for product_class_form in classForm.product_classes %}
+//row {{ product_class_form.vars.name }}
+$(function() {
+
+    $("#thumb--{{ product_class_form.vars.name }}").sortable({
+        cursor: 'move',
+        opacity: 0.7,
+        placeholder: 'ui-state-highlight',
+        update: function (event, ui) {
+            updateRank{{ product_class_form.vars.name }}();
+        }
+    });
     var proto_img = ''
             + '<li class="ui-state-default">'
             + '<img src="__path__" />'
@@ -266,9 +284,11 @@ $(function() {
     $('#file_upload--{{ product_class_form.vars.name }}').on('click', function () {
         $('#{{ product_class_form.product_image.vars.id }}').click();
     });
-    {% endfor %}
 });
+//row end 
+{% endfor %}
 </script>
+{% endif %}
 
 {% endblock javascript %}
 
@@ -321,7 +341,7 @@ $(function() {
 
 
 {% if classForm is not null %}
-<form id="product-class-form" class="form-inline" method="post" action="{{ url('admin_productclassex_edit', { id : Product.id}) }}">
+<form id="product-class-form" class="form-inline" method="post" action="{{ url('admin_productclassex_edit', { id : Product.id}) }}" novalidate enctype="multipart/form-data">
 {{ form_widget(classForm._token) }}
 <div id="result_wrap" class="row">
     <div id="result_box" class="col-md-12">
@@ -377,18 +397,18 @@ $(function() {
                                     {{ form_errors(product_class_form.code) }}
                                 </td>
                                 <td id="result_box__product_image--{{ product_class_form.vars.name }}">
-                            <div id="detail_box__image" class="form-group">
+                            <div id="detail_box__image--{{ product_class_form.vars.name }}" class="form-group">
                                 <label class="col-sm-2 control-label" for="admin_productclassex_image">
                                 </label>
-                                <div id="detail_files_box" class="col-sm-9 col-lg-10">
-                                    <div class="photo_files" id="drag-drop-area">
+                                <div id="detail_files_box--{{ product_class_form.vars.name }}" class="col-sm-9 col-lg-10">
+                                    <div class="photo_files" id="drag-drop-area--{{ product_class_form.vars.name }}">
                                         <svg id="icon_no_image--{{ product_class_form.vars.name }}" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
                                         <ul id="thumb--{{ product_class_form.vars.name }}" class="clearfix"></ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group marB30">
-                                <div id="detail_box__file_upload" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
+                                <div id="detail_box__file_upload--{{ product_class_form.vars.name }}" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
 
                                     <div id="progress--{{ product_class_form.vars.name }}" class="progress progress-striped active" style="display:none;">
                                         <div class="progress-bar progress-bar-info"></div>
