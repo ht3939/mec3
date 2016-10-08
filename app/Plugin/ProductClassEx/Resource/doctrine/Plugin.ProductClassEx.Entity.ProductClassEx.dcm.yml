@@ -101,6 +101,5 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
             targetEntity: Plugin\ProductClassEx\Entity\ProductClassExImage
             cascade: ["persist"]
             mappedBy: ProductClassEx
-
     lifecycleCallbacks: {  }
 

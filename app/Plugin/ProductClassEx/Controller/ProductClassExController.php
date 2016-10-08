@@ -65,11 +65,9 @@ class ProductClassExController extends ProductClassController
             throw new NotFoundHttpException();
         }
 
-// dump($app);dump($Product);
         // 商品規格情報が存在しなければ新規登録させる
         if (!$Product->hasProductClassEx()) {
             // 登録画面を表示
-// dump('not has classes');//die();
 
             $builder = $app['form.factory']->createBuilder();
 
@@ -100,11 +98,11 @@ class ProductClassExController extends ProductClassController
 
             $form = $builder->getForm();
 
+
+
             $productClassForm = null;
 
             if ('POST' === $request->getMethod()) {
-// dump('not has classes posted');//die();
-
                 $form->handleRequest($request);
 
                 if ($form->isValid()) {
@@ -113,11 +111,9 @@ class ProductClassExController extends ProductClassController
 
                     $ClassName1 = $data['class_name1'];
                     $ClassName2 = $data['class_name2'];
-
                     // 各規格が選択されている際に、分類を保有しているか確認
                     $class1Valied = $this->isValiedCategory($ClassName1);
                     $class2Valied = $this->isValiedCategory($ClassName2);
-
                     // 規格が選択されていないか、選択された状態で分類が保有されていれば、画面表示
                     if($class1Valied && $class2Valied){
                         $hasClassCategoryFlg = true;
@@ -131,16 +127,14 @@ class ProductClassExController extends ProductClassController
                     } else {
 
                         // 規格分類が設定されていない商品規格を取得
-                        $orgProductClasses = $Product->getProductClassesEx();
-// dump($orgProductClasses);//die();
-                        $sourceProduct = $orgProductClasses[0];
+                        // $orgProductClasses = $Product->getProductClassesEx();
+                        //これが存在しないので不要。
+                        // $sourceProduct = $orgProductClasses[0];
 
                         // 規格分類が組み合わされた商品規格を取得
                         $ProductClasses = $this->createProductClassesEx($app, $Product, $ClassName1, $ClassName2);
-// dump($sourceProduct);//die();
-// dump($ProductClasses);//die();
-//die();
-                        // // 組み合わされた商品規格にデフォルト値をセット
+
+                        // 組み合わされた商品規格にデフォルト値をセット
                         // foreach ($ProductClasses as $productClass) {
                         //     $this->setDefualtProductClassEx($app, $productClass, $sourceProduct);
                         // }
@@ -183,12 +177,28 @@ class ProductClassExController extends ProductClassController
             ));
 
         } else {
-// dump('has classes');
             // 既に商品規格が登録されている場合、商品規格画面を表示する
 
             // 既に登録されている商品規格を取得
             $ProductClasses = $this->getProductClassesExExcludeNonClass($Product);
-// dump($ProductClasses);
+
+            //　画像をセット
+            
+            foreach( $ProductClasses as $pc){
+                dump($pc);
+
+                // ファイルの登録
+                $images = array();
+                $ProductClassExImages = $pc->getProductClassExImage();
+                foreach ($ProductClassExImages as $pcimg) {
+                    $images[] = $pcimg->getFileName();
+                }
+                $images[]="hogehoge";
+
+                $pc->setImages($images);
+                //dump($pc);
+//                die();
+            }
 
             // 設定されている規格分類1、2を取得(商品規格の規格分類には必ず同じ値がセットされている)
             $ProductClass = $ProductClasses[0];
@@ -197,15 +207,12 @@ class ProductClassExController extends ProductClassController
             if (!is_null($ProductClass->getClassCategory2())) {
                 $ClassName2 = $ProductClass->getClassCategory2()->getClassName();
             }
-// dump($ProductClasses);
 
             // 規格分類が組み合わされた空の商品規格を取得
             $createProductClasses = $this->createProductClassesEx($app, $Product, $ClassName1, $ClassName2);
-// dump($createProductClasses);
 
 
             $mergeProductClasses = array();
-// dump('has classes');
 
             // 商品税率が設定されている場合、商品税率を項目に設定
             $BaseInfo = $app['eccube.repository.base_info']->get();
@@ -217,8 +224,6 @@ class ProductClassExController extends ProductClassController
                 }
             }
 
-// dump($mergeProductClasses);
-//die();
             // 登録済み商品規格と空の商品規格をマージ
             $flag = false;
             foreach ($createProductClasses as $createProductClass) {
@@ -268,8 +273,31 @@ class ProductClassExController extends ProductClassController
             //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
 
             $productClassForm = $builder->getForm()->createView();
-// dump('has classes2');
-//die();
+
+            //dump($productClassForm);//die();
+
+            //　画像をセット
+            $pcdats = $builder->getForm('ProductClasses');
+                dump($pcdats);
+            foreach( $pcdats as $pc){
+                dump('pcpc');
+                $pcc = $pc->GetData();
+                foreach($pcc as $c){
+                    dump($c['images']);
+
+                }
+                /*
+                // ファイルの登録
+                $images = array();
+                $ProductClassExImages = $pc->getProductClassExImage();
+                foreach ($ProductClassExImages as $pcimg) {
+                    $images[] = $pcimg->getFileName();
+                }
+
+                $pc->setImages($images);
+                */
+            }
+//            die();
 
             return $app->render('ProductClassEx/View/admin/product_classex.twig', array(
                 'classForm' => $productClassForm,
@@ -329,8 +357,9 @@ class ProductClassExController extends ProductClassController
         if ('POST' === $request->getMethod()) {
 
             $form->handleRequest($request);
-// dump($form);
-
+dump($request);
+dump($request->get('form')['product_classes']);
+dump($form);//die();
             switch ($request->get('mode')) {
                 case 'edit':
                     // 新規登録
@@ -363,7 +392,7 @@ class ProductClassExController extends ProductClassController
                         $error = array('message' => '商品規格が選択されていません。');
                         return $this->render($app, $Product, $tmpProductClass, true, $form, $error);
                     }
-// dump($addProductClasses);//die();
+
                     // 選択された商品規格を登録
                     $this->insertProductClassEx($app, $Product, $addProductClasses);
 
@@ -371,15 +400,13 @@ class ProductClassExController extends ProductClassController
                     $defaultProductClass = $app['eccube.plugin.product_classex.repository.product_classex']
                             ->findOneBy(array('Product' => $Product, 'ClassCategory1' => null, 'ClassCategory2' => null));
 
-/*
-デフォルトのレコードがないので不要
+                    /*
+                    デフォルトのレコードがないので不要
                     $defaultProductClass->setDelFlg(Constant::ENABLED);
-dump($defaultProductClass);die();
-*/
+                    dump($defaultProductClass);die();
+                    */
 
                     $app['orm.em']->flush();
-/*
-*/
 
                     $event = new EventArgs(
                         array(
@@ -410,7 +437,7 @@ dump($defaultProductClass);die();
                     foreach ($form->get('product_classes') as $formData) {
                         // 追加対象の行をvalidate
                         $ProductClass = $formData->getData();
-
+dump($ProductClass);
                         if ($ProductClass->getAdd()) {
                             if ($formData->isValid()) {
                                 $checkProductClasses[] = $ProductClass;
@@ -423,7 +450,8 @@ dump($defaultProductClass);die();
                         }
                         $tempProductClass = $ProductClass;
                     }
-
+dump($checkProductClasses);
+die();
                     if (count($checkProductClasses) == 0) {
                         // 対象がなければエラー
                         $error = array('message' => '商品規格が選択されていません。');
@@ -483,8 +511,7 @@ dump($defaultProductClass);die();
                     $this->insertProductClassEx($app, $Product, $addProductClasses);
 
                     $app['orm.em']->flush();
-// dump($addProductClasses);//die();
-// dump($updateProductClasses);//die();
+
 
                     $event = new EventArgs(
                         array(

@@ -11,6 +11,8 @@
 
 namespace Plugin\ProductClassEx\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * ProductClassEx
  */
@@ -229,6 +231,17 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
      * @var \Plugin\ProductClassEx\Entity\ProductClassExImage
      */
     private $ProductClassExImage;
+
+    private $images;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+
+        $this->ProductClassExImage = new ArrayCollection();
+
+    }
 
     public function __clone()
     {
@@ -499,17 +512,38 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * Set ProductClassExImage
+     * Add ProductImage
      *
-     * @param  \Plugin\ProductClassEx\Entity\ProductClassExImage
-     * @return ProductClass
+     * @param \Eccube\Entity\ProductImage $productImage
+     * @return Product
      */
-    public function setProductClassExImage(\Plugin\ProductClassEx\Entity\ProductClassExImage $productclasseximage = null)
+    public function addProductClassExImage(\Plugin\ProductClassEx\Entity\ProductClassExImage $productImage)
     {
-        $this->ProductClassExImage = $productclasseximage;
+        $this->ProductClassExImage[] = $productImage;
 
         return $this;
     }
+
+    /**
+     * Remove ProductImage
+     *
+     * @param \Eccube\Entity\ProductImage $productImage
+     */
+    public function removeProductClassExImage(\Plugin\ProductClassEx\Entity\ProductClassExImage $productImage)
+    {
+        $this->ProductClassExImage->removeElement($productImage);
+    }
+
+
+    public function getMainFileName()
+    {
+        if (count($this->ProductClassExImage) > 0) {
+            return $this->ProductClassExImage[0];
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * Get Product
@@ -520,6 +554,31 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
     {
         return $this->ProductClassExImage;
     }
+
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+
 
     /**
      * Set ProductType
