@@ -159,10 +159,45 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% if classForm  %}
 
-
 <script>
+{{ '//images dump'}}
 {% for product_class_form in classForm.product_classes %}
-//row {{ product_class_form.vars.name }}
+//loop pc classes
+{% for key,tes in product_class_form %}
+////loop pc class obj ky
+//{{ key }} ::::{{ tes.vars.name }} :: {{ tes.vars.label }}::{% for img in tes.vars.value %}{{ img }}{% endfor %}
+{% if tes.vars.name == 'images' %}
+//{{ tes.vars.name }} :: {{ tes.vars.label }}::{{ tes.vars.value.0}}
+{% endif %}
+{% endfor %}
+////end loop pc class obj
+////loop pc class vars
+
+////loop pc class vars.value target obj property
+//price01:: {{ product_class_form.vars.value.price01 }}
+
+//images::{% for img in product_class_form.vars.value.images %}{{ img }}{% endfor %}
+
+////loop pc class vars keys
+{% for key,tes in product_class_form.vars %}
+//{{ key }}
+{% endfor %}
+////end loop pc class vars
+
+{% endfor %}
+//end loop pc classes vars
+
+
+
+
+{% for product_class_form in classForm.product_classes %}
+{% for tes in product_class_form %}
+{{ '//images 1234999999999999'}}
+{% for img in tes.images %}
+//{{ img }}
+{% endfor %}
+{% endfor %}
+//row {{'123fff'}}
 $(function() {
 
     $("#thumb--{{ product_class_form.vars.name }}").sortable({
@@ -185,7 +220,7 @@ $(function() {
     var proto_add = '{{ form_widget(product_class_form.add_images.vars.prototype) }}';
     var proto_del = '{{ form_widget(product_class_form.delete_images.vars.prototype) }}';
     //{{product_class_form.images.0.vars.name}}
-    {% for image in product_class_form.images %}
+    {% for image in product_class_form.vars.value.images %}
     //{{image}}
     var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}'));
     var $widget = $('{{ form_widget(image) }}');

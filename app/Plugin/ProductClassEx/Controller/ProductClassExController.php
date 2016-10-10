@@ -185,7 +185,7 @@ class ProductClassExController extends ProductClassController
             //　画像をセット
             
             foreach( $ProductClasses as $pc){
-                dump($pc);
+//                dump($pc);
 
                 // ファイルの登録
                 $images = array();
@@ -272,32 +272,56 @@ class ProductClassExController extends ProductClassController
             );
             //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
 
-            $productClassForm = $builder->getForm()->createView();
 
             //dump($productClassForm);//die();
 
             //　画像をセット
-            $pcdats = $builder->getForm('ProductClasses');
-                dump($pcdats);
-            foreach( $pcdats as $pc){
-                dump('pcpc');
-                $pcc = $pc->GetData();
-                foreach($pcc as $c){
-                    dump($c['images']);
+                dump('getform');
+//            $pcdats = $builder->getForm('ProductClasses');
+            $pcdatss = $builder->getForm();
+                dump($pcdatss);
 
-                }
-                /*
-                // ファイルの登録
-                $images = array();
-                $ProductClassExImages = $pc->getProductClassExImage();
-                foreach ($ProductClassExImages as $pcimg) {
-                    $images[] = $pcimg->getFileName();
-                }
+            foreach( $pcdatss as $pcdats){
+                foreach( $pcdats as $pc){
+                    dump('pcpc');
+                    dump($pc);
+                    $pc['images']->SetData(array('hogehogehoge'));
+                    foreach($pc as $lpc){
+                        dump('lpc');
+                        dump($lpc);
+                        foreach($lpc as $llpc){
+                        dump('llpc');
+                        dump($llpc);
 
-                $pc->setImages($images);
-                */
+
+                        }
+
+                    }
+                    /*
+                    $pcc = $pc->GetData();
+                    foreach($pcc as $c){
+                        dump($c);
+                        dump($c['images']);
+
+                    }
+                    */
+                    /*
+                    // ファイルの登録
+                    $images = array();
+                    $ProductClassExImages = $pc->getProductClassExImage();
+                    foreach ($ProductClassExImages as $pcimg) {
+                        $images[] = $pcimg->getFileName();
+                    }
+
+                    $pc->setImages($images);
+                    */
+                }
             }
 //            die();
+            $productClassForm = $builder->getForm()->createView();
+
+            $productClassForm = $pcdatss->createView();
+                dump($productClassForm);
 
             return $app->render('ProductClassEx/View/admin/product_classex.twig', array(
                 'classForm' => $productClassForm,
