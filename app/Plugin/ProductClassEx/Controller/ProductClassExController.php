@@ -55,8 +55,7 @@ class ProductClassExController extends ProductClassController
      */
     public function index(Application $app, Request $request, $id)
     {
-//dump($app);
-//dump($request->files);
+
         /** @var $Product \Plugin\ProductClassEx\Entity\ProductEx */
         $Product = $app['eccube.plugin.product_classex.repository.productex']->find($id);
         $hasClassCategoryFlg = false;
@@ -185,22 +184,17 @@ class ProductClassExController extends ProductClassController
             //　画像をセット
             
             foreach( $ProductClasses as $pc){
-//                dump($pc);
 
                 // ファイルの登録
                 $images = array();
                 $ProductClassExImages = $pc->getProductClassExImage();
                 foreach ($ProductClassExImages as $pcimg) {
-                    $images[] = $pcimg->getFileName();
+                    $images[(int)$pcimg->getRank()] = $pcimg->getFileName();
                 }
 
-                //dump($images);die();
-                //$images[]="hogehoge";
-
                 $pc->setImages($images);
-                //dump($pc);
-//                die();
             }
+            
 
             // 設定されている規格分類1、2を取得(商品規格の規格分類には必ず同じ値がセットされている)
             $ProductClass = $ProductClasses[0];
@@ -275,71 +269,21 @@ class ProductClassExController extends ProductClassController
             //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_PRODUCT_PRODUCT_CLASS_INDEX_CLASSES, $event);
 
 
-            //dump($productClassForm);//die();
-
             //　画像をセット
-            dump('getform');
 //            $pcdats = $builder->getForm('ProductClasses');
             $pcdatss = $builder->getForm();
-                dump($pcdatss);
 
             foreach( $pcdatss as $pcdats){
                 foreach( $pcdats as $pc){
 
-
-                    //foreach($pc as $c){
                     $pcc = $pc->GetViewData();
-                    dump('pc getdata');
-                    dump($pcc);
-                    dump($pcc->getImages());
-                    $imagesarry = array();
-                    $imagesarry = $pcc->getImages();
-                        //foreach($pcc as $cl){
-                        //dump('getdata images');
-                        //dump($cl['images']);
-
-                        //}
-
-                    //}
-
-                //    dump('images');
-                //    dump($pc['images']->GetData());
 
                     $pc['images']->SetData($pcc->getImages());
-                    /*
-                    foreach($pc as $lpc){
-                        dump('lpc');
-                        dump($lpc);
-                        foreach($lpc as $llpc){
-                        dump('llpc');
-                        dump($llpc);
-
-
-                        }
-
-                    }
-                    */
-
-                    
-
-                    /*
-                    // ファイルの登録
-                    $images = array();
-                    $ProductClassExImages = $pc->getProductClassExImage();
-                    foreach ($ProductClassExImages as $pcimg) {
-                        $images[] = $pcimg->getFileName();
-                    }
-
-                    $pc->setImages($images);
-                    */
+dump($pc['images']);
                 }
             }
-//            die();
-            $productClassForm = $builder->getForm()->createView();
-                dump($productClassForm);
 
             $productClassForm = $pcdatss->createView();
-                dump($productClassForm);
 
             return $app->render('ProductClassEx/View/admin/product_classex.twig', array(
                 'classForm' => $productClassForm,
@@ -399,70 +343,7 @@ class ProductClassExController extends ProductClassController
         if ('POST' === $request->getMethod()) {
 
             $form->handleRequest($request);
-            dump($request);
-            dump($request->get('form')['product_classes']);
-
-            foreach( $form as $pcdats){
-                foreach( $pcdats as $pc){
-
-
-                    dump($pc);
-                    //foreach($pc as $c){
-                    $pcc = $pc->GetViewData();
-                    dump('pc getdata');
-                    dump($pcc);
-                    dump($pcc->getImages());
-                    $imagesarry = array();
-                    $imagesarry = $pcc->getImages();
-                        //foreach($pcc as $cl){
-                        //dump('getdata images');
-                        //dump($cl['images']);
-
-                        //}
-
-                    //}
-
-                //    dump('images');
-                //    dump($pc['images']->GetData());
-
-                    //$pc['images']->SetData($pcc->getImages());
-                    
-                        dump('form objdata');
-                    /*
-
-                    foreach($pc as $lpc){
-                        dump('lpc');
-                        dump($lpc);
-                        
-                        //foreach($lpc as $llpc){
-                        //dump('llpc');
-                        //dump($llpc);
-                        //
-                        //
-                        //}
-                        
-
-                    }
-                    */
-
-                    
-
-                    /*
-                    // ファイルの登録
-                    $images = array();
-                    $ProductClassExImages = $pc->getProductClassExImage();
-                    foreach ($ProductClassExImages as $pcimg) {
-                        $images[] = $pcimg->getFileName();
-                    }
-
-                    $pc->setImages($images);
-                    */
-                }
-            }
-
-            dump('form dumped');
-
-            dump($form);//die();
+            
             switch ($request->get('mode')) {
                 case 'edit':
                     // 新規登録
@@ -553,23 +434,6 @@ class ProductClassExController extends ProductClassController
                         if($formData['delete_images']){
                             $ProductClass->setDelImages($formData['delete_images']->GetViewData());    
                         }
-                            dump('form getdata formdata');
-                            dump($ProductClass);
-                            dump('form objdata update');
-                            dump($formData['add_images']);
-                            foreach($formData as $lpc){
-                     //           dump('lpc');
-                     //           dump($lpc);
-                                /*
-                                foreach($lpc as $llpc){
-                                dump('llpc');
-                                dump($llpc);
-
-
-                                }
-                                */
-
-                            }
 
                         if ($ProductClass->getAdd()) {
                             if ($formData->isValid()) {
@@ -632,16 +496,6 @@ class ProductClassExController extends ProductClassController
                         }
                     }
 
-
-                        dump('form getdata upps,adds,removes');
-
-                        dump($updateProductClasses);
-
-                        dump($addProductClasses);
-                        dump($removeProductClasses);
-                        //die();
-
-
                     foreach ($removeProductClasses as $rc) {
                         // 登録されている商品規格に削除フラグをセット
                         foreach ($ProductClasses as $productClass) {
@@ -656,11 +510,7 @@ class ProductClassExController extends ProductClassController
                     }
 
 
-                    dump('update , editimages');
-
                     $this->editimages($app,$request,$updateProductClasses);
-
-                    dump('insert , editimages');
 
                     // 選択された商品規格を登録
                     $this->insertProductClassEx($app, $Product, $addProductClasses);
@@ -729,15 +579,11 @@ class ProductClassExController extends ProductClassController
             }
 
         }
-//die();
         return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
     }
 
     private function editimages(Application $app, Request $request,$productclassexs){
-        dump('editimages');
-        dump($productclassexs);
 
-       // return;
 
         // 画像の登録
         foreach($productclassexs as $productclassex){
@@ -785,9 +631,11 @@ class ProductClassExController extends ProductClassController
             $app['orm.em']->persist($productclassex);
             $app['orm.em']->flush();
 
-/*
+
             $ranks = $request->get('rank_images');
             if ($ranks) {
+dump($ranks);
+dump($productclassex);
                 foreach ($ranks as $rank) {
                     list($filename, $rank_val) = explode('//', $rank);
                     $ProductImage = $app['eccube.plugin.product_classex.repository.product_classex_image']
@@ -795,12 +643,18 @@ class ProductClassExController extends ProductClassController
                             'file_name' => $filename,
                             'ProductClassEx' => $productclassex,
                         ));
-                    $ProductImage->setRank($rank_val);
-                    $app['orm.em']->persist($ProductImage);
-                }
-            }
+                    if($ProductImage){
+                        $ProductImage->setRank($rank_val);
+                        $app['orm.em']->persist($ProductImage);
+ dump($ProductImage);
+           $app['orm.em']->persist($productclassex);
             $app['orm.em']->flush();        
-*/
+
+                    }
+                }
+
+            }
+
         }
     }
 

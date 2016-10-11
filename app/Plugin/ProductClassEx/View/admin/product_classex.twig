@@ -23,8 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set menus = ['product', 'product_master'] %}
 
-{% block title %}商品管理{% endblock %}
-{% block sub_title %}商品登録(商品規格){% endblock %}
+{% block title %}商品規格拡張情報管理{% endblock %}
+{% block sub_title %}商品規格拡張登録(商品規格){% endblock %}
 
 {% if not_product_class  %}
     {% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
@@ -205,7 +205,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% endfor %}
 
 #}
-//row {{'123fff'}}
+//row {{product_class_form.vars.name}}
 $(function() {
 
     $("#thumb--{{ product_class_form.vars.name }}").sortable({
@@ -441,30 +441,30 @@ $(function() {
                                     {{ form_errors(product_class_form.code) }}
                                 </td>
                                 <td id="result_box__product_image--{{ product_class_form.vars.name }}">
-                            <div id="detail_box__image--{{ product_class_form.vars.name }}" class="form-group">
-                                <label class="col-sm-2 control-label" for="admin_productclassex_image">
-                                </label>
-                                <div id="detail_files_box--{{ product_class_form.vars.name }}" class="col-sm-9 col-lg-10">
-                                    <div class="photo_files" id="drag-drop-area--{{ product_class_form.vars.name }}">
-                                        <svg id="icon_no_image--{{ product_class_form.vars.name }}" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
-                                        <ul id="thumb--{{ product_class_form.vars.name }}" class="clearfix"></ul>
+                                    <div id="detail_box__image--{{ product_class_form.vars.name }}" class="form-group">
+                                        <label class="col-sm-2 control-label" for="admin_productclassex_image">
+                                        </label>
+                                        <div id="detail_files_box--{{ product_class_form.vars.name }}" class="col-sm-9 col-lg-10">
+                                            <div class="photo_files" id="drag-drop-area--{{ product_class_form.vars.name }}">
+                                                <svg id="icon_no_image--{{ product_class_form.vars.name }}" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
+                                                <ul id="thumb--{{ product_class_form.vars.name }}" class="clearfix"></ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group marB30">
-                                <div id="detail_box__file_upload--{{ product_class_form.vars.name }}" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
+                                    <div class="form-group marB30">
+                                        <div id="detail_box__file_upload--{{ product_class_form.vars.name }}" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
 
-                                    <div id="progress--{{ product_class_form.vars.name }}" class="progress progress-striped active" style="display:none;">
-                                        <div class="progress-bar progress-bar-info"></div>
-                                    </div>
+                                            <div id="progress--{{ product_class_form.vars.name }}" class="progress progress-striped active" style="display:none;">
+                                                <div class="progress-bar progress-bar-info"></div>
+                                            </div>
 
-                                    {{ form_widget(product_class_form.product_image, { attr : { accept : 'image/*', style : 'display:none;' } }) }}
-                                    <a id="file_upload--{{ product_class_form.vars.name }}" class="with-icon">
-                                        <svg class="cb cb-plus"> <use xlink:href="#cb-plus" /></svg>
-                                    </a>
+                                            {{ form_widget(product_class_form.product_image, { attr : { accept : 'image/*', style : 'display:none;' } }) }}
+                                            <a id="file_upload--{{ product_class_form.vars.name }}" class="with-icon">
+                                                <svg class="cb cb-plus"> <use xlink:href="#cb-plus" /></svg>
+                                            </a>
 
-                                </div>
-                            </div>                                    
+                                        </div>
+                                    </div>                                    
                                     {# form_widget(product_class_form.product_image) #}
                                     {# form_errors(product_class_form.product_image) #}
                                 </td>
