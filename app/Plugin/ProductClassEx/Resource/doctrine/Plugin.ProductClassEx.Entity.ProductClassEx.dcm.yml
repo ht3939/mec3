@@ -99,6 +99,7 @@ Plugin\ProductClassEx\Entity\ProductClassEx:
     oneToMany:
         ProductClassExImage:
             targetEntity: Plugin\ProductClassEx\Entity\ProductClassExImage
+            orderBy: { 'rank': 'ASC' }
             cascade: ["persist"]
             mappedBy: ProductClassEx
     lifecycleCallbacks: {  }
