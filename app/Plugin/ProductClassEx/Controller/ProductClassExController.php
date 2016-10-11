@@ -193,7 +193,9 @@ class ProductClassExController extends ProductClassController
                 foreach ($ProductClassExImages as $pcimg) {
                     $images[] = $pcimg->getFileName();
                 }
-                $images[]="hogehoge";
+
+                //dump($images);die();
+                //$images[]="hogehoge";
 
                 $pc->setImages($images);
                 //dump($pc);
@@ -276,16 +278,35 @@ class ProductClassExController extends ProductClassController
             //dump($productClassForm);//die();
 
             //　画像をセット
-                dump('getform');
+            dump('getform');
 //            $pcdats = $builder->getForm('ProductClasses');
             $pcdatss = $builder->getForm();
                 dump($pcdatss);
 
             foreach( $pcdatss as $pcdats){
                 foreach( $pcdats as $pc){
-                    dump('pcpc');
-                    dump($pc);
-                    $pc['images']->SetData(array('hogehogehoge'));
+
+
+                    //foreach($pc as $c){
+                    $pcc = $pc->GetViewData();
+                    dump('pc getdata');
+                    dump($pcc);
+                    dump($pcc->getImages());
+                    $imagesarry = array();
+                    $imagesarry = $pcc->getImages();
+                        //foreach($pcc as $cl){
+                        //dump('getdata images');
+                        //dump($cl['images']);
+
+                        //}
+
+                    //}
+
+                //    dump('images');
+                //    dump($pc['images']->GetData());
+
+                    $pc['images']->SetData($pcc->getImages());
+                    /*
                     foreach($pc as $lpc){
                         dump('lpc');
                         dump($lpc);
@@ -297,14 +318,10 @@ class ProductClassExController extends ProductClassController
                         }
 
                     }
-                    /*
-                    $pcc = $pc->GetData();
-                    foreach($pcc as $c){
-                        dump($c);
-                        dump($c['images']);
-
-                    }
                     */
+
+                    
+
                     /*
                     // ファイルの登録
                     $images = array();
@@ -319,6 +336,7 @@ class ProductClassExController extends ProductClassController
             }
 //            die();
             $productClassForm = $builder->getForm()->createView();
+                dump($productClassForm);
 
             $productClassForm = $pcdatss->createView();
                 dump($productClassForm);
@@ -381,9 +399,70 @@ class ProductClassExController extends ProductClassController
         if ('POST' === $request->getMethod()) {
 
             $form->handleRequest($request);
-dump($request);
-dump($request->get('form')['product_classes']);
-dump($form);//die();
+            dump($request);
+            dump($request->get('form')['product_classes']);
+
+            foreach( $form as $pcdats){
+                foreach( $pcdats as $pc){
+
+
+                    dump($pc);
+                    //foreach($pc as $c){
+                    $pcc = $pc->GetViewData();
+                    dump('pc getdata');
+                    dump($pcc);
+                    dump($pcc->getImages());
+                    $imagesarry = array();
+                    $imagesarry = $pcc->getImages();
+                        //foreach($pcc as $cl){
+                        //dump('getdata images');
+                        //dump($cl['images']);
+
+                        //}
+
+                    //}
+
+                //    dump('images');
+                //    dump($pc['images']->GetData());
+
+                    //$pc['images']->SetData($pcc->getImages());
+                    
+                        dump('form objdata');
+                    /*
+
+                    foreach($pc as $lpc){
+                        dump('lpc');
+                        dump($lpc);
+                        
+                        //foreach($lpc as $llpc){
+                        //dump('llpc');
+                        //dump($llpc);
+                        //
+                        //
+                        //}
+                        
+
+                    }
+                    */
+
+                    
+
+                    /*
+                    // ファイルの登録
+                    $images = array();
+                    $ProductClassExImages = $pc->getProductClassExImage();
+                    foreach ($ProductClassExImages as $pcimg) {
+                        $images[] = $pcimg->getFileName();
+                    }
+
+                    $pc->setImages($images);
+                    */
+                }
+            }
+
+            dump('form dumped');
+
+            dump($form);//die();
             switch ($request->get('mode')) {
                 case 'edit':
                     // 新規登録
@@ -399,6 +478,11 @@ dump($form);//die();
                     foreach ($form->get('product_classes') as $formData) {
                         // 追加対象の行をvalidate
                         $ProductClass = $formData->getData();
+                        if($formData['add_images']){
+                            $ProductClass->setAddImages($formData['add_images']->GetViewData());    
+                        }
+
+                            dump('form getdata formdata');
 
                         if ($ProductClass->getAdd()) {
                             if ($formData->isValid()) {
@@ -419,6 +503,7 @@ dump($form);//die();
 
                     // 選択された商品規格を登録
                     $this->insertProductClassEx($app, $Product, $addProductClasses);
+                    $this->editimages($app,$request,$addProductClasses);
 
                     // デフォルトの商品規格を更新
                     $defaultProductClass = $app['eccube.plugin.product_classex.repository.product_classex']
@@ -461,7 +546,31 @@ dump($form);//die();
                     foreach ($form->get('product_classes') as $formData) {
                         // 追加対象の行をvalidate
                         $ProductClass = $formData->getData();
-dump($ProductClass);
+
+                        if($formData['add_images']){
+                            $ProductClass->setAddImages($formData['add_images']->GetViewData());    
+                        }
+                        if($formData['delete_images']){
+                            $ProductClass->setDelImages($formData['delete_images']->GetViewData());    
+                        }
+                            dump('form getdata formdata');
+                            dump($ProductClass);
+                            dump('form objdata update');
+                            dump($formData['add_images']);
+                            foreach($formData as $lpc){
+                     //           dump('lpc');
+                     //           dump($lpc);
+                                /*
+                                foreach($lpc as $llpc){
+                                dump('llpc');
+                                dump($llpc);
+
+
+                                }
+                                */
+
+                            }
+
                         if ($ProductClass->getAdd()) {
                             if ($formData->isValid()) {
                                 $checkProductClasses[] = $ProductClass;
@@ -474,13 +583,15 @@ dump($ProductClass);
                         }
                         $tempProductClass = $ProductClass;
                     }
-dump($checkProductClasses);
-die();
+                    dump($checkProductClasses);
+                    //die();
                     if (count($checkProductClasses) == 0) {
                         // 対象がなければエラー
                         $error = array('message' => '商品規格が選択されていません。');
                         return $this->render($app, $Product, $tempProductClass, false, $form, $error);
                     }
+
+
 
 
                     // 登録対象と更新対象の行か判断する
@@ -494,7 +605,6 @@ die();
                             if ($productClass->getProduct()->getId() == $id &&
                                     $productClass->getClassCategory1() == $cp->getClassCategory1() &&
                                     $productClass->getClassCategory2() == $cp->getClassCategory2()) {
-                                $updateProductClasses[] = $cp;
 
                                 // 商品情報
                                 $cp->setProduct($Product);
@@ -508,7 +618,11 @@ die();
                                 }
                                 */
                                 $this->setDefualtProductClassEx($app, $productClass, $cp);
+                                $cp->setDelFlg(Constant::DISABLED);
+                                $productClass->setAddImages($cp->getAddImages());
+                                $productClass->setDelImages($cp->getDelImages());
                                 
+                                $updateProductClasses[] = $productClass;
                                 $flag = true;
                                 break;
                             }
@@ -517,6 +631,16 @@ die();
                             $addProductClasses[] = $cp;
                         }
                     }
+
+
+                        dump('form getdata upps,adds,removes');
+
+                        dump($updateProductClasses);
+
+                        dump($addProductClasses);
+                        dump($removeProductClasses);
+                        //die();
+
 
                     foreach ($removeProductClasses as $rc) {
                         // 登録されている商品規格に削除フラグをセット
@@ -531,8 +655,17 @@ die();
                         }
                     }
 
+
+                    dump('update , editimages');
+
+                    $this->editimages($app,$request,$updateProductClasses);
+
+                    dump('insert , editimages');
+
                     // 選択された商品規格を登録
                     $this->insertProductClassEx($app, $Product, $addProductClasses);
+
+                    $this->editimages($app,$request,$addProductClasses);
 
                     $app['orm.em']->flush();
 
@@ -596,10 +729,80 @@ die();
             }
 
         }
-
+//die();
         return $app->redirect($app->url('admin_productclassex', array('id' => $id)));
     }
 
+    private function editimages(Application $app, Request $request,$productclassexs){
+        dump('editimages');
+        dump($productclassexs);
+
+       // return;
+
+        // 画像の登録
+        foreach($productclassexs as $productclassex){
+
+            $add_images = $productclassex->getAddImages();
+            if(is_array($add_images)){
+                foreach ($add_images as $add_image) {
+                    $ProductImage = new \Plugin\ProductClassEx\Entity\ProductClassExImage();
+                    $ProductImage
+                        ->setFileName($add_image)
+                        ->setProductClassEx($productclassex)
+                        ->setRank(1);
+                    $productclassex->addProductClassExImage($ProductImage);
+                    $app['orm.em']->persist($ProductImage);
+
+                    // 移動
+                    $file = new File($app['config']['image_temp_realdir'] . '/' . $add_image);
+                    $file->move($app['config']['image_save_realdir']);
+                }
+            }
+
+            // 画像の削除
+            $delete_images = $productclassex->getDelImages();
+            if(is_array($delete_images)){
+
+                foreach ($delete_images as $delete_image) {
+                    $ProductImage = $app['eccube.plugin.product_classex.repository.product_classex_image']
+                        ->findOneBy(array('file_name' => $delete_image));
+
+                    // 追加してすぐに削除した画像は、Entityに追加されない
+                    if ($ProductImage instanceof \Plugin\ProductClassEx\Entity\ProductClassExImage) {
+                        $productclassex->removeProductClassExImage($ProductImage);
+                        $app['orm.em']->remove($ProductImage);
+
+                    }
+                    $app['orm.em']->persist($productclassex);
+
+                    // 削除
+                    $fs = new Filesystem();
+                    $fs->remove($app['config']['image_save_realdir'] . '/' . $delete_image);
+                }
+
+            }
+
+            $app['orm.em']->persist($productclassex);
+            $app['orm.em']->flush();
+
+/*
+            $ranks = $request->get('rank_images');
+            if ($ranks) {
+                foreach ($ranks as $rank) {
+                    list($filename, $rank_val) = explode('//', $rank);
+                    $ProductImage = $app['eccube.plugin.product_classex.repository.product_classex_image']
+                        ->findOneBy(array(
+                            'file_name' => $filename,
+                            'ProductClassEx' => $productclassex,
+                        ));
+                    $ProductImage->setRank($rank_val);
+                    $app['orm.em']->persist($ProductImage);
+                }
+            }
+            $app['orm.em']->flush();        
+*/
+        }
+    }
 
 
     /**

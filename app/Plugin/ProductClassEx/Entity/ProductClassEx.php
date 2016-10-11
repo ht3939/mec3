@@ -233,6 +233,8 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
     private $ProductClassExImage;
 
     private $images;
+    private $add_images;
+    private $delete_images;
     /**
      * Constructor
      */
@@ -578,6 +580,51 @@ class ProductClassEx extends \Eccube\Entity\AbstractEntity
         return $this->images;
     }
 
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setAddImages($images)
+    {
+        $this->add_images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getAddImages()
+    {
+        return $this->add_images;
+    }
+
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setDelImages($images)
+    {
+        $this->delete_images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getDelImages()
+    {
+        return $this->delete_images;
+    }
 
 
     /**

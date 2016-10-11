@@ -160,6 +160,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% if classForm  %}
 
 <script>
+{#
+
 {{ '//images dump'}}
 {% for product_class_form in classForm.product_classes %}
 //loop pc classes
@@ -187,16 +189,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% endfor %}
 //end loop pc classes vars
 
+#}
+
 
 
 
 {% for product_class_form in classForm.product_classes %}
+{#
+
 {% for tes in product_class_form %}
 {{ '//images 1234999999999999'}}
 {% for img in tes.images %}
 //{{ img }}
 {% endfor %}
 {% endfor %}
+
+#}
 //row {{'123fff'}}
 $(function() {
 
@@ -219,7 +227,7 @@ $(function() {
             + '</li>';
     var proto_add = '{{ form_widget(product_class_form.add_images.vars.prototype) }}';
     var proto_del = '{{ form_widget(product_class_form.delete_images.vars.prototype) }}';
-    //{{product_class_form.images.0.vars.name}}
+
     {% for image in product_class_form.images %}
     //image}}
     var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}'));
