@@ -279,7 +279,7 @@ class ProductClassExController extends ProductClassController
                     $pcc = $pc->GetViewData();
 
                     $pc['images']->SetData($pcc->getImages());
-dump($pc['images']);
+//dump($pc['images']);
                 }
             }
 
@@ -363,7 +363,6 @@ dump($pc['images']);
                             $ProductClass->setAddImages($formData['add_images']->GetViewData());    
                         }
 
-                            dump('form getdata formdata');
 
                         if ($ProductClass->getAdd()) {
                             if ($formData->isValid()) {
@@ -447,7 +446,7 @@ dump($pc['images']);
                         }
                         $tempProductClass = $ProductClass;
                     }
-                    dump($checkProductClasses);
+
                     //die();
                     if (count($checkProductClasses) == 0) {
                         // 対象がなければエラー
@@ -634,8 +633,7 @@ dump($pc['images']);
 
             $ranks = $request->get('rank_images');
             if ($ranks) {
-dump($ranks);
-dump($productclassex);
+
                 foreach ($ranks as $rank) {
                     list($filename, $rank_val) = explode('//', $rank);
                     $ProductImage = $app['eccube.plugin.product_classex.repository.product_classex_image']
@@ -646,12 +644,12 @@ dump($productclassex);
                     if($ProductImage){
                         $ProductImage->setRank($rank_val);
                         $app['orm.em']->persist($ProductImage);
- dump($ProductImage);
-           $app['orm.em']->persist($productclassex);
-            $app['orm.em']->flush();        
+
+                        //$app['orm.em']->persist($productclassex);
 
                     }
                 }
+                $app['orm.em']->flush();        
 
             }
 

@@ -49,7 +49,7 @@ class ProductClassExServiceProvider implements ServiceProviderInterface
         $app->match('/' . $app["config"]["admin_route"] . '/productclassex/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::index')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_productclassex');
-        $app->post('/' . $app["config"]["admin_route"] . '/productclassex/edit/{id}', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::edit')
+        $app->post('/' . $app["config"]["admin_route"] . '/productclassex/{id}/edit', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::edit')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_productclassex_edit');
         $app->post('/' . $app["config"]["admin_route"] . '/productclassex/image/add', '\\Plugin\\ProductClassEx\\Controller\\ProductClassExController::addImage')
