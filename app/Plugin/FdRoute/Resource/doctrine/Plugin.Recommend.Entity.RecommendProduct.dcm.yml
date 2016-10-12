@@ -1,6 +1,6 @@
 Plugin\FdRoute\Entity\FdRouteProduct:
     type: entity
-    table: plg_recommend_product
+    table: plg_fdroute_product
     repositoryClass: Plugin\FdRoute\Repository\FdRouteProductRepository
     id:
         id:
@@ -8,7 +8,7 @@ Plugin\FdRoute\Entity\FdRouteProduct:
             nullable: false
             unsigned: false
             id: true
-            column: recommend_product_id
+            column: fdroute_product_id
             generator:
                 strategy: AUTO
     fields:

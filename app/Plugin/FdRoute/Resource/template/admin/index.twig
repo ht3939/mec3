@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% extends 'default_frame.twig' %}
 
-{% set menus = ['content', 'admin_recommend'] %}
+{% set menus = ['content', 'admin_fdroute'] %}
 
 {% block title %}おすすめ商品管理{% endblock %}
 {% block sub_title %}おすすめ商品内容設定{% endblock %}
@@ -66,25 +66,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <tbody>
                                 {% for FdRouteProduct in pagination %}
                                 <tr>
-                                    <td class="recommend_product_id">{{ FdRouteProduct.id }}</td>
+                                    <td class="fdroute_product_id">{{ FdRouteProduct.id }}</td>
                                     <td class="product_id">
                                         {{ FdRouteProduct.Product.name }}
                                     </td>
                                     <td class="comment">{{ FdRouteProduct.comment|nl2br }}</td>
-                                    <td><a href="{{ url('admin_recommend_edit', { id : FdRouteProduct.id }) }}" >編集</a></td>
-                                    <td><a href="{{ url('admin_recommend_delete', {'id' : FdRouteProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="おすすめ情報を削除してもよろしいですか？">削除</a></td>
+                                    <td><a href="{{ url('admin_fdroute_edit', { id : FdRouteProduct.id }) }}" >編集</a></td>
+                                    <td><a href="{{ url('admin_fdroute_delete', {'id' : FdRouteProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="おすすめ情報を削除してもよろしいですか？">削除</a></td>
                                     <td class="icon_edit">
                                         <div class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown"><svg class="cb cb-ellipsis-h"> <use xlink:href="#cb-ellipsis-h" /></svg></a>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                             {% if loop.first == false %}
                                                 <li>
-                                                    <a href="{{ url('admin_recommend_rank_up', {id: FdRouteProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">上へ</a>
+                                                    <a href="{{ url('admin_fdroute_rank_up', {id: FdRouteProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">上へ</a>
                                                 </li>
                                             {% endif %}
                                             {% if loop.last == false %}
                                                 <li>
-                                                    <a href="{{ url('admin_recommend_rank_down', {id: FdRouteProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">下へ</a>
+                                                    <a href="{{ url('admin_fdroute_rank_down', {id: FdRouteProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">下へ</a>
                                                 </li>
                                             {% endif %}
                                             </ul>
@@ -102,7 +102,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </div>
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
-        <a href="{{ url('admin_recommend_new') }}" class="btn btn-primary btn-block btn-lg">おすすめ商品を新規登録</a>
+        <a href="{{ url('admin_fdroute_new') }}" class="btn btn-primary btn-block btn-lg">おすすめ商品を新規登録</a>
     </div>
 </div>
 </form>

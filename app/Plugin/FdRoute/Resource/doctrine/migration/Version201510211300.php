@@ -47,8 +47,8 @@ class Version201510211300 extends AbstractMigration
     public function down(Schema $schema)
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $schema->dropTable('plg_recommend_product');
-        $schema->dropSequence('plg_recommend_product_recommend_product_id_seq');
+        $schema->dropTable('plg_fdroute_product');
+        $schema->dropSequence('plg_fdroute_product_fdroute_product_id_seq');
     }
 
     /**
@@ -57,18 +57,13 @@ class Version201510211300 extends AbstractMigration
      */
     protected function createFdRouteProduct(Schema $schema)
     {
-        $table = $schema->createTable("plg_recommend_product");
-        $table->addColumn('recommend_product_id', 'integer', array(
+        $table = $schema->createTable("plg_fdroute_product");
+        $table->addColumn('fdroute_product_id', 'integer', array(
             'autoincrement' => true,
             'notnull' => true,
         ));
 
-        $table->addColumn('product_id', 'integer', array(
-            'notnull' => true,
-            'unsigned' => false,
-        ));
-
-        $table->addColumn('comment', 'text', array(
+        $table->addColumn('condition', 'text', array(
             'notnull' => false,
         ));
 
@@ -94,7 +89,7 @@ class Version201510211300 extends AbstractMigration
             'unsigned' => false,
         ));
 
-        $table->setPrimaryKey(array('recommend_product_id'));
+        $table->setPrimaryKey(array('fdroute_product_id'));
     }
 
 }

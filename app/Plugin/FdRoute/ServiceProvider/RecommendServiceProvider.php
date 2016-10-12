@@ -33,52 +33,52 @@ class FdRouteServiceProvider implements ServiceProviderInterface
     public function register(BaseApplication $app)
     {
         // おすすめ情報テーブルリポジトリ
-        $app['eccube.plugin.recommend.repository.recommend_product'] = $app->share(function () use ($app) {
+        $app['eccube.plugin.fdroute.repository.fdroute_product'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\FdRoute\Entity\FdRouteProduct');
         });
 
         // おすすめ商品の一覧
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend', '\Plugin\FdRoute\Controller\FdRouteController::index')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute', '\Plugin\FdRoute\Controller\FdRouteController::index')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_list');
+            ->bind('admin_fdroute_list');
 
         // おすすめ商品の新規先
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/new', '\Plugin\FdRoute\Controller\FdRouteController::create')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/new', '\Plugin\FdRoute\Controller\FdRouteController::create')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_new');
+            ->bind('admin_fdroute_new');
 
         // おすすめ商品の新規作成・編集確定
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/commit', '\Plugin\FdRoute\Controller\FdRouteController::commit')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/commit', '\Plugin\FdRoute\Controller\FdRouteController::commit')
         ->value('id', null)->assert('id', '\d+|')
-        ->bind('admin_recommend_commit');
+        ->bind('admin_fdroute_commit');
 
         // おすすめ商品の編集
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/edit/{id}', '\Plugin\FdRoute\Controller\FdRouteController::edit')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/edit/{id}', '\Plugin\FdRoute\Controller\FdRouteController::edit')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_edit');
+            ->bind('admin_fdroute_edit');
 
         // おすすめ商品の削除
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/delete/{id}', '\Plugin\FdRoute\Controller\FdRouteController::delete')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/delete/{id}', '\Plugin\FdRoute\Controller\FdRouteController::delete')
         ->value('id', null)->assert('id', '\d+|')
-        ->bind('admin_recommend_delete');
+        ->bind('admin_fdroute_delete');
 
         // おすすめ商品のランク移動（上）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/rank_up/{id}', '\Plugin\FdRoute\Controller\FdRouteController::rankUp')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/rank_up/{id}', '\Plugin\FdRoute\Controller\FdRouteController::rankUp')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_rank_up');
+            ->bind('admin_fdroute_rank_up');
 
         // おすすめ商品のランク移動（下）
-        $app->match('/' . $app["config"]["admin_route"] . '/recommend/rank_down/{id}', '\Plugin\FdRoute\Controller\FdRouteController::rankDown')
+        $app->match('/' . $app["config"]["admin_route"] . '/fdroute/rank_down/{id}', '\Plugin\FdRoute\Controller\FdRouteController::rankDown')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_recommend_rank_down');
+            ->bind('admin_fdroute_rank_down');
 
         // 商品検索画面表示
-        $app->post('/' . $app["config"]["admin_route"] . '/recommend/search/product', '\Plugin\FdRoute\Controller\FdRouteSearchModelController::searchProduct')
-            ->bind('admin_recommend_search_product');
+        $app->post('/' . $app["config"]["admin_route"] . '/fdroute/search/product', '\Plugin\FdRoute\Controller\FdRouteSearchModelController::searchProduct')
+            ->bind('admin_fdroute_search_product');
 
         // ブロック
-        $app->match('/block/recommend_product_block', '\Plugin\FdRoute\Controller\Block\FdRouteController::index')
-            ->bind('block_recommend_product_block');
+        $app->match('/block/fdroute_product_block', '\Plugin\FdRoute\Controller\Block\FdRouteController::index')
+            ->bind('block_fdroute_product_block');
 
 
         // 型登録
@@ -88,7 +88,7 @@ class FdRouteServiceProvider implements ServiceProviderInterface
         }));
 
         // サービスの登録
-        $app['eccube.plugin.recommend.service.recommend'] = $app->share(function () use ($app) {
+        $app['eccube.plugin.fdroute.service.fdroute'] = $app->share(function () use ($app) {
             return new \Plugin\FdRoute\Service\FdRouteService($app);
         });
 
@@ -106,9 +106,9 @@ class FdRouteServiceProvider implements ServiceProviderInterface
 
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
-            $addNavi['id'] = 'admin_recommend';
+            $addNavi['id'] = 'admin_fdroute';
             $addNavi['name'] = 'おすすめ管理';
-            $addNavi['url'] = 'admin_recommend_list';
+            $addNavi['url'] = 'admin_fdroute_list';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {
                 if ('content' == $val['id']) {

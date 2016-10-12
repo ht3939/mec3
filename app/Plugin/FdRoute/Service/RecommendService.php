@@ -73,7 +73,7 @@ class FdRouteService
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $FdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($data['id']);
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($data['id']);
         if(is_null($FdRoute)) {
             false;
         }
@@ -93,15 +93,15 @@ class FdRouteService
 
     /**
      * おすすめ商品情報を削除する
-     * @param $recommendId
+     * @param $fdrouteId
      * @return bool
      */
-    public function deleteFdRoute($recommendId) {
+    public function deleteFdRoute($fdrouteId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $FdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
         if(is_null($FdRoute)) {
             false;
         }
@@ -119,20 +119,20 @@ class FdRouteService
 
     /**
      * おすすめ商品情報の順位を上げる
-     * @param $recommendId
+     * @param $fdrouteId
      * @return bool
      */
-    public function rankUp($recommendId) {
+    public function rankUp($fdrouteId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $FdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
         if(is_null($FdRoute)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetFdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']
+        $TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
                                 ->findByRankUp($FdRoute->getRank());
         if(is_null($TargetFdRoute)) {
             false;
@@ -158,20 +158,20 @@ class FdRouteService
 
     /**
      * おすすめ商品情報の順位を下げる
-     * @param $recommendId
+     * @param $fdrouteId
      * @return bool
      */
-    public function rankDown($recommendId) {
+    public function rankDown($fdrouteId) {
         $currentDateTime = new \DateTime();
         $em = $this->app['orm.em'];
 
         // おすすめ商品情報を取得する
-        $FdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
         if(is_null($FdRoute)) {
             false;
         }
         // 対象ランクの上に位置するおすすめ商品を取得する
-        $TargetFdRoute =$this->app['eccube.plugin.recommend.repository.recommend_product']
+        $TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
                                 ->findByRankDown($FdRoute->getRank());
         if(is_null($TargetFdRoute)) {
             false;
@@ -203,7 +203,7 @@ class FdRouteService
     protected function newFdRoute($data) {
         $dateTime = new \DateTime();
 
-        $rank = $this->app['eccube.plugin.recommend.repository.recommend_product']->getMaxRank();
+        $rank = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->getMaxRank();
 
         $FdRoute = new \Plugin\FdRoute\Entity\FdRouteProduct();
         $FdRoute->setComment($data['comment']);

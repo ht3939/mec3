@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
 {% extends 'default_frame.twig' %}
 
-{% set menus = ['content', 'admin_recommend'] %}
+{% set menus = ['content', 'admin_fdroute'] %}
 
 {% block title %}おすすめ商品管理{% endblock %}
 {% block sub_title %}おすすめ商品内容設定{% endblock %}
@@ -48,7 +48,7 @@ $(function() {
                 'id' : $('#admin_search_product_id').val(),
                 'category_id' : $('#admin_search_product_category_id').val()
             },
-            url: '{{ url('admin_recommend_search_product') }}',
+            url: '{{ url('admin_fdroute_search_product') }}',
             success: function(data) {
                 // モーダルに結果を書き出し.
                 $('#searchProductModalList').html(data);
@@ -121,7 +121,7 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                 <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
                     <button class="btn btn-primary btn-block btn-lg" onclick="return setModeAndSubmit('commit');">登録</button>
                     {% if form.id is not null %}
-                        <p><a href="{{ url('admin_recommend_list') }}">戻る</a></p>
+                        <p><a href="{{ url('admin_fdroute_list') }}">戻る</a></p>
                     {% endif %}
                 </div>
             </div>
