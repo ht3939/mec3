@@ -1083,67 +1083,31 @@ class ProductClassExController extends ProductClassController
             throw new BadRequestHttpException();
         }
         $imagesc = $request->files->get('form');
-//$app['monolog']->info($request->files);
-/*
-$log = new Logger('LogName');
-$log->pushHandler(new StreamHandler('../app/log/foobar.log', Logger::DEBUG));
-
-$log->debug('Foo');    // --- (1)
-$log->info('Bar');     // --- (2)
-$log->warning('Hoge'); // --- (3)
-$log->error('Huga');   // --- (4)
-
-
-$ggg = function($ary) use($log,&$ggg){
-    foreach($ary as $k=>$v){
-    $log->error($k);// --- (4)
-    $log->error($v);// --- (4)
-    if(is_array($v)){
-        $ggg($v);
-    }
-    }
-
-};
-
-$ggg($request->files->keys());
-
-
-$ggg($request->files);
-*/
-//$log->error('image');   // --- (4)
-
-//$ggg($images);
-//$log->info($imagesc);   // --- (4)
 
 
         $files = array();
         if (count($imagesc) > 0) {
-//$log->info('image moving');   // --- (4)
-        foreach ($imagesc as $images) {
-            foreach ($images as $img) {
-                    //$rwrw = $img->getMimeType();
-                foreach ($img as $image) {
-                    //ファイルフォーマット検証
-//$log->info('image check');   // --- (4)
-//$log->info($image);   // --- (4)
-//$ggg($image);   // --- (4)
-                    $mimeType = $image[0]->getMimeType();
-//$log->info('image get mime');   // --- (4)
-                    if (0 !== strpos($mimeType, 'image')) {
-                        throw new UnsupportedMediaTypeHttpException();
-                    }
-//$log->info('image converting');   // --- (4)
 
-                    $extension = $image[0]->getClientOriginalExtension();
-                    $filename = date('mdHis') . uniqid('_') . '.' . $extension;
-                    $image[0]->move($app['config']['image_temp_realdir'], $filename);
-                    $files[] = $filename;
+            foreach ($imagesc as $images) {
+                foreach ($images as $img) {
+
+                    foreach ($img as $image) {
+                        //ファイルフォーマット検証
+
+                        $mimeType = $image[0]->getMimeType();
+
+                        if (0 !== strpos($mimeType, 'image')) {
+                            throw new UnsupportedMediaTypeHttpException();
+                        }
+
+                        $extension = $image[0]->getClientOriginalExtension();
+                        $filename = date('mdHis') . uniqid('_') . '.' . $extension;
+                        $image[0]->move($app['config']['image_temp_realdir'], $filename);
+                        $files[] = $filename;
+                    }
                 }
             }
-        }
-//$log->info('image moving done.');   // --- (4)
 
-//dump($images);die();
         }
 
         $event = new EventArgs(
@@ -1155,11 +1119,8 @@ $ggg($request->files);
         );
         $app['eccube.event.dispatcher']->dispatch('admin.productclassex.add.image.complete', $event);
         $files = $event->getArgument('files');
-/*
-$log->error('event raised files');   // --- (4)
-$log->info($files);   // --- (4)
-*/
-//die();
+
+
         return $app->json(array('files' => $files), 200);
     }
 
