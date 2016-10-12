@@ -92,28 +92,40 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.id) }}
                             </div>
                         </div>
-                        {# 商品ID #}
-                        <div class="form-group" style="display: block;">
-                            {{ form_label(form.id) }}
+
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.condition) }}
                             <div class="col-sm-9 col-lg-10">
-                                <a id="showSearchProductModal" class="btn btn-default btn-block btn-sm" data-toggle="modal" data-target="#searchProductModal">商品の追加</a>
-                                <span id="product_name">
-                                    {% if Product is not null %}
-                                        {{ Product.name }}
-                                    {% endif %}
-                                </span>
-                                {{ form_widget(form.Product) }}
-                                {{ form_errors(form.Product) }}
+                                {{ form_widget(form.condition) }}
+                                {{ form_errors(form.condition) }}
                             </div>
                         </div>
                         {# コメント #}
                         <div class="form-group">
-                            {{ form_label(form.comment) }}
+                            {{ form_label(form.route_string) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.comment) }}
-                                {{ form_errors(form.comment) }}
+                                {{ form_widget(form.route_string) }}
+                                {{ form_errors(form.route_string) }}
                             </div>
-                        </div>
+                        </div>                        
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.route_string_pos) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.route_string_pos) }}
+                                {{ form_errors(form.route_string_pos) }}
+                            </div>
+                        </div>                        
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.fd_string) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.fd_string) }}
+                                {{ form_errors(form.fd_string) }}
+                            </div>
+                        </div>                        
+
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->

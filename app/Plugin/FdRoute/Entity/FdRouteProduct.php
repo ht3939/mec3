@@ -42,7 +42,10 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *
      * @var string
      */
-    private $comment;
+    private $condition;
+    private $route_string;
+    private $route_string_pos;
+    private $fd_string;
 
     /**
      *
@@ -73,11 +76,6 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      * @var \DateTime
      */
     private $update_date;
-
-    /**
-     * @var \Eccube\Entity\Product
-     */
-    private $Product;
 
     /**
      * Constructor
@@ -113,9 +111,9 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *
      * @return string
      */
-    public function getComment()
+    public function getCodition()
     {
-        return $this->comment;
+        return $this->condition;
     }
 
     /**
@@ -125,12 +123,86 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *            string
      * @return Module
      */
-    public function setComment($comment)
+    public function setCondition($condition)
     {
-        $this->comment = $comment;
+        $this->condition = $condition;
 
         return $this;
     }
+
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getRouteString()
+    {
+        return $this->route_string;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setRouteString($condition)
+    {
+        $this->route_string = $condition;
+
+        return $this;
+    }
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getRouteStringPos()
+    {
+        return $this->route_string_pos;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setRouteStringPos($condition)
+    {
+        $this->route_string_pos = $condition;
+
+        return $this;
+    }
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getFdString()
+    {
+        return $this->fd_string;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setFdString($condition)
+    {
+        $this->fd_string = $condition;
+
+        return $this;
+    }
+
+
+
+
 
     /**
      * Get rank
@@ -225,30 +297,5 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
         return $this->update_date;
     }
 
-    /**
-     * Set Product
-     *
-     * @param \Eccube\Entity\Product $product
-     * @return Prodcut
-     */
-    public function setProduct(\Eccube\Entity\Product $product)
-    {
-        $this->Product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get Product
-     *
-     * @return \Eccube\Entity\Product 
-     */
-    public function getProduct()
-    {
-        if (EntityUtil::isEmpty($this->Product)) {
-            return null;
-        }
-        return $this->Product;
-    }
 
 }

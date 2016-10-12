@@ -12,9 +12,18 @@ Plugin\FdRoute\Entity\FdRouteProduct:
             generator:
                 strategy: AUTO
     fields:
-        comment:
+        condition:
             type: text
-            nullable: true
+            nullable: false
+        route_string:
+            type: text
+            nullable: false
+        route_string_pos:
+            type: integer
+            nullable: false
+        fd_string:
+            type: text
+            nullable: false
         rank:
             type: integer
             nullable: false
@@ -30,12 +39,5 @@ Plugin\FdRoute\Entity\FdRouteProduct:
         update_date:
             type: datetime
             nullable: false
-    manyToOne:
-        Product:
-            targetEntity: Eccube\Entity\Product
-            inversedBy: FdRouteProduct
-            joinColumn:
-                name: product_id
-                referencedColumnName: product_id
     lifecycleCallbacks: {  }
     

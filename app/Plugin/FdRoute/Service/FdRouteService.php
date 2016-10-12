@@ -79,8 +79,10 @@ class FdRouteService
         }
 
         // おすすめ商品情報を書き換える
-        $FdRoute->setComment($data['comment']);
-        $FdRoute->setProduct($data['Product']);
+        $FdRoute->setCondition($data['condition']);
+        $FdRoute->setRouteString($data['route_string']);
+        $FdRoute->setRouteStringPos($data['route_string_pos']);
+        $FdRoute->setFdString($data['fd_string']);
         $FdRoute->setUpdateDate($dateTime);
 
         // おすすめ商品情報を更新する
@@ -206,8 +208,12 @@ class FdRouteService
         $rank = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->getMaxRank();
 
         $FdRoute = new \Plugin\FdRoute\Entity\FdRouteProduct();
-        $FdRoute->setComment($data['comment']);
-        $FdRoute->setProduct($data['Product']);
+
+        $FdRoute->setCondition($data['condition']);
+        $FdRoute->setRouteString($data['route_string']);
+        $FdRoute->setRouteStringPos($data['route_string_pos']);
+        $FdRoute->setFdString($data['fd_string']);
+
         $FdRoute->setRank(($rank ? $rank : 0) + 1);
         $FdRoute->setDelFlg(Constant::DISABLED);
         $FdRoute->setCreateDate($dateTime);

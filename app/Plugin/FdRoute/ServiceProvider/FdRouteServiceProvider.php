@@ -107,7 +107,7 @@ class FdRouteServiceProvider implements ServiceProviderInterface
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
             $addNavi['id'] = 'admin_fdroute';
-            $addNavi['name'] = 'おすすめ管理';
+            $addNavi['name'] = 'FDルート管理';
             $addNavi['url'] = 'admin_fdroute_list';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {

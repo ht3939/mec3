@@ -95,16 +95,17 @@ class FdRouteController extends AbstractController
                 return $app->redirect($app->url('admin_fdroute_list'));
             }
 
-            if (!is_null($data['Product'])) {
-                $Product = $data['Product'];
-            }
+            // if (!is_null($data['Product'])) {
+            //     $Product = $data['Product'];
+            // }
         }
 
         return $this->renderRegistView(
             $app,
             array(
-                'form' => $form->createView(),
-                'Product' => $Product
+                'form' => $form->createView()
+                // ,
+                // 'Product' => $Product
             )
         );
     }
@@ -159,8 +160,9 @@ class FdRouteController extends AbstractController
         return $this->renderRegistView(
             $app,
             array(
-                'form' => $form->createView(),
-                'Product' => $FdRoute->getProduct()
+                'form' => $form->createView()
+                // ,
+                // 'Product' => $FdRoute->getProduct()
             )
         );
     }

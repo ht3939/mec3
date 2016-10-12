@@ -59,7 +59,31 @@ class FdRouteProductType extends AbstractType
                 'required' => false,
                 'attr' => array('readonly' => 'readonly'),
             ))
-            ->add('comment', 'textarea', array(
+            ->add('condition', 'textarea', array(
+                'label' => 'コメント',
+                'required' => true,
+                'trim' => true,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                ),
+            ))
+            ->add('route_string', 'text', array(
+                'label' => 'コメント',
+                'required' => true,
+                'trim' => true,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                ),
+            ));
+            ->add('route_string_pos', 'smallint', array(
+                'label' => 'コメント',
+                'required' => true,
+                'trim' => true,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                ),
+            ));
+            ->add('fd_string', 'text', array(
                 'label' => 'コメント',
                 'required' => true,
                 'trim' => true,
@@ -68,12 +92,7 @@ class FdRouteProductType extends AbstractType
                 ),
             ));
 
-        $builder
-            ->add($builder->create('Product', 'hidden')
-                ->addModelTransformer(new DataTransformer\EntityToIdTransformer(
-                    $this->app['orm.em'],
-                    '\Eccube\Entity\Product'
-                )));
+
 
         $builder
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($app) {
