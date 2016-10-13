@@ -42,7 +42,7 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *
      * @var string
      */
-    private $condition;
+    private $conditions;
     private $route_string;
     private $route_string_pos;
     private $fd_string;
@@ -111,9 +111,9 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *
      * @return string
      */
-    public function getCodition()
+    public function getConditions()
     {
-        return $this->condition;
+        return $this->conditions;
     }
 
     /**
@@ -123,9 +123,9 @@ class FdRouteProduct extends \Eccube\Entity\AbstractEntity
      *            string
      * @return Module
      */
-    public function setCondition($condition)
+    public function setConditions($condition)
     {
-        $this->condition = $condition;
+        $this->conditions = $condition;
 
         return $this;
     }

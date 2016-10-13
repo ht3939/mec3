@@ -79,7 +79,7 @@ class FdRouteService
         }
 
         // おすすめ商品情報を書き換える
-        $FdRoute->setCondition($data['condition']);
+        $FdRoute->setConditions($data['conditions']);
         $FdRoute->setRouteString($data['route_string']);
         $FdRoute->setRouteStringPos($data['route_string_pos']);
         $FdRoute->setFdString($data['fd_string']);
@@ -209,7 +209,7 @@ class FdRouteService
 
         $FdRoute = new \Plugin\FdRoute\Entity\FdRouteProduct();
 
-        $FdRoute->setCondition($data['condition']);
+        $FdRoute->setConditions($data['conditions']);
         $FdRoute->setRouteString($data['route_string']);
         $FdRoute->setRouteStringPos($data['route_string_pos']);
         $FdRoute->setFdString($data['fd_string']);
@@ -220,6 +220,20 @@ class FdRouteService
         $FdRoute->setUpdateDate($dateTime);
 
         return $FdRoute;
+    }
+
+    private $CurrFdRoute;
+    //セッションに判定したFDルートを保存する
+    public function registFdRoute(){
+
+
+        return $this->CurrFdRoute;
+    }
+    //セッションに保存してあるFDルートを取得する
+    public function getStoredFdRoute(){
+
+
+        return $this->CurrFdRoute;
     }
 
 }

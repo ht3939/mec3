@@ -12,7 +12,7 @@ Plugin\FdRoute\Entity\FdRouteProduct:
             generator:
                 strategy: AUTO
     fields:
-        condition:
+        conditions:
             type: text
             nullable: false
         route_string:
@@ -21,6 +21,8 @@ Plugin\FdRoute\Entity\FdRouteProduct:
         route_string_pos:
             type: integer
             nullable: false
+            unsigned: false
+            default: '1'
         fd_string:
             type: text
             nullable: false

@@ -33,11 +33,14 @@ class FdRouteController
      */
     public function index(Application $app)
     {
-        $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $FdRouteProducts = $app['eccube.plugin.fdroute.repository.fdroute_product']->getFdRouteProduct($Disp);
+        //ここにサービスを経由してセッションへ保持するロジックを配置する。
+        $service = $app['eccube.plugin.fdroute.service.fdroute'];
+
+        $FdRouteInfo = $service->registFdRoute();
 
         return $app['view']->render('Block/fdroute_product_block.twig', array(
-            'FdRouteProducts' => $FdRouteProducts,
+            'FdRouteInfo' => $FdRouteInfo,
         ));
     }
+
 }
