@@ -50,7 +50,7 @@ class FdRouteProductRepository extends EntityRepository
         $qb = $this->createQueryBuilder('rp')
             ->select('rp');
 
-        $qb->addOrderBy('rp.rank', 'DESC');
+        $qb->addOrderBy('rp.rank', 'asc');
 
         return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
