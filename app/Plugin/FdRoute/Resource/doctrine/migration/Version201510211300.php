@@ -63,18 +63,18 @@ class Version201510211300 extends AbstractMigration
             'notnull' => true,
         ));
 
-        $table->addColumn('condition', 'text', array(
+        $table->addColumn('conditions', 'text', array(
             'notnull' => true,
         ));
 
         $table->addColumn('route_string', 'text', array(
-            'notnull' => false,
+            'notnull' => true,
         ));
         $table->addColumn('route_string_pos', 'integer', array(
-            'notnull' => false,
+            'notnull' => true,
         ));
         $table->addColumn('fd_string', 'text', array(
-            'notnull' => false,
+            'notnull' => true,
         ));
 
         $table->addColumn('rank', 'integer', array(

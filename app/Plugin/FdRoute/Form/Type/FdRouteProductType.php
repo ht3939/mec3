@@ -55,12 +55,12 @@ class FdRouteProductType extends AbstractType
 
         $builder
             ->add('id', 'text', array(
-                'label' => 'おすすめ商品ID',
+                'label' => 'FDルート管理ID',
                 'required' => false,
                 'attr' => array('readonly' => 'readonly'),
             ))
-            ->add('condition', 'textarea', array(
-                'label' => 'コメント',
+            ->add('conditions', 'textarea', array(
+                'label' => 'ルートパラメータ条件',
                 'required' => true,
                 'trim' => true,
                 'constraints' => array(
@@ -68,23 +68,23 @@ class FdRouteProductType extends AbstractType
                 ),
             ))
             ->add('route_string', 'text', array(
-                'label' => 'コメント',
+                'label' => '出力ルート',
                 'required' => true,
                 'trim' => true,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
-            ));
-            ->add('route_string_pos', 'smallint', array(
-                'label' => 'コメント',
+            ))
+            ->add('route_string_pos', 'integer', array(
+                'label' => '出力ルート位置',
                 'required' => true,
                 'trim' => true,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
-            ));
+            ))
             ->add('fd_string', 'text', array(
-                'label' => 'コメント',
+                'label' => '対応FD',
                 'required' => true,
                 'trim' => true,
                 'constraints' => array(
@@ -99,18 +99,13 @@ class FdRouteProductType extends AbstractType
                 $form = $event->getForm();
                 $data = $form->getData();
 
-                $Product = $data['Product'];
 
-                if (empty($Product)) {
-                    $form['comment']->addError(new FormError('商品を追加してください。'));
-                } else {
-                    $FdRouteProduct = $app['eccube.plugin.fdroute.repository.fdroute_product']->findBy(array('Product' => $Product));
+                $FdRouteCondition = $app['eccube.plugin.fdroute.repository.fdroute_product']->findBy(array('conditions' => $data['conditions']));
 
-                    if ($FdRouteProduct) {
-                        //check existing Product, except itself
-                        if (($FdRouteProduct[0]->getId() != $data['id'])) {
-                            $form['comment']->addError(new FormError('既に商品が追加されています。'));
-                        }
+                if ($FdRouteCondition) {
+                    //check existing Product, except itself
+                    if (($FdRouteCondition[0]->getId() != $data['id'])) {
+                        $form['conditions']->addError(new FormError('既に同じ条件が追加されています。'));
                     }
                 }
 

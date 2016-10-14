@@ -57,7 +57,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <tr>
                                     <th>ID</th>
 
-                                    <th>コメント</th>
+                                    <th>conditions</th>
                                     <th>route</th>
                                     <th>route pos</th>
                                     <th>fd</th>
@@ -73,10 +73,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <td class="fdroute_product_id">{{ FdRouteProduct.id }}</td>
 
 
-                                    <td class="condition">{{ FdRouteProduct.condition|nl2br }}</td>
+                                    <td class="condition">{{ FdRouteProduct.conditions|nl2br }}</td>
                                     <td class="route_string">{{ FdRouteProduct.route_string }}</td>
                                     <td class="route_string_pos">{{ FdRouteProduct.route_string_pos }}</td>
                                     <td class="fd_string">{{ FdRouteProduct.fd_string }}</td>
+                                    <td class="rank">{{ FdRouteProduct.rank }}</td>
                                     <td><a href="{{ url('admin_fdroute_edit', { id : FdRouteProduct.id }) }}" >編集</a></td>
                                     <td><a href="{{ url('admin_fdroute_delete', {'id' : FdRouteProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="おすすめ情報を削除してもよろしいですか？">削除</a></td>
                                     <td class="icon_edit">

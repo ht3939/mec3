@@ -48,10 +48,9 @@ class FdRouteProductRepository extends EntityRepository
     {
 
         $qb = $this->createQueryBuilder('rp')
-            ->select('rp, p')
-            ->innerJoin('rp.Product', 'p');
+            ->select('rp');
 
-        $qb->addOrderBy('rp.rank', 'DESC');
+        $qb->addOrderBy('rp.rank', 'asc');
 
         return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
@@ -130,10 +129,10 @@ class FdRouteProductRepository extends EntityRepository
     {
 
         $query = $this->createQueryBuilder('rp')
-            ->innerJoin('Eccube\Entity\Product', 'p', 'WITH', 'p.id = rp.Product')
-            ->where('p.Status = :Disp')
+            //->innerJoin('Eccube\Entity\Product', 'p', 'WITH', 'p.id = rp.Product')
+            //->where('p.Status = :Disp')
             ->orderBy('rp.rank', 'DESC')
-            ->setParameter('Disp', $Disp)
+            //->setParameter('Disp', $Disp)
             ->getQuery();
 
         return $query->getResult();

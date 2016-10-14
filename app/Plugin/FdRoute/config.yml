@@ -1,7 +1,7 @@
-#name: FDルート管理プラグイン
-#code: FdRoute
-#version: 1.0.1
-#service:
-#    - FdRouteServiceProvider
-#orm.path:
-#    - /Resource/doctrine
+name: FDルート管理プラグイン
+code: FdRoute
+version: 0.0.1
+service:
+    - FdRouteServiceProvider
+orm.path:
+    - /Resource/doctrine

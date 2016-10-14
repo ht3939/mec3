@@ -23,8 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set menus = ['content', 'admin_fdroute'] %}
 
-{% block title %}おすすめ商品管理{% endblock %}
-{% block sub_title %}おすすめ商品内容設定{% endblock %}
+{% block title %}FDルート管理{% endblock %}
+{% block sub_title %}FDルートパターン設定{% endblock %}
 
 {% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme searchProductModalForm 'Form/bootstrap_3_horizontal_layout.html.twig' %}
@@ -95,10 +95,10 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
 
                         {# コメント #}
                         <div class="form-group">
-                            {{ form_label(form.condition) }}
+                            {{ form_label(form.conditions) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.condition) }}
-                                {{ form_errors(form.condition) }}
+                                {{ form_widget(form.conditions) }}
+                                {{ form_errors(form.conditions) }}
                             </div>
                         </div>
                         {# コメント #}
