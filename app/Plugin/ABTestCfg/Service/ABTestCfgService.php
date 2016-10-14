@@ -237,7 +237,7 @@ class ABTestCfgService
     //セッションに判定したFDルートを保存する
     public function registABTestCfg(){
         $rank = $this->app['eccube.plugin.abtestcfg.repository.abtestcfg_product']->findList();
-dump($rank);
+
 
         return $this->CurrABTestCfg;
     }
