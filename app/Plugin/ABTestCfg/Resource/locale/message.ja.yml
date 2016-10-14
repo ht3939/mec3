@@ -1,0 +1,7 @@
+admin.abtestcfg.notfound: おすすめ商品が存在しません。
+admin.abtestcfg.abtestcfg_id.notexists: おすすめ商品IDがありません。
+admin.plugin.abtestcfg.regist.success: おすすめ商品を登録しました。
+admin.plugin.abtestcfg.update.success: おすすめ商品を修正しました。
+admin.plugin.abtestcfg.delete.success: おすすめ商品を削除しました。
+admin.plugin.abtestcfg.complete.up: おすすめ商品を上へ移動しました。
+admin.plugin.abtestcfg.complete.down: おすすめ商品を下へ移動しました。

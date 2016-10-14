@@ -1,0 +1,61 @@
+Plugin\ABTestCfg\Entity\ABTestCfgProduct:
+    type: entity
+    table: plg_abtestcfg_product
+    repositoryClass: Plugin\ABTestCfg\Repository\ABTestCfgProductRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: abtestcfg_product_id
+            generator:
+                strategy: AUTO
+    fields:
+        abtestidentity:
+            type: text
+            nullable: false
+        enable_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        headtags:
+            type: text
+            nullable: true
+        tagdevice:
+            type: text
+            nullable: false
+        conditions:
+            type: text
+            nullable: false
+        tagurl:
+            type: text
+            nullable: false
+        abrule:
+            type: text
+            nullable: false
+        aburl:
+            type: text
+            nullable: true
+        organic_flg:
+            type: integer
+            nullable: false
+            default: '1'
+        rank:
+            type: integer
+            nullable: false
+            default: '1'
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }
+    

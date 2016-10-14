@@ -1,0 +1,7 @@
+name: ABテスト設定管理プラグイン
+code: ABTestCfg
+version: 0.0.1
+service:
+    - ABTestCfgServiceProvider
+orm.path:
+    - /Resource/doctrine
