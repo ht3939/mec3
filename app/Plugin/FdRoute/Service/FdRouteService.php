@@ -28,6 +28,7 @@ use Eccube\Common\Constant;
 
 class FdRouteService
 {
+
 	/** @var \Eccube\Application */
 	public $app;
 
