@@ -1,0 +1,7 @@
+admin.fdroute.notfound: おすすめ商品が存在しません。
+admin.fdroute.fdroute_id.notexists: おすすめ商品IDがありません。
+admin.plugin.fdroute.regist.success: おすすめ商品を登録しました。
+admin.plugin.fdroute.update.success: おすすめ商品を修正しました。
+admin.plugin.fdroute.delete.success: おすすめ商品を削除しました。
+admin.plugin.fdroute.complete.up: おすすめ商品を上へ移動しました。
+admin.plugin.fdroute.complete.down: おすすめ商品を下へ移動しました。
