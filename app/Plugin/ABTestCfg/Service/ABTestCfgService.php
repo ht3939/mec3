@@ -79,10 +79,16 @@ class ABTestCfgService
         }
 
         // おすすめ商品情報を書き換える
+        $ABTestCfg->setAbtestidentity($data['abtestidentity']);
+        $ABTestCfg->setEnableflg($data['enable_flg']);
+        $ABTestCfg->setHeadtags($data['headtags']);
+        $ABTestCfg->setTagdevice($data['tagdevice']);
         $ABTestCfg->setConditions($data['conditions']);
-        $ABTestCfg->setRouteString($data['route_string']);
-        $ABTestCfg->setRouteStringPos($data['route_string_pos']);
-        $ABTestCfg->setFdString($data['fd_string']);
+        $ABTestCfg->setTagurl($data['tagurl']);
+        $ABTestCfg->setAbrule($data['abrule']);
+        $ABTestCfg->setAburl($data['aburl']);
+        $ABTestCfg->setOrganicflg($data['organic_flg']);
+
         $ABTestCfg->setUpdateDate($dateTime);
 
         // おすすめ商品情報を更新する
@@ -209,10 +215,15 @@ class ABTestCfgService
 
         $ABTestCfg = new \Plugin\ABTestCfg\Entity\ABTestCfgProduct();
 
+        $ABTestCfg->setAbtestidentity($data['abtestidentity']);
+        $ABTestCfg->setEnableflg($data['enable_flg']);
+        $ABTestCfg->setHeadtags($data['headtags']);
+        $ABTestCfg->setTagdevice($data['tagdevice']);
         $ABTestCfg->setConditions($data['conditions']);
-        $ABTestCfg->setRouteString($data['route_string']);
-        $ABTestCfg->setRouteStringPos($data['route_string_pos']);
-        $ABTestCfg->setFdString($data['fd_string']);
+        $ABTestCfg->setTagurl($data['tagurl']);
+        $ABTestCfg->setAbrule($data['abrule']);
+        $ABTestCfg->setAburl($data['aburl']);
+        $ABTestCfg->setOrganicflg($data['organic_flg']);
 
         $ABTestCfg->setRank(($rank ? $rank : 0) + 1);
         $ABTestCfg->setDelFlg(Constant::DISABLED);

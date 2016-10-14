@@ -119,7 +119,7 @@ class ABTestCfgProduct extends \Eccube\Entity\AbstractEntity
      */
     public function getAbtestidentity()
     {
-        return $this->conditions;
+        return $this->abtestidentity;
     }
 
     /**
@@ -131,7 +131,7 @@ class ABTestCfgProduct extends \Eccube\Entity\AbstractEntity
      */
     public function setAbtestidentity($v)
     {
-        $this->conditions = $v;
+        $this->abtestidentity = $v;
 
         return $this;
     }
@@ -237,9 +237,9 @@ class ABTestCfgProduct extends \Eccube\Entity\AbstractEntity
      *
      * @return string
      */
-    public function getConditions()
+    public function getTagurl()
     {
-        return $this->conditions;
+        return $this->tagurl;
     }
 
     /**
@@ -249,13 +249,84 @@ class ABTestCfgProduct extends \Eccube\Entity\AbstractEntity
      *            string
      * @return Module
      */
-    public function setConditions($v)
+    public function setTagurl($v)
     {
-        $this->conditions = $v;
+        $this->tagurl = $v;
 
         return $this;
     }
 
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getAbrule()
+    {
+        return $this->abrule;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setAbrule($v)
+    {
+        $this->abrule = $v;
+
+        return $this;
+    }
+
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getAburl()
+    {
+        return $this->aburl;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setAburl($v)
+    {
+        $this->aburl = $v;
+
+        return $this;
+    }
+
+    /**
+     * Get commend
+     *
+     * @return string
+     */
+    public function getOrganicflg()
+    {
+        return $this->organic_flg;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param
+     *            string
+     * @return Module
+     */
+    public function setOrganicflg($v)
+    {
+        $this->organic_flg = $v;
+
+        return $this;
+    }
 
 
     /**

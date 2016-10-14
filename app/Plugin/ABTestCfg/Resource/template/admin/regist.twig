@@ -80,7 +80,7 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
         <div class="col-md-9">
             <div class="box accordion">
                 <div class="box-header toggle active">
-                    <h3 class="box-title">おすすめ商品情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
+                    <h3 class="box-title">ABテスト条件情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body accpanel" style="display: block;">
                     <div class="order_list form-horizontal">
@@ -92,6 +92,38 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.id) }}
                             </div>
                         </div>
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.abtestidentity) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.abtestidentity) }}
+                                {{ form_errors(form.abtestidentity) }}
+                            </div>
+                        </div>
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.enable_flg) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.enable_flg) }}
+                                {{ form_errors(form.enable_flg) }}
+                            </div>
+                        </div>
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.headtags) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.headtags) }}
+                                {{ form_errors(form.headtags) }}
+                            </div>
+                        </div>
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.tagdevice) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.tagdevice) }}
+                                {{ form_errors(form.tagdevice) }}
+                            </div>
+                        </div>
 
                         {# コメント #}
                         <div class="form-group">
@@ -101,30 +133,40 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.conditions) }}
                             </div>
                         </div>
+
                         {# コメント #}
                         <div class="form-group">
-                            {{ form_label(form.route_string) }}
+                            {{ form_label(form.tagurl) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.route_string) }}
-                                {{ form_errors(form.route_string) }}
+                                {{ form_widget(form.tagurl) }}
+                                {{ form_errors(form.tagurl) }}
                             </div>
-                        </div>                        
+                        </div>
                         {# コメント #}
                         <div class="form-group">
-                            {{ form_label(form.route_string_pos) }}
+                            {{ form_label(form.abrule) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.route_string_pos) }}
-                                {{ form_errors(form.route_string_pos) }}
+                                {{ form_widget(form.abrule) }}
+                                {{ form_errors(form.abrule) }}
                             </div>
-                        </div>                        
+                        </div>
                         {# コメント #}
                         <div class="form-group">
-                            {{ form_label(form.fd_string) }}
+                            {{ form_label(form.aburl) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.fd_string) }}
-                                {{ form_errors(form.fd_string) }}
+                                {{ form_widget(form.aburl) }}
+                                {{ form_errors(form.aburl) }}
                             </div>
-                        </div>                        
+                        </div>
+                        {# コメント #}
+                        <div class="form-group">
+                            {{ form_label(form.organic_flg) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.organic_flg) }}
+                                {{ form_errors(form.organic_flg) }}
+                            </div>
+                        </div>
+
 
                     </div>
                 </div><!-- /.box-body -->

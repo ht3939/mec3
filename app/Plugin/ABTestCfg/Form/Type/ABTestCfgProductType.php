@@ -116,7 +116,7 @@ class ABTestCfgProductType extends AbstractType
                 'label' => 'ab判定url',
                 'required' => false,
                 'trim' => true,
-                ),
+                
             ))
             ->add('organic_flg', 'integer', array(
                 'label' => 'オーガニック対象',
