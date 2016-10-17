@@ -1,0 +1,8 @@
+name: KINTONE連携管理プラグイン
+code: KintoneTransAdmin
+event: Event
+version: 0.0.1
+service:
+    - KintoneTransAdminServiceProvider
+orm.path:
+    - /Resource/doctrine

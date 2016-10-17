@@ -1,0 +1,41 @@
+Plugin\KintoneTransAdmin\Entity\KintoneTransAdminProduct:
+    type: entity
+    table: plg_kintonetransadmin_product
+    repositoryClass: Plugin\KintoneTransAdmin\Repository\KintoneTransAdminProductRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: kintonetransadmin_product_id
+            generator:
+                strategy: AUTO
+    fields:
+        tagtype:
+            type: text
+            nullable: false
+        enable_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        conditions:
+            type: text
+            nullable: false
+        tagurl:
+            type: text
+            nullable: false
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }
+    

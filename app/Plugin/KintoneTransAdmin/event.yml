@@ -1,0 +1,8 @@
+front.shopping.confirm.processing:
+    - [setDataTransfer, NORMAL]
+
+# front page event
+#Admin/Product/product.twig:
+#    - [onRenderAdminProductNew, NORMAL]
+#Admin/Product/csv_product.twig:
+#    - [onRenderAdminCsvImport, NORMAL]
