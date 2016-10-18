@@ -42,7 +42,7 @@ class PluginManager extends AbstractPluginManager
     /**
      * @var string ブロック名
      */
-    private $blockName = 'ABテスト管理';
+    private $blockName = 'KINTONE連携管理';
 
     /**
      * @var string ブロックファイル名

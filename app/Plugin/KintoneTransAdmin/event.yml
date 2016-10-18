@@ -1,5 +1,5 @@
 front.shopping.confirm.processing:
-    - [setDataTransfer, NORMAL]
+    - [onFrontShoppingConfirmProcessing, NORMAL]
 
 # front page event
 #Admin/Product/product.twig:
