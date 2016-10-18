@@ -1,0 +1,11 @@
+# front page event
+#Product/list.twig:
+#    - [onRenderProductList, NORMAL]
+
+
+front.shopping.index.initialize:
+    - [onFrontShoppingIndexInitialize, NORMAL]
+front.shopping.payment.initialize:
+    - [onFrontShoppingPaymentInitialize, NORMAL]
+front.shopping.confirm.initialize:
+    - [onFrontShoppingConfirmInitialize, NORMAL]
