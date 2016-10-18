@@ -5,6 +5,8 @@
 
 front.shopping.index.initialize:
     - [onFrontShoppingIndexInitialize, NORMAL]
+front.shopping.confirm.processing:
+    - [onFrontShoppingConfirmProcessing, NORMAL]
 front.shopping.payment.initialize:
     - [onFrontShoppingPaymentInitialize, NORMAL]
 front.shopping.confirm.initialize:

@@ -76,15 +76,60 @@ class ShoppingExEvent
         $parameters['ShoppingEx'] = $ShoppingEx;
         $event->setParameters($parameters);
     }
+    private function setCustomDeliveryFee($Order,$total_recalc = false){
 
-    public function onFrontShoppingIndexInitialize(EventArgs $event){
+        $app = $this->app;
+        $deli = $Order->getDeliveryFeeTotal();//５００円固定
+        $Order->setDeliveryFeeTotal(500);//５００円固定
+        $total = $Order->getTotal();//５００円固定
+
+        if($total_recalc){
+            $Order->setTotal($total - $deli+500);//５００円固定
+           
+        }
 
     }
-    public function onFrontShoppingPaymentInitialize(EventArgs $event){
+    public function onFrontShoppingIndexInitialize(EventArgs $event){
+
+        $app = $this->app;
+        $Order = $event->getArgument('Order');
+        $this->setCustomDeliveryFee($Order,true);
+
+        //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
+
+        $builder = $event->getArgument('builder');
+        $builder->add(
+            self::SHOPPINGEX_TEXTAREA_NAME,
+            'textarea',
+            array(
+                'required' => false,
+                'label' => false,
+                'mapped' => false,
+                'attr' => array(
+                    'placeholder' => 'コンテンツを入力してください(HTMLタグ使用可)',
+                ),
+            )
+        );
+
+dump($event);//die();
+    }
+
+    public function onFrontShoppingConfirmProcessing(EventArgs $event){
+        $app = $this->app;
+        $Order = $event->getArgument('Order');
+        $this->setCustomDeliveryFee($Order,false);
 
     }
     public function onFrontShoppingConfirmInitialize(EventArgs $event){
-        
+        $app = $this->app;
+        $Order = $event->getArgument('Order');
+        $this->setCustomDeliveryFee($Order,true);
+
+
+    }
+
+    public function onFrontShoppingPaymentInitialize(EventArgs $event){
+
     }
 
 
