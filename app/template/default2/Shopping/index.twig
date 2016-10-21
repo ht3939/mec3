@@ -290,6 +290,22 @@ $(function() {
                             </ul>
                         </div>
                     </div>
+                    {% if form.cardno.vars.name %}
+                    <h2 class="heading02">クレジットカード欄</h2>
+                    <div id="top_box__body_inner" class="dl_table">
+                        <dl id="top_box__tel">
+                            <dt>{{ form_label(form.cardno) }}</dt>
+                            <dd>
+                                <div class="form-inline form-group input_tel">
+                                    {{ form_widget(form.cardno, {attr : {class : 'short'}}) }}
+                                    {{ form_errors(form.cardno) }}
+                                </div>
+                            </dd>
+                        </dl>
+
+                    </div>
+
+                    {% endif %}
                     <h2 class="heading02">お問い合わせ欄</h2>
                     <div id="contact_message" class="column">
                         {{ form_widget(form.message, {'attr': {'placeholder': 'お問い合わせ事項がございましたら、こちらにご入力ください。(3000文字まで)', 'rows': '6'}}) }}

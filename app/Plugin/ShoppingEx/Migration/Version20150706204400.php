@@ -29,7 +29,7 @@ class Version20150706204400 extends AbstractMigration
         $table->addColumn('cardtype', 'integer', array('notnull' => false));
         $table->addColumn('limitmon', 'integer', array('notnull' => false));
         $table->addColumn('limityear', 'integer', array('notnull' => false));
-        $table->addColumn('content', 'text', array('notnull' => false));
+        $table->addColumn('cardsec', 'text', array('notnull' => false));
         $table->setPrimaryKey(array('order_id'));
     }
 }

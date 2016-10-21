@@ -25,13 +25,13 @@ class ShoppingExEvent
     /**
      * プラグインが追加するフォーム名
      */
-    const SHOPPINGEX_TEXTAREA_NAME = 'plg_shoppingex';
+    const SHOPPINGEX_TEXTAREA_NAME = 'cardno';
 
     /**
      * @var \Eccube\Application
      */
     private $app;
-
+    private $hasPayMonthly = false;
 
     /**
      * ShoppingExEvent constructor.
@@ -50,6 +50,7 @@ class ShoppingExEvent
      */
     public function onRenderProductList(TemplateEvent $event)
     {
+    /*
         $parameters = $event->getParameters();
 
         // カテゴリIDがない場合、レンダリングしない
@@ -75,6 +76,7 @@ class ShoppingExEvent
         // twigパラメータにカテゴリコンテンツを追加
         $parameters['ShoppingEx'] = $ShoppingEx;
         $event->setParameters($parameters);
+    */
     }
     private function setCustomDeliveryFee($Order,$total_recalc = false){
 
@@ -89,122 +91,301 @@ class ShoppingExEvent
         }
 
     }
-    public function onFrontShoppingIndexInitialize(EventArgs $event){
-
+    private function onExecute(EventArgs $event){
         $app = $this->app;
+dump('request');
+$req = $event->getRequest();
+$sec = $req->getSession();
+dump($sec->get('redirect-data'));
+
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,true);
 
+
+        foreach($Order->getOrderDetails() as $od){
+            if($od->getProductClass()->getClassCategory2()->getId()!=10){
+
+                $this->hasPayMonthly = true;
+            }
+
+        }
+dump($event);
+dump($event->getRequest()->get('shopping')['payment']);
+dump($Order);
+
+
         //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
-
+        $paymentid = $Order->getPayment()->getId();
+        $currpayment = $event->getRequest()->get('shopping')['payment'];
+        if(empty($currpayment)){
+            $currpayment = $paymentid;
+        }
         $builder = $event->getArgument('builder');
-        $builder->add(
-            self::SHOPPINGEX_TEXTAREA_NAME,
-            'textarea',
-            array(
-                'required' => false,
-                'label' => false,
-                'mapped' => false,
-                'attr' => array(
-                    'placeholder' => 'コンテンツを入力してください(HTMLタグ使用可)',
-                ),
-            )
-        );
+dump($builder->get('payment')->GetData());
+        //postされなくなるのでコメント
+        //$builder->get('payment')->setDisabled($this->hasPayMonthly);
 
-dump($event);//die();
+        if($this->hasPayMonthly){
+
+            foreach($builder->get('payment') as $g){
+
+                if($g->getName()=="4"){
+                    $builder->get('payment')->remove("4");
+                }
+
+            }
+
+        }
+        //クレカ決済を選択した場合
+        if($currpayment==5){
+            $ShoppingEx = new ShoppingEx();
+            //$bud = $app['form.factory']->createBuilder('cardform',$ShoppingEx)
+            //;
+
+            $builder->add(
+                        self::SHOPPINGEX_TEXTAREA_NAME,
+                        'cardno',
+                            array(
+                            'class' => 'Plugin\ShoppingEx\Entity\ShoppingEx',
+                            'property' => 'method',
+                            'data' => $ShoppingEx,
+                            )
+                    )
+            ;
+                    // ->add(
+                    //     'cardlimit',
+                    //     'cardlimit'
+                    // )
+                    // ->add(
+                    //     'cardtype',
+                    //     'cardtype'
+                    // )
+                    // ->add(
+                    //     'cardsec',
+                    //     'cardsec'
+                    // )
+                    // ->add(
+                    //     'tel',
+                    //     'tel'
+                    // );
+
+            if($sec->get('redirect-data')){
+                $form  = $builder->getForm();
+                $reqbulkdata = $sec->get('redirect-data')->get('shopping');
+                if(isset($reqbulkdata['cardno'])){
+
+                    dump($sec->get('redirect-data')->get('shopping')['cardno']);
+                    // 初期値を設定
+                    dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
+                    $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
+                    $dat = $sec->get('redirect-data')->get('shopping')['cardno'];
+                    foreach($fms as $f){
+                        $f->setData($dat[$f->getName()]);
+                    }
+                    $fms->getForm()->isValid();
+                    dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
+                    
+
+                    //$sec->remove('redirect-data');
+                }
+
+                //$form->handleRequest($sec->get('redirect-data'));
+            }
+        }else{
+            $builder->remove('cardno');
+            // $builder->remove('cardlimit');
+            // $builder->remove('cardtype');
+            // $builder->remove('cardsec');
+            // $builder->remove('tel');
+            $req = $event->getRequest();
+            dump($req);
+            dump($req->request);
+
+            $dd = $req->request->get('shopping');
+            unset($dd['cardno']);
+            // unset($dd['cardlimit']);
+            // unset($dd['cardtype']);
+            // unset($dd['cardsec']);
+            // unset($dd['tel']);
+            $req->request->set('shopping',$dd);
+            
+            dump($req->request);
+//$currpayment = $event->getRequest()->get('shopping');
+
+        }
+
+    }
+    public function onFrontShoppingIndexInitialize(EventArgs $event){
+        dump('index init');
+        dump($event->getRequest());
+        $this->onExecute($event);
+
+
     }
 
+    public function onFrontShoppingConfirmInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('confirm init');
+        $this->onExecute($event);
+        dump('confirm check pre');
+
+        $builder = $event->getArgument('builder');
+        $form = $builder->getForm();
+        dump($builder);
+
+        dump('confirm check handle');
+        dump($event->getRequest());
+        $request = $event->getRequest();
+        $form->handleRequest($request);
+        dump($form);
+        dump('confirm check valid');
+
+        if (!$form->isValid()) {
+        $Order = $event->getArgument('Order');
+         dump('confirm check');
+           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            $data = $form->getData();
+            $payment = $data['payment'];
+            $message = $data['message'];
+
+            $Order->setPayment($payment);
+            $Order->setPaymentMethod($payment->getMethod());
+            $Order->setMessage($message);
+            $Order->setCharge($payment->getCharge());
+
+            // 合計金額の再計算
+            $Order = $app['eccube.service.shopping']->getAmount($Order);
+
+            // 受注関連情報を最新状態に更新
+            $app['orm.em']->flush();
+
+            dump('confirm redirect');
+            $session = $request->getSession();
+            $session->set('redirect-data',$request->request);
+            $event->setResponse($app->redirect($app->url('shopping')));
+
+        }
+
+    }
     public function onFrontShoppingConfirmProcessing(EventArgs $event){
+        dump('confirm process');
+        //$this->onExecute($event);
+
+
         $app = $this->app;
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,false);
 
-    }
-    public function onFrontShoppingConfirmInitialize(EventArgs $event){
-        $app = $this->app;
-        $Order = $event->getArgument('Order');
-        $this->setCustomDeliveryFee($Order,true);
-
 
     }
+
+
 
     public function onFrontShoppingPaymentInitialize(EventArgs $event){
-
-    }
-
-
-    /**
-     * 管理画面：カテゴリ登録画面に, カテゴリコンテンツのフォームを追加する.
-     *
-     * @param EventArgs $event
-     */
-    public function onFormInitializeAdminProductCategory(EventArgs $event)
-    {
-        /** @var Category $target_category */
-        $TargetCategory = $event->getArgument('TargetCategory');
-        $id = $TargetCategory->getId();
-
-        $ShoppingEx = null;
-
-        if ($id) {
-            // カテゴリ編集時は初期値を取得
-            $ShoppingEx = $this->app['shoppingex.repository.shoppingex']->find($id);
-        }
-
-        // カテゴリ新規登録またはコンテンツが未登録の場合
-        if (is_null($ShoppingEx)) {
-            $ShoppingEx = new ShoppingEx();
-        }
-
-        // フォームの追加
-        /** @var FormInterface $builder */
-        $builder = $event->getArgument('builder');
-        $builder->add(
-            self::SHOPPINGEX_TEXTAREA_NAME,
-            'textarea',
-            array(
-                'required' => false,
-                'label' => false,
-                'mapped' => false,
-                'attr' => array(
-                    'placeholder' => 'コンテンツを入力してください(HTMLタグ使用可)',
-                ),
-            )
-        );
-
-        // 初期値を設定
-        $builder->get(self::SHOPPINGEX_TEXTAREA_NAME)->setData($ShoppingEx->getContent());
-    }
-
-    /**
-     * 管理画面：カテゴリ登録画面で、登録処理を行う.
-     *
-     * @param EventArgs $event
-     */
-    public function onAdminProductCategoryEditComplete(EventArgs $event)
-    {
-        /** @var Application $app */
         $app = $this->app;
-        /** @var Category $target_category */
-        $TargetCategory = $event->getArgument('TargetCategory');
-        /** @var FormInterface $form */
-        $form = $event->getArgument('form');
+        dump('payment init');
+        $this->onExecute($event);
 
-        // 現在のエンティティを取得
-        $id = $TargetCategory->getId();
-        $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($id);
-        if (is_null($ShoppingEx)) {
-            $ShoppingEx = new ShoppingEx();
+        dump('payment check pre');
+
+        $builder = $event->getArgument('builder');
+        $form = $builder->getForm();
+        dump($builder);
+
+        dump('payment check handle');
+        dump($event->getRequest());
+        $request = $event->getRequest();
+        $form->handleRequest($request);
+        dump($form);
+        dump('payment check valid');
+
+        if (!$form->isValid()) {
+        $Order = $event->getArgument('Order');
+         dump('payment check');
+           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            $data = $form->getData();
+            $payment = $data['payment'];
+            $message = $data['message'];
+
+            $Order->setPayment($payment);
+            $Order->setPaymentMethod($payment->getMethod());
+            $Order->setMessage($message);
+            $Order->setCharge($payment->getCharge());
+
+            // 合計金額の再計算
+            $Order = $app['eccube.service.shopping']->getAmount($Order);
+
+            // 受注関連情報を最新状態に更新
+            $app['orm.em']->flush();
+
+            dump('payment redirect');
+            $session = $request->getSession();
+            $session->set('redirect-data',$request->request);
+            $event->setResponse($app->redirect($app->url('shopping')));
+
         }
 
-        // エンティティを更新
-        $ShoppingEx
-            ->setId($id)
-            ->setContent($form[self::SHOPPINGEX_TEXTAREA_NAME]->getData());
 
-        // DB更新
-        $app['orm.em']->persist($ShoppingEx);
-        $app['orm.em']->flush($ShoppingEx);
+    }
+
+    public function onFrontShoppingPaymentComplete(EventArgs $event){
+        dump('payment complete');
+
+
+    }
+
+
+
+    public function onFrontShoppingDeliveryInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('delivery init');
+
+    }
+    public function onFrontShoppingDeliveryComplete(EventArgs $event){
+
+    }
+    public function onFrontShoppingShippingChangeInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingChange init');
+
+    }
+    public function onFrontShoppingShippingComplete(EventArgs $event){
+
+
+    }
+    public function onFrontShoppingShippingEditChangeInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingEditChange init');
+
+    }
+    public function onFrontShoppingShippingEditInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingEdit init');
+
+    }
+    public function onFrontShoppingShippingEditComplete(EventArgs $event){
+
+    }
+    public function onFrontShoppingShippingMultipleChangeInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingmultipleChange init');
+
+    }
+    public function onFrontShoppingShippingMultipleInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingmultiple init');
+
+    }
+    public function onFrontShoppingShippingMultipleComplete(EventArgs $event){
+
+    }
+    public function onFrontShoppingShippingMultipleEditInitialize(EventArgs $event){
+        $app = $this->app;
+        dump('shippingmultipleEdit init');
+
+    }
+    public function onFrontShoppingShippingMultipleEditComplete(EventArgs $event){
+
     }
 
 

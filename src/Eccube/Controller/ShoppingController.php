@@ -72,7 +72,7 @@ class ShoppingController extends AbstractController
     public function index(Application $app, Request $request)
     {
         $cartService = $app['eccube.service.cart'];
-
+//dump($app);
         // カートチェック
         if (!$cartService->isLocked()) {
             // カートが存在しない、カートがロックされていない時はエラー
@@ -188,10 +188,13 @@ class ShoppingController extends AbstractController
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_CONFIRM_INITIALIZE, $event);
-
+        
         $form = $builder->getForm();
 
         $form->handleRequest($request);
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
@@ -264,7 +267,7 @@ class ShoppingController extends AbstractController
             // 完了画面表示
             return $app->redirect($app->url('shopping_complete'));
         }
-
+dump('confirm throught');
         return $app->render('Shopping/index.twig', array(
             'form' => $form->createView(),
             'Order' => $Order,
@@ -425,12 +428,19 @@ class ShoppingController extends AbstractController
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_INITIALIZE, $event);
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
+        }
 
         $form = $builder->getForm();
 
         $form->handleRequest($request);
+dump('payment');
+dump($form);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
+        //if ($form->isSubmitted() ) {
             $data = $form->getData();
             $payment = $data['payment'];
             $message = $data['message'];
@@ -454,6 +464,7 @@ class ShoppingController extends AbstractController
                 $request
             );
             $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+dump('payment complete');
 
             return $app->redirect($app->url('shopping'));
         }
