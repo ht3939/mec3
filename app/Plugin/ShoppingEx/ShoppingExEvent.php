@@ -141,7 +141,6 @@ dump($builder->get('payment')->GetData());
             $ShoppingEx = new ShoppingEx();
             //$bud = $app['form.factory']->createBuilder('cardform',$ShoppingEx)
             //;
-
             $builder->add(
                         self::SHOPPINGEX_TEXTAREA_NAME,
                         'cardno',
@@ -182,9 +181,20 @@ dump($builder->get('payment')->GetData());
                     foreach($fms as $f){
                         $f->setData($dat[$f->getName()]);
                     }
-                    $fms->getForm()->isValid();
+                    $form->isValid();
                     dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
+
                     
+                    $ShoppingEx
+                            ->setId($Order->getId())
+                            ->setCardno1($dat['cardno1'])
+                            ->setCardno2($dat['cardno2'])
+                            ->setCardno3($dat['cardno3'])
+                            ->setCardno4($dat['cardno4'])
+                            ;
+                    $app['orm.em']->persist($ShoppingEx);
+                    $app['orm.em']->flush();
+
 
                     //$sec->remove('redirect-data');
                 }
@@ -265,7 +275,6 @@ dump($builder->get('payment')->GetData());
             $event->setResponse($app->redirect($app->url('shopping')));
 
         }
-
     }
     public function onFrontShoppingConfirmProcessing(EventArgs $event){
         dump('confirm process');
@@ -279,7 +288,10 @@ dump($builder->get('payment')->GetData());
 
     }
 
-
+    public function onFrontShoppingConfirmComplete(EventArgs $event){
+        //セッションから消す
+        //$session->set('redirect-data',$request->request);
+    }
 
     public function onFrontShoppingPaymentInitialize(EventArgs $event){
         $app = $this->app;
@@ -356,6 +368,51 @@ dump($builder->get('payment')->GetData());
     public function onFrontShoppingShippingEditChangeInitialize(EventArgs $event){
         $app = $this->app;
         dump('shippingEditChange init');
+        $this->onExecute($event);
+
+        dump('shippingEditChange check pre');
+
+        $id = $event->getArgument('id');
+
+        $builder = $event->getArgument('builder');
+        $form = $builder->getForm();
+        dump($builder);
+
+        dump('shippingEditChange check handle');
+        dump($event->getRequest());
+        $request = $event->getRequest();
+        $form->handleRequest($request);
+        dump($form);
+        dump('shippingEditChange check valid');
+
+        if (!$form->isValid()) {
+        $Order = $event->getArgument('Order');
+         dump('shippingEditChange check');
+           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            $data = $form->getData();
+            $payment = $data['payment'];
+            $message = $data['message'];
+
+            $Order->setPayment($payment);
+            $Order->setPaymentMethod($payment->getMethod());
+            $Order->setMessage($message);
+            $Order->setCharge($payment->getCharge());
+
+            // 合計金額の再計算
+            $Order = $app['eccube.service.shopping']->getAmount($Order);
+
+            // 受注関連情報を最新状態に更新
+            $app['orm.em']->flush();
+
+            dump('shippingEditChange redirect');
+            $session = $request->getSession();
+            $session->set('redirect-data',$request->request);
+            $event->setResponse(
+                $app->redirect($app->url('shopping_shipping_edit', array('id' => $id)))
+                );
+
+        }
+
 
     }
     public function onFrontShoppingShippingEditInitialize(EventArgs $event){
@@ -369,6 +426,50 @@ dump($builder->get('payment')->GetData());
     public function onFrontShoppingShippingMultipleChangeInitialize(EventArgs $event){
         $app = $this->app;
         dump('shippingmultipleChange init');
+        $this->onExecute($event);
+
+        dump('shippingmultipleChange check pre');
+
+        // $id = $event->getArgument('id');
+
+        $builder = $event->getArgument('builder');
+        $form = $builder->getForm();
+        dump($builder);
+
+        dump('shippingmultipleChange check handle');
+        dump($event->getRequest());
+        $request = $event->getRequest();
+        $form->handleRequest($request);
+        dump($form);
+        dump('shippingmultipleChange check valid');
+
+        if (!$form->isValid()) {
+        $Order = $event->getArgument('Order');
+         dump('shippingmultipleChange check');
+           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            $data = $form->getData();
+            $payment = $data['payment'];
+            $message = $data['message'];
+
+            $Order->setPayment($payment);
+            $Order->setPaymentMethod($payment->getMethod());
+            $Order->setMessage($message);
+            $Order->setCharge($payment->getCharge());
+
+            // 合計金額の再計算
+            $Order = $app['eccube.service.shopping']->getAmount($Order);
+
+            // 受注関連情報を最新状態に更新
+            $app['orm.em']->flush();
+
+            dump('shippingmultipleChange redirect');
+            $session = $request->getSession();
+            $session->set('redirect-data',$request->request);
+            $event->setResponse(
+                $app->redirect($app->url('shopping_shipping_multiple'))
+                );
+
+        }
 
     }
     public function onFrontShoppingShippingMultipleInitialize(EventArgs $event){

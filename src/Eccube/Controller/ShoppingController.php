@@ -625,10 +625,14 @@ dump('payment complete');
             array(
                 'builder' => $builder,
                 'Order' => $Order,
+                'id' => $id,
             ),
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_SHIPPING_EDIT_CHANGE_INITIALIZE, $event);
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
+        }
 
         $form = $builder->getForm();
 
@@ -1011,6 +1015,9 @@ dump('payment complete');
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_SHIPPING_MULTIPLE_CHANGE_INITIALIZE, $event);
+        if ($event->getResponse() !== null) {
+            return $event->getResponse();
+        }
 
         $form = $builder->getForm();
 

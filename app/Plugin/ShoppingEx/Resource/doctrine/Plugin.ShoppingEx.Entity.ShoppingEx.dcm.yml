@@ -12,16 +12,16 @@ Plugin\ShoppingEx\Entity\ShoppingEx:
             generator:
                 strategy: NONE
     fields:
-        card1:
+        cardno1:
             type: text
             nullable: true
-        card2:
+        cardno2:
             type: text
             nullable: true
-        card3:
+        cardno3:
             type: text
             nullable: true
-        card4:
+        cardno4:
             type: text
             nullable: true
         holder:
@@ -31,10 +31,10 @@ Plugin\ShoppingEx\Entity\ShoppingEx:
             type: integer
             nullable: true
         limitmon:
-            type: ingetger
+            type: integer
             nullable: true
         limityear:
-            type: ingetger
+            type: integer
             nullable: true
         cardsec:
             type: text
