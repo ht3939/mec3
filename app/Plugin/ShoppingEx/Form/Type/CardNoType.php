@@ -35,7 +35,13 @@ class CardNoType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function __construct($config = array('card_len' => 4, 'card_len_min' => 2))
+    public function __construct($config = array(
+        'card_len' => 4, 'card_len_min' => 2,
+        'cardtype' => 'VISA,JCB,AMEX,MASTER,DINERS',
+        'cardlimit_mon' => '01,02,03,04,05,06,07,08,09,11,12',
+        'cardlimit_year' => '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028'
+        )
+    )
     {
         $this->config = $config;
     }
@@ -48,6 +54,11 @@ class CardNoType extends AbstractType
         $options['cardno2_options']['required'] = $options['required'];
         $options['cardno3_options']['required'] = $options['required'];
         $options['cardno4_options']['required'] = $options['required'];
+        $options['holder_options']['required'] = $options['required'];
+        $options['cardtype_options']['required'] = $options['required'];
+        $options['cardlimitmon_options']['required'] = $options['required'];
+        $options['cardlimityear_options']['required'] = $options['required'];
+        $options['cardsec_options']['required'] = $options['required'];
 
         // required の場合は NotBlank も追加する
         if ($options['required']) {
@@ -71,6 +82,32 @@ class CardNoType extends AbstractType
         if (empty($options['cardno4_name'])) {
             $options['cardno4_name'] = $builder->getName().'4';
         }
+        if (empty($options['holder_name'])) {
+            $options['holder_name'] = 'holder';
+        }
+        if (empty($options['cardtype_name'])) {
+            $options['cardtype_name'] = 'cardtype';
+        }
+        if (empty($options['cardlimitmon_name'])) {
+            $options['cardlimitmon_name'] = 'cardlimitmon';
+        }
+        if (empty($options['cardlimityear_name'])) {
+            $options['cardlimityear_name'] = 'cardlimityear';
+        }
+        if (empty($options['cardsec_name'])) {
+            $options['cardsec_name'] = 'cardsec';
+        }
+
+        $cardtypearr = explode(',',$this->config['cardtype']);
+        $tmpmon = explode(',',$this->config['cardlimit_mon']);
+        foreach( $tmpmon as $mon){
+            $currmonarr[$mon] = $mon;
+        }
+        $curryear = date("Y");
+        for($i=0;$i<15;$i++){
+            $curryeararr[$curryear] =$curryear;
+            $curryear++;
+        }
 
         // 全角英数を事前に半角にする
         $builder->addEventSubscriber(new \Eccube\EventListener\ConvertKanaListener());
@@ -79,11 +116,43 @@ class CardNoType extends AbstractType
             ->add($options['cardno2_name'], 'text', array_merge_recursive($options['options'], $options['cardno2_options']))
             ->add($options['cardno3_name'], 'text', array_merge_recursive($options['options'], $options['cardno3_options']))
             ->add($options['cardno4_name'], 'text', array_merge_recursive($options['options'], $options['cardno4_options']))
+            ->add($options['holder_name'], 'text', array_merge_recursive($options['options'], $options['holder_options']))
+            ->add($options['cardtype_name'], 'choice', 
+                    array_merge_recursive($options['options'], 
+                        array(
+                                'label' => 'カード種別',
+                                'choices' => $cardtypearr,
+                            )                
+                        )
+                    )
+            ->add($options['cardlimitmon_name'], 'choice', 
+                    array_merge_recursive($options['options'], 
+                        array(
+                                'label' => '有効期限',
+                                'choices' => $currmonarr,
+                            )                
+                        )
+                    )
+            ->add($options['cardlimityear_name'], 'choice', 
+                    array_merge_recursive($options['options'], 
+                        array(
+                                'label' => '有効期限',
+                                'choices' => $curryeararr,
+                            )                
+                        )
+                    )
+            ->add($options['cardsec_name'], 'text', array_merge_recursive($options['options'], $options['cardsec_options']))
         ;
+
         $builder->setAttribute('cardno1_name', $options['cardno1_name']);
         $builder->setAttribute('cardno2_name', $options['cardno2_name']);
         $builder->setAttribute('cardno3_name', $options['cardno3_name']);
         $builder->setAttribute('cardno4_name', $options['cardno4_name']);
+        $builder->setAttribute('holder_name', $options['holder_name']);
+        $builder->setAttribute('cardtype_name', $options['cardtype_name']);
+        $builder->setAttribute('cardlimitmon_name', $options['cardlimitmon_name']);
+        $builder->setAttribute('cardlimityear_name', $options['cardlimityear_name']);
+        $builder->setAttribute('cardsec_name', $options['cardsec_name']);
 
         // todo 変
         
@@ -120,6 +189,11 @@ class CardNoType extends AbstractType
         $view->vars['cardno2_name'] = $builder->getAttribute('cardno2_name');
         $view->vars['cardno3_name'] = $builder->getAttribute('cardno3_name');
         $view->vars['cardno4_name'] = $builder->getAttribute('cardno4_name');
+        $view->vars['holder_name'] = $builder->getAttribute('holder_name');
+        $view->vars['cardtype_name'] = $builder->getAttribute('cardtype_name');
+        $view->vars['cardlimitmon_name'] = $builder->getAttribute('cardlimitmon_name');
+        $view->vars['cardlimityear_name'] = $builder->getAttribute('cardlimityear_name');
+        $view->vars['cardsec_name'] = $builder->getAttribute('cardsec_name');
 
     }
 
@@ -170,10 +244,26 @@ class CardNoType extends AbstractType
                     new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => $this->config['cardno_len_min'] )),
                 ),
             ),
+            'holder_options' => array(
+                'constraints' => array(
+                    new Assert\Length(array('max' => 50, 'min' => 1)),
+                ),
+            ),
+            'cardsec_options' => array(
+                'constraints' => array(
+                    new Assert\Type(array('type' => 'numeric', 'message' => 'form.type.numeric.invalid')), //todo  messageは汎用的に出来ないものか?
+                    new Assert\Length(array('max' => 4, 'min' => 3)),
+                ),
+            ),
             'cardno1_name' => '',
             'cardno2_name' => '',
             'cardno3_name' => '',
             'cardno4_name' => '',
+            'holder_name' => '',
+            'cardtype_name' => '',
+            'cardlimitmon_name' => '',
+            'cardlimityear_name' => '',
+            'cardsec_name' => '',
             'error_bubbling' => false,
             'inherit_data' => true,
             'trim' => true,

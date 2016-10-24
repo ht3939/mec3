@@ -21,15 +21,16 @@ class Version20150706204400 extends AbstractMigration
     {
         $table = $schema->createTable("plg_shoppingex");
         $table->addColumn('order_id', 'integer');
-        $table->addColumn('card1', 'text', array('notnull' => false));
-        $table->addColumn('card2', 'text', array('notnull' => false));
-        $table->addColumn('card3', 'text', array('notnull' => false));
-        $table->addColumn('card4', 'text', array('notnull' => false));
+        $table->addColumn('cardno1', 'text', array('notnull' => false));
+        $table->addColumn('cardno2', 'text', array('notnull' => false));
+        $table->addColumn('cardno3', 'text', array('notnull' => false));
+        $table->addColumn('cardno4', 'text', array('notnull' => false));
         $table->addColumn('holder', 'text', array('notnull' => false));
         $table->addColumn('cardtype', 'integer', array('notnull' => false));
         $table->addColumn('limitmon', 'integer', array('notnull' => false));
         $table->addColumn('limityear', 'integer', array('notnull' => false));
         $table->addColumn('cardsec', 'text', array('notnull' => false));
+        $table->addColumn('content', 'text', array('notnull' => false));
         $table->setPrimaryKey(array('order_id'));
     }
 }

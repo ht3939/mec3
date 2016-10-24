@@ -106,22 +106,22 @@ class ShoppingEx extends \Eccube\Entity\AbstractEntity
         return $this;
     }
 
-    public function getLimitmon()
+    public function getCardlimitmon()
     {
         return $this->limitmon;
     }
-    public function setLimitmon($v)
+    public function setCardlimitmon($v)
     {
         $this->limitmon = $v;
 
         return $this;
     }
 
-    public function getLimityear()
+    public function getCardlimityear()
     {
         return $this->limityear;
     }
-    public function setLimityear($v)
+    public function setCardlimityear($v)
     {
         $this->limityear = $v;
 

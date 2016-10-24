@@ -138,7 +138,14 @@ dump($builder->get('payment')->GetData());
         }
         //クレカ決済を選択した場合
         if($currpayment==5){
-            $ShoppingEx = new ShoppingEx();
+dump('currpayment 5');
+            $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
+            if(is_null($ShoppingEx)){
+                $ShoppingEx = new ShoppingEx();
+
+            }
+
+
             //$bud = $app['form.factory']->createBuilder('cardform',$ShoppingEx)
             //;
             $builder->add(
@@ -167,7 +174,7 @@ dump($builder->get('payment')->GetData());
                     //     'tel',
                     //     'tel'
                     // );
-
+dump($sec->get('redirect-data'));
             if($sec->get('redirect-data')){
                 $form  = $builder->getForm();
                 $reqbulkdata = $sec->get('redirect-data')->get('shopping');
@@ -191,12 +198,29 @@ dump($builder->get('payment')->GetData());
                             ->setCardno2($dat['cardno2'])
                             ->setCardno3($dat['cardno3'])
                             ->setCardno4($dat['cardno4'])
+                            ->setHolder($dat['holder'])
+                            ->setCardtype($dat['cardtype'])
+                            ->setCardlimitmon($dat['cardlimitmon'])
+                            ->setCardlimityear($dat['cardlimityear'])
+                            ->setCardsec($dat['cardsec'])
                             ;
                     $app['orm.em']->persist($ShoppingEx);
                     $app['orm.em']->flush();
 
 
                     //$sec->remove('redirect-data');
+                }else{
+                    $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
+                    $fms->get('cardno1')->setData($ShoppingEx->getCardno1());
+                    $fms->get('cardno2')->setData($ShoppingEx->getCardno2());
+                    $fms->get('cardno3')->setData($ShoppingEx->getCardno3());
+                    $fms->get('cardno4')->setData($ShoppingEx->getCardno4());
+                    $fms->get('holder')->setData($ShoppingEx->getHolder());
+                    $fms->get('cardtype')->setData($ShoppingEx->getCardtype());
+                    $fms->get('cardlimitmon')->setData($ShoppingEx->getCardlimitmon());
+                    $fms->get('cardlimityear')->setData($ShoppingEx->getCardlimityear());
+                    $fms->get('cardsec')->setData($ShoppingEx->getCardsec());
+
                 }
 
                 //$form->handleRequest($sec->get('redirect-data'));
@@ -285,6 +309,10 @@ dump($builder->get('payment')->GetData());
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,false);
 
+dump(
+$event->getArgument('builder')
+);
+die();
 
     }
 
