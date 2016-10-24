@@ -101,7 +101,14 @@ class UtilService
         foreach($OrderDetails as $orderDetail){
             $plgOrderDetail = $this->app['eccube.productoption.repository.order_detail']->findOneBy(array('order_detail_id' => $orderDetail->getId()));
             if($plgOrderDetail){
-                $plgOrderDetails[$orderDetail->getId()] = $plgOrderDetail->getOrderOption()->getLabel();
+                $labelarr = $plgOrderDetail->getOrderOption()->getLabel();
+                //$labelarr['option_price'] = $plgOrderDetail->getOrderOption()->getPrice();
+                //foreach($labelarr as &$item){
+                //    $item .= " ".$plgOrderDetail->getOrderOption()->getPrice()."円（＋税）";  
+                //} 
+                $plgOrderDetails[$orderDetail->getId()]["label"] = $labelarr;
+                $plgOrderDetails[$orderDetail->getId()]["option_price"] = $plgOrderDetail->getOrderOption()->getPrice();
+
             }
         }
         return $plgOrderDetails;

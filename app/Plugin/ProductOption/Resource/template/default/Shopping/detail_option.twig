@@ -10,8 +10,8 @@
 
 <dd>
     {% if plgOrderDetails[orderDetail.id] is defined %}
-        {% for label in plgOrderDetails[orderDetail.id] %}
-            {% if loop.index0 != 0%}<br />{% endif %}{{ label }}
+        {% for label in plgOrderDetails[orderDetail.id].label %}
+            {% if loop.index0 != 0%}<br />{% endif %}{{ label }}　{{plgOrderDetails[orderDetail.id].option_price|number_format}}円（＋税）
         {% endfor %}
     {% endif %}
 </dd>
