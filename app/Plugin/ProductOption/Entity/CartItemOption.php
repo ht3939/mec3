@@ -22,6 +22,7 @@ class CartItemOption extends \Eccube\Entity\AbstractEntity
     private $quantity;
     private $option;
     private $label;
+    private $labelprice;
     private $delivery_free_flg;
 
     public function __construct()
@@ -112,7 +113,18 @@ class CartItemOption extends \Eccube\Entity\AbstractEntity
     {
         return $this->label;
     }
+
+    public function setLabelPrice($label)
+    {
+        $this->labelprice = $label;
+
+        return $this;
+    }
     
+    public function getLabelPrice()
+    {
+        return $this->labelprice;
+    }    
     public function setDeliveryFreeFlg($flg)
     {
         $this->delivery_free_flg = $flg;

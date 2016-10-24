@@ -91,7 +91,14 @@ class OrderOption extends \Eccube\Entity\AbstractEntity
         }
         return $arrLabel;
     }
-    
+    public function getLabelPrice()
+    {
+        $arrLabel = array();
+        foreach($this->OrderOptionItems as $OrderOptionItem){
+            $arrLabel[] = $OrderOptionItem->getPrice();
+        }
+        return $arrLabel;
+    }    
     public function getPrice()
     {
         $price = 0;
