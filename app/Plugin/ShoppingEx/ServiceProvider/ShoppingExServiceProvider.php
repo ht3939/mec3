@@ -42,6 +42,10 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             return $app['orm.em']->getRepository('Plugin\ShoppingEx\Entity\ShoppingEx');
         });
 
+        // サービスの登録
+        $app['eccube.plugin.shoppingex.service.shoppingex'] = $app->share(function () use ($app) {
+            return new \Plugin\ShoppingEx\Service\ShoppingExService($app);
+        });
     }
 
     public function boot(BaseApplication $app)

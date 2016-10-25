@@ -298,6 +298,8 @@ dump($sec->get('redirect-data'));
             $session->set('redirect-data',$request->request);
             $event->setResponse($app->redirect($app->url('shopping')));
 
+            //$app->addError('form.invalid.exception', 'admin');
+
         }
     }
     public function onFrontShoppingConfirmProcessing(EventArgs $event){
@@ -309,9 +311,34 @@ dump($sec->get('redirect-data'));
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,false);
 
+        $form = $event->getArgument('form');
+        $dat = $form->GetData();
+dump($dat);
+        $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
+        if(is_null($ShoppingEx)){
+            $ShoppingEx = new ShoppingEx();
+
+        }
+
+        $ShoppingEx
+                ->setId($Order->getId())
+                ->setCardno1($dat['cardno1'])
+                ->setCardno2($dat['cardno2'])
+                ->setCardno3($dat['cardno3'])
+                ->setCardno4($dat['cardno4'])
+                ->setHolder($dat['holder'])
+                ->setCardtype($dat['cardtype'])
+                ->setCardlimitmon($dat['cardlimitmon'])
+                ->setCardlimityear($dat['cardlimityear'])
+                ->setCardsec($dat['cardsec'])
+                ;
+        $app['orm.em']->persist($ShoppingEx);
+        $app['orm.em']->flush();
+
+        $app['eccube.plugin.shoppingex.service.shoppingex']->sendShoppingOrder($event);
+
 dump(
-$event->getArgument('builder')
-);
+$event->getArgument('form'));
 die();
 
     }
@@ -319,6 +346,12 @@ die();
     public function onFrontShoppingConfirmComplete(EventArgs $event){
         //セッションから消す
         //$session->set('redirect-data',$request->request);
+        $req = $event->getRequest();
+        $sec = $req->getSession();
+        if($sec->get('redirect-data')){
+            $sec->remove('redirect-data');
+        }
+
     }
 
     public function onFrontShoppingPaymentInitialize(EventArgs $event){
