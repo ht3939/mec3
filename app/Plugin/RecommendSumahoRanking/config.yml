@@ -1,0 +1,7 @@
+name: スマホおすすめ商品ランキング管理プラグイン
+code: RecommendSumahoRanking
+version: 1.0.0
+service:
+    - RecommendSumahoRankingServiceProvider
+orm.path:
+    - /Resource/doctrine

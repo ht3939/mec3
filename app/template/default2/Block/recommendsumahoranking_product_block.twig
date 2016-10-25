@@ -1,0 +1,107 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) 2000-2015 LOCKON CO.,LTD. All Rights Reserved.
+
+http://www.lockon.co.jp/
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#}
+
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+<style type="text/css">
+#pickupitem .heading{
+  background: #f8f8f8;
+  padding: 16px;
+}
+
+
+#item_list.recommend_sumaho .item_name{
+    color: #525263;
+    margin: 0 0 8px;
+    font-weight:bold;
+    height: 60px;
+}
+#item_list.recommend_sumaho .item_name span {
+    height: 15px;
+    font-size: 11px;
+    display: block;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+#item_list.recommend_sumaho .tag-list{
+    display: block;
+    height: 26px;
+    font-weight:normal;
+}
+#item_list.recommend_sumaho .tag-list li{
+    font-size:11px;
+}
+
+#item_list.recommend_sumaho .item_price{
+    font-size:13px;
+    margin: 8px 0px;
+    font-weight:normal;
+}
+#item_list.recommend_sumaho .item_price .price-num {
+    color: #ed0505;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+</style>
+{% endblock %}
+
+
+<div id="pickupitem" >
+	<h2 class="heading">スマホおすすめ商品ランキング</h2>
+
+<!-- ▼item_list▼ -->
+<div id="item_list" class="recommend_sumaho">
+	<div class="row">
+		{% for RecommendRankingProduct in RecommendSumahoRanking.ProductList %}
+			<div class="col-sm-3 col-xs-6">
+				<div class="pickup_item">
+					<a href="{{ url('product_detail', {'id': RecommendRankingProduct.Product.id}) }}">
+						<div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ RecommendRankingProduct.Product.mainFileName|no_image_product }}"></div>
+						<p class="item_comment">{{ RecommendRankingProduct.comment|raw }}</p>
+
+						<dl>
+                            <dt class="item_name">
+                                <span>{{ RecommendSumahoRanking.__EX_PRODUCT_LIST_MAKER[RecommendRankingProduct.Product.id].name }}</span>
+                                {{ RecommendRankingProduct.Product.name }}
+                            </dt>
+
+							<ul class="tag-list">
+							{% for ProductTag in RecommendRankingProduct.Product.ProductTag %}
+								<li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
+							{% endfor %}
+							</ul>
+
+							<dd class="item_price">
+								月額 <span class="price-num">{{ RecommendRankingProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
+							</dd>
+						</dl>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<!-- ▲item_list▲ -->
+</div>

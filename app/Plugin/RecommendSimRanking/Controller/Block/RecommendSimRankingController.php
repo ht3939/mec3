@@ -33,11 +33,21 @@ class RecommendSimRankingController
      */
     public function index(Application $app)
     {
+        if(!$app['eccube.recommend.service.recommend']->checkInstallPlugin('Recommend')) return;
+
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $RecommendSimRankingProducts = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->getRecommendSimRankingProduct($Disp);
+        $RecommendSimRanking = $app['eccube.plugin.recommendsimranking.repository.recommendsimranking_product']->getRecommendSimRankingProduct($Disp);
+
+        $product_param = $app['eccube.recommend.service.recommend']->getProductParam($RecommendSimRanking);
 
         return $app['view']->render('Block/recommendsimranking_product_block.twig', array(
-            'RecommendSimRankingProducts' => $RecommendSimRankingProducts,
+            'RecommendSimRanking' => array(
+                'ProductList'               => $RecommendSimRanking,
+                '__EX_PRODUCT_LIST'         => $product_param['__EX_PRODUCT_LIST'],
+                '__EX_PRODUCT_LIST_MAKER'   => $product_param['__EX_PRODUCT_LIST_MAKER']
+            )
         ));
     }
+
+
 }

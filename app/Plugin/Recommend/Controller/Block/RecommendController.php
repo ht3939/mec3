@@ -36,8 +36,14 @@ class RecommendController
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
         $RecommendProducts = $app['eccube.plugin.recommend.repository.recommend_product']->getRecommendProduct($Disp);
 
+        $product_param = $app['eccube.recommend.service.recommend']->getProductParam($RecommendProducts);
+
         return $app['view']->render('Block/recommend_product_block.twig', array(
-            'RecommendProducts' => $RecommendProducts,
+            'RecommendProducts' => array(
+                'ProductList'               => $RecommendProducts,
+                '__EX_PRODUCT_LIST'         => $product_param['__EX_PRODUCT_LIST'],
+                '__EX_PRODUCT_LIST_MAKER'   => $product_param['__EX_PRODUCT_LIST_MAKER']
+            )
         ));
     }
 }

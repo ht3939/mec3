@@ -19,6 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
+
+
 {% block stylesheet %}
 <style type="text/css">
 #pickupitem .heading{
@@ -26,33 +28,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   padding: 16px;
 }
 
-
-#item_list.recommend .item_name{
+#item_list.recommend_sim .item_name{
     color: #525263;
     margin: 0 0 8px;
     font-weight:bold;
     height: 60px;
 }
-#item_list.recommend .item_name span {
+#item_list.recommend_sim .item_name span {
     height: 15px;
     font-size: 11px;
     display: block;
     font-weight: normal;
     margin-bottom: 5px;
 }
-#item_list.recommend .tag-list{
+#item_list.recommend_sim .tag-list{
     display: block;
     height: 26px;
 }
-#item_list.recommend .tag-list li{
+#item_list.recommend_sim .tag-list li{
     font-size:11px;
 }
-#item_list.recommend .item_price{
+#item_list.recommend_sim .item_price{
     font-size:13px;
     margin: 8px 0px;
     font-weight:normal;
 }
-#item_list.recommend .item_price .price-num {
+#item_list.recommend_sim .item_price .price-num {
     color: #ed0505;
     font-size: 20px;
     font-weight: bold;
@@ -61,35 +62,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </style>
 {% endblock %}
 
-
+<div id="pickupitem" >
+    <h2 class="heading">SIMおすすめ商品ランキング</h2>
 
 <!-- ▼item_list▼ -->
-<div id="pickupitem" >
-    <h2 class="heading">独自のおすすめ商品</h2>
-
-<div id="item_list" class="recommend">
+<div id="item_list" class="recommend_sim">
     <div class="row">
-        {% for RecommendProduct in RecommendProducts.ProductList %}
+        {% for RecommendRankingProduct in RecommendSimRanking.ProductList %}
             <div class="col-sm-3 col-xs-6">
                 <div class="pickup_item">
-                    <a href="{{ url('product_detail', {'id': RecommendProduct.Product.id}) }}">
-                        <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ RecommendProduct.Product.mainFileName|no_image_product }}"></div>
-                        <p class="item_comment">{{ RecommendProduct.comment|raw }}</p>
+                    <a href="{{ url('product_detail', {'id': RecommendRankingProduct.Product.id}) }}">
+                        <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ RecommendRankingProduct.Product.mainFileName|no_image_product }}"></div>
+                        <p class="item_comment">{{ RecommendRankingProduct.comment|raw }}</p>
 
                         <dl>
                             <dt class="item_name">
-                                <span>{{ RecommendProducts.__EX_PRODUCT_LIST_MAKER[RecommendProduct.Product.id].name }}</span>
-                                {{ RecommendProduct.Product.name }}
+                                <span>{{ RecommendSimRanking.__EX_PRODUCT_LIST_MAKER[RecommendRankingProduct.Product.id].name }}</span>
+                                {{ RecommendRankingProduct.Product.name }}
                             </dt>
 
                             <ul class="tag-list">
-                            {% for ProductTag in RecommendProduct.Product.ProductTag %}
+                            {% for ProductTag in RecommendRankingProduct.Product.ProductTag %}
                                 <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
                             {% endfor %}
                             </ul>
 
                             <dd class="item_price">
-                                月額 <span class="price-num">{{ RecommendProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                月額 <span class="price-num">{{ RecommendRankingProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
                             </dd>
                         </dl>
                     </a>
@@ -100,4 +99,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </div>
 <!-- ▲item_list▲ -->
 </div>
-
