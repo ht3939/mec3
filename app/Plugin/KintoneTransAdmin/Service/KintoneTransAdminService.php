@@ -25,6 +25,7 @@ namespace Plugin\KintoneTransAdmin\Service;
 
 use Eccube\Application;
 use Eccube\Common\Constant;
+use Plugin\KintoneTransAdmin\Controller\kintoneAgent;
 
 class KintoneTransAdminService
 {
@@ -144,19 +145,86 @@ class KintoneTransAdminService
         return $KintoneTransAdmin;
     }
 
-    private $CurrKintoneTransAdmin;
-    //セッションに判定したFDルートを保存する
-    public function registKintoneTransAdmin(){
-        $rank = $this->app['eccube.plugin.kintonetransadmin.repository.kintonetransadmin_product']->findList();
+    public function sendKintone($req,$Order){
+        dump('sendkitone');
+
+        dump($req);
+        dump($req->getRequestURI());
+        dump('check req');
+
+        $app = $this->app;
+        $config = $app['config'];
+
+        $KintoneTransAdmin =$app['eccube.plugin.kintonetransadmin.repository.kintonetransadmin_product']
+                ->findOneBy(array('tagtype'=>'kintone','enable_flg'=>1,'tagurl'=> $req->getRequestURI(),'del_flg'=>0));
+        if(is_null($KintoneTransAdmin)){
+
+        }else{
+        dump($KintoneTransAdmin);
+        dump($Order);
+            $type ="WEB完結";
+            $route = "test-route";//route_setting::getRoute($type);
+
+            $i_name = $_SESSION['customer_info']['i_name'];
+            $i_kana = $_SESSION['customer_info']['i_kana'];
+            $i_tel  = $_SESSION['customer_info']['i_tel'];
+            $i_mail = $_SESSION['customer_info']['i_mail'];
+            $i_gender = ($_SESSION['customer_info']['i_gender'] == "1") ? "男性" : "女性";
+            $i_zip   = $_SESSION['customer_info']['i_zip'];
+            $i_pref = $define->prefArr[$_SESSION['customer_info']['i_pref']];
+            $i_add1  = $_SESSION['customer_info']['i_add1'];
+            $i_add2  = $_SESSION['customer_info']['i_add2'];
+            $i_card  = $_SESSION['customer_info']['i_card'];
+            $i_limit_month = $_SESSION['customer_info']['i_limit_month'];
+            $i_limit_year = $_SESSION['customer_info']['i_limit_year'];
+            $i_holder  = $_SESSION['customer_info']['i_holder'];
+            $i_credit = $define->creditArr[$_SESSION['customer_info']['i_credit']];
+            $i_code  = $_SESSION['customer_info']['i_code'];
+            $i_message = $_SESSION['customer_info']['i_message'];
+            
+            //備考追加
+            //$i_message .= cart_user_note::getUserNote($cart_sp_array,$cart_sim_array);
 
 
-        return $this->CurrKintoneTransAdmin;
-    }
-    //セッションに保存してあるFDルートを取得する
-    public function getStoredKintoneTransAdmin(){
+            $kn = new kintoneAgent(
+                $config['kintoneapi_url'],
+                $config['kintoneapi_id'],
+                $config['kintoneapi_pw'],
+                $config['kintoneapi_appid']
+                );
+die();
+
+            $kn->AddRecord(array(
+                    "Route"             => array("value" => $route),
+                    "MainProgress"      => array("value" => "未処理"),
+                    "Name"              => array("value" => $i_name),
+                    "Kana"              => array("value" => $i_kana),
+                    "Year_Birth_Day"    => array("value" => ""),
+                    "Gender"            => array("value" => $i_gender),
+                    "Zip"               => array("value" => $i_zip),
+                    "Add1"              => array("value" => $i_pref.$i_add1),
+                    "Add2"              => array("value" => $i_add2),
+                    "Add3"              => array("value" => ""),
+                    "Tel"               => array("value" => $i_tel),
+                    "Mail"              => array("value" => $i_mail),
+                    "Card_Num"          => array("value" => $i_card),
+                    "Card_Name"         => array("value" => $i_holder),
+                    "Card_Type"         => array("value" => $i_credit),
+                    "Card_Limit_Year"   => array("value" => $i_limit_year),
+                    "Card_Limit_Month"  => array("value" => sprintf("%02d", $i_limit_month)),
+                    "card_cord"         => array("value" => $i_code),
+                    "Password"          => array("value" => ""),
+                    "Message"           => array("value" => $i_message)
+
+                ));
 
 
-        return $this->CurrKintoneTransAdmin;
+
+        }
+
+
     }
 
 }
+
+
