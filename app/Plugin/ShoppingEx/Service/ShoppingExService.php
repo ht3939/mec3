@@ -54,7 +54,36 @@ class ShoppingExService
         $note = null;
 dump('get route');
 dump($route);
-        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,$Order,$route,$note);
+
+        $data = array(
+                    "Route"             => array("value" => $route['route_name'].$type),
+                    "MainProgress"      => array("value" => "未処理"),
+                    "Name"              => array("value" => $Order->getName01().$Order->getName02()),
+                    "Kana"              => array("value" => $Order->getKana01().$Order->getKana02()),
+                    "Year_Birth_Day"    => array("value" => ""),
+                    "Gender"            => array("value" => $Order->getSex()->getName()),
+                    "Zip"               => array("value" => $Order->getZip01().$Order->getZip02()),
+                    "Add1"              => array("value" => $Order->getPref().$Order->getAddr01()),
+                    "Add2"              => array("value" => $Order->getAddr02()),
+                    "Add3"              => array("value" => ""),
+                    "Tel"               => array("value" => $Order->getTel01().$Order->getTel02().$Order->getTel03()),
+                    "Mail"              => array("value" => $Order->getEmail()),
+                    "Card_Num"          => array("value" => $i_card),
+                    "Card_Name"         => array("value" => $i_holder),
+                    "Card_Type"         => array("value" => $i_credit),
+                    "Card_Limit_Year"   => array("value" => $i_limit_year),
+                    "Card_Limit_Month"  => array("value" => sprintf("%02d", $i_limit_month)),
+                    "card_cord"         => array("value" => $i_code),
+                    "Password"          => array("value" => ""),
+                    "Message"           => array("value" => $Order->getMessage())
+                    );
+
+        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,
+            array('Order'=>$Order,
+                'Route'=>$route,
+                'Note'=>$note
+                'Kintone'=> $data)
+            );
 
 
     }
