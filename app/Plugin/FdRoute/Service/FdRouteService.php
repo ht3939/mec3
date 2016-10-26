@@ -29,260 +29,314 @@ use Eccube\Common\Constant;
 class FdRouteService
 {
 
-	/** @var \Eccube\Application */
-	public $app;
+    private $currsessionkey = 'sumahomania.eccube.fdroute.current.fdroute.key_';
+    /** @var \Eccube\Application */
+    public $app;
 
-	/** @var \Eccube\Entity\BaseInfo */
-	public $BaseInfo;
+    /** @var \Eccube\Entity\BaseInfo */
+    public $BaseInfo;
 
-	/**
-	 * コンストラクタ
-	 * @param Application $app
-	 */
-	public function __construct(Application $app)
-	{
-		$this->app = $app;
-		$this->BaseInfo = $app['eccube.repository.base_info']->get();
-	}
+    /**
+     * コンストラクタ
+     * @param Application $app
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+        $this->BaseInfo = $app['eccube.repository.base_info']->get();
+    }
 
-	/**
-	 * おすすめ商品情報を新規登録する
-	 * @param $data
-	 * @return bool
-	 */
-	public function createFdRoute($data) {
-		// おすすめ商品詳細情報を生成する
-		$FdRoute = $this->newFdRoute($data);
+    /**
+     * おすすめ商品情報を新規登録する
+     * @param $data
+     * @return bool
+     */
+    public function createFdRoute($data) {
+        // おすすめ商品詳細情報を生成する
+        $FdRoute = $this->newFdRoute($data);
 
-		$em = $this->app['orm.em'];
+        $em = $this->app['orm.em'];
 
-		// おすすめ商品情報を登録する
-		$em->persist($FdRoute);
+        // おすすめ商品情報を登録する
+        $em->persist($FdRoute);
 
-		$em->flush();
+        $em->flush();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * おすすめ商品情報を更新する
-	 * @param $data
-	 * @return bool
-	 */
-	public function updateFdRoute($data) {
-		$dateTime = new \DateTime();
-		$em = $this->app['orm.em'];
+    /**
+     * おすすめ商品情報を更新する
+     * @param $data
+     * @return bool
+     */
+    public function updateFdRoute($data) {
+        $dateTime = new \DateTime();
+        $em = $this->app['orm.em'];
 
-		// おすすめ商品情報を取得する
-		$FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($data['id']);
-		if(is_null($FdRoute)) {
-			false;
-		}
+        // おすすめ商品情報を取得する
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($data['id']);
+        if(is_null($FdRoute)) {
+            false;
+        }
 
-		// おすすめ商品情報を書き換える
-		$FdRoute->setConditions($data['conditions']);
-		$FdRoute->setRouteString($data['route_string']);
-		$FdRoute->setRouteStringPos($data['route_string_pos']);
-		$FdRoute->setFdString($data['fd_string']);
-		$FdRoute->setUpdateDate($dateTime);
+        // おすすめ商品情報を書き換える
+        $FdRoute->setConditions($data['conditions']);
+        $FdRoute->setRouteString($data['route_string']);
+        $FdRoute->setRouteStringPos($data['route_string_pos']);
+        $FdRoute->setFdString($data['fd_string']);
+        $FdRoute->setUpdateDate($dateTime);
 
-		// おすすめ商品情報を更新する
-		$em->persist($FdRoute);
+        // おすすめ商品情報を更新する
+        $em->persist($FdRoute);
 
-		$em->flush();
+        $em->flush();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * おすすめ商品情報を削除する
-	 * @param $fdrouteId
-	 * @return bool
-	 */
-	public function deleteFdRoute($fdrouteId) {
-		$currentDateTime = new \DateTime();
-		$em = $this->app['orm.em'];
+    /**
+     * おすすめ商品情報を削除する
+     * @param $fdrouteId
+     * @return bool
+     */
+    public function deleteFdRoute($fdrouteId) {
+        $currentDateTime = new \DateTime();
+        $em = $this->app['orm.em'];
 
-		// おすすめ商品情報を取得する
-		$FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
-		if(is_null($FdRoute)) {
-			false;
-		}
-		// おすすめ商品情報を書き換える
-		$FdRoute->setDelFlg(Constant::ENABLED);
-		$FdRoute->setUpdateDate($currentDateTime);
+        // おすすめ商品情報を取得する
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
+        if(is_null($FdRoute)) {
+            false;
+        }
+        // おすすめ商品情報を書き換える
+        $FdRoute->setDelFlg(Constant::ENABLED);
+        $FdRoute->setUpdateDate($currentDateTime);
 
-		// おすすめ商品情報を登録する
-		$em->persist($FdRoute);
+        // おすすめ商品情報を登録する
+        $em->persist($FdRoute);
 
-		$em->flush();
+        $em->flush();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * おすすめ商品情報の順位を上げる
-	 * @param $fdrouteId
-	 * @return bool
-	 */
-	public function rankUp($fdrouteId) {
-		$currentDateTime = new \DateTime();
-		$em = $this->app['orm.em'];
+    /**
+     * おすすめ商品情報の順位を上げる
+     * @param $fdrouteId
+     * @return bool
+     */
+    public function rankUp($fdrouteId) {
+        $currentDateTime = new \DateTime();
+        $em = $this->app['orm.em'];
 
-		// おすすめ商品情報を取得する
-		$FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
-		if(is_null($FdRoute)) {
-			false;
-		}
-		// 対象ランクの上に位置するおすすめ商品を取得する
-		$TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
-								->findByRankUp($FdRoute->getRank());
-		if(is_null($TargetFdRoute)) {
-			false;
-		}
-		
-		// ランクを入れ替える
-		$rank = $TargetFdRoute->getRank();
-		$TargetFdRoute->setRank($FdRoute->getRank());
-		$FdRoute->setRank($rank);
-		
-		// 更新日設定
-		$FdRoute->setUpdateDate($currentDateTime);
-		$TargetFdRoute->setUpdateDate($currentDateTime);
-		
-		// 更新
-		$em->persist($FdRoute);
-		$em->persist($TargetFdRoute);
+        // おすすめ商品情報を取得する
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
+        if(is_null($FdRoute)) {
+            false;
+        }
+        // 対象ランクの上に位置するおすすめ商品を取得する
+        $TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
+                                ->findByRankUp($FdRoute->getRank());
+        if(is_null($TargetFdRoute)) {
+            false;
+        }
+        
+        // ランクを入れ替える
+        $rank = $TargetFdRoute->getRank();
+        $TargetFdRoute->setRank($FdRoute->getRank());
+        $FdRoute->setRank($rank);
+        
+        // 更新日設定
+        $FdRoute->setUpdateDate($currentDateTime);
+        $TargetFdRoute->setUpdateDate($currentDateTime);
+        
+        // 更新
+        $em->persist($FdRoute);
+        $em->persist($TargetFdRoute);
 
-		$em->flush();
+        $em->flush();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * おすすめ商品情報の順位を下げる
-	 * @param $fdrouteId
-	 * @return bool
-	 */
-	public function rankDown($fdrouteId) {
-		$currentDateTime = new \DateTime();
-		$em = $this->app['orm.em'];
+    /**
+     * おすすめ商品情報の順位を下げる
+     * @param $fdrouteId
+     * @return bool
+     */
+    public function rankDown($fdrouteId) {
+        $currentDateTime = new \DateTime();
+        $em = $this->app['orm.em'];
 
-		// おすすめ商品情報を取得する
-		$FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
-		if(is_null($FdRoute)) {
-			false;
-		}
-		// 対象ランクの上に位置するおすすめ商品を取得する
-		$TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
-								->findByRankDown($FdRoute->getRank());
-		if(is_null($TargetFdRoute)) {
-			false;
-		}
-		
-		// ランクを入れ替える
-		$rank = $TargetFdRoute->getRank();
-		$TargetFdRoute->setRank($FdRoute->getRank());
-		$FdRoute->setRank($rank);
-		
-		// 更新日設定
-		$FdRoute->setUpdateDate($currentDateTime);
-		$TargetFdRoute->setUpdateDate($currentDateTime);
-		
-		// 更新
-		$em->persist($FdRoute);
-		$em->persist($TargetFdRoute);
+        // おすすめ商品情報を取得する
+        $FdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']->find($fdrouteId);
+        if(is_null($FdRoute)) {
+            false;
+        }
+        // 対象ランクの上に位置するおすすめ商品を取得する
+        $TargetFdRoute =$this->app['eccube.plugin.fdroute.repository.fdroute_product']
+                                ->findByRankDown($FdRoute->getRank());
+        if(is_null($TargetFdRoute)) {
+            false;
+        }
+        
+        // ランクを入れ替える
+        $rank = $TargetFdRoute->getRank();
+        $TargetFdRoute->setRank($FdRoute->getRank());
+        $FdRoute->setRank($rank);
+        
+        // 更新日設定
+        $FdRoute->setUpdateDate($currentDateTime);
+        $TargetFdRoute->setUpdateDate($currentDateTime);
+        
+        // 更新
+        $em->persist($FdRoute);
+        $em->persist($TargetFdRoute);
 
-		$em->flush();
+        $em->flush();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * おすすめ商品情報を生成する
-	 * @param $data
-	 * @return \Plugin\FdRoute\Entity\FdRouteProduct
-	 */
-	protected function newFdRoute($data) {
-		$dateTime = new \DateTime();
+    /**
+     * おすすめ商品情報を生成する
+     * @param $data
+     * @return \Plugin\FdRoute\Entity\FdRouteProduct
+     */
+    protected function newFdRoute($data) {
+        $dateTime = new \DateTime();
 
-		$rank = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->getMaxRank();
+        $rank = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->getMaxRank();
 
-		$FdRoute = new \Plugin\FdRoute\Entity\FdRouteProduct();
+        $FdRoute = new \Plugin\FdRoute\Entity\FdRouteProduct();
 
-		$FdRoute->setConditions($data['conditions']);
-		$FdRoute->setRouteString($data['route_string']);
-		$FdRoute->setRouteStringPos($data['route_string_pos']);
-		$FdRoute->setFdString($data['fd_string']);
+        $FdRoute->setConditions($data['conditions']);
+        $FdRoute->setRouteString($data['route_string']);
+        $FdRoute->setRouteStringPos($data['route_string_pos']);
+        $FdRoute->setFdString($data['fd_string']);
 
-		$FdRoute->setRank(($rank ? $rank : 0) + 1);
-		$FdRoute->setDelFlg(Constant::DISABLED);
-		$FdRoute->setCreateDate($dateTime);
-		$FdRoute->setUpdateDate($dateTime);
+        $FdRoute->setRank(($rank ? $rank : 0) + 1);
+        $FdRoute->setDelFlg(Constant::DISABLED);
+        $FdRoute->setCreateDate($dateTime);
+        $FdRoute->setUpdateDate($dateTime);
 
-		return $FdRoute;
-	}
+        return $FdRoute;
+    }
 
-	private $CurrFdRoute;
-	//セッションに判定したFDルートを保存する
-	/*
-	判定はランク順に見て、ルートは最初に一致したもの、FDは最後に一致したもの
-	*/
-	public function registFdRoute(){
-		// dump($this->app['request']);
+    private $CurrFdRoute;
+    //セッションに判定したFDルートを保存する
+    /*
+    判定はランク順に見て、ルートは最初に一致したもの、FDは最後に一致したもの
+    */
+    public function registFdRoute(){
+        // dump($this->app['request']);
+        $query = $this->app['request']->query->all();
+        $keys = array_keys($query);
+        $includequery = false;
+        $reservedparam = array('page_no');
+        foreach($keys as $key){
+            if(in_array($key
+                ,$reservedparam)>0){
+                //予約分のパラメータは無視
 
-		if(!empty($this->app['request']->query->all())){
-			$this->app['request']->getSession()->remove('route_name');
-			$this->app['request']->getSession()->remove('fd_num');
-			$this->app['request']->getSession()->remove('param');
+            }else{
+                if(!empty($query[$key])){
+                    $includequery = true;
+                }
+            }
+        }
+dump($this->CurrFdRoute);
+dump($this->app['request']->query->all());
+dump($this->app['request']);
 
-			$param_arr = array();
-			foreach ($this->app['request']->query->all() as $key => $val) {
-				$param_arr[$key] = $val;
-			}
+//$this->app['request']->getSession()->remove($this->currsessionkey);
+        $identitykeys = $this->app['request']->getSession()->get($this->currsessionkey);
+dump($identitykeys);
 
-			$this->app['request']->getSession()->set('param',$param_arr);
-		}
+        if(count($identitykeys)>0){
+            // $this->app['request']->getSession()->remove('route_name');
+            // $this->app['request']->getSession()->remove('fd_num');
+            // $this->app['request']->getSession()->remove('param');
 
-		// FDルート管理一覧取得（rankの昇順）
-		$list = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->findList();
+            $param_arr = $this->app['request']->query->all();
+            //foreach ($this->app['request']->query->all() as $key => $val) {
+            //  $param_arr[$key] = $val;
+            //}
+            $this->CurrFdRoute = $identitykeys;
 
-		$param_arr = !empty($this->app['request']->getSession()->get('param'))?$this->app['request']->getSession()->get('param'):array();
+        }else{
+            if($this->app['request']->getMethod()=='GET'){
 
-		$route_col = array(1=>'',2=>'',3=>'');
-		$fd_num = '';
-		foreach ($list as $key => $val) {
-			$conditions = explode('=',$val['conditions']);
-			if((array_key_exists($conditions[0],$param_arr) && array_search($conditions[1],$param_arr)) || $val['conditions'] == '*'){
-				if($val['conditions'] == '*'){
-					$fd_num = empty($fd_num)?$val['fd_string']:$fd_num;
-				}else{
-					$route_col[intval($val['route_string_pos'])] = !empty($route_col[intval($val['route_string_pos'])])?$route_col[intval($val['route_string_pos'])]:$val['route_string'].'_';
-					$fd_num = $val['fd_string'];
-				}
-			}
-		}
-		$this->app['request']->getSession()->set('fd_num',$fd_num);
+                // FDルート管理一覧取得（rankの昇順）
+                $list = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->findList();
 
-		$ua = $this->app['request']->server->get('HTTP_USER_AGENT');
-		$browser = ((strpos($ua, 'iPhone') !== false) || (strpos($ua, 'iPod') !== false) || ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false)));
-		$browser = ( $browser ) ? "SP" : "PC";
+                $sesparam = $this->app['request']->query->all();
+                
+                $identitykeys['param'] = $sesparam;
 
-		$route = 'WEB_'.$browser.'_'.$route_col[1].$route_col[2].$route_col[3];
-		$this->app['request']->getSession()->set('route_name',$route);
-		$this->CurrFdRoute = $route;
+                $param_arr = !empty($sesparam) ? $sesparam : array();
+
+                $route_col = array(1=>'',2=>'',3=>'');
+                $fd_num = '';
+                foreach ($list as $key => $val) {
+                    $conditions = explode('=',$val['conditions']);
+                    if((array_key_exists($conditions[0],$param_arr) 
+                        && array_search($conditions[1],$param_arr)
+                        ) || $val['conditions'] == '*'
+                    ){
+                        if($val['conditions'] == '*'){
+                            $fd_num = 
+                                empty($fd_num)
+                                    ? $val['fd_string']
+                                    : $fd_num;
+                        }else{
+                            $route_col[intval($val['route_string_pos'])] = 
+                                !empty($route_col[intval($val['route_string_pos'])])
+                                    ? $route_col[intval($val['route_string_pos'])]
+                                    : $val['route_string'].'_';
+                            $fd_num = $val['fd_string'];
+                        }
+                    }
+                }
+                $identitykeys['fd_num'] = $fd_num;
+
+                //$this->app['request']->getSession()->set('fd_num',$fd_num);
+
+                $ua = $this->app['request']->server->get('HTTP_USER_AGENT');
+                $browser = ((strpos($ua, 'iPhone') !== false) || (strpos($ua, 'iPod') !== false) || ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false)));
+                $browser = ( $browser ) ? "SP" : "PC";
+
+                $route = 'WEB_'.$browser.'_'.$route_col[1].$route_col[2].$route_col[3];
+                $identitykeys['route_name'] = $route;
+                //$this->app['request']->getSession()->set('route_name',$route);
+
+                $this->CurrFdRoute = $identitykeys;
 
 
-		dump($this->app['request']->getSession()->get('route_name'));
-		dump($this->app['request']->getSession()->get('fd_num'));
-
-		return $this->CurrFdRoute;
-	}
-	//セッションに保存してあるFDルートを取得する
-	public function getStoredFdRoute(){
+                $this->app['request']->getSession()->set($this->currsessionkey,$identitykeys);  
 
 
-		return $this->CurrFdRoute;
-	}
+            }
+
+
+        }
+
+
+        dump($this->app['request']->getSession()->get($this->currsessionkey));
+
+        return $this->CurrFdRoute;
+    }
+    //セッションに保存してあるFDルートを取得する
+    public function getStoredFdRoute(){
+
+dump('getStoredRoute');
+dump($this->CurrFdRoute);
+dump($this->app['request']->getSession()->get($this->currsessionkey));
+        if(empty($this->CurrFdRoute)){
+            $this->CurrFdRoute = $this->app['request']->getSession()->get($this->currsessionkey);
+        }
+        return $this->CurrFdRoute;
+    }
 
 }
