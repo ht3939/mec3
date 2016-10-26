@@ -115,6 +115,7 @@ class ShoppingService
 
         $Customer = $nonMember['customer'];
         $Customer->setPref($this->app['eccube.repository.master.pref']->find($nonMember['pref']));
+        $Customer->setSex($this->app['eccube.repository.master.sex']->find($nonMember['sex']));
 
         return $Customer;
 

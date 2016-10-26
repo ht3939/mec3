@@ -20,72 +20,47 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
-namespace Eccube\Form\Type\Front;
-
+namespace Plugin\ShoppingEx\Form\Type;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * ゲスト購入のお客様情報入力画面
- */
-class NonMemberType extends AbstractType
+class CardFormType extends AbstractType
 {
-    public $config;
-
+    public $app;
     /**
      * {@inheritdoc}
      */
-    public function __construct($config)
+    public function __construct(\Silex\Application $app)
     {
-        $this->config = $config;
+        $this->app = $app;
     }
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $config = $this->config;
-
         $builder
-            ->add('name', 'name', array(
-                'required' => true,
-            ))
-            ->add('kana', 'kana', array(
-                'required' => true,
-            ))
-            ->add('sex', 'sex', array(
-                'required' => false,
-            ))            
-            ->add('company_name', 'text', array(
-                'required' => false,
-                'constraints' => array(
-                    new Assert\Length(array(
-                        'max' => $config['stext_len'],
-                    )),
-                ),
-            ))
-            ->add('zip', 'zip', array(
-                'required' => true,
-            ))
-            ->add('address', 'address', array(
-                'required' => true,
-            ))
-            ->add('tel', 'tel', array(
-                'required' => true,
-            ))
-            ->add('email', 'repeated_email');
-    }
+                ->add('cardno', 'cardno', array(
+                    'required' => false,
+                ))
+                ->add('cardlimit', 'cardlimit', array(
+                    'required' => false,
+                ))
+                ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber())
+        ;
 
+    }
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'nonmember';
+        return 'cardform';
     }
 }

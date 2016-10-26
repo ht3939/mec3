@@ -57,7 +57,29 @@ class UtilService
         
         return $arrLabel;
     }
-    
+    public function getLabelPrice($Options)
+    {
+        $arrLabel = array();
+        if(is_array($Options)){
+            foreach($Options as $option_key => $option_value){
+                $option_id = str_replace('productoption', '', $option_key);
+                $Option = $this->app['eccube.productoption.repository.option']->find($option_id);
+                    if($Option){
+                    $label = $Option->getName() . '：';
+                    if($Option->getType()->getId() == 1 || $Option->getType()->getId() == 2){
+                        $label = intval($this->app['eccube.productoption.repository.option_category']->find($option_value)->getValue());
+                        //$label = $this->app['eccube.productoption.repository.option_category']->find($option_value);
+                    }else{
+                        $label = '';
+                    }
+                    $arrLabel[] = $label;
+                }
+            }
+        }
+        
+        return $arrLabel;
+    }
+        
     public function getPriceFromOptions($Options)
     {
         $option_price = 0;
@@ -100,8 +122,18 @@ class UtilService
         $plgOrderDetails = array();
         foreach($OrderDetails as $orderDetail){
             $plgOrderDetail = $this->app['eccube.productoption.repository.order_detail']->findOneBy(array('order_detail_id' => $orderDetail->getId()));
+dump($plgOrderDetail);            
             if($plgOrderDetail){
-                $plgOrderDetails[$orderDetail->getId()] = $plgOrderDetail->getOrderOption()->getLabel();
+                $labelarr = $plgOrderDetail->getOrderOption()->getLabel();
+                $labelpricearr = $plgOrderDetail->getOrderOption()->getLabelPrice();
+                //$labelarr['option_price'] = $plgOrderDetail->getOrderOption()->getPrice();
+                //foreach($labelarr as &$item){
+                //    $item .= " ".$plgOrderDetail->getOrderOption()->getPrice()."円（＋税）";  
+                //} 
+                $plgOrderDetails[$orderDetail->getId()]["label"] = $labelarr;
+                $plgOrderDetails[$orderDetail->getId()]["labelprice"] = $labelpricearr;
+                $plgOrderDetails[$orderDetail->getId()]["option_price"] = $plgOrderDetail->getOrderOption()->getPrice();
+
             }
         }
         return $plgOrderDetails;

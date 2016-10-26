@@ -11,7 +11,7 @@
 {% if CartOptions[key] is defined %}
 <dd>
     {% for label in CartOptions[key].label %}
-        {% if loop.index0 != 0%}<br />{% endif %}{{ label }}
+        {% if loop.index0 != 0%}<br />{% endif %}{{ label }}　{% if CartOptions[key].labelprice[loop.index0] > 0%}{{CartOptions[key].labelprice[loop.index0]|number_format}}円（＋税）{% endif %}
     {% endfor %}
 </dd>
 {% endif %}

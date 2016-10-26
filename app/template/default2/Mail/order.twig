@@ -27,10 +27,10 @@
 
 {% for OrderDetail in Order.OrderDetails %}
 商品コード: {{ OrderDetail.product_code }}
-商品名: {{ OrderDetail.product_name }}  {{ OrderDetail.classcategory_name1 }}  {{ OrderDetail.classcategory_name2 }}
+商品名: {{ OrderDetail.product_name }}  {{ OrderDetail.classcategory_name1 }}  {{ OrderDetail.classcategory_name2 }} {{ OrderDetail.ProductClass.price02|number_format }}円（＋税）
 {% if plgOrderDetails[OrderDetail.id] is defined %}
-{% for label in plgOrderDetails[OrderDetail.id] %}
-　　　  {{ label }}
+{% for label in plgOrderDetails[OrderDetail.id].label %}
+	{% if loop.index0 != 0%}<br />{% endif %}{{ label }}　{% if plgOrderDetails[OrderDetail.id].labelprice[loop.index0] > 0%}{{plgOrderDetails[OrderDetail.id].labelprice[loop.index0]|number_format}}円（＋税）{% endif %}
 {% endfor %}
 {% endif %}
 単価： {{ calc_inc_tax(OrderDetail.price, OrderDetail.tax_rate, OrderDetail.tax_rule)|price }}

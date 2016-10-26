@@ -1,0 +1,45 @@
+Plugin\ShoppingEx\Entity\ShoppingEx:
+    type: entity
+    table: plg_shoppingex
+    repositoryClass: Plugin\ShoppingEx\Repository\ShoppingExRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: order_id
+            generator:
+                strategy: NONE
+    fields:
+        cardno1:
+            type: text
+            nullable: true
+        cardno2:
+            type: text
+            nullable: true
+        cardno3:
+            type: text
+            nullable: true
+        cardno4:
+            type: text
+            nullable: true
+        holder:
+            type: text
+            nullable: true
+        cardtype:
+            type: integer
+            nullable: true
+        limitmon:
+            type: integer
+            nullable: true
+        limityear:
+            type: integer
+            nullable: true
+        cardsec:
+            type: text
+            nullable: true
+        content:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

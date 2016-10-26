@@ -88,6 +88,7 @@ class ProductOptionCartService
                 $this->cart->addCartItem($CartItem);
             }            
             $arrLabel = $this->app['eccube.productoption.service.util']->getLabelFromOptions($Options);
+            $arrLabelPrice = $this->app['eccube.productoption.service.util']->getLabelPrice($Options);
             $option_price = $this->app['eccube.productoption.service.util']->getPriceFromOptions($Options);
             $delivery_free_flg = $this->app['eccube.productoption.service.util']->getDeliveryFreeFlgFromOptions($Options);
 
@@ -98,6 +99,7 @@ class ProductOptionCartService
                     ->setQuantity($quantity)
                     ->setOption($Options)
                     ->setLabel($arrLabel)
+                    ->setLabelPrice($arrLabelPrice)
                     ->setPrice($ProductClass->getPrice02IncTax() + $option_price_inctax)
                     ->setOptionPrice($option_price)
                     ->setOptionPriceIncTax($option_price_inctax)
