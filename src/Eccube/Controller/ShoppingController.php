@@ -911,6 +911,8 @@ dump('payment complete');
                 ->setName02($data['name02'])
                 ->setKana01($data['kana01'])
                 ->setKana02($data['kana02'])
+                ->setSex($data['sex'])
+
                 ->setCompanyName($data['company_name'])
                 ->setEmail($data['email'])
                 ->setTel01($data['tel01'])
@@ -963,8 +965,9 @@ dump('payment complete');
             $nonMember = array();
             $nonMember['customer'] = $Customer;
             $nonMember['pref'] = $Customer->getPref()->getId();
+            $nonMember['sex'] = $Customer->getSex();
             $app['session']->set($this->sessionKey, $nonMember);
-
+dump($nonMember);
             $customerAddresses = array();
             $customerAddresses[] = $CustomerAddress;
             $app['session']->set($this->sessionCustomerAddressKey, serialize($customerAddresses));

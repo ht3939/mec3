@@ -58,6 +58,9 @@ class NonMemberType extends AbstractType
             ->add('kana', 'kana', array(
                 'required' => true,
             ))
+            ->add('sex', 'sex', array(
+                'required' => false,
+            ))            
             ->add('company_name', 'text', array(
                 'required' => false,
                 'constraints' => array(
