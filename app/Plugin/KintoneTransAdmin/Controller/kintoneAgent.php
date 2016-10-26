@@ -36,7 +36,7 @@ class kintoneAgent{
     public function AddRecord($record){
     
         # リクエスト先URL
-        $ReqURL = "https://".$this->__UserSubDomain.".cybozu.com/k/v1/record.json";
+        $ReqURL = $this->__UserSubDomain;
         # jsonデータ生成
         $json = json_encode( array(
                     "app" => $this->__AppId,
