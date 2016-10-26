@@ -55,6 +55,8 @@ class ShoppingExService
 dump('get route');
 dump($route);
 
+        $type ="WEB完結";
+
         $data = array(
                     "Route"             => array("value" => $route['route_name'].$type),
                     "MainProgress"      => array("value" => "未処理"),
