@@ -28,6 +28,8 @@ use Eccube\Common\Constant;
 
 class FdRouteService
 {
+
+    private $currsessionkey = 'sumahomania.eccube.fdroute.current.fdroute.key_';
     /** @var \Eccube\Application */
     public $app;
 
@@ -224,15 +226,116 @@ class FdRouteService
 
     private $CurrFdRoute;
     //セッションに判定したFDルートを保存する
+    /*
+    判定はランク順に見て、ルートは最初に一致したもの、FDは最後に一致したもの
+    */
     public function registFdRoute(){
+        // dump($this->app['request']);
+        $query = $this->app['request']->query->all();
+        $keys = array_keys($query);
+        $includequery = false;
+        $reservedparam = array('page_no');
+        foreach($keys as $key){
+            if(in_array($key
+                ,$reservedparam)>0){
+                //予約分のパラメータは無視
 
+            }else{
+                if(!empty($query[$key])){
+                    $includequery = true;
+                }
+            }
+        }
+dump($this->CurrFdRoute);
+dump($this->app['request']->query->all());
+dump($this->app['request']);
+
+//$this->app['request']->getSession()->remove($this->currsessionkey);
+        $identitykeys = $this->app['request']->getSession()->get($this->currsessionkey);
+dump($identitykeys);
+
+        if(count($identitykeys)>0){
+            // $this->app['request']->getSession()->remove('route_name');
+            // $this->app['request']->getSession()->remove('fd_num');
+            // $this->app['request']->getSession()->remove('param');
+
+            $param_arr = $this->app['request']->query->all();
+            //foreach ($this->app['request']->query->all() as $key => $val) {
+            //  $param_arr[$key] = $val;
+            //}
+            $this->CurrFdRoute = $identitykeys;
+
+        }else{
+            if($this->app['request']->getMethod()=='GET'){
+
+                // FDルート管理一覧取得（rankの昇順）
+                $list = $this->app['eccube.plugin.fdroute.repository.fdroute_product']->findList();
+
+                $sesparam = $this->app['request']->query->all();
+                
+                $identitykeys['param'] = $sesparam;
+
+                $param_arr = !empty($sesparam) ? $sesparam : array();
+
+                $route_col = array(1=>'',2=>'',3=>'');
+                $fd_num = '';
+                foreach ($list as $key => $val) {
+                    $conditions = explode('=',$val['conditions']);
+                    if((array_key_exists($conditions[0],$param_arr) 
+                        && array_search($conditions[1],$param_arr)
+                        ) || $val['conditions'] == '*'
+                    ){
+                        if($val['conditions'] == '*'){
+                            $fd_num = 
+                                empty($fd_num)
+                                    ? $val['fd_string']
+                                    : $fd_num;
+                        }else{
+                            $route_col[intval($val['route_string_pos'])] = 
+                                !empty($route_col[intval($val['route_string_pos'])])
+                                    ? $route_col[intval($val['route_string_pos'])]
+                                    : $val['route_string'].'_';
+                            $fd_num = $val['fd_string'];
+                        }
+                    }
+                }
+                $identitykeys['fd_num'] = $fd_num;
+
+                //$this->app['request']->getSession()->set('fd_num',$fd_num);
+
+                $ua = $this->app['request']->server->get('HTTP_USER_AGENT');
+                $browser = ((strpos($ua, 'iPhone') !== false) || (strpos($ua, 'iPod') !== false) || ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false)));
+                $browser = ( $browser ) ? "SP" : "PC";
+
+                $route = 'WEB_'.$browser.'_'.$route_col[1].$route_col[2].$route_col[3];
+                $identitykeys['route_name'] = $route;
+                //$this->app['request']->getSession()->set('route_name',$route);
+
+                $this->CurrFdRoute = $identitykeys;
+
+
+                $this->app['request']->getSession()->set($this->currsessionkey,$identitykeys);  
+
+
+            }
+
+
+        }
+
+
+        dump($this->app['request']->getSession()->get($this->currsessionkey));
 
         return $this->CurrFdRoute;
     }
     //セッションに保存してあるFDルートを取得する
     public function getStoredFdRoute(){
 
-
+dump('getStoredRoute');
+dump($this->CurrFdRoute);
+dump($this->app['request']->getSession()->get($this->currsessionkey));
+        if(empty($this->CurrFdRoute)){
+            $this->CurrFdRoute = $this->app['request']->getSession()->get($this->currsessionkey);
+        }
         return $this->CurrFdRoute;
     }
 
