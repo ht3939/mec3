@@ -83,7 +83,7 @@ dump($route);
         $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,
             array('Order'=>$Order,
                 'Route'=>$route,
-                'Note'=>$note
+                'Note'=>$note,
                 'Kintone'=> $data)
             );
 
