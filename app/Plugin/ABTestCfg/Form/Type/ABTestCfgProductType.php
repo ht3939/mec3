@@ -31,7 +31,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormEvents;
 use Eccube\Form\DataTransformer;
-
+use Symfony\Component\Form\CallbackTransformer;
 class ABTestCfgProductType extends AbstractType
 {
 
@@ -67,10 +67,11 @@ class ABTestCfgProductType extends AbstractType
                     new Assert\NotBlank(),
                 ),
             ))
-            ->add('enable_flg', 'integer', array(
+            ->add('enable_flg', 'checkbox', array(
                 'label' => '有効・無効',
                 'required' => true,
                 'trim' => true,
+                'value' => 1,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
@@ -80,10 +81,15 @@ class ABTestCfgProductType extends AbstractType
                 'required' => false,
                 'trim' => true,
             ))
-            ->add('tagdevice', 'text', array(
+
+            ->add('tagdevice', 'choice', array(
                 'label' => '対象デバイス',
-                'required' => true,
-                'trim' => true,
+                'choices'  => array(
+                    'SP' => 'SP',
+                    'PC' => 'PC',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
@@ -104,29 +110,57 @@ class ABTestCfgProductType extends AbstractType
                     new Assert\NotBlank(),
                 ),
             ))
-            ->add('abrule', 'text', array(
-                'label' => 'ab判定方法(rule,url)',
-                'required' => true,
-                'trim' => true,
+            ->add('abrule', 'choice', array(
+                'label' => 'ab判定方法(param,url)',
+                'choices'  => array(
+                    'param' => 'param',
+                    'url' => 'url',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
-            ))
+            ))            
             ->add('aburl', 'text', array(
                 'label' => 'ab判定url',
                 'required' => false,
-                'trim' => true,
-                
+                'trim' => true,                
             ))
-            ->add('organic_flg', 'integer', array(
+            ->add('organic_flg', 'checkbox', array(
                 'label' => 'オーガニック対象',
                 'required' => true,
                 'trim' => true,
+                'value' => 1,
                 'constraints' => array(
                     new Assert\NotBlank(),
                 ),
             ));
 
+        $builder->get('enable_flg')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
+        $builder->get('organic_flg')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
 
 
         $builder
