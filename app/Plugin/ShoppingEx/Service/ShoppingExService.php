@@ -50,7 +50,11 @@ class ShoppingExService
         $Order = $event->getArgument('Order');
 
         $app = $this->app;
-        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,$Order);
+        $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
+        $note = null;
+dump('get route');
+dump($route);
+        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,$Order,$route,$note);
 
 
     }
