@@ -49,13 +49,74 @@ class ShoppingExService
         $req = $event->getRequest();
         $Order = $event->getArgument('Order');
 
+
+        $type ="Web完結";
+
         $app = $this->app;
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
-        $note = null;
-dump('get route');
-dump($route);
-        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']->sendKintone($req,$Order,$route,$note);
+        $note = 'dummy note(A pattern)';
 
+
+        $orderDetails = $Order->getOrderDetails();
+        $plgOrderDetails = $app['eccube.productoption.service.util']->getPlgOrderDetails($orderDetails);
+        
+        $Shippings = $Order->getShippings();
+        $plgShipmentItems = $app['eccube.productoption.service.util']->getPlgShipmentItems($Shippings);
+        
+        $extendmsg = 
+            $app->renderView('Mail/order_kintone.twig', array(
+                'header' => null,
+                'footer' => null,
+                'route_note'=> $route['route_name'].$type.$note,
+                'message'=>$Order->getMessage(),
+                'Order' => $Order,
+                'plgOrderDetails' => $plgOrderDetails,
+                'plgShipmentItems' => $plgShipmentItems,
+            ));
+
+
+        // dump('get route');
+        // dump($route);
+        $form = $event->getArgument('form');
+        $card = $event->getArgument('CardInfo');
+        $CardInfo = $card;
+
+
+        $data = array(
+                    "_Route"             => $route['route_name'].$type,
+                    "_MainProgress"      => "未処理",
+                    "_Name"              => $Order->getName01().$Order->getName02(),
+                    "_Kana"              => $Order->getKana01().$Order->getKana02(),
+                    "_Year_Birth_Day"    => "",
+                    "_Gender"            => $Order->getSex()->getName(),
+                    "_Zip"               => $Order->getZip01().$Order->getZip02(),
+                    "_Add1"              => $Order->getPref().$Order->getAddr01(),
+                    "_Add2"              => $Order->getAddr02(),
+                    "_Add3"              => "",
+                    "_Tel"               => $Order->getTel01().$Order->getTel02().$Order->getTel03(),
+                    "_Mail"              => $Order->getEmail(),
+                    "_Card_Num"          => is_array($card)?$CardInfo['cardno']:"" ,
+                    "_Card_Name"         => is_array($card)?$CardInfo['cardholder']:"" ,
+                    "_Card_Type"         => is_array($card)?$CardInfo['cardtype']:"" ,
+                    "_Card_Limit_Year"   => is_array($card)?$CardInfo['cardlimitmon']:"" ,
+                    "_Card_Limit_Month"  => is_array($card)?$CardInfo['cardlimityear']:"" ,
+                    "_card_cord"         => is_array($card)?$CardInfo['cardsec']:"" ,
+                    "_Password"          => "",
+                    "_Message"           => $extendmsg,
+                    "_CmsOrderId"        => $Order->getId()
+                    );
+
+        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']
+            ->sendKintone($req,
+                array('Order'=>$Order,
+                    'Route'=>$route,
+                    'Note'=>$note,
+                    'DataValues'=> $data)
+                );
+
+
+    }
+    public function sendContact(EventArgs $event){
 
     }
 

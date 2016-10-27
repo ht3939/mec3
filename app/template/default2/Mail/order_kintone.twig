@@ -1,0 +1,51 @@
+{#
+* Plugin Name : ProductOption
+*
+* Copyright (C) 2015 BraTech Co., Ltd. All Rights Reserved.
+* http://www.bratech.co.jp/
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+#}
+
+ルート：{{route_note}}
+
+************************************************
+　購入時メッセージ
+************************************************
+{{ message }}
+
+************************************************
+　ご請求金額
+************************************************
+
+ご注文番号：{{ Order.id }}
+お支払い合計：{{ Order.payment_total|price}}
+お支払い方法：{{ Order.payment_method }}
+
+
+************************************************
+　ご注文商品明細
+************************************************
+
+{% for OrderDetail in Order.OrderDetails %}
+商品コード: {{ OrderDetail.product_code }}
+商品名: {{ OrderDetail.product_name }}  {{ OrderDetail.classcategory_name1 }}  {{ OrderDetail.classcategory_name2 }} {{ OrderDetail.ProductClass.price02|number_format }}円（＋税）
+{% if plgOrderDetails[OrderDetail.id] is defined %}
+{% for label in plgOrderDetails[OrderDetail.id].label %}
+	{% if loop.index0 != 0%}{{"\r\n"}}{% endif %}{{ label }}　{% if plgOrderDetails[OrderDetail.id].labelprice[loop.index0] > 0%}{{plgOrderDetails[OrderDetail.id].labelprice[loop.index0]|number_format}}円（＋税）{% endif %}
+{% endfor %}
+{% endif %}
+単価： {{ calc_inc_tax(OrderDetail.price, OrderDetail.tax_rate, OrderDetail.tax_rule)|price }}
+数量： {{ OrderDetail.quantity|number_format }}
+
+{% endfor %}
+
+-------------------------------------------------
+小　計 {{ Order.subtotal|price }}{% if Order.tax > 0 %}(うち消費税 {{ Order.tax|price }}){% endif %}
+
+送　料 {{ Order.delivery_fee_total|price}}
+手数料 {{ Order.charge|price }}
+============================================
+合　計 {{ Order.payment_total|price }}
+
