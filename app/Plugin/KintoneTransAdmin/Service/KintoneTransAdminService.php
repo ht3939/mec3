@@ -110,12 +110,16 @@ class KintoneTransAdminService
         return $KintoneTransAdmin;
     }
 
-    public function sendKintone($req,$Order,$route,$note){
+    public function sendKintone($req,$data){
         dump('sendkitone');
+        $Order = $data['Order'];
+        $route = $data['Route'];
+        $note  = $data['Note'];
+        // dump($data);
 
-        dump($req);
-        dump($req->getRequestURI());
-        dump('check req');
+        // dump($req);
+        // dump($req->getRequestURI());
+        // dump('check req');
 
         $app = $this->app;
         $config = $app['config'];
@@ -128,39 +132,45 @@ class KintoneTransAdminService
                 )
         ;
         if(is_null($KintoneTransAdmin)){
-
+            //転送対象なし
         }else{
-        dump($KintoneTransAdmin);
-        dump($Order);
-        dump($route);
-        dump($note);
-        $paramjson = $KintoneTransAdmin->getConditions();
-        dump($KintoneTransAdmin->getConditions());
-        dump(json_decode($paramjson,true));
+            // dump($KintoneTransAdmin);
+            // dump($Order);
+            // dump($route);
+            // dump($note);
+            $paramjson = $KintoneTransAdmin->getConditions();
+            // dump($KintoneTransAdmin->getConditions());
+            // dump(json_decode($paramjson,true));
+            $conditionarr = json_decode($paramjson,true);
+            if(!is_array($conditionarr)){
+                //システムエラー
+                throw new \InvalidArgumentException(sprintf('KintoneTrans "%s" admin setting pattern is invalid json format.','-'));
+            }
+            //変換処理
+            $addrec = array();
+            foreach($conditionarr as $key=>$value){
+                if(!empty($value)){
+                    $val = explode(".",$value);
+                    if(count($val)>1){
+                        if(isset($data[$val[0]][$val[1]])){
+                            $addrec[$key] = array("value"=>$data[$val[0]][$val[1]]);
 
+                        }else{
+                            //未指定なので、スキップ
+                            //throw new \InvalidArgumentException(sprintf('KintoneTrans Argument "%s" not found.', $val[0].$val[1]));
 
-            $type ="WEB完結";
-            //$route = "test-route";//route_setting::getRoute($type);
+                        }
 
-            $i_name = $_SESSION['customer_info']['i_name'];
-            $i_kana = $_SESSION['customer_info']['i_kana'];
-            $i_tel  = $_SESSION['customer_info']['i_tel'];
-            $i_mail = $_SESSION['customer_info']['i_mail'];
-            $i_gender = ($_SESSION['customer_info']['i_gender'] == "1") ? "男性" : "女性";
-            $i_zip   = $_SESSION['customer_info']['i_zip'];
-            $i_pref = $define->prefArr[$_SESSION['customer_info']['i_pref']];
-            $i_add1  = $_SESSION['customer_info']['i_add1'];
-            $i_add2  = $_SESSION['customer_info']['i_add2'];
-            $i_card  = $_SESSION['customer_info']['i_card'];
-            $i_limit_month = $_SESSION['customer_info']['i_limit_month'];
-            $i_limit_year = $_SESSION['customer_info']['i_limit_year'];
-            $i_holder  = $_SESSION['customer_info']['i_holder'];
-            $i_credit = $define->creditArr[$_SESSION['customer_info']['i_credit']];
-            $i_code  = $_SESSION['customer_info']['i_code'];
-            $i_message = $_SESSION['customer_info']['i_message'];
-            
-            //備考追加
-            //$i_message .= cart_user_note::getUserNote($cart_sp_array,$cart_sim_array);
+                    }else{
+                        //システムエラー
+                        throw new \InvalidArgumentException(sprintf('KintoneTrans Argument "%s" parameter pattern is invalid.', $val[0]));
+                    }
+                }
+
+            }
+            dump('addrec');
+            dump($addrec);
+
 
 
             $kn = new kintoneAgent(
@@ -170,62 +180,25 @@ class KintoneTransAdminService
                 $config['kintoneapi_appid']
                 );
 
-            $addrec = array(
-                    "Route"             => array("value" => $route),
-                    "MainProgress"      => array("value" => "未処理"),
-                    "Name"              => array("value" => $i_name),
-                    "Kana"              => array("value" => $i_kana),
-                    "Year_Birth_Day"    => array("value" => ""),
-                    "Gender"            => array("value" => $i_gender),
-                    "Zip"               => array("value" => $i_zip),
-                    "Add1"              => array("value" => $i_pref.$i_add1),
-                    "Add2"              => array("value" => $i_add2),
-                    "Add3"              => array("value" => ""),
-                    "Tel"               => array("value" => $i_tel),
-                    "Mail"              => array("value" => $i_mail),
-                    "Card_Num"          => array("value" => $i_card),
-                    "Card_Name"         => array("value" => $i_holder),
-                    "Card_Type"         => array("value" => $i_credit),
-                    "Card_Limit_Year"   => array("value" => $i_limit_year),
-                    "Card_Limit_Month"  => array("value" => sprintf("%02d", $i_limit_month)),
-                    "card_cord"         => array("value" => $i_code),
-                    "Password"          => array("value" => ""),
-                    "Message"           => array("value" => $i_message)
+                //throw new \Exception(sprintf('KintoneTrans Argument "%s" sending kintone API was fail.', '-'));
 
-                );
-            dump($addrec);
-            dump(json_encode($addrec));
+            $knres = $kn->AddRecord($addrec);
+            if($knres == false){
+                //システムエラー
+                throw new \Exception(sprintf('KintoneTrans Argument "%s" sending kintone API was fail.', '-'));
+            }
 
-die();
-
-            $kn->AddRecord(array(
-                    "Route"             => array("value" => $route),
-                    "MainProgress"      => array("value" => "未処理"),
-                    "Name"              => array("value" => $i_name),
-                    "Kana"              => array("value" => $i_kana),
-                    "Year_Birth_Day"    => array("value" => ""),
-                    "Gender"            => array("value" => $i_gender),
-                    "Zip"               => array("value" => $i_zip),
-                    "Add1"              => array("value" => $i_pref.$i_add1),
-                    "Add2"              => array("value" => $i_add2),
-                    "Add3"              => array("value" => ""),
-                    "Tel"               => array("value" => $i_tel),
-                    "Mail"              => array("value" => $i_mail),
-                    "Card_Num"          => array("value" => $i_card),
-                    "Card_Name"         => array("value" => $i_holder),
-                    "Card_Type"         => array("value" => $i_credit),
-                    "Card_Limit_Year"   => array("value" => $i_limit_year),
-                    "Card_Limit_Month"  => array("value" => sprintf("%02d", $i_limit_month)),
-                    "card_cord"         => array("value" => $i_code),
-                    "Password"          => array("value" => ""),
-                    "Message"           => array("value" => $i_message)
-
-                ));
-
+            dump('kintone res');
+            dump($knres);//die();
 
 
         }
 
+
+    }
+
+    public function sendAwsSQS($req,$data){
+        //not impliments.
 
     }
 
