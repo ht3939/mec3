@@ -275,8 +275,8 @@ dump($sec->get('redirect-data'));
         dump('confirm check valid');
 
         if (!$form->isValid()) {
-        $Order = $event->getArgument('Order');
-         dump('confirm check');
+            $Order = $event->getArgument('Order');
+            dump('confirm check');
            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -300,6 +300,8 @@ dump($sec->get('redirect-data'));
 
             //$app->addError('form.invalid.exception', 'admin');
 
+        }else{
+
         }
     }
     public function onFrontShoppingConfirmProcessing(EventArgs $event){
@@ -313,7 +315,7 @@ dump($sec->get('redirect-data'));
 
         $form = $event->getArgument('form');
         $dat = $form->GetData();
-dump($dat);
+        // dump($dat);
         $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
         if(is_null($ShoppingEx)){
             $ShoppingEx = new ShoppingEx();
@@ -335,11 +337,27 @@ dump($dat);
         $app['orm.em']->persist($ShoppingEx);
         $app['orm.em']->flush();
 
+        if($Order->getPayment()->getId()==5){
+            $cardtypearr = explode(",",$app['config']['cardtype']);
+
+            $event->setArgument('CardInfo',
+                array(
+                    'cardno'=>$dat['cardno1'].$dat['cardno2'].$dat['cardno3'].$dat['cardno4'],
+                    'cardholder'=>$dat['holder'],
+                    'cardtype'=>$cardtypearr[$dat['cardtype']],
+                    'cardsec'=>$dat['cardsec'],
+                    'cardlimitmon'=>$dat['cardlimitmon'],
+                    'cardlimityear'=>$dat['cardlimityear']
+
+                )
+            );
+        }else{
+            $event->setArgument('CardInfo',null);
+
+        }
+
         $app['eccube.plugin.shoppingex.service.shoppingex']->sendShoppingOrder($event);
 
-dump(
-$event->getArgument('form'));
-die();
 
     }
 
@@ -373,8 +391,8 @@ die();
         dump('payment check valid');
 
         if (!$form->isValid()) {
-        $Order = $event->getArgument('Order');
-         dump('payment check');
+            $Order = $event->getArgument('Order');
+            dump('payment check');
            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -447,8 +465,8 @@ die();
         dump('shippingEditChange check valid');
 
         if (!$form->isValid()) {
-        $Order = $event->getArgument('Order');
-         dump('shippingEditChange check');
+            $Order = $event->getArgument('Order');
+            dump('shippingEditChange check');
            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -505,9 +523,9 @@ die();
         dump('shippingmultipleChange check valid');
 
         if (!$form->isValid()) {
-        $Order = $event->getArgument('Order');
-         dump('shippingmultipleChange check');
-           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            $Order = $event->getArgument('Order');
+            dump('shippingmultipleChange check');
+            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
             $message = $data['message'];
