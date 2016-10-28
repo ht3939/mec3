@@ -220,6 +220,7 @@ EOD;
         $app = $this->app;
         $value_repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue');
         $column_repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns');
+        $maker_repository = $app['eccube.plugin.maker.repository.product_maker'];
 
         $route = $app['request']->attributes->get('_route');
 
@@ -227,16 +228,87 @@ EOD;
             case 'product_detail':
                 $id = $app['request']->attributes->get('id');
                 $__ex_product = $this->getProductExt($id, $value_repository, $column_repository);
+                $__ex_product_maker = array();
+                if(!is_null($maker_repository->find($id))){
+                    $__ex_product_maker['name'] = $maker_repository->find($id)->getMaker()->getName();
+                    $__ex_product_maker['url'] = $maker_repository->find($id)->getMakerUrl();
+                }
+
                 $app['twig']->addGlobal('__EX_PRODUCT', $__ex_product);
+                $app['twig']->addGlobal('__EX_PRODUCT_MAKER', $__ex_product_maker);
+
+
+                // ------------- 対応する端末 ------------- 
+                $param = array();
+                $param['Column'] = 4;
+
+                $this_sim_size = ($__ex_product[4]['value'])?$__ex_product[4]['value']:array();
+
+                $sim_where = '';
+                foreach ($this_sim_size as $key => $val) {
+                    $param['Value'.$key] = '%'.$val.'%';
+                    $sim_where .= ($key > 0)?' OR':'';
+                    $sim_where .= ' pepcv.value LIKE :Value'.$key;
+                }
+                // カードサイズが設定されていない場合、絶対一致しない条件を入れる
+                if($sim_where == '')$sim_where = '1 = 2';
+
+                // $query = $app['orm.em']->getRepository('Eccube\Entity\Product')->createQueryBuilder('p')
+                $query = $app['eccube.repository.product']->createQueryBuilder('p')
+                    ->innerJoin('\\Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumnsValue', 'pepcv', 'WITH', 'p.id = pepcv.productId')
+                    ->where('pepcv.columnId = :Column')
+                    ->andWhere($sim_where)
+                    ->setParameters($param)
+                    ->groupBy('p.id')
+                    ->getQuery();
+
+                $matchs_product = array();
+                $matchs_product = $query->getResult();
+
+                // 商品タイプ（１：端末、２：SIMカード）が同じものは削除
+                $this_product = $app['eccube.repository.product']->findOneBy(array('id' => $id));
+                $this_product_type = $this_product['ProductClasses'][0]['ProductType']['id'];
+
+                foreach ($matchs_product as $key => $val) {
+                    if($this_product_type == $val['ProductClasses'][0]['ProductType']['id']){
+                        unset($matchs_product[$key]);
+                    }
+                }
+                $matchs_product = array_merge($matchs_product);
+
+                $matchs_info = array();
+                $matchs_info_maker = array();
+                foreach ($matchs_product as $key => $val) {
+                    $match_id = $val['id'];
+                    $matchs_info[$match_id] = $this->getProductExt($match_id, $value_repository, $column_repository);
+                    if(!is_null($maker_repository->find($match_id))){
+                        $matchs_info_maker[$match_id]['name'] = $maker_repository->find($match_id)->getMaker()->getName();
+                        $matchs_info_maker[$match_id]['url'] = $maker_repository->find($match_id)->getMakerUrl();
+                    }
+                }
+
+                $app['twig']->addGlobal('matchs_product', $matchs_product);
+                $app['twig']->addGlobal('matchs_info', $matchs_info);
+                $app['twig']->addGlobal('matchs_info_maker', $matchs_info_maker);
+
+                // ------------- /対応する端末 ------------- 
+
+
                 break;
             case 'product_list':
                 $__ex_product_list = array();
+                $__ex_product_list_maker = array();
                 $pagination = $this->getPagination($app);
                 foreach ($pagination as $Product) {
                     $__ex_product_list[$Product->getId()] = $this->getProductExt($Product->getId(), $value_repository, $column_repository);
+                    if(!is_null($maker_repository->find($Product->getId()))){
+                        $__ex_product_list_maker[$Product->getId()]['name'] = $maker_repository->find($Product->getId())->getMaker()->getName();
+                        $__ex_product_list_maker[$Product->getId()]['url'] = $maker_repository->find($Product->getId())->getMakerUrl();
+                    }
                 }
 
                 $app['twig']->addGlobal('__EX_PRODUCT_LIST', $__ex_product_list);
+                $app['twig']->addGlobal('__EX_PRODUCT_LIST_MAKER', $__ex_product_list_maker);
 
                 /*$category_id = $app['request']->query->get('category_id');
                 if (empty($category_id)) {

@@ -203,24 +203,27 @@
 
 
 <dl class="item-dtl-purchase pc">
-	<dt>Huawei Ascend G6 のご購入はこちら</dt>
+	<dt>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }} のご購入はこちら</dt>
 	<dd>
 		<div class="image js-color-changed">
-			<img src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/ascend-g6/white/item-dtl-1.png" alt="HuaweiAscend G6 ホワイト">
-			<img src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/ascend-g6/pink/item-dtl-1.png" alt="HuaweiAscend G6 ピンク">
+            <img src="{{ app.config.image_save_urlpath }}/{{ Product.ProductImage.0|no_image_product }}" alt="{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}"/>
 		</div>
 		<div class="item-dtl-purchase-right">
+
 			<div id="item-dtl-purchase-tab">
 				<ul>
 					<li data-tab="purchase1" class="active">分割払いの場合</li>
+                    {% if (sales_price_bulk != null) %}
 					<li data-tab="purchase2">一括払いの場合</li>
+                    {% endif %}
 				</ul>
 			</div>
+
 			<div id="purchase1" class="item-dtl-purchase-tab-cont" style="display: block;">
 				<div class="item-dtl-purchase-tab-cont-l">
 					<dl>
 						<dt>分割端末代金（24回払い）*</dt>
-						<dd><span>875</span>円/月</dd>
+						<dd><span>{{ sales_price_month }}</span>円/月</dd>
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
@@ -229,11 +232,13 @@
 					</form>
 				</div>
 			</div>
+
+            {% if (sales_price_bulk != null) %}
 			<div id="purchase2" class="item-dtl-purchase-tab-cont">
 				<div class="item-dtl-purchase-tab-cont-l">
 					<dl>
 						<dt>一括端末代金*</dt>
-						<dd><span>21,000</span>円</dd>
+						<dd><span>{{ sales_price_bulk }}</span>円</dd>
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
@@ -242,6 +247,8 @@
 					</form>
 				</div>
 			</div>
+            {% endif %}
+
 			<div class="note">＊ 表示価格は税抜です。別途消費税が加算されます。</div>
 		</div>
 	</dd>
