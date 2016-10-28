@@ -97,3 +97,6 @@ front.shopping.shipping.multiple.edit.complete:
 #    // shippingMultipleEdit
 #    const FRONT_SHOPPING_SHIPPING_MULTIPLE_EDIT_INITIALIZE = 'front.shopping.shipping.multiple.edit.initialize';
 #    const FRONT_SHOPPING_SHIPPING_MULTIPLE_EDIT_COMPLETE = 'front.shopping.shipping.multiple.edit.complete';
+
+mail.order:
+    - [onMailServiceMailOrder, NORMAL]

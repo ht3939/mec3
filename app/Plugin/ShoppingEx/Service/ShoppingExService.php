@@ -47,12 +47,12 @@ class ShoppingExService
     }
     public function sendShoppingOrder(EventArgs $event){
         $req = $event->getRequest();
+        $app = $this->app;
         $Order = $event->getArgument('Order');
-
-
         $type ="Web完結";
 
-        $app = $this->app;
+
+
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
         $note = 'dummy note(A pattern)';
 
@@ -117,6 +117,43 @@ class ShoppingExService
 
     }
     public function sendContact(EventArgs $event){
+        $app = $this->app;
+        $type ="問合";
+
+        $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
+
+        $extendmsg = 
+            $app->renderView('Mail/order_kintone.twig', array(
+                'header' => null,
+                'footer' => null,
+                'route_note'=> $route['route_name'].$type.$note,
+                'message'=>$Order->getMessage(),
+            ));
+
+
+        $data = array(
+                    "_Route"             => $route['route_name'].$type,
+                    "_MainProgress"      => "未処理",
+                    "_Name"              => $Order->getName01().$Order->getName02(),
+                    "_Kana"              => $Order->getKana01().$Order->getKana02(),
+                    "_Year_Birth_Day"    => "",
+                    "_Gender"            => $Order->getSex()->getName(),
+                    "_Zip"               => $Order->getZip01().$Order->getZip02(),
+                    "_Add1"              => $Order->getPref().$Order->getAddr01(),
+                    "_Add2"              => $Order->getAddr02(),
+                    "_Add3"              => "",
+                    "_Tel"               => $Order->getTel01().$Order->getTel02().$Order->getTel03(),
+                    "_Mail"              => $Order->getEmail(),
+                    "_Password"          => "",
+                    "_Message"           => $extendmsg,
+                    );
+
+        $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']
+            ->sendKintone($req,
+                array(
+                    'DataValues'=> $data)
+                );
+
 
     }
 
