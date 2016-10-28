@@ -104,6 +104,13 @@ class RecommendServiceProvider implements ServiceProviderInterface
             return $translator;
         }));
 
+
+        // Service
+        $app['eccube.recommend.service.recommend'] = $app->share(function () use ($app) {
+            return new \Plugin\Recommend\Service\RecommendService($app);
+        });
+
+
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
             $addNavi['id'] = 'admin_recommend';

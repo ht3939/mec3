@@ -40,14 +40,20 @@ class CheckedItemController
                     );
 
             if ($Product){
-                $checkedItems[] = $Product;
+                $checkedItems[]['Product'] = $Product;
             }
         }
 
+        $product_param = $app['eccube.recommend.service.recommend']->getProductParam($checkedItems);
+
         return $app->render('Block/checkeditem.twig', array(
-                    'checkedItems' => $checkedItems,
-                    'displayNum' => $displayNum,
-                    'delete' => $delete,
+            'CheckedItem' => array(
+                'ProductList'               => $checkedItems,
+                'displayNum'                => $displayNum,
+                'delete'                    => $delete,
+                '__EX_PRODUCT_LIST'         => $product_param['__EX_PRODUCT_LIST'],
+                '__EX_PRODUCT_LIST_MAKER'   => $product_param['__EX_PRODUCT_LIST_MAKER']
+            )
         ));
     }
 

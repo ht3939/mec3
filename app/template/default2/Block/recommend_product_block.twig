@@ -19,38 +19,57 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-<!-- ▼item_list▼ -->
-
-
-<style>
+{% block stylesheet %}
+<style type="text/css">
 #pickupitem .heading{
   background: #f8f8f8;
   padding: 16px;
 }
-#pickupitem .heading01 {
-  background: transparent;
-  float:left;
-  font-size: 100%;
-  text-align: left;
-  padding: 0;
-  margin: 0;
-  line-height: 39px;
+
+
+#item_list.recommend .item_name{
+    color: #525263;
+    margin: 0 0 8px;
+    font-weight:bold;
+    height: 60px;
 }
-#pickupitem .heading02 {
-  background: transparent;
-  font-size: 60%;
-  text-align: right;
-  padding: 0;
-  margin: 0;
+#item_list.recommend .item_name span {
+    height: 15px;
+    font-size: 11px;
+    display: block;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+#item_list.recommend .tag-list{
+    display: block;
+    height: 26px;
+}
+#item_list.recommend .tag-list li{
+    font-size:11px;
+}
+#item_list.recommend .item_price{
+    font-size:13px;
+    margin: 8px 0px;
+    font-weight:normal;
+}
+#item_list.recommend .item_price .price-num {
+    color: #ed0505;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
 }
 </style>
+{% endblock %}
 
+
+
+<!-- ▼item_list▼ -->
 <div id="pickupitem" >
     <h2 class="heading">独自のおすすめ商品</h2>
 
-<div id="item_list">
+<div id="item_list" class="recommend">
     <div class="row">
-        {% for RecommendProduct in RecommendProducts %}
+        {% for RecommendProduct in RecommendProducts.ProductList %}
             <div class="col-sm-3 col-xs-6">
                 <div class="pickup_item">
                     <a href="{{ url('product_detail', {'id': RecommendProduct.Product.id}) }}">
@@ -58,17 +77,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         <p class="item_comment">{{ RecommendProduct.comment|raw }}</p>
 
                         <dl>
-                            <dt class="item_name">{{ RecommendProduct.Product.name }}</dt>
+                            <dt class="item_name">
+                                <span>{{ RecommendProducts.__EX_PRODUCT_LIST_MAKER[RecommendProduct.Product.id].name }}</span>
+                                {{ RecommendProduct.Product.name }}
+                            </dt>
+
+                            <ul class="tag-list">
+                            {% for ProductTag in RecommendProduct.Product.ProductTag %}
+                                <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
+                            {% endfor %}
+                            </ul>
+
                             <dd class="item_price">
-                                {% if RecommendProduct.Product.hasProductClass %}
-                                    {% if RecommendProduct.Product.getPrice02Min == RecommendProduct.Product.getPrice02Max %}
-                                        {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
-                                    {% else %}
-                                        {{ RecommendProduct.Product.getPrice02IncTaxMin|price }} ～ {{ RecommendProduct.Product.getPrice02IncTaxMax|price }}
-                                    {% endif %}
-                                {% else %}
-                                    {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
-                                {% endif %}
+                                月額 <span class="price-num">{{ RecommendProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
                             </dd>
                         </dl>
                     </a>

@@ -57,33 +57,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     font-weight: normal;
     margin-bottom: 5px;
 }
-.col-sm-3.col-xs-6 .item_price {
-    font-size: 11px;
-    color: #f20051;
-
-    margin: 8px 0;
+#item_list.main_list .col-sm-3.col-xs-6 .item_name{
+    height: 60px;
 }
-.col-sm-3.col-xs-6 .item_price span {
-    font-size: 18px;
+#item_list.main_list .col-sm-3.col-xs-6 .item_name span{
+    height:15px;
+}
+#item_list.main_list .col-sm-3.col-xs-6 .item_price {
+    font-size:13px;
+    margin: 8px 0px;
+    font-weight:normal;
+}
+#item_list.main_list .col-sm-3.col-xs-6 .item_price span {
+    color: #ed0505;
+    font-size: 20px;
     font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
 }
-.col-sm-3.col-xs-6 .tag-list {
-    overflow: hidden;
+#item_list.main_list .col-sm-3.col-xs-6 .tag-list {
+    display: block;
+    height: 26px;
+    font-weight:normal;
 }
-ol, ul {
-    list-style: none;
-}
-.col-sm-3.col-xs-6 .tag-list li {
-    float: left;
-    font-size: 11px;
-    margin-right: 10px;
-    margin-bottom: 2px;
-    padding: 3px 6px;
-    background: #f1f1f1;
-    font-weight: normal;
-    color: #333;
-}
-.col-sm-3.col-xs-6 .td-spec dt {
+#item_list.main_list .col-sm-3.col-xs-6 .td-spec dt {
     font-size: 13px;
     width: 5.5em;
     float: left;
@@ -91,11 +87,13 @@ ol, ul {
     font-weight: bold;
     color: #333;
 }
-.col-sm-3.col-xs-6 .td-spec dd {
+#item_list.main_list .col-sm-3.col-xs-6 .td-spec dd {
+    font-size: 13px;
     padding-bottom: 6px;
     color: #333;
+    height: 24px;
 }
-.col-sm-3.col-xs-6 .btn-detail {
+#item_list.main_list .col-sm-3.col-xs-6 .btn-detail {
     display: block;
     /*width: 98px;*/
     padding: 5px 0;
@@ -174,7 +172,7 @@ ol, ul {
     </div>
 
     <!-- ▼item_list▼ -->
-    <div id="item_list">
+    <div id="item_list" class="main_list">
         <div class="row no-padding">
             {% for Product in pagination %}
                 <div id="result_list_box--{{ Product.id }}" class="col-sm-3 col-xs-6">
@@ -185,47 +183,36 @@ ol, ul {
                             </div>
                             <dl id="result_list__detail--{{ Product.id }}">
                                 <div class="td-inf">
-                                    <dt id="result_list__name--{{ Product.id }}" class="item_name"><span>Huawei</span>{{ Product.name }}</dt>
+                                    <dt id="result_list__name--{{ Product.id }}" class="item_name">
+                                        <span>{{ __EX_PRODUCT_LIST_MAKER[Product.id].name }}</span>
+                                        {{ Product.name }}
+                                    </dt>
 
                                     <ul class="tag-list">
-                                        <li>LTE対応</li>
-                                        <li>新品</li>
+                                    {% for ProductTag in Product.ProductTag %}
+                                        <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
+                                    {% endfor %}
                                     </ul>
                                 </div>
 
-                                {% if Product.description_list %}
-                                    <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
-                                {% endif %}
-                                {% if Product.hasProductClass %}
-                                    {% if Product.getPrice02Min == Product.getPrice02Max %}
-                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                        <span>{{ Product.getPrice02IncTaxMin|price }}</span>
-                                    </dd>
-                                    {% else %}
-                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                        <span>{{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}</span>
-                                    </dd>
-                                    {% endif %}
-                                {% else %}
-                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                        <span>{{ Product.getPrice02IncTaxMin|price }}</span>
-                                    </dd>
-                                {% endif %}
+                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                </dd>
 
                                 <div class="td-spec">
                                     <dl>
                                         <dt>O　　S</dt>
-                                        <dd>Android</dd>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].12.valuetext }}</dd>
                                         <dt>液　　晶</dt>
-                                        <dd>5.0インチ</dd>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].17.valuetext }}</dd>
                                         <dt>カ  メ  ラ</dt>
-                                        <dd>1,310万画素</dd>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].19.valuetext }}</dd>
                                         <dt>電池容量</dt>
-                                        <dd>2,580mAh</dd>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].21.valuetext }}</dd>
                                     </dl>
                                 </div>
 
-                                <a href="/simfree-sumaho/arrows-m03.php" class="btn-detail">詳細を見る</a>
+                                <a href="{{ url('product_detail', {'id': Product.id}) }}" class="btn-detail">詳細を見る</a>
                             </dl>
                         </a>
                     </div>
