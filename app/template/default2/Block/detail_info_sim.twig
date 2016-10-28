@@ -236,7 +236,7 @@ caption, th, td {
 		<table>
 			<tr>
 				<th>初期費用</th>
-				<td>パッケージ価格:0円 （税抜）</td>
+				<td>パッケージ価格:{{ __EX_PRODUCT.32.valuetext }}円 （税抜）</td>
 			</tr>
 		</table>
 		<table class="center-table">
@@ -249,10 +249,10 @@ caption, th, td {
 				<th>音声通話</th>
 			</tr>
 			<tr>
-				<td>データ専用ダブルフィックス</td>
-				<td>680円/月(税抜）</td>
-				<td>1GB～3GB/月</td>
-				<td>225Mbps</td>
+				<td>{{ Product.name }}</td>
+				<td>{{ sales_price_month }}/月(税抜）</td>
+				<td>{{ __EX_PRODUCT.3.valuetext }}</td>
+				<td>{{ __EX_PRODUCT.33.valuetext }}</td>
 				<td>○</td>
 				<td>×</td>
 			</tr>
@@ -263,23 +263,23 @@ caption, th, td {
 		<table>
 			<tr>
 				<th>発売時期</th>
-				<td>2013年09月02日</td>
+				<td>{{ __EX_PRODUCT.16.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>カードサイズ</th>
-				<td>標準SIM（25mm×15mm）<br/>マイクロSIM（15mm×12mm）<br/>ナノSIM（12.3mm×8.8mm）</td>
+				<td>{{ __EX_PRODUCT.4.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>下り最大225Mbps/上り最大25Mbps</td>
+				<td>下り最大{{ __EX_PRODUCT.36.valuetext }}/上り最大{{ __EX_PRODUCT.35.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信ネットワーク</th>
-				<td>Xiエリア / FOMAエリア<br/>ご利用できるエリアのご確認はコチラ</td>
+				<td>{{ __EX_PRODUCT.5.valuetext }}<br/>ご利用できるエリアのご確認はコチラ</td>
 			</tr>
 			<tr>
 				<th>備考</th>
-				<td>当プランは2段階定額プランで、データ通信容量「1GB」を超えますと、自動的に月額料金が900円へ変更になります。</td>
+				<td>{{ __EX_PRODUCT.6.valuetext }}</td>
 			</tr>
 		</table>
 	</div>
@@ -299,7 +299,7 @@ caption, th, td {
 			<caption>料金</caption>
 			<tr>
 				<th>初期費用</th>
-				<td>パッケージ価格：<span>2,000</span>円(税抜)</td>
+				<td>パッケージ価格：<span>{{ __EX_PRODUCT.32.valuetext }}</span>円(税抜)</td>
 			</tr>
 			<tr>
 				<th>月額利用料</th>
@@ -311,15 +311,15 @@ caption, th, td {
 			<caption>プラン・サービス内容</caption>
 			<tr>
 				<th>プラン名</th>
-				<td>データ通信＋SMS 6GB ライトSプラン</td>
+				<td>{{ Product.name }}</td>
 			</tr>
 			<tr>
 				<th>データ量</th>
-				<td>6GB/月</td>
+				<td>{{ __EX_PRODUCT.3.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>375Mbps</td>
+				<td>{{ __EX_PRODUCT.33.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>SMS対応</th>
@@ -338,25 +338,25 @@ caption, th, td {
 			<caption>詳細</caption>
 			<tr>
 				<th>発売時期</th>
-				<td>2013年02月13日</td>
+				<td>{{ __EX_PRODUCT.16.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>カードサイズ</th>
-				<td>標準SIM（25mm×15mm）<br/>マイクロSIM（15mm×12mm）<br/>ナノSIM（12.3mm×8.8mm）</td>
+				<td>{{ __EX_PRODUCT.4.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>下り最大375Mbps/上り最大50Mbps</td>
+				<td>下り最大{{ __EX_PRODUCT.36.valuetext }}/上り最大{{ __EX_PRODUCT.35.valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信ネットワーク</th>
 				<td>
-					Xiエリア / FOMAエリア<br/>ご利用できるエリアのご確認はコチラ
+					{{ __EX_PRODUCT.5.valuetext }}<br/>ご利用できるエリアのご確認はコチラ
 				</td>
 			</tr>
 			<tr>
 				<th>備考</th>
-				<td></td>
+				<td>{{ __EX_PRODUCT.6.valuetext }}</td>
 			</tr>
 		</table>
 	</div>

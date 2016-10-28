@@ -92,6 +92,27 @@
 	font-size: 11px;
 	color: #3243c2;
 }
+.item-dtl-sim dd table tbody .btn-detail {
+    display: block;
+    /* width: 98px; */
+    padding: 5px 0;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #df8900;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff922d));
+    background: -moz-linear-gradient(#ffa51d,#ff922d);
+    background: -webkit-linear-gradient(#ffa51d,#ff922d);
+    background: linear-gradient(#ffa51d,#ff922d);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    transition: all 0.2s ease 0s;
+    text-decoration:none;
+}
 /* ======== /PC ==========*/
 
 /* ======== SP ==========*/
@@ -208,10 +229,11 @@
 {% endblock %}
 
 <!-- =============== PC =============== -->
+{% if matchs_product %}
 <dl class="item-dtl-sim pc">
 	<dt>対応するSIMカード</dt>
 	<dd>
-		<p>Huawei Ascend G6に対応しているSIMカード一覧です。こちらで掲載しているSIMカードは周波数などの情報をもとにしています。そのため地域や端末の特性によっては使用できない場合もございます。当方で動作を保証するものではございませんのでご了承下さい。ご購入前には必ず販売元へご確認下さいますようお願い致します。</p>
+		<p>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}に対応しているSIMカード一覧です。こちらで掲載しているSIMカードは周波数などの情報をもとにしています。そのため地域や端末の特性によっては使用できない場合もございます。当方で動作を保証するものではございませんのでご了承下さい。ご購入前には必ず販売元へご確認下さいますようお願い致します。</p>
 		<table>
 			<thead>
 				<tr>
@@ -224,136 +246,112 @@
 				</tr>
 			</thead>
 			<tbody>
+			{% for mProduct in matchs_product %}
+
+				{# 
+				「月額料金」と「一括料金」の一番安い「販売価格」を取得
+				 #}
+				{% set m_sales_price_bulk = null %}
+				{% set m_sales_price_month = null %}
+				{% for ProductClass in mProduct.ProductClasses %}
+				    {% if (ProductClass.ClassCategory2.id == 9) %}
+				        {# 月額払い #}
+				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+				        {% set m_sales_price_month = ProductClass.Price02 %}
+				        {% endif %}
+				    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+				        {#  一括払い #}
+				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
+				        {% set m_sales_price_bulk = ProductClass.Price02 %}
+				        {% endif %}
+				    {% endif %}
+				{% endfor %}
+
 				<tr>
 					<td class="dtl-img">
-						<img src="https://sumaho-mania.com/res/default/img/product/simcard/detail/u-mobile/SIM-0002/item-dtl-1.png" alt="データ専用ダブルフィックス" />
+						<img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}" />
 					</td>
 					<td class="item-name">
-						<span>U-mobile</span>
-						データ専用ダブルフィックス
+						<span>{{ matchs_info_maker[mProduct.id].name }}</span>
+						{{ mProduct.name }}
 					</td>
-					<td>680円</td>
-					<td>1GB～3GB/月</td>
-					<td>225</td>
+					<td>{{ m_sales_price_month }}円</td>
+					<td>{{ matchs_info[mProduct.id].3.valuetext }}/月</td>
+					<td>{{ matchs_info[mProduct.id].36.valuetext }}</td>
 					<td>×</td>
 					<td>
-						<input type="hidden" value="SIM-0002" name="item_id">
-						<p class="btn-dtl-sim-outer js-matchcart-sim"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
-						<a href="/simcard/umobile-data-doublefix.php">詳細ページを見る &gt;</a>
+						<a class="btn-detail" href="{{ url('product_detail', {'id': mProduct.id}) }}">詳細を見る</a>
 					</td>
 				</tr>
-				<tr>
-					<td class="dtl-img">
-						<img src="https://sumaho-mania.com/res/default/img/product/simcard/detail/u-mobile/SIM-0003/item-dtl-1.png" alt="データ専用1GBプラン" />
-					</td>
-					<td class="item-name">
-						<span>U-mobile</span>
-						データ専用1GBプラン
-					</td>
-					<td>790円</td>
-					<td>1GB/月</td>
-					<td>225</td>
-					<td>×</td>
-					<td>
-						<input type="hidden" value="SIM-0003" name="item_id">
-						<p class="btn-dtl-sim-outer js-matchcart-sim"><input type="submit" value="カートに入れる" class="btn-dtl-sim"></p>
-						<a href="/simcard/umobile-data-1gb.php">詳細ページを見る &gt;</a>
-					</td>
-				</tr>
+			{% endfor %}
+
 			</tbody>
 		</table>
 		<!-- <p class="simlist-show js-simlist-show">もっと見る</p> -->
 	</dd>
 </dl>
+{% endif %}
 <!-- =============== /PC =============== -->
 
 <!-- =============== SP =============== -->
+{% if matchs_product %}
 <div class="item-inf sp">
 	<div id="sim" class="inf-content js-scroll-referer-for-follow-header-navigation">
 		<h2>対応SIMカード</h2>
-		<p class="sim-num">全<span>49</span>製品</p>
+		<p class="sim-num">全<span>{{ matchs_product|length }}</span>製品</p>
+		{% for key, mProduct in matchs_product %}
+		{% if (key == 0) %}
 		<div class="sim-list">
 			<ul>
+		{% endif %}
+
+				{# 
+				「月額料金」と「一括料金」の一番安い「販売価格」を取得
+				 #}
+				{% set m_sales_price_bulk = null %}
+				{% set m_sales_price_month = null %}
+				{% for ProductClass in mProduct.ProductClasses %}
+				    {% if (ProductClass.ClassCategory2.id == 9) %}
+				        {# 月額払い #}
+				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+				        {% set m_sales_price_month = ProductClass.Price02 %}
+				        {% endif %}
+				    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+				        {#  一括払い #}
+				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
+				        {% set m_sales_price_bulk = ProductClass.Price02 %}
+				        {% endif %}
+				    {% endif %}
+				{% endfor %}
+
 				<li>
-					<a href="/sp/simcard/umobile-data-doublefix.php">
+					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
 						<ul class="tag-list">
 							<li>音声通話</li>
 						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0002/item-dtl-1.png" alt="データ専用ダブルフィックス"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">データ専用ダブルフィックス</p>
-						<p class="capa js-available-product-product-capacity">容量｜1GB～3GB</p>
-						<p class="price js-available-product-product-price">月額料金:<span>680</span>円</p>
+						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
+						<p class="brand js-available-product-brand">{{ matchs_info_maker[mProduct.id].name }}</p>
+						<p class="ttl js-available-product-product-name">{{ mProduct.name }}</p>
+						<p class="capa js-available-product-product-capacity">容量｜{{ matchs_info[mProduct.id].3.valuetext }}</p>
+						<p class="price js-available-product-product-price">月額料金:<span>{{ m_sales_price_month }}</span>円</p>
 					</a>
 				</li>
-				<li>
-					<a href="/sp/simcard/umobile-data-1gb.php">
-						<ul class="tag-list">
-							<li>音声通話</li>
-						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0003/item-dtl-1.png" alt="データ専用1GBプラン"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">データ専用1GBプラン</p>
-						<p class="capa js-available-product-product-capacity">容量｜1GB</p>
-						<p class="price js-available-product-product-price">月額料金:<span>790</span>円</p>
-					</a>
-				</li>
-				<li>
-					<a href="/sp/simcard/umobile-data-5gb.php">
-						<ul class="tag-list">
-							<li>音声通話</li>
-						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0004/item-dtl-1.png" alt="データ専用5GBプラン"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">データ専用5GBプラン</p>
-						<p class="capa js-available-product-product-capacity">容量｜5GB</p>
-						<p class="price js-available-product-product-price">月額料金:<span>1,480</span>円</p>
-					</a>
-				</li>
-				<li>
-					<a href="/sp/simcard/umobile-data-free.php">
-						<ul class="tag-list">
-							<li>音声通話</li>
-						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0005/item-dtl-1.png" alt="データ専用LTE使い放題プラン"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">データ専用LTE使い放題プラン</p>
-						<p class="capa js-available-product-product-capacity">容量｜制限なし</p>
-						<p class="price js-available-product-product-price">月額料金:<span>2,480</span>円</p>
-					</a>
-				</li>
+
+
+		{% if (key == matchs_product|length) %}
+			</ul>
+		</div>
+		{% elseif (key == 3) %}
 			</ul>
 		</div>
 		<p class="btn-show js-more-handle">すべての製品を見る</p>
 		<div class="sim-list more js-more-target">
 			<ul>
-				<li>
-					<a href="/sp/simcard/umobile-onsei-doublefix.php">
-						<ul class="tag-list">
-							<li>音声通話</li>
-						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0006/item-dtl-1.png" alt="通話プラスダブルフィックス"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">通話プラスダブルフィックス</p>
-						<p class="capa js-available-product-product-capacity">容量｜1GB～3GB</p>
-						<p class="price js-available-product-product-price">月額料金:<span>1,480</span>円</p>
-					</a>
-				</li>
-				<li>
-					<a href="/sp/simcard/umobile-onsei-3gb.php">
-						<ul class="tag-list">
-							<li>音声通話</li>
-						</ul>
-						<div class="image"><img src="https://sumaho-mania.com/res/sp/img/product/simcard/detail/u-mobile/SIM-0007/item-dtl-1.png" alt="通話プラス3GB"></div>
-						<p class="brand js-available-product-brand">U-mobile</p>
-						<p class="ttl js-available-product-product-name">通話プラス3GB</p>
-						<p class="capa js-available-product-product-capacity">容量｜3GB</p>
-						<p class="price js-available-product-product-price">月額料金:<span>1,580</span>円</p>
-					</a>
-				</li>
-			</ul>
-		</div>
+		{% endif %}
+
+		{% endfor %}
+
 	</div>
 </div>
-
+{% endif %}
 <!-- =============== /SP =============== -->

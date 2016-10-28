@@ -272,17 +272,17 @@
 {% endblock %}
 
 <dl class="item-dtl-purchase pc">
-	<dt>U-mobile データ専用ダブルフィックスのご購入はこちら</dt>
+	<dt>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }} のご購入はこちら</dt>
 	<dd>
 		<div class="image js-color-changed">
-			<img src="https://sumaho-mania.com/res/default/img/product/smartphone/detail/iphone6/default/item-dtl-1.png" alt="U-mobileデータ専用ダブルフィックス" style="display: inline;">
+			<img src="{{ app.config.image_save_urlpath }}/{{ Product.ProductImage.0|no_image_product }}" alt="{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}" style="display: inline;">
 		</div>
 		<div class="item-dtl-purchase-right">
 			<h3>お支払い金額</h3>
 			<div class="item-dtl-purchase-cont">
 				<div class="item-dtl-purchase-cont-left">
-					<p>初期費用<span>0</span>円*</p>
-					<p>月額料金<span>680</span>円/月*</p>
+					<p>初期費用<span>{{ __EX_PRODUCT.32.valuetext }}</span>円*</p>
+					<p>月額料金<span>{{ sales_price_month }}</span>円/月*</p>
 				</div>
 				<div class="item-dtl-purchase-cart">
 					<button class="btn-cart js-into-cart-sim">カートに入れる</button>

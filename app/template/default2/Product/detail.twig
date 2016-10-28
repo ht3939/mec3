@@ -97,6 +97,55 @@ $(function(){
 <script src="{{ app.config.front_urlpath }}/js/sp/front/general/product/detail.js"></script>
 {% endblock %}
 
+{% block stylesheet %}
+<style type="text/css">
+#detail_description_box__body .payment-price {
+    margin-bottom: 2px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+}
+#detail_description_box__body .payment-price .number-payment {
+    font-size: 14px;
+    font-weight: normal;
+}
+#detail_description_box__body .payment-price .strong {
+    padding-left: 5px;
+    color: #e9193a;
+    font-size: 26px;
+}
+#detail_description_box__body .caution {
+    font-size: 10px;
+    color: #666;
+}
+</style>
+{% endblock %}
+
+
+{# 
+「月額料金」と「一括料金」の一番安い「販売価格」を取得
+ #}
+{% set sales_price_bulk = null %}
+{% set sales_price_month = null %}
+{% set product_type = 0 %}
+{% for ProductClass in Product.ProductClasses %}
+    {% if (ProductClass.ClassCategory2.id == 9) %}
+        {# 月額払い #}
+        {% if (sales_price_month > ProductClass.Price02 or sales_price_month == null) %}
+        {% set sales_price_month = ProductClass.Price02 %}
+        {% endif %}
+    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+        {#  一括払い #}
+        {% if (sales_price_bulk > ProductClass.Price02 or sales_price_bulk == null) %}
+        {% set sales_price_bulk = ProductClass.Price02 %}
+        {% endif %}
+    {% endif %}
+    {#  商品種別（1:端末/2:SIMカード） #}
+    {% set product_type = ProductClass.ProductType.id %}
+{% endfor %}
+
+
+
 {% block main %}
     {# todo ブロック化}
     <div id="topicpath" class="row">
@@ -145,29 +194,15 @@ $(function(){
                         <!--▲商品タグ-->
                     {% endif %}
 
-                    <!--★通常価格★-->
-                    {% if Product.hasProductClass -%}
-                        {% if Product.getPrice01Min is not null and Product.getPrice01Min == Product.getPrice01Max %}
-                        <p id="detail_description_box__class_normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% elseif Product.getPrice01Min is not null and Product.getPrice01Max is not null %}
-                        <p id="detail_description_box__class_normal_range_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> ～ <span class="price01_default">{{ Product.getPrice01IncTaxMax|price }}</span> <span class="small">税込</span></p>
+                    <!-- ▼料金▼ -->
+                    <div class="payment-price-box js-payment-price-switch">
+                        <p class="payment-price js-payment-price-switch-contents active">月額<span class="strong">{{ sales_price_month }}</span>円<span class="number-payment"> /(24回)</span></p>
+                        {% if sales_price_bulk != null %}
+                        <p class="payment-price js-payment-price-switch-contents">一括<span class="strong">{{ sales_price_bulk }}</span>円</p>
                         {% endif %}
-                    {% else -%}
-                        {% if Product.getPrice01Max is not null %}
-                        <p id="detail_description_box__normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% endif %}
-                    {% endif -%}
-
-                    <!--★販売価格★-->
-                    {% if Product.hasProductClass -%}
-                        {% if Product.getPrice02Min == Product.getPrice02Max %}
-                        <p id="detail_description_box__class_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% else %}
-                        <p id="detail_description_box__class_range_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> ～ <span class="price02_default">{{ Product.getPrice02IncTaxMax|price }}</span> <span class="small">税込</span></p>
-                        {% endif %}
-                    {% else -%}
-                        <p id="detail_description_box__sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                    {% endif -%}
+                    </div>
+                    <p class="caution">※税抜き価格になります。</p>
+                    <!-- ▲料金▲ -->
 
                     <!--▼商品コード-->
                     <p id="detail_description_box__item_range_code" class="item_code">商品コード： <span id="item_code_default">
@@ -267,34 +302,36 @@ $(function(){
             <!--詳細ここまで-->
 
             <section id="item_detail_area" class="col-sm-6">
+
+
 {% for k,i in __EX_PRODUCT %}
-{% if i.name!='' %}
+    {% if i.name!='' %}
+        <p>"{{ k }}" : "{{ i.name }}" : 
+        {% if i.valuetext is iterable %}
+            {% for kk,vv in i.valuetext %}
+                "{{ vv }}" /
+            {% endfor %}
+        {% else %}
+            "{{ i.valuetext }}"
+        {% endif %}
+        </p>
+    {% endif %}
+{% endfor %}
 
-<p>{{ k }},{{ i.name }} , 
-{% if i.valuetext is iterable %}
-    {% for kk,vv in i.valuetext %}
-        {{ vv }}:
-    {% endfor %}          
-
-{% else %}
-    {{ i.valuetext }}
-
-{% endif %}
-</p>
-{% endif %}
-{% endfor %}          
 
 {% for ProductClass in Product.ProductClasses %}
-<p>{{ProductClass.id}}</p>
-<p>{{ProductClass.Price01}}</p>
-<p>{{ProductClass.ProductType.id}}</p>
-<p>{{ProductClass.ClassCategory1.id}}</p>
-<p>{{ProductClass.ClassCategory1.Name}}</p>
-<p>{{ProductClass.ClassCategory2.id}}</p>
-<p>{{ProductClass.ClassCategory2.Name}}</p>
-         
 <p>ProductId:{{Product.id}}</p>
-{% endfor %}          
+<p>ProductClass.id : {{ProductClass.id}}</p>
+<p>ProductClass.Price01 : {{ProductClass.Price01}}</p>
+<p>ProductClass.Price02 : {{ProductClass.Price02}}</p>
+<p>ProductClass.ProductType.id : {{ProductClass.ProductType.id}}</p>
+<p>ProductClass.ClassCategory1.id : {{ProductClass.ClassCategory1.id}}</p>
+<p>ProductClass.ClassCategory1.Name : {{ProductClass.ClassCategory1.Name}}</p>
+<p>ProductClass.ClassCategory2.id : {{ProductClass.ClassCategory2.id}}</p>
+<p>ProductClass.ClassCategory2.Name: {{ProductClass.ClassCategory2.Name}}</p>
+<br>
+{% endfor %}
+
 
             </section>
         </div>
