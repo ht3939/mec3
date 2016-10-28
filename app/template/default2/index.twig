@@ -40,14 +40,15 @@ $(function(){
 <style type="text/css">
 /* ======== PC ==========*/
 .pc.mainv-section {
-    background: url({{ app.config.front_urlpath }}/img/top/mainv-bg.png) #d9051c center no-repeat;
-    height: 445px;
+    background: #d9051c center no-repeat;
+/*    height: 360px;*/
+    vertical-align: bottom;
 
     margin-top: -30px;
 }
 .pc.mainv-section ._container {
     overflow: hidden;
-    width: 100%;
+/*    height: 100%;*/
     margin: 0 auto;
 }
 .pc.mainv-section ._container .sumako {
@@ -58,10 +59,11 @@ $(function(){
     margin-bottom:0px;
 }
 .pc.mainv-section ._container .mainv-text {
-    float: left;
-    width: 50%;
-    padding-top: 62px;
-    margin-left: -90px;
+    float: bottom;
+    /*width: 100%;*/
+/*    height: 445px;*/
+    padding-top: 0px;
+    margin-left: 0px;
     margin-top:0px;
     margin-bottom:0px;
 }
@@ -73,24 +75,25 @@ $(function(){
     margin-bottom:0px;
 }
 
-
 /* ======== SP ==========*/
-.sp.mainv-section {
-    background: url({{ app.config.front_urlpath }}/img/sp/top/main-bg.png) #d9051c center no-repeat;
-    background-size: 100%;
-}
-.sp.mainv-section .mainv-bg-left {
-    position: relative;
-    width: 100%;
-    background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-left.png) no-repeat top left;
-    background-size: 100%;
-}
-.sp.mainv-section .mainv-bg-left .mainv-bg-right {
-    position: relative;
-    width: 100%;
-    background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-right.png) no-repeat top right;
-    background-size: 100%;
-}
+ .sp.mainv-section {
+     background: url({{ app.config.front_urlpath }}/img/sp/top/main-bg.png) #d9051c center no-repeat;
+     background-size: 100%;
+ }
+ .sp.mainv-section .mainv-bg-left {
+     position: relative;
+     width: 100%;
+     background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-left.png) no-repeat top left;
+     background-size: 100%;
+ }
+ .sp.mainv-section .mainv-bg-left .mainv-bg-right {
+     position: relative;
+     width: 100%;
+     background: url({{ app.config.front_urlpath }}/img/sp/top/mainv-bg-right.png) no-repeat top right;
+     background-size: 100%;
+ }
+
+
 .sp ._container {
     width: 320px;
     margin: 0 auto;
@@ -132,9 +135,7 @@ $(function(){
 
 		<div class="mainv-section pc">
 			<div class="_container">
-				<p class="sumako"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumako.png" alt="SIMフリースマホってどうして安いの？格安スマホって何？"></p>
-				<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-text.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト"></h1>
-				<p class="sumao"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumao.png" alt="スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></p>
+				<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-text-pc.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト SIMフリースマホってどうして安いの？格安スマホって何？ スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></h1>
 			</div>
 		</div>
 

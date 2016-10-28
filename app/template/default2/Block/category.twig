@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #navi .inner ul{
     text-align: center;
     width: 100%;
-    display: table;
+    display: table!important;
     table-layout: fixed;
 }
 #navi .inner ul li{
@@ -63,8 +63,84 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     display: block;
 }
 
+#category{
+    padding:0px!important;
+    background: #ce0b20;
+}
+#category ul{
+    display: table!important;
+    width: 100%!important;
+}
+#category li:last-child {
+    border-right: none;
+}
+#category li {
+    border-right: 1px dotted #fff;
+    text-align: center;
+    display:table-cell!important;
+}
+#category li a {
+    min-height: 26px;
+    color:#fff;
+    font-weight: normal;
+}
+#category ul li ul li{
+    background: #ce0b20;
+}
+
+
+/* ====================== SP ====================== */
+#drawer.sp ul{
+    background: #ce0b20;
+    margin-bottom: 0px;
+}
+#drawer.sp ul li{
+    display:inline;
+}
+#drawer.sp ul li a{
+    color:#fff;
+    font-weight:normal;
+}
+#drawer.sp ul li a img{
+    margin: 13px 0px;
+}
+
 </style>
 {% endblock %}
+
+
+
+
+<!-- ==================== SP ==================== -->
+<nav id="category" class="drawer_block sp" style="display:none!important;">
+    <ul class="category-nav">
+        <li><a href="/"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+        <li><a href="{{ url('product_list') }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+        <li><a href="{{ url('product_list') }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+        <li><a href="/user_data/guide"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+    </ul>
+</nav>
+<!-- ==================== /SP ==================== -->
+
+<!-- ==================== PC ==================== -->
+
+<div id="navi" class="drawer_block pc">
+    <div class="inner pc">
+        <ul class="navi-box">
+            <li class="navi-list js-navi1"><a href="/" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+            <li class="navi-list js-navi2"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+            <li class="navi-list js-navi3"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+            <li class="navi-list js-navi4"><a href="/user_data/guide" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== /PC ==================== -->
+
+
+
+{% if(false) %}
+{# ================ PC/SPどちらにも動的に出力される ================ #}
 
 {% macro tree(Category) %}
     <li>
@@ -81,33 +157,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </li>
 {% endmacro %}
 
-
-<nav id="category" class="drawer_block sp" style="display:none!important;">
-    <ul class="category-nav">
-    <li><a href="/">トップ</a></li>
-    <li><a href="{{ url('product_list') }}">SIMフリースマホ</a></li>
-    <li><a href="{{ url('product_list') }}">SIMカード</a></li>
-    <li><a href="/user_data/guide">ご利用ガイド</a></li>
-    </ul> <!-- category-nav -->
-</nav>
-
-
 <nav id="category" class="drawer_block pc">
-    <ul class="category-nav">
-<li>注目：</li>
+    <!-- category-nav -->
+    <ul class="category-nav navi-box">
     {% for Category in Categories %}
         {{ _self.tree(Category) }}
     {% endfor %}
-    </ul> <!-- category-nav -->
+    </ul>
+    <!-- /category-nav -->
 </nav>
 
-<div id="navi" class="drawer_block pc">
-    <div class="inner">
-        <ul class="navi-box">
-            <li class="navi-list js-navi1"><a href="/" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
-            <li class="navi-list js-navi2"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
-            <li class="navi-list js-navi3"><a href="{{ url('product_list') }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
-            <li class="navi-list js-navi4"><a href="/user_data/guide" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
-        </ul>
-    </div>
-</div>
+{# ================ /PC/SPどちらにも動的に出力される ================ #}
+{% endif %}

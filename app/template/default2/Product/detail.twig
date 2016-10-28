@@ -196,9 +196,9 @@ $(function(){
 
                     <!-- ▼料金▼ -->
                     <div class="payment-price-box js-payment-price-switch">
-                        <p class="payment-price js-payment-price-switch-contents active">月額<span class="strong">{{ sales_price_month }}</span>円<span class="number-payment"> /(24回)</span></p>
+                        <p class="payment-price js-payment-price-switch-contents active">月額<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"> /(24回)</span></p>
                         {% if sales_price_bulk != null %}
-                        <p class="payment-price js-payment-price-switch-contents">一括<span class="strong">{{ sales_price_bulk }}</span>円</p>
+                        <p class="payment-price js-payment-price-switch-contents">一括<span class="strong">{{ sales_price_bulk|number_format }}</span>円</p>
                         {% endif %}
                     </div>
                     <p class="caution">※税抜き価格になります。</p>
