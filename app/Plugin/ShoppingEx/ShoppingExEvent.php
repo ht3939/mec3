@@ -356,6 +356,13 @@ dump($sec->get('redirect-data'));
 
         }
 
+        $event->getRequest()
+            ->getSession()
+            ->set(
+                'eccube.plugin.shoppingex.cardinfovalue.key',
+                $event->getArgument('CardInfo')
+                 );
+
         $app['eccube.plugin.shoppingex.service.shoppingex']->sendShoppingOrder($event);
 
 
@@ -567,6 +574,56 @@ dump($sec->get('redirect-data'));
     public function onFrontShoppingShippingMultipleEditComplete(EventArgs $event){
 
     }
+    public function onMailServiceMailOrder(EventArgs $event){
+        $app = $this->app;
+        dump('mailservice mailorder');
+
+        $app = $this->app;
+        
+        $MailTemplate = $event['MailTemplate'];
+        $Order = $event['Order'];
+        $message = $event['message'];
+        
+        $orderDetails = $Order->getOrderDetails();
+        $plgOrderDetails = $app['eccube.productoption.service.util']->getPlgOrderDetails($orderDetails);
+        
+        $Shippings = $Order->getShippings();
+        $plgShipmentItems = $app['eccube.productoption.service.util']->getPlgShipmentItems($Shippings);
+        
+
+        $CardInfo = $app['request']
+                        ->getSession()
+                        ->get(
+                            'eccube.plugin.shoppingex.cardinfovalue.key'
+                             );
+dump($CardInfo);
+        if ($CardInfo){
+            $CardInfo['cardno'] = '**** **** **** '.mb_substr($CardInfo['cardno'],-4);
+
+        }
+
+        $body = $app->renderView('Mail/order.twig', array(
+            'header' => $MailTemplate->getHeader(),
+            'footer' => $MailTemplate->getFooter(),
+            'Order' => $Order,
+            'Card' => $CardInfo,
+            'plgOrderDetails' => $plgOrderDetails,
+            'plgShipmentItems' => $plgShipmentItems,
+        ));
+        
+        $message->setBody($body);
+        
+        $event['message'] = $message;
+
+        $app['request']
+                        ->getSession()
+                        ->remove(
+                            'eccube.plugin.shoppingex.cardinfovalue.key'
+                             );
+
+        dump($event);//die();
+    }
+
 
 
 }
