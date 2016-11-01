@@ -131,7 +131,7 @@ class SEO3Event
         $meta = null;
 
         $db = @unserialize(@file_get_contents(__DIR__ . '/Resource/db.txt'));
-//dump($db);
+        // dump($db);
         $BaseInfo = $this->app['eccube.repository.base_info']->get();
 
         // 一覧
@@ -145,29 +145,36 @@ class SEO3Event
             }
 
         // 詳細
-        } else if ($id = $request->attributes->get('id')) {
-            $Product = $this->app['eccube.repository.product']->get($request->attributes->get('id'));
-            $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByProductId($id);
-            if($meta){
-                if (!empty($meta['title'])) {
-                    $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
-                }else{
-                    if(empty($meta['title'])){
-                    $meta->setTitle($Product->getName()." - ".$BaseInfo['shop_name']);
+        } else if ($request->attributes->get('_route') == 'product_detail'  
+            && $id = $request->attributes->get('id')) {
+            
+            try{
+                $Product = $this->app['eccube.repository.product']->get($request->attributes->get('id'));
+                $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByProductId($id);
+                if($meta){
+                    if (!empty($meta['title'])) {
+                        $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
                     }else{
-                    $meta->setTitle($meta['title']." - ".$BaseInfo['shop_name']);
+                        if(empty($meta['title'])){
+                        $meta->setTitle($Product->getName()." - ".$BaseInfo['shop_name']);
+                        }else{
+                        $meta->setTitle($meta['title']." - ".$BaseInfo['shop_name']);
+
+                        }
+                        $meta->setDescription($Product->getName()."の".$meta['description']);
 
                     }
-                    $meta->setDescription($Product->getName()."の".$meta['description']);
-
                 }
+
+            }catch(Exception $e){
+
             }
         } else if ($request->attributes->get('_route') == 'homepage') {
             if (!empty($db['title'])) {
                 $meta['title']=$db['title'];
             }
         }
-//dump($meta);
+        // dump($meta);
 
         if (!$meta) return;
 
@@ -194,10 +201,10 @@ class SEO3Event
         } else {
             $newHtml = $tmpHtml;
         }
-
+        // dump($newHtml);
         $tmpHtml = $newHtml;
 
-        if ($meta['keywords']) {
+        if (isset($meta['keywords']) && $meta['keywords']) {
             $reg = '/<meta name="keywords".*?>/mis';
             $newHtml = preg_replace($reg, '', $tmpHtml);
             $reg = '/<meta property="og:keywords".*?>/mis';
@@ -208,19 +215,21 @@ class SEO3Event
 
         $tmpHtml = $newHtml;
 
-        if ($meta['description']) {
+        if (isset($meta['description']) && $meta['description']) {
             $reg = '/<meta name="description".*?>/mis';
             $newHtml = preg_replace($reg, '', $tmpHtml);
             $reg = '/<meta property="og:description".*?>/mis';
             $newHtml = preg_replace($reg, '', $newHtml);
         } else {
-            $newHtml = $oldHtml;
+            $newHtml = $newHtml;
         }
 
         $newHtml .= $addContents;
 
         $html = $this->getHtml($crawler);
         $html = str_replace($oldHtml, $newHtml, $html);
+        // dump($oldHtml);
+        // dump($newHtml);
 
         $response->setContent($html);
         $event->setResponse($response);
