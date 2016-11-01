@@ -126,4 +126,24 @@ class PlgExpandProductColumnsValueRepository extends EntityRepository
 
         return $result;
     }
+
+
+    public function findAllOrderByColumnName($product_id)
+    {
+        //            ,array('PlgExpandProductColumns.column_name'=>'ASC')
+        //dump($product_id);
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->Join('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns','c','WITH','c.columnId=p.columnId')
+            ->where('p.productId=:productid')
+            ->orderBy('c.columnName', 'ASC')
+            ->getQuery() 
+            ->setParameter('productid',$product_id['productId'])
+            ->getResult();
+        //$em = $this->getEntityManager();
+
+        //return $em->createQuery('select p,c FROM Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue p JOIN p.PlgExpandProductColumns c ')
+        //->getResult();
+    }
+
 }

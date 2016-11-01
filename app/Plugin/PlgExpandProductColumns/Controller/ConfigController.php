@@ -26,7 +26,8 @@ class ConfigController
     public function init(Application $app, Request $request)
     {
         $repository = $app['eccube.plugin.repository.plg_expand_product_columns'];
-        $entities = $repository->findAll();
+        $entities = $repository->findBy(array(),array('columnName'=>'ASC'));
+        //$entities = $repository->findAll();
         $ex_columns = array();
         $type_map = $app['PlgExpandProductColumns-TYPE_MAP'];
         foreach ($entities as $entity) {
@@ -44,6 +45,7 @@ class ConfigController
 
     public function edit(Application $app, Request $request, $id = null)
     {
+//dump('config edit');die();
         if (is_null($id)) {
             $ExColumns = new \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns();
         } else {
@@ -52,7 +54,7 @@ class ConfigController
                 ->findOneByColumnId($id);
         }
 
-
+        //dump($ExColumns);
         $form = $app['form.factory']
             ->createBuilder('admin_plg_expand_product_columns')
             ->getForm();
