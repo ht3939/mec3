@@ -199,7 +199,10 @@ class PlgExpandProductColumnsValueSubscriber implements EventSubscriberInterface
      */
     private function createBlankForm(\Symfony\Component\Form\Form $form)
     {
-        $ex_columns = $this->app['eccube.plugin.repository.plg_expand_product_columns']->findAll();
+        $ex_columns = $this->app['eccube.plugin.repository.plg_expand_product_columns']
+            //->findAll();
+            ->findBy(array(),array('columnName'=>'ASC'));
+
         $inserted_array = $this->app['plgExpandProductColumnsValue_inserted'];
         foreach ($ex_columns as $column) {
             // まだ追加されていないフィールドがあれば追加する

@@ -172,11 +172,20 @@ EOD;
 
 
         $ex_columns_value = null;
+        // if ($id) {
+        //     $Product = $app['eccube.repository.product']->find($id);
+        //     $ex_columns_value = $this->app['eccube.plugin.repository.plg_expand_product_columns_value']
+        //         ->findBy(array('productId' => $Product->getId()));
+        //     // 1件空をいれとく
+        //     $ex_columns_value[] = new \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue();
+        // }
         if ($id) {
             $Product = $app['eccube.repository.product']->find($id);
             $ex_columns_value = $this->app['eccube.plugin.repository.plg_expand_product_columns_value']
-                ->findBy(array('productId' => $Product->getId()));
+                ->findAllOrderByColumnName(array('productId' => $Product->getId()));
+            //    ->findBy(array('productId' => $Product->getId()));
             // 1件空をいれとく
+            //dump($ex_columns_value);//die();
             $ex_columns_value[] = new \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue();
         }
 
@@ -184,6 +193,8 @@ EOD;
             $PlgExpandProductColumnsValue = new \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue();
             $ex_columns_value = array($PlgExpandProductColumnsValue);
         }
+
+
 
         $form = $app['form.factory']
             ->createBuilder('admin_product')
@@ -239,31 +250,76 @@ EOD;
 
 
                 // ------------- 対応する端末 ------------- 
+
                 $param = array();
-                $param['Column'] = 4;
 
-                $this_sim_size = ($__ex_product[4]['value'])?$__ex_product[4]['value']:array();
-
-                $sim_where = '';
-                foreach ($this_sim_size as $key => $val) {
-                    $param['Value'.$key] = '%'.$val.'%';
-                    $sim_where .= ($key > 0)?' OR':'';
-                    $sim_where .= ' pepcv.value LIKE :Value'.$key;
+                // ************ 対応するカードサイズ ************ 
+                $param['SimColumn'] = $app['config']['product_ex_sim_size'];
+                $this_sim_size = ($__ex_product[$param['SimColumn']]['value'])?$__ex_product[$param['SimColumn']]['value']:array();
+                $sim_where = 'pepcv1.columnId = :SimColumn AND ';
+                if(array_search('value4',$this_sim_size) === false){
+                    foreach ($this_sim_size as $key => $val) {
+                        $param['SimValue'.$key] = '%'.$val.'%';
+                        $sim_where .= ($key > 0)?' OR':'';
+                        $sim_where .= ' pepcv1.value LIKE :SimValue'.$key;
+                    }
+                    // カードサイズが設定されていない場合、絶対一致しない条件を入れる
+                    if(empty($this_sim_size)){
+                        $sim_where .= '1 = 2';
+                    }else{
+                        $sim_where .= ' OR pepcv1.value LIKE \'value4\'';
+                    }
+                }else{
+                    // マルチSIMが選択されていた場合、全商品対象に（value4 = マルチSIM）
+                    $sim_where = ':SimColumn = :SimColumn';
                 }
-                // カードサイズが設定されていない場合、絶対一致しない条件を入れる
-                if($sim_where == '')$sim_where = '1 = 2';
 
-                // $query = $app['orm.em']->getRepository('Eccube\Entity\Product')->createQueryBuilder('p')
+                $sub_query_sim = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue')->createQueryBuilder('pepcv1')
+                    ->select('pepcv1.productId')
+                    ->where($sim_where)
+                    // ->setParameters($param)
+                    ->groupBy('pepcv1.productId');
+
+// dump($sub_query_sim->getQuery());
+// dump($sub_query_sim->getQuery()->getResult());
+                // ************ /対応するカードサイズ ************ 
+
+                // // ************ 対応するキャリア ************ 
+                $param['CarrierColumn'] = $app['config']['product_ex_carrier'];
+                $this_carrier = ($__ex_product[$param['CarrierColumn']]['value'])?$__ex_product[$param['CarrierColumn']]['value']:array();
+                $carrier_where = 'pepcv2.columnId = :CarrierColumn AND ';
+                foreach ($this_carrier as $key => $val) {
+                    $param['CarrierValue'.$key] = '%'.$val.'%';
+                    $carrier_where .= ($key > 0)?' OR':'';
+                    $carrier_where .= ' pepcv2.value LIKE :CarrierValue'.$key;
+                }
+                // キャリアが設定されていない場合、絶対一致しない条件を入れる
+                if(empty($this_carrier))$carrier_where .= '1 = 2';
+
+                $sub_query_carrier = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue')->createQueryBuilder('pepcv2')
+                    ->select('pepcv2.productId')
+                    ->where($carrier_where)
+                    // ->setParameters($param)
+                    ->groupBy('pepcv2.productId');
+
+// dump($sub_query_carrier->getQuery());
+// dump($sub_query_carrier->getQuery()->getResult());
+                // ************ /対応するキャリア ************ 
+
+
                 $query = $app['eccube.repository.product']->createQueryBuilder('p')
-                    ->innerJoin('\\Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumnsValue', 'pepcv', 'WITH', 'p.id = pepcv.productId')
-                    ->where('pepcv.columnId = :Column')
-                    ->andWhere($sim_where)
-                    ->setParameters($param)
+                    ->where("p.id IN ({$sub_query_sim->getDql()})")
+                    ->andWhere("p.id IN ({$sub_query_carrier->getDql()})")
                     ->groupBy('p.id')
+                    ->setParameters($param)
                     ->getQuery();
+
+// dump($query);
+// dump($query->getResult());
 
                 $matchs_product = array();
                 $matchs_product = $query->getResult();
+
 
                 // 商品タイプ（１：端末、２：SIMカード）が同じものは削除
                 $this_product = $app['eccube.repository.product']->findOneBy(array('id' => $id));
