@@ -49,3 +49,38 @@
 ============================================
 合　計 {{ Order.payment_total|price }}
 
+************************************************
+　配送情報
+************************************************
+
+{%  for Shipping in Order.Shippings %}
+◎お届け先{% if Order.multiple %}{{ loop.index }}{% endif %}
+
+お名前　：{{ Shipping.name01 }}{{ Shipping.name02 }}　様
+{% if Shipping.company_name %}
+会社名　：{{ Shipping.company_name }}
+{% endif %}
+{% if app.config.form_country_enable %}
+    　国　　　：{{ Shipping.Country.name }}
+    　ZIPCODE ：{{ Shipping.zip_code }}
+{% endif %}
+郵便番号：〒{{ Shipping.zip01 }}-{{ Shipping.zip02 }}
+住所　　：{{ Shipping.Pref.name }}{{ Shipping.addr01 }}{{ Shipping.addr02 }}
+電話番号：{{ Shipping.tel01 }}-{{ Shipping.tel02 }}-{{ Shipping.tel03 }}
+FAX番号 ：{{ Shipping.fax01 }}-{{ Shipping.fax02 }}-{{ Shipping.fax03 }}
+
+お届け日：{{ Shipping.shipping_delivery_date is empty ? '指定なし' : Shipping.shipping_delivery_date|date_format }}
+お届け時間：{{ Shipping.shipping_delivery_time|default('指定なし') }}
+
+{%  for ShipmentItem in Shipping.ShipmentItems %}
+商品コード: {{ ShipmentItem.product_code }}
+商品名: {{ ShipmentItem.product_name }}  {{ ShipmentItem.classcategory_name1 }}  {{ ShipmentItem.classcategory_name2 }}
+{% if plgShipmentItems[ShipmentItem.id] is defined %}
+{% for label in plgShipmentItems[ShipmentItem.id] %}
+　　　  {{ label }}
+{% endfor %}
+{% endif %}
+数量：{{ ShipmentItem.quantity|number_format }}
+
+{% endfor %}
+{% endfor %}
