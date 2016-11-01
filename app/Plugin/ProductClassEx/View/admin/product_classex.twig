@@ -38,9 +38,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <style>
     .ui-state-highlight {
-        height: 148px;
+        height: 110px;
+        width:130px;
+        display: inline-block;
         border: dashed 1px #ccc;
         background: #fff;
+    }
+
+    .ui-state-default img{
+        width:100%;
+    }
+    .table-striped > tbody > tr > td:nth-child(5) {
+        width:720px;
+    }
+    .col-lg-10 {
+        width: 100%;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+        width:130px;
+        display: inline-block;
+    }
+    .col-sm-offset-2 {
+    margin-left: 0px;
     }
 </style>
 {% endblock stylesheet %}
