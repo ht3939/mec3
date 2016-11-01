@@ -36,7 +36,7 @@ class KintoneTransAdminController
         //ここにサービスを経由してセッションへ保持するロジックを配置する。
         $service = $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin'];
 
-        $KintoneTransAdminInfo = $service->registKintoneTransAdmin();
+        //$KintoneTransAdminInfo = $service->poolingKintoneTransAdmin();
 
         return $app['view']->render('Block/kintonetransadmin_product_block.twig', array(
             'KintoneTransAdminInfo' => $KintoneTransAdminInfo,
