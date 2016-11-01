@@ -51,6 +51,7 @@ class EccubeExtension extends \Twig_Extension
             new \Twig_SimpleFunction('calc_inc_tax', array($this, 'getCalcIncTax')),
             new \Twig_SimpleFunction('active_menus', array($this, 'getActiveMenus')),
             new \Twig_SimpleFunction('csrf_token_for_anchor', array($this, 'getCsrfTokenForAnchor'), array('is_safe' => array('all'))),
+            new \Twig_SimpleFunction('get_remote_content', array($this, 'getRemoteContent'), array('is_safe' => array('all'))),
 
             // Override: \Symfony\Bridge\Twig\Extension\RoutingExtension::url
             new \Twig_SimpleFunction('url', array($this, 'getUrl'), array('is_safe_callback' => array($RoutingExtension, 'isUrlGenerationSafe'))),
@@ -223,5 +224,14 @@ class EccubeExtension extends \Twig_Extension
         }
 
         return $RoutingExtension->getUrl('homepage').'404?bind='.$name;
+    }
+
+    public function getRemoteContent($path){
+        try {
+            return file_get_contents($path);
+        } catch (RouteNotFoundException $e) {
+            return null;
+        }
+
     }
 }

@@ -72,7 +72,7 @@
 /* ==================== PC ==================== */
 
 /* ==================== SP ==================== */
-.clearfix{overflow:hidden}#privacy,#other-privacy{margin:0 10px;font-size:1rem;line-height:1.6}#privacy h2,#other-privacy h2{margin:20px 0 15px;padding:10px;background-color:#eee;font-size:1.1rem;font-weight:bold}#privacy h3,#other-privacy h3{margin:10px 0 2px}#privacy ol,#privacy ul,#other-privacy ol,#other-privacy ul{margin:10px 0;padding-left:20px}#privacy ol,#other-privacy ol{list-style-type:decimal}#privacy ul,#other-privacy ul{list-style-type:disc}#privacy{margin-top:20px}#privacy .company-inquiry{margin-top:10px;padding:10px;border:1px solid #ccc}#other-privacy{margin-top:20px;margin-bottom:30px}
+.clearfix{overflow:hidden}#privacy,#other-privacy{margin:0 10px;font-size:100%;line-height:1.6}#privacy h2,#other-privacy h2{margin:20px 0 15px;padding:10px;background-color:#eee;font-size:100%;font-weight:bold}#privacy h3,#other-privacy h3{margin:10px 0 2px}#privacy ol,#privacy ul,#other-privacy ol,#other-privacy ul{margin:10px 0;padding-left:20px}#privacy ol,#other-privacy ol{list-style-type:decimal}#privacy ul,#other-privacy ul{list-style-type:disc}#privacy{margin-top:20px}#privacy .company-inquiry{margin-top:10px;padding:10px;border:1px solid #ccc}#other-privacy{margin-top:20px;margin-bottom:30px}
 
 .page-heading {
     display: block;
@@ -132,7 +132,8 @@
 		</p>
 		<h1 class="subpage-heading">プライバシーポリシー</h1>
 
-		<!--{"http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html"|file_get_contents}-->
+        {# カスタムのtwigエクステンションを追加した部分 remote_content#}
+		{{ get_remote_content('http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html')|raw}}
 		<div id="other-privacy">
 			<h2>ご契約について</h2>
 			<p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
@@ -145,7 +146,9 @@
         <p><a href="{{ url('homepage') }}" class="page-heading-back">戻る</a></p>
         <h1>プライバシーポリシー</h1>
     </div>
-    <!--{"http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html"|file_get_contents}-->
+    {# カスタムのtwigエクステンションを追加した部分 remote_content#}
+        {{ get_remote_content('http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html')|raw}}
+
     <div id="other-privacy">
         <h2>ご契約について</h2>
         <p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
