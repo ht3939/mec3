@@ -55,8 +55,7 @@ class ShoppingExService
 
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
         $note = '';
-
-
+        $note = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRouteNote();
         $orderDetails = $Order->getOrderDetails();
         $plgOrderDetails = $app['eccube.productoption.service.util']->getPlgOrderDetails($orderDetails);
         
