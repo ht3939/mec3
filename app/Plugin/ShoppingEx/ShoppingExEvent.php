@@ -28,10 +28,24 @@ class ShoppingExEvent
     const SHOPPINGEX_TEXTAREA_NAME = 'cardno';
 
     /**
+     * セッションに保存するテンポラリキー
+     */
+    const SHOPPINGEX_SESSION_KEY = 'eccube.plugin.shoppingex.cardinfovalue.key';
+    const SHOPPINGEX_SESSION_REDIRECT_KEY = 'eccube.plugin.shoppingex.redirect.key';
+
+    const SHOPPINGEX_CREDIT_ORDER_TYPE_ID = "5";    //クレカ
+    const SHOPPINGEX_SELFPAY_ORDER_TYPE_ID = "4";   //代引き
+
+    const SHOPPINGEX_PAYMONTHLY_PRODUCTCLASS_ID = "10";   //月額払い
+    const SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID = "4";   //一括払い
+
+
+    /**
      * @var \Eccube\Application
      */
     private $app;
     private $hasPayMonthly = false;
+    private $SHOPPINGEX_DELIVERY_FIX_FEE = null;
 
     /**
      * ShoppingExEvent constructor.
@@ -41,6 +55,10 @@ class ShoppingExEvent
     public function __construct($app)
     {
         $this->app = $app;
+        if (isset($app['config']['shoppingex_delivery_fix_fee'])){
+            $this->SHOPPINGEX_DELIVERY_FIX_FEE = $app['config']['shoppingex_delivery_fix_fee'];
+
+        }
     }
 
     /**
@@ -81,37 +99,45 @@ class ShoppingExEvent
     private function setCustomDeliveryFee($Order,$total_recalc = false){
 
         $app = $this->app;
-        $deli = $Order->getDeliveryFeeTotal();//５００円固定
-        $Order->setDeliveryFeeTotal(500);//５００円固定
-        $total = $Order->getTotal();//５００円固定
+        $deli = $Order->getDeliveryFeeTotal();
+        //５００円固定
+        if($this->SHOPPINGEX_DELIVERY_FIX_FEE){
+            $Order->setDeliveryFeeTotal($this->SHOPPINGEX_DELIVERY_FIX_FEE);
+            //５００円固定
 
-        if($total_recalc){
-            $Order->setTotal($total - $deli+500);//５００円固定
-           
+            $total = $Order->getTotal();
+            //５００円固定
+
+            if($total_recalc){
+                $Order->setTotal($total - $deli + $this->SHOPPINGEX_DELIVERY_FIX_FEE);
+                //５００円固定
+               
+            }
         }
 
     }
     private function onExecute(EventArgs $event){
         $app = $this->app;
-dump('request');
-$req = $event->getRequest();
-$sec = $req->getSession();
-dump($sec->get('redirect-data'));
+        // dump('request');
+        $req = $event->getRequest();
+        $sec = $req->getSession();
+        // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
 
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,true);
 
 
         foreach($Order->getOrderDetails() as $od){
-            if($od->getProductClass()->getClassCategory2()->getId()!=10){
+            if($od->getProductClass()->getClassCategory2()->getId()
+                !=self::SHOPPINGEX_PAYMONTHLY_PRODUCTCLASS_ID){
 
                 $this->hasPayMonthly = true;
             }
 
         }
-dump($event);
-dump($event->getRequest()->get('shopping')['payment']);
-dump($Order);
+        // dump($event);
+        // dump($event->getRequest()->get('shopping')['payment']);
+        // dump($Order);
 
 
         //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
@@ -121,7 +147,7 @@ dump($Order);
             $currpayment = $paymentid;
         }
         $builder = $event->getArgument('builder');
-dump($builder->get('payment')->GetData());
+        // dump($builder->get('payment')->GetData());
         //postされなくなるのでコメント
         //$builder->get('payment')->setDisabled($this->hasPayMonthly);
 
@@ -129,8 +155,8 @@ dump($builder->get('payment')->GetData());
 
             foreach($builder->get('payment') as $g){
 
-                if($g->getName()=="4"){
-                    $builder->get('payment')->remove("4");
+                if($g->getName()==self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID){
+                    $builder->get('payment')->remove(self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID);
                 }
 
             }
@@ -138,7 +164,7 @@ dump($builder->get('payment')->GetData());
         }
         //クレカ決済を選択した場合
         if($currpayment==5){
-dump('currpayment 5');
+            // dump('currpayment 5');
             $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
             if(is_null($ShoppingEx)){
                 $ShoppingEx = new ShoppingEx();
@@ -158,38 +184,23 @@ dump('currpayment 5');
                             )
                     )
             ;
-                    // ->add(
-                    //     'cardlimit',
-                    //     'cardlimit'
-                    // )
-                    // ->add(
-                    //     'cardtype',
-                    //     'cardtype'
-                    // )
-                    // ->add(
-                    //     'cardsec',
-                    //     'cardsec'
-                    // )
-                    // ->add(
-                    //     'tel',
-                    //     'tel'
-                    // );
-dump($sec->get('redirect-data'));
-            if($sec->get('redirect-data')){
+
+            // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
+            if($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)){
                 $form  = $builder->getForm();
-                $reqbulkdata = $sec->get('redirect-data')->get('shopping');
+                $reqbulkdata = $sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping');
                 if(isset($reqbulkdata['cardno'])){
 
-                    dump($sec->get('redirect-data')->get('shopping')['cardno']);
+                    // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping')['cardno']);
                     // 初期値を設定
-                    dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
+                    // dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
-                    $dat = $sec->get('redirect-data')->get('shopping')['cardno'];
+                    $dat = $sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping')['cardno'];
                     foreach($fms as $f){
                         $f->setData($dat[$f->getName()]);
                     }
                     $form->isValid();
-                    dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
+                    // dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
 
                     
                     $ShoppingEx
@@ -208,7 +219,7 @@ dump($sec->get('redirect-data'));
                     $app['orm.em']->flush();
 
 
-                    //$sec->remove('redirect-data');
+                    //$sec->remove(self::SHOPPINGEX_SESSION_REDIRECT_KEY);
                 }else{
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
                     $fms->get('cardno1')->setData($ShoppingEx->getCardno1());
@@ -223,17 +234,18 @@ dump($sec->get('redirect-data'));
 
                 }
 
-                //$form->handleRequest($sec->get('redirect-data'));
+                //$form->handleRequest($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
             }
         }else{
+            //formのvalidationで不要なチェックが入るので削除する
             $builder->remove('cardno');
             // $builder->remove('cardlimit');
             // $builder->remove('cardtype');
             // $builder->remove('cardsec');
             // $builder->remove('tel');
             $req = $event->getRequest();
-            dump($req);
-            dump($req->request);
+            // dump($req);
+            // dump($req->request);
 
             $dd = $req->request->get('shopping');
             unset($dd['cardno']);
@@ -243,15 +255,15 @@ dump($sec->get('redirect-data'));
             // unset($dd['tel']);
             $req->request->set('shopping',$dd);
             
-            dump($req->request);
-//$currpayment = $event->getRequest()->get('shopping');
+            // dump($req->request);
+            //$currpayment = $event->getRequest()->get('shopping');
 
         }
 
     }
     public function onFrontShoppingIndexInitialize(EventArgs $event){
-        dump('index init');
-        dump($event->getRequest());
+        // dump('index init');
+        // dump($event->getRequest());
         $this->onExecute($event);
 
 
@@ -259,24 +271,24 @@ dump($sec->get('redirect-data'));
 
     public function onFrontShoppingConfirmInitialize(EventArgs $event){
         $app = $this->app;
-        dump('confirm init');
+        // dump('confirm init');
         $this->onExecute($event);
-        dump('confirm check pre');
+        // dump('confirm check pre');
 
         $builder = $event->getArgument('builder');
         $form = $builder->getForm();
-        dump($builder);
+        // dump($builder);
 
-        dump('confirm check handle');
-        dump($event->getRequest());
+        // dump('confirm check handle');
+        // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        dump($form);
-        dump('confirm check valid');
+        // dump($form);
+        // dump('confirm check valid');
 
         if (!$form->isValid()) {
             $Order = $event->getArgument('Order');
-            dump('confirm check');
+            // dump('confirm check');
            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -293,9 +305,9 @@ dump($sec->get('redirect-data'));
             // 受注関連情報を最新状態に更新
             $app['orm.em']->flush();
 
-            dump('confirm redirect');
+            // dump('confirm redirect');
             $session = $request->getSession();
-            $session->set('redirect-data',$request->request);
+            $session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
             $event->setResponse($app->redirect($app->url('shopping')));
 
             //$app->addError('form.invalid.exception', 'admin');
@@ -305,7 +317,7 @@ dump($sec->get('redirect-data'));
         }
     }
     public function onFrontShoppingConfirmProcessing(EventArgs $event){
-        dump('confirm process');
+        // dump('confirm process');
         //$this->onExecute($event);
 
 
@@ -337,7 +349,8 @@ dump($sec->get('redirect-data'));
         $app['orm.em']->persist($ShoppingEx);
         $app['orm.em']->flush();
 
-        if($Order->getPayment()->getId()==5){
+        if($Order->getPayment()->getId()==self::SHOPPINGEX_CREDIT_ORDER_TYPE_ID){
+        //クレカ決裁の場合、出力用の情報を引数に入れる
             $cardtypearr = explode(",",$app['config']['cardtype']);
 
             $event->setArgument('CardInfo',
@@ -359,7 +372,7 @@ dump($sec->get('redirect-data'));
         $event->getRequest()
             ->getSession()
             ->set(
-                'eccube.plugin.shoppingex.cardinfovalue.key',
+                self::SHOPPINGEX_SESSION_KEY,
                 $event->getArgument('CardInfo')
                  );
 
@@ -370,36 +383,36 @@ dump($sec->get('redirect-data'));
 
     public function onFrontShoppingConfirmComplete(EventArgs $event){
         //セッションから消す
-        //$session->set('redirect-data',$request->request);
+        //$session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
         $req = $event->getRequest();
         $sec = $req->getSession();
-        if($sec->get('redirect-data')){
-            $sec->remove('redirect-data');
+        if($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)){
+            $sec->remove(self::SHOPPINGEX_SESSION_REDIRECT_KEY);
         }
 
     }
 
     public function onFrontShoppingPaymentInitialize(EventArgs $event){
         $app = $this->app;
-        dump('payment init');
+        // dump('payment init');
         $this->onExecute($event);
 
-        dump('payment check pre');
+        // dump('payment check pre');
 
         $builder = $event->getArgument('builder');
         $form = $builder->getForm();
-        dump($builder);
+        // dump($builder);
 
-        dump('payment check handle');
-        dump($event->getRequest());
+        // dump('payment check handle');
+        // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        dump($form);
-        dump('payment check valid');
+        // dump($form);
+        // dump('payment check valid');
 
         if (!$form->isValid()) {
             $Order = $event->getArgument('Order');
-            dump('payment check');
+            // dump('payment check');
            //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -416,9 +429,9 @@ dump($sec->get('redirect-data'));
             // 受注関連情報を最新状態に更新
             $app['orm.em']->flush();
 
-            dump('payment redirect');
+            // dump('payment redirect');
             $session = $request->getSession();
-            $session->set('redirect-data',$request->request);
+            $session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
             $event->setResponse($app->redirect($app->url('shopping')));
 
         }
@@ -427,7 +440,7 @@ dump($sec->get('redirect-data'));
     }
 
     public function onFrontShoppingPaymentComplete(EventArgs $event){
-        dump('payment complete');
+        // dump('payment complete');
 
 
     }
@@ -436,7 +449,7 @@ dump($sec->get('redirect-data'));
 
     public function onFrontShoppingDeliveryInitialize(EventArgs $event){
         $app = $this->app;
-        dump('delivery init');
+        // dump('delivery init');
 
     }
     public function onFrontShoppingDeliveryComplete(EventArgs $event){
@@ -444,7 +457,7 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingChangeInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingChange init');
+        // dump('shippingChange init');
 
     }
     public function onFrontShoppingShippingComplete(EventArgs $event){
@@ -453,28 +466,28 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingEditChangeInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingEditChange init');
+        // dump('shippingEditChange init');
         $this->onExecute($event);
 
-        dump('shippingEditChange check pre');
+        // dump('shippingEditChange check pre');
 
         $id = $event->getArgument('id');
 
         $builder = $event->getArgument('builder');
         $form = $builder->getForm();
-        dump($builder);
+        // dump($builder);
 
-        dump('shippingEditChange check handle');
-        dump($event->getRequest());
+        // dump('shippingEditChange check handle');
+        // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        dump($form);
-        dump('shippingEditChange check valid');
+        // dump($form);
+        // dump('shippingEditChange check valid');
 
         if (!$form->isValid()) {
             $Order = $event->getArgument('Order');
-            dump('shippingEditChange check');
-           //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
+            // dump('shippingEditChange check');
+
             $data = $form->getData();
             $payment = $data['payment'];
             $message = $data['message'];
@@ -490,9 +503,9 @@ dump($sec->get('redirect-data'));
             // 受注関連情報を最新状態に更新
             $app['orm.em']->flush();
 
-            dump('shippingEditChange redirect');
+            // dump('shippingEditChange redirect');
             $session = $request->getSession();
-            $session->set('redirect-data',$request->request);
+            $session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
             $event->setResponse(
                 $app->redirect($app->url('shopping_shipping_edit', array('id' => $id)))
                 );
@@ -503,7 +516,7 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingEditInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingEdit init');
+        // dump('shippingEdit init');
 
     }
     public function onFrontShoppingShippingEditComplete(EventArgs $event){
@@ -511,27 +524,27 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingMultipleChangeInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingmultipleChange init');
+        // dump('shippingmultipleChange init');
         $this->onExecute($event);
 
-        dump('shippingmultipleChange check pre');
+        // dump('shippingmultipleChange check pre');
 
         // $id = $event->getArgument('id');
 
         $builder = $event->getArgument('builder');
         $form = $builder->getForm();
-        dump($builder);
+        // dump($builder);
 
-        dump('shippingmultipleChange check handle');
-        dump($event->getRequest());
+        // dump('shippingmultipleChange check handle');
+        // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        dump($form);
-        dump('shippingmultipleChange check valid');
+        // dump($form);
+        // dump('shippingmultipleChange check valid');
 
         if (!$form->isValid()) {
             $Order = $event->getArgument('Order');
-            dump('shippingmultipleChange check');
+            // dump('shippingmultipleChange check');
             //$app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_PAYMENT_COMPLETE, $event);
             $data = $form->getData();
             $payment = $data['payment'];
@@ -548,9 +561,9 @@ dump($sec->get('redirect-data'));
             // 受注関連情報を最新状態に更新
             $app['orm.em']->flush();
 
-            dump('shippingmultipleChange redirect');
+            // dump('shippingmultipleChange redirect');
             $session = $request->getSession();
-            $session->set('redirect-data',$request->request);
+            $session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
             $event->setResponse(
                 $app->redirect($app->url('shopping_shipping_multiple'))
                 );
@@ -560,7 +573,7 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingMultipleInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingmultiple init');
+        // dump('shippingmultiple init');
 
     }
     public function onFrontShoppingShippingMultipleComplete(EventArgs $event){
@@ -568,15 +581,19 @@ dump($sec->get('redirect-data'));
     }
     public function onFrontShoppingShippingMultipleEditInitialize(EventArgs $event){
         $app = $this->app;
-        dump('shippingmultipleEdit init');
+        // dump('shippingmultipleEdit init');
 
     }
     public function onFrontShoppingShippingMultipleEditComplete(EventArgs $event){
 
     }
+
+    /*
+    メール文面にクレカ情報を差し込む処理
+    ※productoptionプラグインの処理を上書き
+    */
     public function onMailServiceMailOrder(EventArgs $event){
-        $app = $this->app;
-        dump('mailservice mailorder');
+        // dump('mailservice mailorder');
 
         $app = $this->app;
         
@@ -594,9 +611,9 @@ dump($sec->get('redirect-data'));
         $CardInfo = $app['request']
                         ->getSession()
                         ->get(
-                            'eccube.plugin.shoppingex.cardinfovalue.key'
+                            self::SHOPPINGEX_SESSION_KEY
                              );
-dump($CardInfo);
+        // dump($CardInfo);
         if ($CardInfo){
             $CardInfo['cardno'] = '**** **** **** '.mb_substr($CardInfo['cardno'],-4);
 
@@ -615,14 +632,23 @@ dump($CardInfo);
         
         $event['message'] = $message;
 
-        $app['request']
-                        ->getSession()
-                        ->remove(
-                            'eccube.plugin.shoppingex.cardinfovalue.key'
-                             );
+        $app['request']->getSession()
+                       ->remove(self::SHOPPINGEX_SESSION_KEY);
 
-        dump($event);//die();
+        // dump($event);//die();
     }
+
+
+    public function onFrontContactIndexComplete(EventArgs $event){
+        $app = $this->app;
+
+        $app['eccube.plugin.shoppingex.service.shoppingex']->sendContact($event);
+
+        // $data = $event->getArgument('data');
+        // dump($data);die();
+
+    }
+
 
 
 

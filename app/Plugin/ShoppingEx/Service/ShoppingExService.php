@@ -54,7 +54,7 @@ class ShoppingExService
 
 
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
-        $note = 'dummy note(A pattern)';
+        $note = '';
 
 
         $orderDetails = $Order->getOrderDetails();
@@ -117,35 +117,28 @@ class ShoppingExService
 
     }
     public function sendContact(EventArgs $event){
+        $req = $event->getRequest();
         $app = $this->app;
         $type ="問合";
+        $Contact = $event->getArgument('data');
 
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
-
-        $extendmsg = 
-            $app->renderView('Mail/order_kintone.twig', array(
-                'header' => null,
-                'footer' => null,
-                'route_note'=> $route['route_name'].$type.$note,
-                'message'=>$Order->getMessage(),
-            ));
-
 
         $data = array(
                     "_Route"             => $route['route_name'].$type,
                     "_MainProgress"      => "未処理",
-                    "_Name"              => $Order->getName01().$Order->getName02(),
-                    "_Kana"              => $Order->getKana01().$Order->getKana02(),
+                    "_Name"              => $Contact['name01'].$Contact['name02'],
+                    "_Kana"              => $Contact['kana01'].$Contact['kana02'],
                     "_Year_Birth_Day"    => "",
-                    "_Gender"            => $Order->getSex()->getName(),
-                    "_Zip"               => $Order->getZip01().$Order->getZip02(),
-                    "_Add1"              => $Order->getPref().$Order->getAddr01(),
-                    "_Add2"              => $Order->getAddr02(),
+                    "_Gender"            => "",
+                    "_Zip"               => $Contact['zip01'].$Contact['zip02'],
+                    "_Add1"              => $Contact['pref']->getName().$Contact['addr01'],
+                    "_Add2"              => $Contact['addr02'],
                     "_Add3"              => "",
-                    "_Tel"               => $Order->getTel01().$Order->getTel02().$Order->getTel03(),
-                    "_Mail"              => $Order->getEmail(),
+                    "_Tel"               => $Contact['tel01'].$Contact['tel02'].$Contact['tel03'],
+                    "_Mail"              => $Contact['email'],
                     "_Password"          => "",
-                    "_Message"           => $extendmsg,
+                    "_Message"           => $Contact['contents'],
                     );
 
         $app['eccube.plugin.kintonetransadmin.service.kintonetransadmin']
