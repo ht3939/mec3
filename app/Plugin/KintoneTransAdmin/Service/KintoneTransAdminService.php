@@ -112,9 +112,9 @@ class KintoneTransAdminService
 
     public function sendKintone($req,$data){
         dump('sendkitone');
-        $Order = $data['Order'];
-        $route = $data['Route'];
-        $note  = $data['Note'];
+        // $Order = $data['Order'];
+        // $route = $data['Route'];
+        // $note  = $data['Note'];
         // dump($data);
 
         // dump($req);
@@ -123,7 +123,7 @@ class KintoneTransAdminService
 
         $app = $this->app;
         $config = $app['config'];
-
+        // dump($req->getRequestURI());
         $KintoneTransAdmin =$app['eccube.plugin.kintonetransadmin.repository.kintonetransadmin_product']
                 ->findOneBy(array('tagtype'=>'kintone',
                     'enable_flg'=>1,
@@ -168,8 +168,8 @@ class KintoneTransAdminService
                 }
 
             }
-            dump('addrec');
-            dump($addrec);
+            // dump('addrec');
+            // dump($addrec);
 
 
 
@@ -188,8 +188,8 @@ class KintoneTransAdminService
                 throw new \Exception(sprintf('KintoneTrans Argument "%s" sending kintone API was fail.', '-'));
             }
 
-            dump('kintone res');
-            dump($knres);//die();
+            // dump('kintone res');
+            // dump($knres);//die();
 
 
         }
