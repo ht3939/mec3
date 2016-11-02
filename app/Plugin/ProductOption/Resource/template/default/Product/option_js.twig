@@ -73,6 +73,9 @@ function onOptionChange(){
                 optionPointTotal += optionPoint[value];
             }
         }
+        if(id == 'productoption6_0' || id == 'productoption6_1'){
+            onOptionChangeOrderLineType(id);
+        }
     });
     var $sele1 = $('form select[name=classcategory_id1]');
     var $sele2 = $('form select[name=classcategory_id2]');
@@ -92,6 +95,26 @@ function onOptionChange(){
     $('#option_price_default').text(number_format(optionPriceTotal));
     $('#option_price_inctax_default').text(number_format(optionPriceTotal + sfTax(optionPriceTotal, tax_rate, tax_rule)));
     $('#option_point_default').text(number_format(optionPointTotal));
+}
+function onOptionChangeOrderLineType(selectedId){
+    var optionPriceTotal = 0;
+    var optionPointTotal = 0;
+    var tax_rate = null;
+    var tax_rule = null;
+    $("[id^="+selectedId+"]").each(function(){
+        var optid = null;
+        var id = $(this).prop("id");
+        console.log(selectedId);
+        
+        console.log(id);
+        value = $(this).prop("value")
+        checked = $(this).prop("checked")
+        console.log(value);
+        value2 = $(this).val();
+        console.log('value2::' + value2 + " " + checked);
+
+    });
+
 }
 
 function number_format(num) {
