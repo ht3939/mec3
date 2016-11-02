@@ -231,10 +231,11 @@ class FdRouteService
     */
     public function registFdRoute(){
         // dump($this->app['request']);
+        $app = $this->app;
         $query = $this->app['request']->query->all();
         $keys = array_keys($query);
         $includequery = false;
-        $reservedparam = array('page_no');
+        $reservedparam = explode(',',$app['config']['fdroute_reservedparams']);
         foreach($keys as $key){
             if(in_array($key
                 ,$reservedparam)>0){
@@ -246,13 +247,15 @@ class FdRouteService
                 }
             }
         }
-dump($this->CurrFdRoute);
-dump($this->app['request']->query->all());
-dump($this->app['request']);
+        // dump($this->CurrFdRoute);
+        // dump($this->app['request']->query->all());
+        // dump($this->app['request']);
+        if($includequery){
+            $this->app['request']->getSession()->remove($this->currsessionkey);
 
-//$this->app['request']->getSession()->remove($this->currsessionkey);
+        }
         $identitykeys = $this->app['request']->getSession()->get($this->currsessionkey);
-dump($identitykeys);
+        // dump($identitykeys);
 
         if(count($identitykeys)>0){
             // $this->app['request']->getSession()->remove('route_name');
@@ -323,20 +326,26 @@ dump($identitykeys);
         }
 
 
-        dump($this->app['request']->getSession()->get($this->currsessionkey));
+        // dump($this->app['request']->getSession()->get($this->currsessionkey));
 
         return $this->CurrFdRoute;
     }
     //セッションに保存してあるFDルートを取得する
     public function getStoredFdRoute(){
 
-dump('getStoredRoute');
-dump($this->CurrFdRoute);
-dump($this->app['request']->getSession()->get($this->currsessionkey));
+        // dump('getStoredRoute');
+        // dump($this->CurrFdRoute);
+        // dump($this->app['request']->getSession()->get($this->currsessionkey));
         if(empty($this->CurrFdRoute)){
             $this->CurrFdRoute = $this->app['request']->getSession()->get($this->currsessionkey);
         }
         return $this->CurrFdRoute;
+    }
+    public function getStoredFdRouteNote(){
+
+        //AB判定の出力
+
+        return null;
     }
 
 }
