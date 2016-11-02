@@ -100,3 +100,6 @@ front.shopping.shipping.multiple.edit.complete:
 
 mail.order:
     - [onMailServiceMailOrder, NORMAL]
+front.contact.index.complete:
+    - [onFrontContactIndexComplete, NORMAL]
+
