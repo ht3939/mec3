@@ -95,27 +95,10 @@ function onOptionChange(){
     $('#option_price_default').text(number_format(optionPriceTotal));
     $('#option_price_inctax_default').text(number_format(optionPriceTotal + sfTax(optionPriceTotal, tax_rate, tax_rule)));
     $('#option_point_default').text(number_format(optionPointTotal));
-}
-function onOptionChangeOrderLineType(selectedId){
-    var optionPriceTotal = 0;
-    var optionPointTotal = 0;
-    var tax_rate = null;
-    var tax_rule = null;
-    $("[id^="+selectedId+"]").each(function(){
-        var optid = null;
-        var id = $(this).prop("id");
-        console.log(selectedId);
-        
-        console.log(id);
-        value = $(this).prop("value")
-        checked = $(this).prop("checked")
-        console.log(value);
-        value2 = $(this).val();
-        console.log('value2::' + value2 + " " + checked);
 
-    });
-
+    console.log('hogege');
 }
+
 
 function number_format(num) {
     return num.toString().replace(/([0-9]+?)(?=(?:[0-9]{3})+$)/g , '$1,');
@@ -146,6 +129,122 @@ function sfTax(price, tax_rate, tax_rule) {
     return $ret;
 }
 
+
+
+//オプション項目の特殊ロジック用
+
+var OptionProductOrderLineInit = true;
+
+function onOptionChangeOrderLineType(selectedId){
+    var optionPriceTotal = 0;
+    var optionPointTotal = 0;
+    var tax_rate = null;
+    var tax_rule = null;
+    $("[id^="+selectedId+"]").each(function(){
+        var optid = null;
+        var id = $(this).prop("id");
+        
+        value = $(this).prop("value")
+        checked = $(this).prop("checked")
+        value2 = $(this).val();
+        if(selectedId == 'productoption6_0' && checked ){
+            ChangeMNPEntryAreaVisible(true);
+        }
+        if(selectedId == 'productoption6_1' && checked ){
+            ChangeMNPEntryAreaVisible(false);
+        }
+
+    });
+
+    if(OptionProductOrderLineInit){
+        if($('#productoption6_0').prop('checked')){
+            ChangeMNPEntryAreaVisible(true);
+        }else{
+            ChangeMNPEntryAreaVisible(false);
+        }
+        OptionProductOrderLineInit = false;
+    }
+
+}
+
+
+$('#form1').submit(function(){
+    if(CheckProductOptionLogic()){
+        //alert('check ok..');
+
+    }else{
+        $('.prevention-masked').remove();
+        $('.prevention-btn').removeAttr('disabled');
+        return false;
+    }
+
+});
+
+function CheckProductOptionLogic() {
+    if($('#productoption6_0').prop('checked')){
+        var entrymnp = $('#productoption10').prop('value') 
+                        && $('#productoption11').prop('value') 
+                        && $('#productoption12').prop('value') 
+                        && $('#productoption13').prop('value');
+        if(entrymnp==""){
+            alert('ＭＮＰの場合は「ＭＮＰ情報」を全て入力してください。');
+            $('#productoption10').focus();
+            return false;
+
+        }
+
+
+    }
+    return true;
+
+}
+
+function ChangeMNPEntryAreaVisible(visible){
+    $('.classcategory_list li').each(function(){
+        var chktag =['productoption10','productoption11','productoption12','productoption13'];
+        var labelfor = $(this).children('.control-label').prop('htmlFor');
+        var cmpval = $(this).children('.form-control').prop('id');
+
+        if(chktag.indexOf(labelfor)> -1){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+
+        }
+        if(chktag.indexOf(cmpval)> -1){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+
+        }
+/*
+        if($(this).children('.control-label').prop('htmlFor') == 'productoption10'){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('.control-label').prop('htmlFor') == 'productoption11'){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('.control-label').prop('htmlFor') == 'productoption12'){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('.control-label').prop('htmlFor') == 'productoption13'){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+
+        if($(this).children('#productoption10').length){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('#productoption11').length){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('#productoption12').length){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+        if($(this).children('#productoption13').length){
+            if(visible){ $(this).show() }else{ $(this).hide() };
+        }
+*/
+
+    });
+}
+
 onOptionChange();
+
 {% endif %}
 </script>
