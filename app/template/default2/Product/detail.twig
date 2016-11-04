@@ -86,19 +86,20 @@ $(function(){
     $('#favorite').click(function() {
         $('#mode').val('add_favorite');
     });
+
     $('#add-cart').click(function() {
-        //if(fnProductOptionLogicValid()){
-            $('#mode').val('add_cart');
-        //}else{
-        //    alert('not valid');
-        //    return false;
-        //}
+        $('#mode').val('add_cart');
     });
 
-
+    // bfcache無効化
+    $(window).bind('pageshow', function(event) {
+        if (event.originalEvent.persisted) {
+            location.reload(true);
+        }
+    });
 });
 </script>
-<!--
+
 <script src="{{ app.config.front_urlpath }}/js/front/jquery.colorbox-min.js"></script>
 <script src="{{ app.config.front_urlpath }}/js/front/detail.js"></script>
 <!--
