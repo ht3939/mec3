@@ -11,6 +11,70 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/config.yml",
+			"settings":
+			{
+				"buffer_size": 165,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Entity/ProductClassEx.php",
+			"settings":
+			{
+				"buffer_size": 14238,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Controller/ProductClassExController.php",
+			"settings":
+			{
+				"buffer_size": 43493,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Form/Type/ProductClassExType.php",
+			"settings":
+			{
+				"buffer_size": 7709,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/Test/config.yml",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/Test/event.yml",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/ServiceProvider/ProductClassExServiceProvider.php",
+			"settings":
+			{
+				"buffer_size": 5626,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/U/sumaho-mania-dev/src/Eccube/Controller/Admin/Product/ProductClassController.php",
+			"settings":
+			{
+				"buffer_size": 29012,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -36,41 +100,150 @@
 	},
 	"file_history":
 	[
-		"/Z/work/ecq3/app/cache/doctrine/__CG__EccubeEntityMasterWork.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/views/inquiry/finish.twig",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/views/perusal/index.twig",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/classes/perusal/indexaction.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/classes/perusal/baseaction.php",
-		"/J/rc/tpsdev/lib/clientPerusal_handle.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/views/perusal/inquirydisp.twig",
-		"/W/moba-navi.jp.acweb/pc/fuel/app/config/config.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/classes/adminsetting.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/classes/controller/omakase.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/classes/model/adinfo.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/views/omakase/edit.twig",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/views/omakase/index.twig",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/classes/setting.php",
-		"/J/acdg/tpsdev/admin_client.php",
-		"/J/acdg/tpsdev/lib/admin_client_csv.php",
-		"/J/acdg/tpsdev/lib/setting.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/classes/client/csv.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/config/development/migrations.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/config/development/config.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/bootstrap.php",
-		"/J/renew/tpsdev/fuel/tps/public/.htaccess",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/client/classes/controller/setting.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/classes/controller/ad.php",
-		"/J/renew/tpsdev/fuel/tps/fuel/app/modules/admin/views/ad/edit.twig"
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/ServiceProvider/ProductClassExServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Controller/ProductClassEx.php",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/Controller/MakerController.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/Controller/MailMagazineController.php",
+		"/U/sumaho-mania-dev/app/log/site_2016-10-03.log",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/ServiceProvider/MailMagazineServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/Migration/Version201509010000.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/config.yml",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Service/ProductClassExService.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/MailMagazine.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/PluginManager.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/Service/MailMagazineService.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/config.yml",
+		"/U/sumaho-mania-dev/src/Eccube/ControllerProvider/AdminControllerProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Migration/Version201610032300.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Form/Type/ProductClassExType.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Entity/ProductClassEx.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Entity/ProductClassExPlugin.php",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/ServiceProvider/MakerServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/PluginManager.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/ProductClassExEvent.php",
+		"/U/sumaho-mania-dev/app/Plugin/Recommend/Controller/RecommendController.php",
+		"/U/sumaho-mania-dev/src/Eccube/ControllerProvider/FrontControllerProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/Recommend/config.yml",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/event.yml",
+		"/U/sumaho-mania-dev/app/Plugin/Recommend/ServiceProvider/RecommendServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/Controller/MailMagazineHistoryController.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Resource/doctrine/Plugin.ProductClassEx.Entity.ProductClassEx.dcm.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Event/EccubeEvents.php",
+		"/U/sumaho-mania-dev/app/Plugin/Recommend/Service/RecommendService.php",
+		"/U/sumaho-mania-dev/app/Plugin/MailMagazine/Migration/Version201508072300.php",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/Migration/Version201511201300.php",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/Migration/Version201507231300.php",
+		"/U/sumaho-mania-dev/src/Eccube/Controller/ProductController.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/View/admin/product_classex.twig",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Repository/ProductClassExRepository.php",
+		"/U/sumaho-mania-dev/src/Eccube/Entity/ProductClass.php",
+		"/U/sumaho-mania-dev/src/Eccube/Repository/ProductClassRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/PluginManager.php",
+		"/U/sumaho-mania-dev/app/Plugin/Point/PluginManager.php",
+		"/U/sumaho-mania-dev/app/Plugin/MakerRelatedProduct/PluginManager.php",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/doctrine/Eccube.Entity.ProductClass.dcm.yml",
+		"/Z/work/ecq3/app/config/eccube/database.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Controller/Admin/Product/ProductClassController.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Controller/MailMagazineHistoryController.php",
+		"/U/sumaho-mania-dev/src/Eccube/Form/Type/Admin/ProductClassType.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Migration/Version201508072300.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Resource/doctrine/Plugin.ProductClassEx.Entity.ProductClassExPlugin.dmc.yml",
+		"/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Repository/ProductClassExPluginRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/ProductOptionEvent.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Event/WorkPlace/AdminProduct.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/event.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/template/admin/Product/product_class.twig",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Form/Type/Admin/ProductOptionType.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Form/Type/Admin/OrderType.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Form/Type/Admin/ConfigType.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Event/WorkPlace/AbstractWorkPlace.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/SEO3Event.php",
+		"/U/sumaho-mania-dev/src/Eccube/Entity/Product.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Resource/template/meta.twig",
+		"/U/sumaho-mania-dev/app/template/default2/default_frame.twig",
+		"/U/sumaho-mania-dev/app/template/default2/Product/detail.twig",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/Maker.php",
+		"/U/sumaho-mania-dev/app/Plugin/Maker/event.yml",
+		"/U/sumaho-mania-dev/app/Plugin/CategoryContent/CategoryContentLegacyEvent.php",
+		"/U/sumaho-mania-dev/app/Plugin/CategoryContent/event.yml",
+		"/U/sumaho-mania-dev/app/Plugin/CategoryContent/CategoryContentEvent.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Event/WorkPlace/FrontMypageHistory.php",
+		"/U/sumaho-mania-dev/app/Plugin/ProductOption/Resource/template/admin/Product/product_option_rank.twig",
+		"/U/sumaho-mania-dev/app/log/site_2016-09-28.log",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Controller/RecommendSearchModelController.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Controller/RecommendSumahoRankingController.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Entity/RecommendSumahoRankingProduct.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Repository/RecommendSumahoRankingProductRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/ServiceProvider/RecommendSumahoRankingServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/PluginManager.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Controller/Block/RecommendSumahoRankingController.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Event.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/event.yml",
+		"/U/sumaho-mania-dev/app/log/site_2016-09-27.log",
+		"/U/sumaho-mania-dev/html/index.php",
+		"/U/sumaho-mania-dev/app/template/default2/index.twig",
+		"/U/sumaho-mania-dev/app/template/default2/Block/mania_top_sec01.twig",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/config.yml",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/Resource/doctrine/Plugin.RecommendSumahoRanking.Entity.RecommendSumahoRankingProduct.dcm.yml",
+		"/U/sumaho-mania-dev/app/config/eccube/config.yml",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Resource/db.txt",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Form/Type/SEO3Type.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Form/Type/SEO3ConfigType.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Entity/Seo.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/ServiceProvider/SEO3ServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Controller/SEO3Controller.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Controller/ConfigController.php",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Resource/template/admin/config.twig",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/Resource/template/index.twig",
+		"/U/sumaho-mania-dev/app/Plugin/SEO3/PluginManager.php",
+		"/U/sumaho-mania-dev/src/Eccube/Application.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/event.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Entity/ClassCategory.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSimRanking/config.yml_",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSumahoRanking/config.yml_",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSimRanking/Controller/RecommendSearchModelController.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSimRanking/Form/Type/RecommendSimRankingProductType.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSimRanking/Repository/RecommendSimRankingProductRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/RecommendSimRanking/Repository/RecommendProductRepository.php",
+		"/U/sumaho-mania-dev/src/Eccube/Common/Constant.php",
+		"/U/sumaho-mania-dev/src/Eccube/ServiceProvider/EccubeServiceProvider.php",
+		"/U/sumaho-mania-dev/src/Eccube/ServiceProvider/DebugServiceProvider.php",
+		"/U/sumaho-mania-dev/src/Eccube/Controller/Admin/Setting/Shop/ShopController.php",
+		"/U/sumaho-mania-dev/src/Eccube/Repository/ProductRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Controller/PlgExpandProductColumnsProductController.php",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/config/nav.yml.dist",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/config/constant.yml.dist",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/doctrine/Eccube.Entity.BaseInfo.dcm.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Util/Str.php",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/doctrine/Eccube.Entity.Block.dcm.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/doctrine/Eccube.Entity.BlockPosition.dcm.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Util/EntityUtil.php",
+		"/U/sumaho-mania-dev/src/Eccube/Resource/config/config.yml.dist",
+		"/U/sumaho-mania-dev/app/cache/eccube/session/sess_ndia6j6rb6lbsgej5kd1tcuqr5",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/ServiceProvider/PlgExpandProductColumnsServiceProvider.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Repository/PlgExpandProductColumnsRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Repository/PlgExpandProductColumnsValueRepository.php",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Resource/doctrine/Plugin.PlgExpandProductColumns.Entity.PlgExpandProductColumnsValue.dcm.yml",
+		"/U/sumaho-mania-dev/app/Plugin/PlgExpandProductColumns/Resource/doctrine/Plugin.PlgExpandProductColumns.Entity.PlgExpandProductColumns.dcm.yml",
+		"/U/sumaho-mania-dev/src/Eccube/Controller/Block/SearchProductController.php",
+		"/U/sumaho-mania-dev/src/Eccube/Form/Type/SearchProductType.php",
+		"/U/sumaho-mania-dev/app/template/default2/Block/category.twig"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
 		"height": 0.0,
 		"where_history":
 		[
+			"U:\\sumaho-mania-dev\\app\\Plugin\\ProductOption",
+			"U:\\sumaho-mania-dev\\app\\Plugin\\RecommendSimRanking",
+			"U:\\sumaho-mania-dev\\app\\Plugin\\RecommendSumahoRanking",
+			"U:\\sumaho-mania-dev\\app\\Plugin\\ProductOption",
+			"U:\\sumaho-mania-dev\\src\\Eccube",
+			"U:\\sumaho-mania-dev\\app\\Plugin\\MakerRelatedProduct"
 		]
 	},
 	"find_state":
@@ -78,6 +251,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"exit",
+			"recommend",
+			"RecommendSumahoRanking\\n",
+			"RecommendSumahoRanking\\r",
+			"RecommendSumahoRanking\\r\\n",
+			"recommendsumaho\\n",
+			"recommendsumaho",
+			"BaseInfo",
+			"category",
+			"isActive",
+			"option_js.twig",
+			"onOptionChange",
+			"ec_save_pr_id",
+			"hsd",
+			"grant",
+			"isgranted",
+			"user",
 			"contracts_price",
 			"2500",
 			"inquiry_display",
@@ -101,13 +291,233 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/config.yml",
+					"settings":
+					{
+						"buffer_size": 165,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Entity/ProductClassEx.php",
+					"settings":
+					{
+						"buffer_size": 14238,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Controller/ProductClassExController.php",
+					"settings":
+					{
+						"buffer_size": 43493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1469.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/Form/Type/ProductClassExType.php",
+					"settings":
+					{
+						"buffer_size": 7709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3420.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/U/sumaho-mania-dev/app/Plugin/Test/config.yml",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/U/sumaho-mania-dev/app/Plugin/Test/event.yml",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		},
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 6,
+					"file": "/U/sumaho-mania-dev/app/Plugin/ProductClassEx/ServiceProvider/ProductClassExServiceProvider.php",
+					"settings":
+					{
+						"buffer_size": 5626,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1026.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/U/sumaho-mania-dev/src/Eccube/Controller/Admin/Product/ProductClassController.php",
+					"settings":
+					{
+						"buffer_size": 29012,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								905,
+								29012
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11445.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -117,7 +527,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"layout":
 	{
@@ -174,6 +584,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 242.0,
+	"side_bar_width": 250.0,
 	"status_bar_visible": true
 }

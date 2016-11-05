@@ -86,21 +86,23 @@ $(function(){
     $('#favorite').click(function() {
         $('#mode').val('add_favorite');
     });
+
     $('#add-cart').click(function() {
-        //if(fnProductOptionLogicValid()){
-            $('#mode').val('add_cart');
-        //}else{
-        //    alert('not valid');
-        //    return false;
-        //}
+        $('#mode').val('add_cart');
     });
 
-
+    // bfcache無効化
+    $(window).bind('pageshow', function(event) {
+        if (event.originalEvent.persisted) {
+            location.reload(true);
+        }
+    });
 });
 </script>
-<!--
+
 <script src="{{ app.config.front_urlpath }}/js/front/jquery.colorbox-min.js"></script>
 <script src="{{ app.config.front_urlpath }}/js/front/detail.js"></script>
+<!--
 
 <script src="{{ app.config.front_urlpath }}/js/sp/front/jquery.bxslider.min.js"></script>
 <script src="{{ app.config.front_urlpath }}/js/sp/front/general/product/detail.js"></script>
@@ -244,12 +246,14 @@ $(function(){
                                 <ul id="detail_cart_box__cart_class_category_id" class="classcategory_list">
                                     {# 規格1 #}
                                     <li>
+                                        {{ form_label(form.classcategory_id1) }}
                                         {{ form_widget(form.classcategory_id1) }}
                                         {{ form_errors(form.classcategory_id1) }}
                                     </li>
                                     {# 規格2 #}
                                     {% if form.classcategory_id2 is defined %}
                                         <li>
+                                            {{ form_label(form.classcategory_id2) }}
                                             {{ form_widget(form.classcategory_id2) }}
                                             {{ form_errors(form.classcategory_id2) }}
                                         </li>
