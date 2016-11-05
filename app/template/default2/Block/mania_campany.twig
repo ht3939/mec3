@@ -69,7 +69,7 @@
 /* ==================== PC ==================== */
 
 /* ==================== SP ==================== */
-.clearfix{overflow:hidden}.company-info{margin:0 10px 30px;font-size:1rem}.company-info dt{margin:20px 0 15px;padding:10px;background-color:#eee;font-size:1.1rem;font-weight:bold}.company-info dd{line-height:1.6}
+.clearfix{overflow:hidden}.company-info{margin:0 10px 30px;font-size:100%}.company-info dt{margin:20px 0 15px;padding:10px;background-color:#eee;font-size:100%;font-weight:bold}.company-info dd{line-height:1.6}
 
 .page-heading {
     display: block;
@@ -211,7 +211,7 @@
 
 <div id="contents" class="sp">
 	<div class="page-heading">
-		<p><a href="<!--{$smarty.const.ACW_BASE_URL}-->" class="page-heading-back">戻る</a></p>
+		<p><a href="{{ url('homepage') }}" class="page-heading-back">戻る</a></p>
 		<h1>運営会社情報・特定商取引法に基づく表記</h1>
 	</div>
 	<div class="company-info">
@@ -219,7 +219,7 @@
 			<dt>運営会社</dt>
 			<dd>{{ BaseInfo.company_name }}</dd>
 			<dt>運営責任者</dt>
-			<dd>藤内 優</dd>
+			<dd>{{ help.law_manager }}</dd>
 			<dt>事業所所在地</dt>
 			<dd>
 				<ul>
@@ -235,38 +235,37 @@
 			</dd>
 			<dt>連絡先</dt>
 			<dd>
+                {% if help.law_email is defined %}
+
 				Eメール:<br>
-				info@sumaho-mania.com<br>
-				弊社電話番号はお客様からのご要望に基づき、遅延なく電子メールにて通知いたします。<br>
-				弊社電話番号が必要なお客様は、上記お問い合わせ窓口からお申し出ください。
+				{{help.law_email}}<br>
+				{% endif %}
+                {% if help.law_tel01 is defined %}
+
+				電話番号:<br>
+				{{ help.law_tel01 }}-{{ help.law_tel02 }}-{{ help.law_tel03 }}
+				{% endif %}
 			</dd>
 			<dt>事業内容</dt>
-			<dd>
-				<ul>
-					<li>WEB販売代行</li>
-					<li>WEBマーケティング事業</li>
-					<li>ブロードバンドコンサルタント事業</li>
-					<li>メディア事業</li>
-				</ul>
-			</dd>
+			<dd>{{ BaseInfo.message|nl2br }}</dd>
 			<dt>営業時間</dt>
-			<dd>Webお申し込みは24時間受付中</dd>
+				<dd>{{ BaseInfo.business_hour }}</dd>
 			<dt>注文方法</dt>
-			<dd>Web申込フォームでのご注文</dd>
+				<dd>{{ help.law_term02|nl2br }}</dd>
 			<dt>商品などの詳細説明</dt>
-			<dd>名称、内容など各ページに記載</dd>
+				<dd>{{ BaseInfo.good_traded|nl2br }}</dd>
 			<dt>商品代金以外の必要料金</dt>
-			<dd>送料、代引き手数料（代引き希望の場合）、カード手数料（お使いのクレジットカードによって発生する場合がございます）</dd>
+				<dd>{{ help.law_term01|nl2br }}</dd>
 			<dt>送料</dt>
-			<dd>一律500円</dd>
+				<dd>一律{{app.config.shoppingex_delivery_fix_fee}}円</dd>
 			<dt>引き渡し時期</dt>
-			<dd>申込確認後、最短翌日発送</dd>
+				<dd>{{ help.law_term05|nl2br }}</dd>
 			<dt>返品/返還の特約</dt>
 			<dd>
-				申込の取り消し 不可<br>
-				発送前にご連絡ください
+				{{ help.law_term06|nl2br }}
 			</dd>
 		</dl>
 	</div>
 </div>
 {% endblock %}
+
