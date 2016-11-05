@@ -286,14 +286,27 @@
 			<img src="{{ app.config.image_save_urlpath }}/{{ Product.ProductImage.0|no_image_product }}" alt="{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}" style="display: inline;">
 		</div>
 		<div class="item-dtl-purchase-right">
-			<h3>お支払い金額</h3>
-			<div class="item-dtl-purchase-cont">
-				<div class="item-dtl-purchase-cont-left">
-					<p>初期費用<span>{{ __EX_PRODUCT.32.valuetext }}</span>円*</p>
-					<p>月額料金<span>{{ sales_price_month }}</span>円/月*</p>
+			<div id="item-dtl-purchase-tab">
+				<ul>
+					<li data-tab="purchase1" class="active">お支払い金額</li>
+				</ul>
+			</div>
+
+			<div id="purchase1" class="item-dtl-purchase-tab-cont" style="display: block;">
+				<div class="item-dtl-purchase-tab-cont-l">
+					<dl>
+					
+						<dt>初期費用*</dt>
+						<dd><span>{{ __EX_PRODUCT.32.valuetext |number_format}}</span>円</dd>
+						<dt>月額料金*</dt>
+						<dd><span>{{ sales_price_month|number_format }}</span>円/月</dd>
+					</dl>
+					
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<button class="btn-cart js-into-cart-sim">カートに入れる</button>
+					<form action="" method="post" id="addCart-divide">
+						<button class="btn-cart">カートに入れる</button>
+					</form>
 				</div>
 			</div>
 			<div class="note">＊ 表示価格は税抜です。別途消費税が加算されます。</div>
