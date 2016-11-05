@@ -19,6 +19,15 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
 {
     public function register(BaseApplication $app)
     {
+        //$c->match('/help/tradelaw', '\Eccube\Controller\HelpController::tradelaw')->bind('help_tradelaw');
+        $app->match('/help/company' , '\Eccube\Controller\HelpController::tradelaw')->bind('help_tradelaw');
+        $app->match('/help/about' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('help_about');
+        $app->match('/help/guide' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('help_guide_404');
+
+        $app->match('/about-sim/' , 'Plugin\ShoppingEx\Controller\AboutSimController::index')->bind('about-sim');
+        //$c->match('/about-sim', '\Eccube\Controller\UserDataController::index')->bind('aboutsim');
+
+        $app->match('/guide' , '\Eccube\Controller\HelpController::guide')->bind('help_guide');
 
         // Form/Type
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use($app) {

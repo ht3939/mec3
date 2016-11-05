@@ -1,1 +1,171 @@
-init
+{#
+This file is part of EC-CUBE
+
+Copyright(c) 2000-2015 LOCKON CO.,LTD. All Rights Reserved.
+
+http://www.lockon.co.jp/
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#}
+
+{% block stylesheet %}
+<style type="text/css">
+#navi {
+    background: #ce0b20;
+}
+#navi .inner {
+    position: relative;
+/*    width: 1000px;
+    margin: 0 auto;*/
+}
+
+#navi .inner ul{
+    text-align: center;
+    width: 100%;
+    display: table!important;
+    table-layout: fixed;
+}
+#navi .inner ul li{
+    display: table-cell;
+}
+#genaral-page-header .inner, #navi .navi-box, #genaral-page-footer .inner {
+    overflow: hidden;
+}
+#navi .navi-list:last-child {
+    border-right: none;
+}
+#navi .navi-list {
+/*    float: left;*/
+    border-right: 1px dotted #fff;
+    text-align: center;
+}
+#navi .navi-list a.nav-pagelink-btn {
+/*    width: 190px;*/
+    min-height: 26px;
+    padding: 12px 0;
+}
+#navi .navi-list.active a {
+    background: #b71022;
+}
+#navi .navi-list a {
+    display: block;
+}
+
+#category{
+    padding:0px!important;
+    background: #ce0b20;
+}
+#category ul{
+    display: table!important;
+    width: 100%!important;
+}
+#category li:last-child {
+    border-right: none;
+}
+#category li {
+    border-right: 1px dotted #fff;
+    text-align: center;
+    display:table-cell!important;
+}
+#category li a {
+    min-height: 26px;
+    color:#fff;
+    font-weight: normal;
+}
+#category ul li ul li{
+    background: #ce0b20;
+}
+
+
+/* ====================== SP ====================== */
+#drawer.sp ul{
+    background: #ce0b20;
+    margin-bottom: 0px;
+}
+#drawer.sp ul li{
+    display:inline;
+}
+#drawer.sp ul li a{
+    color:#fff;
+    font-weight:normal;
+}
+#drawer.sp ul li a img{
+    margin: 13px 0px;
+}
+
+</style>
+{% endblock %}
+
+
+
+
+<!-- ==================== SP ==================== -->
+<nav id="category" class="drawer_block sp" style="display:none!important;">
+    <ul class="category-nav">
+        <li><a href="/"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+        <li><a href="{{ url('product_list')~'?category_id=2' }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+        <li><a href="{{ url('product_list')~'?category_id=1' }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+        <li><a href="{{url('help_guide')}}"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+    </ul>
+</nav>
+<!-- ==================== /SP ==================== -->
+
+<!-- ==================== PC ==================== -->
+
+<div id="navi" class="drawer_block pc">
+    <div class="inner pc">
+        <ul class="navi-box">
+            <li class="navi-list js-navi1"><a href="/" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
+            <li class="navi-list js-navi2"><a href="{{ url('product_list')~'?category_id=2' }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+            <li class="navi-list js-navi3"><a href="{{ url('product_list')~'?category_id=1' }}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+            <li class="navi-list js-navi4"><a href="{{url('help_guide')}}" class="nav-pagelink-btn"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== /PC ==================== -->
+
+
+
+{% if(false) %}
+{# ================ PC/SPどちらにも動的に出力される ================ #}
+
+{% macro tree(Category) %}
+    <li>
+        <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
+            {{ Category.name }}
+        </a>
+        {% if Category.children|length > 0 %}
+            <ul>
+            {% for ChildCategory in Category.children %}
+                    {{ _self.tree(ChildCategory) }}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+
+<nav id="category" class="drawer_block pc">
+    <!-- category-nav -->
+    <ul class="category-nav navi-box">
+    {% for Category in Categories %}
+        {{ _self.tree(Category) }}
+    {% endfor %}
+    </ul>
+    <!-- /category-nav -->
+</nav>
+
+{# ================ /PC/SPどちらにも動的に出力される ================ #}
+{% endif %}
