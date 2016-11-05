@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.32, for Linux (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.50-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: mecq3
+-- Host: 10.0.2.2    Database: mecq3
 -- ------------------------------------------------------
--- Server version	5.6.32
+-- Server version	5.5.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -377,7 +377,7 @@ CREATE TABLE `dtb_csv` (
   KEY `IDX_F55F48C361220EA6` (`creator_id`),
   CONSTRAINT `FK_F55F48C32C648C74` FOREIGN KEY (`csv_type`) REFERENCES `mtb_csv_type` (`id`),
   CONSTRAINT `FK_F55F48C361220EA6` FOREIGN KEY (`creator_id`) REFERENCES `dtb_member` (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +386,7 @@ CREATE TABLE `dtb_csv` (
 
 LOCK TABLES `dtb_csv` WRITE;
 /*!40000 ALTER TABLE `dtb_csv` DISABLE KEYS */;
-INSERT INTO `dtb_csv` VALUES (1,1,1,'Eccube\\Entity\\Product','id',NULL,'商品ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(2,1,1,'Eccube\\Entity\\Product','Status','id','公開ステータス(ID)',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(3,1,1,'Eccube\\Entity\\Product','Status','name','公開ステータス(名称)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(4,1,1,'Eccube\\Entity\\Product','name',NULL,'商品名',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(5,1,1,'Eccube\\Entity\\Product','note',NULL,'ショップ用メモ欄',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(6,1,1,'Eccube\\Entity\\Product','description_list',NULL,'商品説明(一覧)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(7,1,1,'Eccube\\Entity\\Product','description_detail',NULL,'商品説明(詳細)',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(8,1,1,'Eccube\\Entity\\Product','search_word',NULL,'検索ワード',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(9,1,1,'Eccube\\Entity\\Product','free_area',NULL,'フリーエリア',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(10,1,1,'Eccube\\Entity\\ProductClass','id',NULL,'商品規格ID',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(11,1,1,'Eccube\\Entity\\ProductClass','ProductType','id','商品種別(ID)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(12,1,1,'Eccube\\Entity\\ProductClass','ProductType','name','商品種別(名称)',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(13,1,1,'Eccube\\Entity\\ProductClass','ClassCategory1','id','規格分類1(ID)',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(14,1,1,'Eccube\\Entity\\ProductClass','ClassCategory1','name','規格分類1(名称)',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(15,1,1,'Eccube\\Entity\\ProductClass','ClassCategory2','id','規格分類2(ID)',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(16,1,1,'Eccube\\Entity\\ProductClass','ClassCategory2','name','規格分類2(名称)',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(17,1,1,'Eccube\\Entity\\ProductClass','DeliveryDate','id','発送日目安(ID)',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(18,1,1,'Eccube\\Entity\\ProductClass','DeliveryDate','name','発送日目安(名称)',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(19,1,1,'Eccube\\Entity\\ProductClass','code',NULL,'商品コード',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(20,1,1,'Eccube\\Entity\\ProductClass','stock',NULL,'在庫数',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(21,1,1,'Eccube\\Entity\\ProductClass','stock_unlimited',NULL,'在庫数無制限フラグ',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(22,1,1,'Eccube\\Entity\\ProductClass','sale_limit',NULL,'販売制限数',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(23,1,1,'Eccube\\Entity\\ProductClass','price01',NULL,'通常価格',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(24,1,1,'Eccube\\Entity\\ProductClass','price02',NULL,'販売価格',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(25,1,1,'Eccube\\Entity\\ProductClass','delivery_fee',NULL,'送料',25,0,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(26,1,1,'Eccube\\Entity\\Product','ProductImage','file_name','商品画像',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(27,1,1,'Eccube\\Entity\\Product','ProductCategories','category_id','商品カテゴリ(ID)',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(28,1,1,'Eccube\\Entity\\Product','ProductCategories','Category','商品カテゴリ(名称)',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(29,2,1,'Eccube\\Entity\\Customer','id',NULL,'会員ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(30,2,1,'Eccube\\Entity\\Customer','name01',NULL,'お名前(姓)',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(31,2,1,'Eccube\\Entity\\Customer','name02',NULL,'お名前(名)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(32,2,1,'Eccube\\Entity\\Customer','kana01',NULL,'お名前(セイ)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(33,2,1,'Eccube\\Entity\\Customer','kana02',NULL,'お名前(メイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(34,2,1,'Eccube\\Entity\\Customer','company_name',NULL,'会社名',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(35,2,1,'Eccube\\Entity\\Customer','zip01',NULL,'郵便番号1',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(36,2,1,'Eccube\\Entity\\Customer','zip02',NULL,'郵便番号2',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(37,2,1,'Eccube\\Entity\\Customer','Pref','id','都道府県(ID)',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(38,2,1,'Eccube\\Entity\\Customer','Pref','name','都道府県(名称)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(39,2,1,'Eccube\\Entity\\Customer','addr01',NULL,'住所1',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(40,2,1,'Eccube\\Entity\\Customer','addr02',NULL,'住所2',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(41,2,1,'Eccube\\Entity\\Customer','email',NULL,'メールアドレス',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(42,2,1,'Eccube\\Entity\\Customer','tel01',NULL,'TEL1',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(43,2,1,'Eccube\\Entity\\Customer','tel02',NULL,'TEL2',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(44,2,1,'Eccube\\Entity\\Customer','tel03',NULL,'TEL3',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(45,2,1,'Eccube\\Entity\\Customer','fax01',NULL,'FAX1',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(46,2,1,'Eccube\\Entity\\Customer','fax02',NULL,'FAX2',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(47,2,1,'Eccube\\Entity\\Customer','fax03',NULL,'FAX3',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(48,2,1,'Eccube\\Entity\\Customer','Sex','id','性別(ID)',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(49,2,1,'Eccube\\Entity\\Customer','Sex','name','性別(名称)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(50,2,1,'Eccube\\Entity\\Customer','Job','id','職業(ID)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(51,2,1,'Eccube\\Entity\\Customer','Job','name','職業(名称)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(52,2,1,'Eccube\\Entity\\Customer','birth',NULL,'誕生日',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(53,2,1,'Eccube\\Entity\\Customer','first_buy_date',NULL,'初回購入日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(54,2,1,'Eccube\\Entity\\Customer','last_buy_date',NULL,'最終購入日',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(55,2,1,'Eccube\\Entity\\Customer','buy_times',NULL,'購入回数',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(56,2,1,'Eccube\\Entity\\Customer','note',NULL,'ショップ用メモ欄',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(57,2,1,'Eccube\\Entity\\Customer','Status','id','会員ステータス(ID)',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(58,2,1,'Eccube\\Entity\\Customer','Status','name','会員ステータス(名称)',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(59,2,1,'Eccube\\Entity\\Customer','create_date',NULL,'登録日',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(60,2,1,'Eccube\\Entity\\Customer','update_date',NULL,'更新日',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(61,3,1,'Eccube\\Entity\\Order','id',NULL,'注文ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(62,3,1,'Eccube\\Entity\\Order','Customer','id','会員ID',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(63,3,1,'Eccube\\Entity\\Order','name01',NULL,'お名前(姓)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(64,3,1,'Eccube\\Entity\\Order','name02',NULL,'お名前(名)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(65,3,1,'Eccube\\Entity\\Order','kana01',NULL,'お名前(セイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(66,3,1,'Eccube\\Entity\\Order','kana02',NULL,'お名前(メイ)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(67,3,1,'Eccube\\Entity\\Order','company_name',NULL,'会社名',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(68,3,1,'Eccube\\Entity\\Order','zip01',NULL,'郵便番号1',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(69,3,1,'Eccube\\Entity\\Order','zip02',NULL,'郵便番号2',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(70,3,1,'Eccube\\Entity\\Order','Pref','id','都道府県(ID)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(71,3,1,'Eccube\\Entity\\Order','Pref','name','都道府県(名称)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(72,3,1,'Eccube\\Entity\\Order','addr01',NULL,'住所1',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(73,3,1,'Eccube\\Entity\\Order','addr02',NULL,'住所2',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(74,3,1,'Eccube\\Entity\\Order','email',NULL,'メールアドレス',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(75,3,1,'Eccube\\Entity\\Order','tel01',NULL,'TEL1',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(76,3,1,'Eccube\\Entity\\Order','tel02',NULL,'TEL2',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(77,3,1,'Eccube\\Entity\\Order','tel03',NULL,'TEL3',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(78,3,1,'Eccube\\Entity\\Order','fax01',NULL,'FAX1',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(79,3,1,'Eccube\\Entity\\Order','fax02',NULL,'FAX2',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(80,3,1,'Eccube\\Entity\\Order','fax03',NULL,'FAX3',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(81,3,1,'Eccube\\Entity\\Order','Sex','id','性別(ID)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(82,3,1,'Eccube\\Entity\\Order','Sex','name','性別(名称)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(83,3,1,'Eccube\\Entity\\Order','Job','id','職業(ID)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(84,3,1,'Eccube\\Entity\\Order','Job','name','職業(名称)',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(85,3,1,'Eccube\\Entity\\Order','birth',NULL,'誕生日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(86,3,1,'Eccube\\Entity\\Order','note',NULL,'ショップ用メモ欄',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(87,3,1,'Eccube\\Entity\\Order','subtotal',NULL,'小計',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(88,3,1,'Eccube\\Entity\\Order','discount',NULL,'値引き',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(89,3,1,'Eccube\\Entity\\Order','delivery_fee_total',NULL,'送料',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(90,3,1,'Eccube\\Entity\\Order','tax',NULL,'税金',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(91,3,1,'Eccube\\Entity\\Order','total',NULL,'合計',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(92,3,1,'Eccube\\Entity\\Order','payment_total',NULL,'支払合計',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(93,3,1,'Eccube\\Entity\\Order','OrderStatus','id','対応状況(ID)',33,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(94,3,1,'Eccube\\Entity\\Order','OrderStatus','name','対応状況(名称)',34,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(95,3,1,'Eccube\\Entity\\Order','Payment','id','支払方法(ID)',35,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(96,3,1,'Eccube\\Entity\\Order','payment_method',NULL,'支払方法(名称)',36,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(97,3,1,'Eccube\\Entity\\Order','order_date',NULL,'受注日',37,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(98,3,1,'Eccube\\Entity\\Order','payment_date',NULL,'入金日',38,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(99,3,1,'Eccube\\Entity\\Order','commit_date',NULL,'発送日',39,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(100,3,1,'Eccube\\Entity\\OrderDetail','id',NULL,'注文詳細ID',40,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(101,3,1,'Eccube\\Entity\\OrderDetail','Product','id','商品ID',41,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(102,3,1,'Eccube\\Entity\\OrderDetail','ProductClass','id','商品規格ID',42,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(103,3,1,'Eccube\\Entity\\OrderDetail','product_name',NULL,'商品名',43,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(104,3,1,'Eccube\\Entity\\OrderDetail','product_code',NULL,'商品コード',44,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(105,3,1,'Eccube\\Entity\\OrderDetail','class_name1',NULL,'規格名1',45,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(106,3,1,'Eccube\\Entity\\OrderDetail','class_name2',NULL,'規格名2',46,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(107,3,1,'Eccube\\Entity\\OrderDetail','class_category_name1',NULL,'規格分類名1',47,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(108,3,1,'Eccube\\Entity\\OrderDetail','class_category_name2',NULL,'規格分類名2',48,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(109,3,1,'Eccube\\Entity\\OrderDetail','price',NULL,'価格',49,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(110,3,1,'Eccube\\Entity\\OrderDetail','quantity',NULL,'個数',50,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(111,3,1,'Eccube\\Entity\\OrderDetail','tax_rate',NULL,'税率',51,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(112,3,1,'Eccube\\Entity\\OrderDetail','tax_rule',NULL,'税率ルール(ID)',52,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(113,4,1,'Eccube\\Entity\\Order','id',NULL,'注文ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(114,4,1,'Eccube\\Entity\\Order','Customer','id','会員ID',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(115,4,1,'Eccube\\Entity\\Order','name01',NULL,'お名前(姓)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(116,4,1,'Eccube\\Entity\\Order','name02',NULL,'お名前(名)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(117,4,1,'Eccube\\Entity\\Order','kana01',NULL,'お名前(セイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(118,4,1,'Eccube\\Entity\\Order','kana02',NULL,'お名前(メイ)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(119,4,1,'Eccube\\Entity\\Order','company_name',NULL,'会社名',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(120,4,1,'Eccube\\Entity\\Order','zip01',NULL,'郵便番号1',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(121,4,1,'Eccube\\Entity\\Order','zip02',NULL,'郵便番号2',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(122,4,1,'Eccube\\Entity\\Order','Pref','id','都道府県(ID)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(123,4,1,'Eccube\\Entity\\Order','Pref','name','都道府県(名称)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(124,4,1,'Eccube\\Entity\\Order','addr01',NULL,'住所1',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(125,4,1,'Eccube\\Entity\\Order','addr02',NULL,'住所2',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(126,4,1,'Eccube\\Entity\\Order','email',NULL,'メールアドレス',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(127,4,1,'Eccube\\Entity\\Order','tel01',NULL,'TEL1',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(128,4,1,'Eccube\\Entity\\Order','tel02',NULL,'TEL2',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(129,4,1,'Eccube\\Entity\\Order','tel03',NULL,'TEL3',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(130,4,1,'Eccube\\Entity\\Order','fax01',NULL,'FAX1',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(131,4,1,'Eccube\\Entity\\Order','fax02',NULL,'FAX2',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(132,4,1,'Eccube\\Entity\\Order','fax03',NULL,'FAX3',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(133,4,1,'Eccube\\Entity\\Order','Sex','id','性別(ID)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(134,4,1,'Eccube\\Entity\\Order','Sex','name','性別(名称)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(135,4,1,'Eccube\\Entity\\Order','Job','id','職業(ID)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(136,4,1,'Eccube\\Entity\\Order','Job','name','職業(名称)',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(137,4,1,'Eccube\\Entity\\Order','birth',NULL,'誕生日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(138,4,1,'Eccube\\Entity\\Order','note',NULL,'ショップ用メモ欄',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(139,4,1,'Eccube\\Entity\\Order','subtotal',NULL,'小計',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(140,4,1,'Eccube\\Entity\\Order','discount',NULL,'値引き',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(141,4,1,'Eccube\\Entity\\Order','delivery_fee_total',NULL,'送料',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(142,4,1,'Eccube\\Entity\\Order','tax',NULL,'税金',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(143,4,1,'Eccube\\Entity\\Order','total',NULL,'合計',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(144,4,1,'Eccube\\Entity\\Order','payment_total',NULL,'支払合計',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(145,4,1,'Eccube\\Entity\\Order','OrderStatus','id','対応状況(ID)',33,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(146,4,1,'Eccube\\Entity\\Order','OrderStatus','name','対応状況(名称)',34,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(147,4,1,'Eccube\\Entity\\Order','Payment','id','支払方法(ID)',35,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(148,4,1,'Eccube\\Entity\\Order','payment_method',NULL,'支払方法(名称)',36,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(149,4,1,'Eccube\\Entity\\Order','order_date',NULL,'受注日',37,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(150,4,1,'Eccube\\Entity\\Order','payment_date',NULL,'入金日',38,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(151,4,1,'Eccube\\Entity\\Order','commit_date',NULL,'発送日',39,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(152,4,1,'Eccube\\Entity\\Shipping','id',NULL,'配送ID',40,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(153,4,1,'Eccube\\Entity\\Shipping','name01',NULL,'配送先_お名前(姓)',41,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(154,4,1,'Eccube\\Entity\\Shipping','name02',NULL,'配送先_お名前(名)',42,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(155,4,1,'Eccube\\Entity\\Shipping','kana01',NULL,'配送先_お名前(セイ)',43,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(156,4,1,'Eccube\\Entity\\Shipping','kana02',NULL,'配送先_お名前(メイ)',44,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(157,4,1,'Eccube\\Entity\\Shipping','company_name',NULL,'配送先_会社名',45,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(158,4,1,'Eccube\\Entity\\Shipping','zip01',NULL,'配送先_郵便番号1',46,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(159,4,1,'Eccube\\Entity\\Shipping','zip02',NULL,'配送先_郵便番号2',47,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(160,4,1,'Eccube\\Entity\\Shipping','Pref','id','配送先_都道府県(ID)',48,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(161,4,1,'Eccube\\Entity\\Shipping','Pref','name','配送先_都道府県(名称)',49,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(162,4,1,'Eccube\\Entity\\Shipping','addr01',NULL,'配送先_住所1',50,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(163,4,1,'Eccube\\Entity\\Shipping','addr02',NULL,'配送先_住所2',51,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(164,4,1,'Eccube\\Entity\\Shipping','tel01',NULL,'配送先_TEL1',52,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(165,4,1,'Eccube\\Entity\\Shipping','tel02',NULL,'配送先_TEL2',53,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(166,4,1,'Eccube\\Entity\\Shipping','tel03',NULL,'配送先_TEL3',54,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(167,4,1,'Eccube\\Entity\\Shipping','fax01',NULL,'配送先_FAX1',55,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(168,4,1,'Eccube\\Entity\\Shipping','fax02',NULL,'配送先_FAX2',56,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(169,4,1,'Eccube\\Entity\\Shipping','fax03',NULL,'配送先_FAX3',57,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(170,4,1,'Eccube\\Entity\\Shipping','Delivery','id','配送業者(ID)',58,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(171,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_name',NULL,'配送業者(名称)',59,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(172,4,1,'Eccube\\Entity\\Shipping','DeliveryTime','id','お届け時間ID',60,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(173,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_time',NULL,'お届け時間(名称)',61,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(174,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_date',NULL,'お届け希望日',62,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(175,4,1,'Eccube\\Entity\\Shipping','DeliveryFee','id','送料ID',63,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(176,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_fee',NULL,'送料',64,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(177,4,1,'Eccube\\Entity\\Shipping','shipping_commit_date',NULL,'発送日',65,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(178,4,1,'Eccube\\Entity\\ShipmentItem','id',NULL,'配送商品ID',66,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(179,4,1,'Eccube\\Entity\\ShipmentItem','Product','id','商品ID',67,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(180,4,1,'Eccube\\Entity\\ShipmentItem','ProductClass','id','商品規格ID',68,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(181,4,1,'Eccube\\Entity\\ShipmentItem','product_name',NULL,'商品名',69,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(182,4,1,'Eccube\\Entity\\ShipmentItem','product_code',NULL,'商品コード',70,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(183,4,1,'Eccube\\Entity\\ShipmentItem','class_name1',NULL,'規格名1',71,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(184,4,1,'Eccube\\Entity\\ShipmentItem','class_name2',NULL,'規格名2',72,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(185,4,1,'Eccube\\Entity\\ShipmentItem','class_category_name1',NULL,'規格分類名1',73,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(186,4,1,'Eccube\\Entity\\ShipmentItem','class_category_name2',NULL,'規格分類名2',74,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(187,4,1,'Eccube\\Entity\\ShipmentItem','price',NULL,'価格',75,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(188,4,1,'Eccube\\Entity\\ShipmentItem','quantity',NULL,'個数',76,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(189,5,1,'Eccube\\Entity\\Category','id',NULL,'カテゴリID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(190,5,1,'Eccube\\Entity\\Category','rank',NULL,'表示ランク',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(191,5,1,'Eccube\\Entity\\Category','name',NULL,'カテゴリ名',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(192,5,1,'Eccube\\Entity\\Category','Parent','id','親カテゴリID',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(193,5,1,'Eccube\\Entity\\Category','level',NULL,'階層',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(194,1,1,'Eccube\\\\Entity\\\\Product','ProductTag','tag_id','タグ(ID)',29,1,'2016-07-22 12:56:03','2016-07-22 12:56:03'),(195,1,1,'Eccube\\\\Entity\\\\Product','ProductTag','Tag','タグ(名称)',30,1,'2016-07-22 12:56:03','2016-07-22 12:56:03'),(196,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_1',NULL,'SPEC_C_01_商品詳細画像１',196,0,'2016-09-09 12:51:27','2016-09-14 16:49:09'),(197,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_2',NULL,'SPEC_C_02_商品詳細画像２',197,0,'2016-09-09 12:52:31','2016-09-14 16:49:00'),(201,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_4',NULL,'SPEC_C_07_カードサイズ',201,0,'2016-09-12 18:03:57','2016-09-14 16:47:55'),(203,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_6',NULL,'SPEC_C_08_備考',203,0,'2016-09-12 18:13:19','2016-09-14 16:45:48'),(205,3,2,'Plugin\\ProductOption\\Entity\\OrderDetail','OrderOption',NULL,'オプション情報',53,0,'2016-09-14 14:00:09','2016-09-14 14:00:09'),(206,4,2,'Plugin\\ProductOption\\Entity\\ShipmentItem','OrderOption',NULL,'オプション情報',77,0,'2016-09-14 14:00:09','2016-09-14 14:00:09'),(207,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_8',NULL,'SPEC_C_03_商品詳細画像３',205,0,'2016-09-14 15:55:12','2016-09-14 16:48:45'),(208,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_9',NULL,'SPEC_C_04_商品詳細特徴１',206,0,'2016-09-14 15:55:50','2016-09-14 16:48:33'),(209,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_10',NULL,'SPEC_C_05_商品詳細特徴２',207,0,'2016-09-14 15:56:07','2016-09-14 16:48:22'),(210,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_11',NULL,'SPEC_C_06_商品詳細特徴３',208,0,'2016-09-14 15:56:38','2016-09-14 16:48:09'),(211,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_12',NULL,'SPEC_P_01_ＯＳ',209,0,'2016-09-14 16:00:38','2016-11-01 10:36:51'),(213,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_14',NULL,'SPEC_P_03_本体サイズ',211,0,'2016-09-14 16:02:51','2016-09-14 16:49:45'),(214,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_15',NULL,'SPEC_P_04_重さ',212,0,'2016-09-14 16:03:22','2016-09-14 16:49:53'),(215,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_16',NULL,'SPEC_C_07_発売時期',213,0,'2016-09-14 16:03:49','2016-09-14 16:50:02'),(216,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_17',NULL,'SPEC_P_05_液晶サイズ',214,0,'2016-09-14 16:04:44','2016-09-14 16:50:13'),(217,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_18',NULL,'SPEC_P_06_画面解像度',215,0,'2016-09-14 16:04:59','2016-09-14 16:50:23'),(218,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_19',NULL,'SPEC_P_07_メインカメラ',216,0,'2016-09-14 16:05:34','2016-09-14 16:50:32'),(219,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_20',NULL,'SPEC_P_08_サブカメラ',217,0,'2016-09-14 16:05:50','2016-09-14 16:50:42'),(220,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_21',NULL,'SPEC_P_09_バッテリ',218,0,'2016-09-14 16:06:15','2016-09-14 16:50:56'),(221,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_22',NULL,'SPEC_P_10_ＣＰＵ',219,0,'2016-09-14 16:07:15','2016-11-01 10:36:37'),(222,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_23',NULL,'SPEC_P_11_ＲＯＭ',220,0,'2016-09-14 16:07:38','2016-11-01 10:38:11'),(223,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_24',NULL,'SPEC_P_12_ＲＡＭ',221,0,'2016-09-14 16:07:55','2016-11-01 10:38:24'),(224,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_25',NULL,'SPEC_P_50_その他-防水/防滴機能',222,0,'2016-09-14 16:09:47','2016-09-14 16:42:04'),(225,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_26',NULL,'SPEC_P_51_その他-テザリング',223,0,'2016-09-14 16:11:21','2016-09-14 16:42:21'),(226,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_27',NULL,'SPEC_P_52_その他-Wifi対応',224,0,'2016-09-14 16:11:55','2016-09-14 16:42:35'),(227,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_28',NULL,'SPEC_P_53_その他-Bluetooth',225,0,'2016-09-14 16:13:20','2016-09-14 16:42:51'),(228,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_29',NULL,'SPEC_P_54_その他-GPS機能',226,0,'2016-09-14 16:14:14','2016-09-14 16:43:07'),(229,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_30',NULL,'SPEC_P_55_その他-赤外線通信',227,0,'2016-09-14 16:15:12','2016-09-14 16:43:22'),(230,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_31',NULL,'SPEC_P_56_その他-おサイフケータイ',228,0,'2016-09-14 16:17:47','2016-09-14 16:43:36'),(231,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_32',NULL,'SPEC_S_01_初期費用',229,0,'2016-09-14 16:24:20','2016-09-14 16:44:04'),(232,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_33',NULL,'SPEC_S_02_通信速度',230,0,'2016-09-14 16:25:09','2016-09-14 16:44:26'),(233,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_34',NULL,'SPEC_S_03_データ量',231,0,'2016-09-14 16:25:35','2016-09-14 16:44:41'),(234,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_35',NULL,'SPEC_S_04_上り速度',232,0,'2016-09-14 16:26:35','2016-09-14 16:44:55'),(235,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_36',NULL,'SPEC_S_05_下り速度',233,0,'2016-09-14 16:26:51','2016-09-14 16:45:10'),(236,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_37',NULL,'SPEC_P_02_キャリア2',234,0,'2016-10-28 11:08:06','2016-10-28 11:08:06'),(237,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_38',NULL,'SPEC_C_04_0_商品詳細特徴１タイトル',232,0,'2016-11-01 16:16:14','2016-11-01 16:16:14'),(238,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_39',NULL,'SPEC_C_05_0_商品詳細特徴２タイトル',233,0,'2016-11-01 16:16:47','2016-11-01 16:16:47'),(239,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_40',NULL,'SPEC_C_06_0_商品詳細特徴３タイトル',234,0,'2016-11-01 16:17:47','2016-11-01 16:17:47'),(240,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_41',NULL,'SPEC_C_07_対応キャリア',235,0,'2016-11-01 16:22:41','2016-11-01 16:22:41');
+INSERT INTO `dtb_csv` VALUES (1,1,1,'Eccube\\Entity\\Product','id',NULL,'商品ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(2,1,1,'Eccube\\Entity\\Product','Status','id','公開ステータス(ID)',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(3,1,1,'Eccube\\Entity\\Product','Status','name','公開ステータス(名称)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(4,1,1,'Eccube\\Entity\\Product','name',NULL,'商品名',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(5,1,1,'Eccube\\Entity\\Product','note',NULL,'ショップ用メモ欄',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(6,1,1,'Eccube\\Entity\\Product','description_list',NULL,'商品説明(一覧)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(7,1,1,'Eccube\\Entity\\Product','description_detail',NULL,'商品説明(詳細)',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(8,1,1,'Eccube\\Entity\\Product','search_word',NULL,'検索ワード',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(9,1,1,'Eccube\\Entity\\Product','free_area',NULL,'フリーエリア',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(10,1,1,'Eccube\\Entity\\ProductClass','id',NULL,'商品規格ID',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(11,1,1,'Eccube\\Entity\\ProductClass','ProductType','id','商品種別(ID)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(12,1,1,'Eccube\\Entity\\ProductClass','ProductType','name','商品種別(名称)',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(13,1,1,'Eccube\\Entity\\ProductClass','ClassCategory1','id','規格分類1(ID)',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(14,1,1,'Eccube\\Entity\\ProductClass','ClassCategory1','name','規格分類1(名称)',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(15,1,1,'Eccube\\Entity\\ProductClass','ClassCategory2','id','規格分類2(ID)',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(16,1,1,'Eccube\\Entity\\ProductClass','ClassCategory2','name','規格分類2(名称)',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(17,1,1,'Eccube\\Entity\\ProductClass','DeliveryDate','id','発送日目安(ID)',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(18,1,1,'Eccube\\Entity\\ProductClass','DeliveryDate','name','発送日目安(名称)',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(19,1,1,'Eccube\\Entity\\ProductClass','code',NULL,'商品コード',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(20,1,1,'Eccube\\Entity\\ProductClass','stock',NULL,'在庫数',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(21,1,1,'Eccube\\Entity\\ProductClass','stock_unlimited',NULL,'在庫数無制限フラグ',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(22,1,1,'Eccube\\Entity\\ProductClass','sale_limit',NULL,'販売制限数',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(23,1,1,'Eccube\\Entity\\ProductClass','price01',NULL,'通常価格',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(24,1,1,'Eccube\\Entity\\ProductClass','price02',NULL,'販売価格',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(25,1,1,'Eccube\\Entity\\ProductClass','delivery_fee',NULL,'送料',25,0,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(26,1,1,'Eccube\\Entity\\Product','ProductImage','file_name','商品画像',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(27,1,1,'Eccube\\Entity\\Product','ProductCategories','category_id','商品カテゴリ(ID)',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(28,1,1,'Eccube\\Entity\\Product','ProductCategories','Category','商品カテゴリ(名称)',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(29,2,1,'Eccube\\Entity\\Customer','id',NULL,'会員ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(30,2,1,'Eccube\\Entity\\Customer','name01',NULL,'お名前(姓)',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(31,2,1,'Eccube\\Entity\\Customer','name02',NULL,'お名前(名)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(32,2,1,'Eccube\\Entity\\Customer','kana01',NULL,'お名前(セイ)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(33,2,1,'Eccube\\Entity\\Customer','kana02',NULL,'お名前(メイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(34,2,1,'Eccube\\Entity\\Customer','company_name',NULL,'会社名',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(35,2,1,'Eccube\\Entity\\Customer','zip01',NULL,'郵便番号1',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(36,2,1,'Eccube\\Entity\\Customer','zip02',NULL,'郵便番号2',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(37,2,1,'Eccube\\Entity\\Customer','Pref','id','都道府県(ID)',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(38,2,1,'Eccube\\Entity\\Customer','Pref','name','都道府県(名称)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(39,2,1,'Eccube\\Entity\\Customer','addr01',NULL,'住所1',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(40,2,1,'Eccube\\Entity\\Customer','addr02',NULL,'住所2',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(41,2,1,'Eccube\\Entity\\Customer','email',NULL,'メールアドレス',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(42,2,1,'Eccube\\Entity\\Customer','tel01',NULL,'TEL1',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(43,2,1,'Eccube\\Entity\\Customer','tel02',NULL,'TEL2',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(44,2,1,'Eccube\\Entity\\Customer','tel03',NULL,'TEL3',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(45,2,1,'Eccube\\Entity\\Customer','fax01',NULL,'FAX1',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(46,2,1,'Eccube\\Entity\\Customer','fax02',NULL,'FAX2',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(47,2,1,'Eccube\\Entity\\Customer','fax03',NULL,'FAX3',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(48,2,1,'Eccube\\Entity\\Customer','Sex','id','性別(ID)',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(49,2,1,'Eccube\\Entity\\Customer','Sex','name','性別(名称)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(50,2,1,'Eccube\\Entity\\Customer','Job','id','職業(ID)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(51,2,1,'Eccube\\Entity\\Customer','Job','name','職業(名称)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(52,2,1,'Eccube\\Entity\\Customer','birth',NULL,'誕生日',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(53,2,1,'Eccube\\Entity\\Customer','first_buy_date',NULL,'初回購入日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(54,2,1,'Eccube\\Entity\\Customer','last_buy_date',NULL,'最終購入日',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(55,2,1,'Eccube\\Entity\\Customer','buy_times',NULL,'購入回数',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(56,2,1,'Eccube\\Entity\\Customer','note',NULL,'ショップ用メモ欄',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(57,2,1,'Eccube\\Entity\\Customer','Status','id','会員ステータス(ID)',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(58,2,1,'Eccube\\Entity\\Customer','Status','name','会員ステータス(名称)',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(59,2,1,'Eccube\\Entity\\Customer','create_date',NULL,'登録日',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(60,2,1,'Eccube\\Entity\\Customer','update_date',NULL,'更新日',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(61,3,1,'Eccube\\Entity\\Order','id',NULL,'注文ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(62,3,1,'Eccube\\Entity\\Order','Customer','id','会員ID',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(63,3,1,'Eccube\\Entity\\Order','name01',NULL,'お名前(姓)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(64,3,1,'Eccube\\Entity\\Order','name02',NULL,'お名前(名)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(65,3,1,'Eccube\\Entity\\Order','kana01',NULL,'お名前(セイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(66,3,1,'Eccube\\Entity\\Order','kana02',NULL,'お名前(メイ)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(67,3,1,'Eccube\\Entity\\Order','company_name',NULL,'会社名',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(68,3,1,'Eccube\\Entity\\Order','zip01',NULL,'郵便番号1',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(69,3,1,'Eccube\\Entity\\Order','zip02',NULL,'郵便番号2',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(70,3,1,'Eccube\\Entity\\Order','Pref','id','都道府県(ID)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(71,3,1,'Eccube\\Entity\\Order','Pref','name','都道府県(名称)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(72,3,1,'Eccube\\Entity\\Order','addr01',NULL,'住所1',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(73,3,1,'Eccube\\Entity\\Order','addr02',NULL,'住所2',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(74,3,1,'Eccube\\Entity\\Order','email',NULL,'メールアドレス',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(75,3,1,'Eccube\\Entity\\Order','tel01',NULL,'TEL1',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(76,3,1,'Eccube\\Entity\\Order','tel02',NULL,'TEL2',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(77,3,1,'Eccube\\Entity\\Order','tel03',NULL,'TEL3',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(78,3,1,'Eccube\\Entity\\Order','fax01',NULL,'FAX1',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(79,3,1,'Eccube\\Entity\\Order','fax02',NULL,'FAX2',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(80,3,1,'Eccube\\Entity\\Order','fax03',NULL,'FAX3',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(81,3,1,'Eccube\\Entity\\Order','Sex','id','性別(ID)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(82,3,1,'Eccube\\Entity\\Order','Sex','name','性別(名称)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(83,3,1,'Eccube\\Entity\\Order','Job','id','職業(ID)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(84,3,1,'Eccube\\Entity\\Order','Job','name','職業(名称)',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(85,3,1,'Eccube\\Entity\\Order','birth',NULL,'誕生日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(86,3,1,'Eccube\\Entity\\Order','note',NULL,'ショップ用メモ欄',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(87,3,1,'Eccube\\Entity\\Order','subtotal',NULL,'小計',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(88,3,1,'Eccube\\Entity\\Order','discount',NULL,'値引き',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(89,3,1,'Eccube\\Entity\\Order','delivery_fee_total',NULL,'送料',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(90,3,1,'Eccube\\Entity\\Order','tax',NULL,'税金',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(91,3,1,'Eccube\\Entity\\Order','total',NULL,'合計',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(92,3,1,'Eccube\\Entity\\Order','payment_total',NULL,'支払合計',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(93,3,1,'Eccube\\Entity\\Order','OrderStatus','id','対応状況(ID)',33,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(94,3,1,'Eccube\\Entity\\Order','OrderStatus','name','対応状況(名称)',34,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(95,3,1,'Eccube\\Entity\\Order','Payment','id','支払方法(ID)',35,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(96,3,1,'Eccube\\Entity\\Order','payment_method',NULL,'支払方法(名称)',36,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(97,3,1,'Eccube\\Entity\\Order','order_date',NULL,'受注日',37,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(98,3,1,'Eccube\\Entity\\Order','payment_date',NULL,'入金日',38,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(99,3,1,'Eccube\\Entity\\Order','commit_date',NULL,'発送日',39,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(100,3,1,'Eccube\\Entity\\OrderDetail','id',NULL,'注文詳細ID',40,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(101,3,1,'Eccube\\Entity\\OrderDetail','Product','id','商品ID',41,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(102,3,1,'Eccube\\Entity\\OrderDetail','ProductClass','id','商品規格ID',42,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(103,3,1,'Eccube\\Entity\\OrderDetail','product_name',NULL,'商品名',43,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(104,3,1,'Eccube\\Entity\\OrderDetail','product_code',NULL,'商品コード',44,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(105,3,1,'Eccube\\Entity\\OrderDetail','class_name1',NULL,'規格名1',45,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(106,3,1,'Eccube\\Entity\\OrderDetail','class_name2',NULL,'規格名2',46,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(107,3,1,'Eccube\\Entity\\OrderDetail','class_category_name1',NULL,'規格分類名1',47,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(108,3,1,'Eccube\\Entity\\OrderDetail','class_category_name2',NULL,'規格分類名2',48,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(109,3,1,'Eccube\\Entity\\OrderDetail','price',NULL,'価格',49,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(110,3,1,'Eccube\\Entity\\OrderDetail','quantity',NULL,'個数',50,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(111,3,1,'Eccube\\Entity\\OrderDetail','tax_rate',NULL,'税率',51,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(112,3,1,'Eccube\\Entity\\OrderDetail','tax_rule',NULL,'税率ルール(ID)',52,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(113,4,1,'Eccube\\Entity\\Order','id',NULL,'注文ID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(114,4,1,'Eccube\\Entity\\Order','Customer','id','会員ID',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(115,4,1,'Eccube\\Entity\\Order','name01',NULL,'お名前(姓)',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(116,4,1,'Eccube\\Entity\\Order','name02',NULL,'お名前(名)',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(117,4,1,'Eccube\\Entity\\Order','kana01',NULL,'お名前(セイ)',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(118,4,1,'Eccube\\Entity\\Order','kana02',NULL,'お名前(メイ)',6,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(119,4,1,'Eccube\\Entity\\Order','company_name',NULL,'会社名',7,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(120,4,1,'Eccube\\Entity\\Order','zip01',NULL,'郵便番号1',8,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(121,4,1,'Eccube\\Entity\\Order','zip02',NULL,'郵便番号2',9,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(122,4,1,'Eccube\\Entity\\Order','Pref','id','都道府県(ID)',10,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(123,4,1,'Eccube\\Entity\\Order','Pref','name','都道府県(名称)',11,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(124,4,1,'Eccube\\Entity\\Order','addr01',NULL,'住所1',12,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(125,4,1,'Eccube\\Entity\\Order','addr02',NULL,'住所2',13,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(126,4,1,'Eccube\\Entity\\Order','email',NULL,'メールアドレス',14,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(127,4,1,'Eccube\\Entity\\Order','tel01',NULL,'TEL1',15,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(128,4,1,'Eccube\\Entity\\Order','tel02',NULL,'TEL2',16,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(129,4,1,'Eccube\\Entity\\Order','tel03',NULL,'TEL3',17,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(130,4,1,'Eccube\\Entity\\Order','fax01',NULL,'FAX1',18,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(131,4,1,'Eccube\\Entity\\Order','fax02',NULL,'FAX2',19,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(132,4,1,'Eccube\\Entity\\Order','fax03',NULL,'FAX3',20,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(133,4,1,'Eccube\\Entity\\Order','Sex','id','性別(ID)',21,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(134,4,1,'Eccube\\Entity\\Order','Sex','name','性別(名称)',22,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(135,4,1,'Eccube\\Entity\\Order','Job','id','職業(ID)',23,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(136,4,1,'Eccube\\Entity\\Order','Job','name','職業(名称)',24,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(137,4,1,'Eccube\\Entity\\Order','birth',NULL,'誕生日',25,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(138,4,1,'Eccube\\Entity\\Order','note',NULL,'ショップ用メモ欄',26,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(139,4,1,'Eccube\\Entity\\Order','subtotal',NULL,'小計',27,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(140,4,1,'Eccube\\Entity\\Order','discount',NULL,'値引き',28,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(141,4,1,'Eccube\\Entity\\Order','delivery_fee_total',NULL,'送料',29,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(142,4,1,'Eccube\\Entity\\Order','tax',NULL,'税金',30,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(143,4,1,'Eccube\\Entity\\Order','total',NULL,'合計',31,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(144,4,1,'Eccube\\Entity\\Order','payment_total',NULL,'支払合計',32,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(145,4,1,'Eccube\\Entity\\Order','OrderStatus','id','対応状況(ID)',33,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(146,4,1,'Eccube\\Entity\\Order','OrderStatus','name','対応状況(名称)',34,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(147,4,1,'Eccube\\Entity\\Order','Payment','id','支払方法(ID)',35,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(148,4,1,'Eccube\\Entity\\Order','payment_method',NULL,'支払方法(名称)',36,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(149,4,1,'Eccube\\Entity\\Order','order_date',NULL,'受注日',37,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(150,4,1,'Eccube\\Entity\\Order','payment_date',NULL,'入金日',38,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(151,4,1,'Eccube\\Entity\\Order','commit_date',NULL,'発送日',39,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(152,4,1,'Eccube\\Entity\\Shipping','id',NULL,'配送ID',40,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(153,4,1,'Eccube\\Entity\\Shipping','name01',NULL,'配送先_お名前(姓)',41,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(154,4,1,'Eccube\\Entity\\Shipping','name02',NULL,'配送先_お名前(名)',42,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(155,4,1,'Eccube\\Entity\\Shipping','kana01',NULL,'配送先_お名前(セイ)',43,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(156,4,1,'Eccube\\Entity\\Shipping','kana02',NULL,'配送先_お名前(メイ)',44,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(157,4,1,'Eccube\\Entity\\Shipping','company_name',NULL,'配送先_会社名',45,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(158,4,1,'Eccube\\Entity\\Shipping','zip01',NULL,'配送先_郵便番号1',46,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(159,4,1,'Eccube\\Entity\\Shipping','zip02',NULL,'配送先_郵便番号2',47,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(160,4,1,'Eccube\\Entity\\Shipping','Pref','id','配送先_都道府県(ID)',48,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(161,4,1,'Eccube\\Entity\\Shipping','Pref','name','配送先_都道府県(名称)',49,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(162,4,1,'Eccube\\Entity\\Shipping','addr01',NULL,'配送先_住所1',50,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(163,4,1,'Eccube\\Entity\\Shipping','addr02',NULL,'配送先_住所2',51,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(164,4,1,'Eccube\\Entity\\Shipping','tel01',NULL,'配送先_TEL1',52,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(165,4,1,'Eccube\\Entity\\Shipping','tel02',NULL,'配送先_TEL2',53,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(166,4,1,'Eccube\\Entity\\Shipping','tel03',NULL,'配送先_TEL3',54,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(167,4,1,'Eccube\\Entity\\Shipping','fax01',NULL,'配送先_FAX1',55,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(168,4,1,'Eccube\\Entity\\Shipping','fax02',NULL,'配送先_FAX2',56,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(169,4,1,'Eccube\\Entity\\Shipping','fax03',NULL,'配送先_FAX3',57,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(170,4,1,'Eccube\\Entity\\Shipping','Delivery','id','配送業者(ID)',58,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(171,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_name',NULL,'配送業者(名称)',59,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(172,4,1,'Eccube\\Entity\\Shipping','DeliveryTime','id','お届け時間ID',60,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(173,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_time',NULL,'お届け時間(名称)',61,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(174,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_date',NULL,'お届け希望日',62,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(175,4,1,'Eccube\\Entity\\Shipping','DeliveryFee','id','送料ID',63,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(176,4,1,'Eccube\\Entity\\Shipping','shipping_delivery_fee',NULL,'送料',64,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(177,4,1,'Eccube\\Entity\\Shipping','shipping_commit_date',NULL,'発送日',65,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(178,4,1,'Eccube\\Entity\\ShipmentItem','id',NULL,'配送商品ID',66,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(179,4,1,'Eccube\\Entity\\ShipmentItem','Product','id','商品ID',67,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(180,4,1,'Eccube\\Entity\\ShipmentItem','ProductClass','id','商品規格ID',68,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(181,4,1,'Eccube\\Entity\\ShipmentItem','product_name',NULL,'商品名',69,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(182,4,1,'Eccube\\Entity\\ShipmentItem','product_code',NULL,'商品コード',70,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(183,4,1,'Eccube\\Entity\\ShipmentItem','class_name1',NULL,'規格名1',71,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(184,4,1,'Eccube\\Entity\\ShipmentItem','class_name2',NULL,'規格名2',72,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(185,4,1,'Eccube\\Entity\\ShipmentItem','class_category_name1',NULL,'規格分類名1',73,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(186,4,1,'Eccube\\Entity\\ShipmentItem','class_category_name2',NULL,'規格分類名2',74,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(187,4,1,'Eccube\\Entity\\ShipmentItem','price',NULL,'価格',75,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(188,4,1,'Eccube\\Entity\\ShipmentItem','quantity',NULL,'個数',76,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(189,5,1,'Eccube\\Entity\\Category','id',NULL,'カテゴリID',1,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(190,5,1,'Eccube\\Entity\\Category','rank',NULL,'表示ランク',2,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(191,5,1,'Eccube\\Entity\\Category','name',NULL,'カテゴリ名',3,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(192,5,1,'Eccube\\Entity\\Category','Parent','id','親カテゴリID',4,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(193,5,1,'Eccube\\Entity\\Category','level',NULL,'階層',5,1,'2016-07-22 03:55:59','2016-07-22 03:55:59'),(194,1,1,'Eccube\\\\Entity\\\\Product','ProductTag','tag_id','タグ(ID)',29,1,'2016-07-22 12:56:03','2016-07-22 12:56:03'),(195,1,1,'Eccube\\\\Entity\\\\Product','ProductTag','Tag','タグ(名称)',30,1,'2016-07-22 12:56:03','2016-07-22 12:56:03'),(196,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_1',NULL,'SPEC_C_01_商品詳細画像１',196,0,'2016-09-09 12:51:27','2016-09-14 16:49:09'),(197,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_2',NULL,'SPEC_C_02_商品詳細画像２',197,0,'2016-09-09 12:52:31','2016-09-14 16:49:00'),(201,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_4',NULL,'SPEC_C_07_カードサイズ',201,0,'2016-09-12 18:03:57','2016-09-14 16:47:55'),(203,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_6',NULL,'SPEC_C_08_備考',203,0,'2016-09-12 18:13:19','2016-09-14 16:45:48'),(205,3,2,'Plugin\\ProductOption\\Entity\\OrderDetail','OrderOption',NULL,'オプション情報',53,0,'2016-09-14 14:00:09','2016-09-14 14:00:09'),(206,4,2,'Plugin\\ProductOption\\Entity\\ShipmentItem','OrderOption',NULL,'オプション情報',77,0,'2016-09-14 14:00:09','2016-09-14 14:00:09'),(207,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_8',NULL,'SPEC_C_03_商品詳細画像３',205,0,'2016-09-14 15:55:12','2016-09-14 16:48:45'),(208,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_9',NULL,'SPEC_C_04_商品詳細特徴１',206,0,'2016-09-14 15:55:50','2016-09-14 16:48:33'),(209,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_10',NULL,'SPEC_C_05_商品詳細特徴２',207,0,'2016-09-14 15:56:07','2016-09-14 16:48:22'),(210,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_11',NULL,'SPEC_C_06_商品詳細特徴３',208,0,'2016-09-14 15:56:38','2016-09-14 16:48:09'),(211,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_12',NULL,'SPEC_P_01_ＯＳ',209,0,'2016-09-14 16:00:38','2016-11-01 10:36:51'),(213,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_14',NULL,'SPEC_P_03_本体サイズ',211,0,'2016-09-14 16:02:51','2016-09-14 16:49:45'),(214,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_15',NULL,'SPEC_P_04_重さ',212,0,'2016-09-14 16:03:22','2016-09-14 16:49:53'),(215,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_16',NULL,'SPEC_C_07_発売時期',213,0,'2016-09-14 16:03:49','2016-09-14 16:50:02'),(216,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_17',NULL,'SPEC_P_05_液晶サイズ',214,0,'2016-09-14 16:04:44','2016-09-14 16:50:13'),(217,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_18',NULL,'SPEC_P_06_画面解像度',215,0,'2016-09-14 16:04:59','2016-09-14 16:50:23'),(218,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_19',NULL,'SPEC_P_07_メインカメラ',216,0,'2016-09-14 16:05:34','2016-09-14 16:50:32'),(219,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_20',NULL,'SPEC_P_08_サブカメラ',217,0,'2016-09-14 16:05:50','2016-09-14 16:50:42'),(220,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_21',NULL,'SPEC_P_09_バッテリ',218,0,'2016-09-14 16:06:15','2016-09-14 16:50:56'),(221,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_22',NULL,'SPEC_P_10_ＣＰＵ',219,0,'2016-09-14 16:07:15','2016-11-01 10:36:37'),(222,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_23',NULL,'SPEC_P_11_ＲＯＭ',220,0,'2016-09-14 16:07:38','2016-11-01 10:38:11'),(223,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_24',NULL,'SPEC_P_12_ＲＡＭ',221,0,'2016-09-14 16:07:55','2016-11-01 10:38:24'),(224,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_25',NULL,'SPEC_P_50_その他-防水/防滴機能',222,0,'2016-09-14 16:09:47','2016-09-14 16:42:04'),(225,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_26',NULL,'SPEC_P_51_その他-テザリング',223,0,'2016-09-14 16:11:21','2016-09-14 16:42:21'),(226,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_27',NULL,'SPEC_P_52_その他-Wifi対応',224,0,'2016-09-14 16:11:55','2016-09-14 16:42:35'),(227,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_28',NULL,'SPEC_P_53_その他-Bluetooth',225,0,'2016-09-14 16:13:20','2016-09-14 16:42:51'),(228,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_29',NULL,'SPEC_P_54_その他-GPS機能',226,0,'2016-09-14 16:14:14','2016-09-14 16:43:07'),(229,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_30',NULL,'SPEC_P_55_その他-赤外線通信',227,0,'2016-09-14 16:15:12','2016-09-14 16:43:22'),(230,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_31',NULL,'SPEC_P_56_その他-おサイフケータイ',228,0,'2016-09-14 16:17:47','2016-09-14 16:43:36'),(231,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_32',NULL,'SPEC_S_01_初期費用',229,0,'2016-09-14 16:24:20','2016-09-14 16:44:04'),(232,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_33',NULL,'SPEC_S_02_通信速度',230,0,'2016-09-14 16:25:09','2016-09-14 16:44:26'),(233,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_34',NULL,'SPEC_S_03_データ量',231,0,'2016-09-14 16:25:35','2016-09-14 16:44:41'),(234,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_35',NULL,'SPEC_S_04_上り速度',232,0,'2016-09-14 16:26:35','2016-09-14 16:44:55'),(235,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_36',NULL,'SPEC_S_05_下り速度',233,0,'2016-09-14 16:26:51','2016-09-14 16:45:10'),(237,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_38',NULL,'SPEC_C_04_0_商品詳細特徴１タイトル',232,0,'2016-11-01 16:16:14','2016-11-01 16:16:14'),(238,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_39',NULL,'SPEC_C_05_0_商品詳細特徴２タイトル',233,0,'2016-11-01 16:16:47','2016-11-01 16:16:47'),(239,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_40',NULL,'SPEC_C_06_0_商品詳細特徴３タイトル',234,0,'2016-11-01 16:17:47','2016-11-01 16:17:47'),(240,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_41',NULL,'SPEC_C_07_対応キャリア',235,0,'2016-11-01 16:22:41','2016-11-01 16:22:41'),(241,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_42',NULL,'SPEC_S_50_その他-SMS対応',235,0,'2016-11-05 22:32:16','2016-11-05 22:52:13'),(242,1,2,'Plugin\\PlgExpandProductColumns\\Entity\\PlgExpandProductColumns','PlgExpandProductColumns_43',NULL,'SPEC_S_51_その他-音声通話',236,0,'2016-11-05 22:33:44','2016-11-05 22:52:29');
 /*!40000 ALTER TABLE `dtb_csv` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -833,7 +833,7 @@ CREATE TABLE `dtb_member` (
 
 LOCK TABLES `dtb_member` WRITE;
 /*!40000 ALTER TABLE `dtb_member` DISABLE KEYS */;
-INSERT INTO `dtb_member` VALUES (1,1,0,1,'dummy',NULL,'dummy','dummy','dummy',0,1,'2016-07-22 03:55:59','2016-07-22 03:55:59',NULL),(2,1,0,1,'管理者','EC-CUBE SHOP','ecadmin','77ff6fbe639e9fe23876e6245cb634eaf486ad6a41b95633e089fccc36574165','IwklyzxojkOXhQmbb60dapY5fwLW5Js7',1,0,'2016-07-22 03:56:03','2016-11-05 09:28:40','2016-11-05 09:28:40');
+INSERT INTO `dtb_member` VALUES (1,1,0,1,'dummy',NULL,'dummy','dummy','dummy',0,1,'2016-07-22 03:55:59','2016-07-22 03:55:59',NULL),(2,1,0,1,'管理者','EC-CUBE SHOP','ecadmin','77ff6fbe639e9fe23876e6245cb634eaf486ad6a41b95633e089fccc36574165','IwklyzxojkOXhQmbb60dapY5fwLW5Js7',1,0,'2016-07-22 03:56:03','2016-11-05 20:33:42','2016-11-05 20:33:42');
 /*!40000 ALTER TABLE `dtb_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1374,7 +1374,7 @@ CREATE TABLE `dtb_product_tag` (
   CONSTRAINT `FK_4433E721389B783` FOREIGN KEY (`tag`) REFERENCES `mtb_tag` (`id`),
   CONSTRAINT `FK_4433E7214584665A` FOREIGN KEY (`product_id`) REFERENCES `dtb_product` (`product_id`),
   CONSTRAINT `FK_4433E72161220EA6` FOREIGN KEY (`creator_id`) REFERENCES `dtb_member` (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=339 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1383,7 +1383,7 @@ CREATE TABLE `dtb_product_tag` (
 
 LOCK TABLES `dtb_product_tag` WRITE;
 /*!40000 ALTER TABLE `dtb_product_tag` DISABLE KEYS */;
-INSERT INTO `dtb_product_tag` VALUES (18,9,2,2,'2016-09-13 18:58:34'),(275,10,2,2,'2016-10-24 17:25:03'),(276,10,5,2,'2016-10-24 17:25:03'),(277,10,4,2,'2016-10-24 17:25:03'),(329,6,2,2,'2016-11-04 13:00:53'),(330,6,5,2,'2016-11-04 13:00:53'),(331,6,4,2,'2016-11-04 13:00:53'),(334,7,2,2,'2016-11-04 13:26:51'),(335,7,3,2,'2016-11-04 13:26:51'),(336,8,1,2,'2016-11-04 14:23:05'),(337,8,5,2,'2016-11-04 14:23:05'),(338,8,7,2,'2016-11-04 14:23:05');
+INSERT INTO `dtb_product_tag` VALUES (18,9,2,2,'2016-09-13 18:58:34'),(275,10,2,2,'2016-10-24 17:25:03'),(276,10,5,2,'2016-10-24 17:25:03'),(277,10,4,2,'2016-10-24 17:25:03'),(334,7,2,2,'2016-11-04 13:26:51'),(335,7,3,2,'2016-11-04 13:26:51'),(342,6,2,2,'2016-11-05 21:58:13'),(343,6,5,2,'2016-11-05 21:58:13'),(344,6,4,2,'2016-11-05 21:58:13'),(351,8,1,2,'2016-11-05 22:35:07'),(352,8,5,2,'2016-11-05 22:35:07'),(353,8,7,2,'2016-11-05 22:35:07');
 /*!40000 ALTER TABLE `dtb_product_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1574,554 +1574,554 @@ INSERT INTO `dtb_template` VALUES (1,10,'default','デフォルト','2016-07-22 
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_ABTestCfg`
+-- Table structure for table `migration_abtestcfg`
 --
 
-DROP TABLE IF EXISTS `migration_ABTestCfg`;
+DROP TABLE IF EXISTS `migration_abtestcfg`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_ABTestCfg` (
+CREATE TABLE `migration_abtestcfg` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_ABTestCfg`
+-- Dumping data for table `migration_abtestcfg`
 --
 
-LOCK TABLES `migration_ABTestCfg` WRITE;
-/*!40000 ALTER TABLE `migration_ABTestCfg` DISABLE KEYS */;
-INSERT INTO `migration_ABTestCfg` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_ABTestCfg` ENABLE KEYS */;
+LOCK TABLES `migration_abtestcfg` WRITE;
+/*!40000 ALTER TABLE `migration_abtestcfg` DISABLE KEYS */;
+INSERT INTO `migration_abtestcfg` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_abtestcfg` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_CRM3`
+-- Table structure for table `migration_categorycontent`
 --
 
-DROP TABLE IF EXISTS `migration_CRM3`;
+DROP TABLE IF EXISTS `migration_categorycontent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_CRM3` (
+CREATE TABLE `migration_categorycontent` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_CRM3`
+-- Dumping data for table `migration_categorycontent`
 --
 
-LOCK TABLES `migration_CRM3` WRITE;
-/*!40000 ALTER TABLE `migration_CRM3` DISABLE KEYS */;
-INSERT INTO `migration_CRM3` VALUES ('20160308142743');
-/*!40000 ALTER TABLE `migration_CRM3` ENABLE KEYS */;
+LOCK TABLES `migration_categorycontent` WRITE;
+/*!40000 ALTER TABLE `migration_categorycontent` DISABLE KEYS */;
+INSERT INTO `migration_categorycontent` VALUES ('20150706204400');
+/*!40000 ALTER TABLE `migration_categorycontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_CategoryContent`
+-- Table structure for table `migration_checkeditem`
 --
 
-DROP TABLE IF EXISTS `migration_CategoryContent`;
+DROP TABLE IF EXISTS `migration_checkeditem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_CategoryContent` (
+CREATE TABLE `migration_checkeditem` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_CategoryContent`
+-- Dumping data for table `migration_checkeditem`
 --
 
-LOCK TABLES `migration_CategoryContent` WRITE;
-/*!40000 ALTER TABLE `migration_CategoryContent` DISABLE KEYS */;
-INSERT INTO `migration_CategoryContent` VALUES ('20150706204400');
-/*!40000 ALTER TABLE `migration_CategoryContent` ENABLE KEYS */;
+LOCK TABLES `migration_checkeditem` WRITE;
+/*!40000 ALTER TABLE `migration_checkeditem` DISABLE KEYS */;
+INSERT INTO `migration_checkeditem` VALUES ('20150911190000');
+/*!40000 ALTER TABLE `migration_checkeditem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_CheckedItem`
+-- Table structure for table `migration_crm3`
 --
 
-DROP TABLE IF EXISTS `migration_CheckedItem`;
+DROP TABLE IF EXISTS `migration_crm3`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_CheckedItem` (
+CREATE TABLE `migration_crm3` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_CheckedItem`
+-- Dumping data for table `migration_crm3`
 --
 
-LOCK TABLES `migration_CheckedItem` WRITE;
-/*!40000 ALTER TABLE `migration_CheckedItem` DISABLE KEYS */;
-INSERT INTO `migration_CheckedItem` VALUES ('20150911190000');
-/*!40000 ALTER TABLE `migration_CheckedItem` ENABLE KEYS */;
+LOCK TABLES `migration_crm3` WRITE;
+/*!40000 ALTER TABLE `migration_crm3` DISABLE KEYS */;
+INSERT INTO `migration_crm3` VALUES ('20160308142743');
+/*!40000 ALTER TABLE `migration_crm3` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_FdRoute`
+-- Table structure for table `migration_fdroute`
 --
 
-DROP TABLE IF EXISTS `migration_FdRoute`;
+DROP TABLE IF EXISTS `migration_fdroute`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_FdRoute` (
+CREATE TABLE `migration_fdroute` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_FdRoute`
+-- Dumping data for table `migration_fdroute`
 --
 
-LOCK TABLES `migration_FdRoute` WRITE;
-/*!40000 ALTER TABLE `migration_FdRoute` DISABLE KEYS */;
-INSERT INTO `migration_FdRoute` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_FdRoute` ENABLE KEYS */;
+LOCK TABLES `migration_fdroute` WRITE;
+/*!40000 ALTER TABLE `migration_fdroute` DISABLE KEYS */;
+INSERT INTO `migration_fdroute` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_fdroute` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_HSDRelatedProduct`
+-- Table structure for table `migration_hsdrelatedproduct`
 --
 
-DROP TABLE IF EXISTS `migration_HSDRelatedProduct`;
+DROP TABLE IF EXISTS `migration_hsdrelatedproduct`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_HSDRelatedProduct` (
+CREATE TABLE `migration_hsdrelatedproduct` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_HSDRelatedProduct`
+-- Dumping data for table `migration_hsdrelatedproduct`
 --
 
-LOCK TABLES `migration_HSDRelatedProduct` WRITE;
-/*!40000 ALTER TABLE `migration_HSDRelatedProduct` DISABLE KEYS */;
-INSERT INTO `migration_HSDRelatedProduct` VALUES ('20160418163000');
-/*!40000 ALTER TABLE `migration_HSDRelatedProduct` ENABLE KEYS */;
+LOCK TABLES `migration_hsdrelatedproduct` WRITE;
+/*!40000 ALTER TABLE `migration_hsdrelatedproduct` DISABLE KEYS */;
+INSERT INTO `migration_hsdrelatedproduct` VALUES ('20160418163000');
+/*!40000 ALTER TABLE `migration_hsdrelatedproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_HSDSameCategory`
+-- Table structure for table `migration_hsdsamecategory`
 --
 
-DROP TABLE IF EXISTS `migration_HSDSameCategory`;
+DROP TABLE IF EXISTS `migration_hsdsamecategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_HSDSameCategory` (
+CREATE TABLE `migration_hsdsamecategory` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_HSDSameCategory`
+-- Dumping data for table `migration_hsdsamecategory`
 --
 
-LOCK TABLES `migration_HSDSameCategory` WRITE;
-/*!40000 ALTER TABLE `migration_HSDSameCategory` DISABLE KEYS */;
-INSERT INTO `migration_HSDSameCategory` VALUES ('20160520120000');
-/*!40000 ALTER TABLE `migration_HSDSameCategory` ENABLE KEYS */;
+LOCK TABLES `migration_hsdsamecategory` WRITE;
+/*!40000 ALTER TABLE `migration_hsdsamecategory` DISABLE KEYS */;
+INSERT INTO `migration_hsdsamecategory` VALUES ('20160520120000');
+/*!40000 ALTER TABLE `migration_hsdsamecategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_KintoneTransAdmin`
+-- Table structure for table `migration_kintonetransadmin`
 --
 
-DROP TABLE IF EXISTS `migration_KintoneTransAdmin`;
+DROP TABLE IF EXISTS `migration_kintonetransadmin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_KintoneTransAdmin` (
+CREATE TABLE `migration_kintonetransadmin` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_KintoneTransAdmin`
+-- Dumping data for table `migration_kintonetransadmin`
 --
 
-LOCK TABLES `migration_KintoneTransAdmin` WRITE;
-/*!40000 ALTER TABLE `migration_KintoneTransAdmin` DISABLE KEYS */;
-INSERT INTO `migration_KintoneTransAdmin` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_KintoneTransAdmin` ENABLE KEYS */;
+LOCK TABLES `migration_kintonetransadmin` WRITE;
+/*!40000 ALTER TABLE `migration_kintonetransadmin` DISABLE KEYS */;
+INSERT INTO `migration_kintonetransadmin` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_kintonetransadmin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_MailMagazine`
+-- Table structure for table `migration_mailmagazine`
 --
 
-DROP TABLE IF EXISTS `migration_MailMagazine`;
+DROP TABLE IF EXISTS `migration_mailmagazine`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_MailMagazine` (
+CREATE TABLE `migration_mailmagazine` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_MailMagazine`
+-- Dumping data for table `migration_mailmagazine`
 --
 
-LOCK TABLES `migration_MailMagazine` WRITE;
-/*!40000 ALTER TABLE `migration_MailMagazine` DISABLE KEYS */;
-INSERT INTO `migration_MailMagazine` VALUES ('201508072300'),('201509010000'),('201512251211');
-/*!40000 ALTER TABLE `migration_MailMagazine` ENABLE KEYS */;
+LOCK TABLES `migration_mailmagazine` WRITE;
+/*!40000 ALTER TABLE `migration_mailmagazine` DISABLE KEYS */;
+INSERT INTO `migration_mailmagazine` VALUES ('201508072300'),('201509010000'),('201512251211');
+/*!40000 ALTER TABLE `migration_mailmagazine` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_Maker`
+-- Table structure for table `migration_maker`
 --
 
-DROP TABLE IF EXISTS `migration_Maker`;
+DROP TABLE IF EXISTS `migration_maker`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_Maker` (
+CREATE TABLE `migration_maker` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_Maker`
+-- Dumping data for table `migration_maker`
 --
 
-LOCK TABLES `migration_Maker` WRITE;
-/*!40000 ALTER TABLE `migration_Maker` DISABLE KEYS */;
-INSERT INTO `migration_Maker` VALUES ('201507231300'),('201511201300'),('201602161300');
-/*!40000 ALTER TABLE `migration_Maker` ENABLE KEYS */;
+LOCK TABLES `migration_maker` WRITE;
+/*!40000 ALTER TABLE `migration_maker` DISABLE KEYS */;
+INSERT INTO `migration_maker` VALUES ('201507231300'),('201511201300'),('201602161300');
+/*!40000 ALTER TABLE `migration_maker` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_MakerRelatedProduct`
+-- Table structure for table `migration_makerrelatedproduct`
 --
 
-DROP TABLE IF EXISTS `migration_MakerRelatedProduct`;
+DROP TABLE IF EXISTS `migration_makerrelatedproduct`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_MakerRelatedProduct` (
+CREATE TABLE `migration_makerrelatedproduct` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_MakerRelatedProduct`
+-- Dumping data for table `migration_makerrelatedproduct`
 --
 
-LOCK TABLES `migration_MakerRelatedProduct` WRITE;
-/*!40000 ALTER TABLE `migration_MakerRelatedProduct` DISABLE KEYS */;
-INSERT INTO `migration_MakerRelatedProduct` VALUES ('20160915163000');
-/*!40000 ALTER TABLE `migration_MakerRelatedProduct` ENABLE KEYS */;
+LOCK TABLES `migration_makerrelatedproduct` WRITE;
+/*!40000 ALTER TABLE `migration_makerrelatedproduct` DISABLE KEYS */;
+INSERT INTO `migration_makerrelatedproduct` VALUES ('20160915163000');
+/*!40000 ALTER TABLE `migration_makerrelatedproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_PlgExpandProductColumns`
+-- Table structure for table `migration_plgexpandproductcolumns`
 --
 
-DROP TABLE IF EXISTS `migration_PlgExpandProductColumns`;
+DROP TABLE IF EXISTS `migration_plgexpandproductcolumns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_PlgExpandProductColumns` (
+CREATE TABLE `migration_plgexpandproductcolumns` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_PlgExpandProductColumns`
+-- Dumping data for table `migration_plgexpandproductcolumns`
 --
 
-LOCK TABLES `migration_PlgExpandProductColumns` WRITE;
-/*!40000 ALTER TABLE `migration_PlgExpandProductColumns` DISABLE KEYS */;
-INSERT INTO `migration_PlgExpandProductColumns` VALUES ('20151108093000');
-/*!40000 ALTER TABLE `migration_PlgExpandProductColumns` ENABLE KEYS */;
+LOCK TABLES `migration_plgexpandproductcolumns` WRITE;
+/*!40000 ALTER TABLE `migration_plgexpandproductcolumns` DISABLE KEYS */;
+INSERT INTO `migration_plgexpandproductcolumns` VALUES ('20151108093000');
+/*!40000 ALTER TABLE `migration_plgexpandproductcolumns` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_Point`
+-- Table structure for table `migration_point`
 --
 
-DROP TABLE IF EXISTS `migration_Point`;
+DROP TABLE IF EXISTS `migration_point`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_Point` (
+CREATE TABLE `migration_point` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_Point`
+-- Dumping data for table `migration_point`
 --
 
-LOCK TABLES `migration_Point` WRITE;
-/*!40000 ALTER TABLE `migration_Point` DISABLE KEYS */;
-INSERT INTO `migration_Point` VALUES ('20151215144009'),('20160428120000');
-/*!40000 ALTER TABLE `migration_Point` ENABLE KEYS */;
+LOCK TABLES `migration_point` WRITE;
+/*!40000 ALTER TABLE `migration_point` DISABLE KEYS */;
+INSERT INTO `migration_point` VALUES ('20151215144009'),('20160428120000');
+/*!40000 ALTER TABLE `migration_point` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_ProductClassEx`
+-- Table structure for table `migration_productclassex`
 --
 
-DROP TABLE IF EXISTS `migration_ProductClassEx`;
+DROP TABLE IF EXISTS `migration_productclassex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_ProductClassEx` (
+CREATE TABLE `migration_productclassex` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_ProductClassEx`
+-- Dumping data for table `migration_productclassex`
 --
 
-LOCK TABLES `migration_ProductClassEx` WRITE;
-/*!40000 ALTER TABLE `migration_ProductClassEx` DISABLE KEYS */;
-INSERT INTO `migration_ProductClassEx` VALUES ('201610032300');
-/*!40000 ALTER TABLE `migration_ProductClassEx` ENABLE KEYS */;
+LOCK TABLES `migration_productclassex` WRITE;
+/*!40000 ALTER TABLE `migration_productclassex` DISABLE KEYS */;
+INSERT INTO `migration_productclassex` VALUES ('201610032300');
+/*!40000 ALTER TABLE `migration_productclassex` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_ProductOption`
+-- Table structure for table `migration_productoption`
 --
 
-DROP TABLE IF EXISTS `migration_ProductOption`;
+DROP TABLE IF EXISTS `migration_productoption`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_ProductOption` (
+CREATE TABLE `migration_productoption` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_ProductOption`
+-- Dumping data for table `migration_productoption`
 --
 
-LOCK TABLES `migration_ProductOption` WRITE;
-/*!40000 ALTER TABLE `migration_ProductOption` DISABLE KEYS */;
-INSERT INTO `migration_ProductOption` VALUES ('201603252300'),('201605201200');
-/*!40000 ALTER TABLE `migration_ProductOption` ENABLE KEYS */;
+LOCK TABLES `migration_productoption` WRITE;
+/*!40000 ALTER TABLE `migration_productoption` DISABLE KEYS */;
+INSERT INTO `migration_productoption` VALUES ('201603252300'),('201605201200');
+/*!40000 ALTER TABLE `migration_productoption` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_ProductReview`
+-- Table structure for table `migration_productreview`
 --
 
-DROP TABLE IF EXISTS `migration_ProductReview`;
+DROP TABLE IF EXISTS `migration_productreview`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_ProductReview` (
+CREATE TABLE `migration_productreview` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_ProductReview`
+-- Dumping data for table `migration_productreview`
 --
 
-LOCK TABLES `migration_ProductReview` WRITE;
-/*!40000 ALTER TABLE `migration_ProductReview` DISABLE KEYS */;
-INSERT INTO `migration_ProductReview` VALUES ('201510241654');
-/*!40000 ALTER TABLE `migration_ProductReview` ENABLE KEYS */;
+LOCK TABLES `migration_productreview` WRITE;
+/*!40000 ALTER TABLE `migration_productreview` DISABLE KEYS */;
+INSERT INTO `migration_productreview` VALUES ('201510241654');
+/*!40000 ALTER TABLE `migration_productreview` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_Recommend`
+-- Table structure for table `migration_recommend`
 --
 
-DROP TABLE IF EXISTS `migration_Recommend`;
+DROP TABLE IF EXISTS `migration_recommend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_Recommend` (
+CREATE TABLE `migration_recommend` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_Recommend`
+-- Dumping data for table `migration_recommend`
 --
 
-LOCK TABLES `migration_Recommend` WRITE;
-/*!40000 ALTER TABLE `migration_Recommend` DISABLE KEYS */;
-INSERT INTO `migration_Recommend` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_Recommend` ENABLE KEYS */;
+LOCK TABLES `migration_recommend` WRITE;
+/*!40000 ALTER TABLE `migration_recommend` DISABLE KEYS */;
+INSERT INTO `migration_recommend` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_recommend` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_RecommendSimRanking`
+-- Table structure for table `migration_recommendsimranking`
 --
 
-DROP TABLE IF EXISTS `migration_RecommendSimRanking`;
+DROP TABLE IF EXISTS `migration_recommendsimranking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_RecommendSimRanking` (
+CREATE TABLE `migration_recommendsimranking` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_RecommendSimRanking`
+-- Dumping data for table `migration_recommendsimranking`
 --
 
-LOCK TABLES `migration_RecommendSimRanking` WRITE;
-/*!40000 ALTER TABLE `migration_RecommendSimRanking` DISABLE KEYS */;
-INSERT INTO `migration_RecommendSimRanking` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_RecommendSimRanking` ENABLE KEYS */;
+LOCK TABLES `migration_recommendsimranking` WRITE;
+/*!40000 ALTER TABLE `migration_recommendsimranking` DISABLE KEYS */;
+INSERT INTO `migration_recommendsimranking` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_recommendsimranking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_RecommendSumahoRanking`
+-- Table structure for table `migration_recommendsumahoranking`
 --
 
-DROP TABLE IF EXISTS `migration_RecommendSumahoRanking`;
+DROP TABLE IF EXISTS `migration_recommendsumahoranking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_RecommendSumahoRanking` (
+CREATE TABLE `migration_recommendsumahoranking` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_RecommendSumahoRanking`
+-- Dumping data for table `migration_recommendsumahoranking`
 --
 
-LOCK TABLES `migration_RecommendSumahoRanking` WRITE;
-/*!40000 ALTER TABLE `migration_RecommendSumahoRanking` DISABLE KEYS */;
-INSERT INTO `migration_RecommendSumahoRanking` VALUES ('201510211300');
-/*!40000 ALTER TABLE `migration_RecommendSumahoRanking` ENABLE KEYS */;
+LOCK TABLES `migration_recommendsumahoranking` WRITE;
+/*!40000 ALTER TABLE `migration_recommendsumahoranking` DISABLE KEYS */;
+INSERT INTO `migration_recommendsumahoranking` VALUES ('201510211300');
+/*!40000 ALTER TABLE `migration_recommendsumahoranking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_RelatedProduct`
+-- Table structure for table `migration_relatedproduct`
 --
 
-DROP TABLE IF EXISTS `migration_RelatedProduct`;
+DROP TABLE IF EXISTS `migration_relatedproduct`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_RelatedProduct` (
+CREATE TABLE `migration_relatedproduct` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_RelatedProduct`
+-- Dumping data for table `migration_relatedproduct`
 --
 
-LOCK TABLES `migration_RelatedProduct` WRITE;
-/*!40000 ALTER TABLE `migration_RelatedProduct` DISABLE KEYS */;
-INSERT INTO `migration_RelatedProduct` VALUES ('20150808173000');
-/*!40000 ALTER TABLE `migration_RelatedProduct` ENABLE KEYS */;
+LOCK TABLES `migration_relatedproduct` WRITE;
+/*!40000 ALTER TABLE `migration_relatedproduct` DISABLE KEYS */;
+INSERT INTO `migration_relatedproduct` VALUES ('20150808173000');
+/*!40000 ALTER TABLE `migration_relatedproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_SEO3`
+-- Table structure for table `migration_seo3`
 --
 
-DROP TABLE IF EXISTS `migration_SEO3`;
+DROP TABLE IF EXISTS `migration_seo3`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_SEO3` (
+CREATE TABLE `migration_seo3` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_SEO3`
+-- Dumping data for table `migration_seo3`
 --
 
-LOCK TABLES `migration_SEO3` WRITE;
-/*!40000 ALTER TABLE `migration_SEO3` DISABLE KEYS */;
-INSERT INTO `migration_SEO3` VALUES ('20160318154347'),('20160715112909');
-/*!40000 ALTER TABLE `migration_SEO3` ENABLE KEYS */;
+LOCK TABLES `migration_seo3` WRITE;
+/*!40000 ALTER TABLE `migration_seo3` DISABLE KEYS */;
+INSERT INTO `migration_seo3` VALUES ('20160318154347'),('20160715112909');
+/*!40000 ALTER TABLE `migration_seo3` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_ShoppingEx`
+-- Table structure for table `migration_shoppingex`
 --
 
-DROP TABLE IF EXISTS `migration_ShoppingEx`;
+DROP TABLE IF EXISTS `migration_shoppingex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_ShoppingEx` (
+CREATE TABLE `migration_shoppingex` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_ShoppingEx`
+-- Dumping data for table `migration_shoppingex`
 --
 
-LOCK TABLES `migration_ShoppingEx` WRITE;
-/*!40000 ALTER TABLE `migration_ShoppingEx` DISABLE KEYS */;
-INSERT INTO `migration_ShoppingEx` VALUES ('20150706204400');
-/*!40000 ALTER TABLE `migration_ShoppingEx` ENABLE KEYS */;
+LOCK TABLES `migration_shoppingex` WRITE;
+/*!40000 ALTER TABLE `migration_shoppingex` DISABLE KEYS */;
+INSERT INTO `migration_shoppingex` VALUES ('20150706204400');
+/*!40000 ALTER TABLE `migration_shoppingex` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_TagEx`
+-- Table structure for table `migration_tagex`
 --
 
-DROP TABLE IF EXISTS `migration_TagEx`;
+DROP TABLE IF EXISTS `migration_tagex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_TagEx` (
+CREATE TABLE `migration_tagex` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_TagEx`
+-- Dumping data for table `migration_tagex`
 --
 
-LOCK TABLES `migration_TagEx` WRITE;
-/*!40000 ALTER TABLE `migration_TagEx` DISABLE KEYS */;
-INSERT INTO `migration_TagEx` VALUES ('20160515114059');
-/*!40000 ALTER TABLE `migration_TagEx` ENABLE KEYS */;
+LOCK TABLES `migration_tagex` WRITE;
+/*!40000 ALTER TABLE `migration_tagex` DISABLE KEYS */;
+INSERT INTO `migration_tagex` VALUES ('20160515114059');
+/*!40000 ALTER TABLE `migration_tagex` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_UserDataEx`
+-- Table structure for table `migration_userdataex`
 --
 
-DROP TABLE IF EXISTS `migration_UserDataEx`;
+DROP TABLE IF EXISTS `migration_userdataex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_UserDataEx` (
+CREATE TABLE `migration_userdataex` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration_UserDataEx`
+-- Dumping data for table `migration_userdataex`
 --
 
-LOCK TABLES `migration_UserDataEx` WRITE;
-/*!40000 ALTER TABLE `migration_UserDataEx` DISABLE KEYS */;
-/*!40000 ALTER TABLE `migration_UserDataEx` ENABLE KEYS */;
+LOCK TABLES `migration_userdataex` WRITE;
+/*!40000 ALTER TABLE `migration_userdataex` DISABLE KEYS */;
+/*!40000 ALTER TABLE `migration_userdataex` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2782,7 +2782,7 @@ CREATE TABLE `plg_expand_product_columns` (
   `column_setting` longtext,
   `csv_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`column_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2791,7 +2791,7 @@ CREATE TABLE `plg_expand_product_columns` (
 
 LOCK TABLES `plg_expand_product_columns` WRITE;
 /*!40000 ALTER TABLE `plg_expand_product_columns` DISABLE KEYS */;
-INSERT INTO `plg_expand_product_columns` VALUES (1,'SPEC_C_01_商品詳細画像１',3,NULL,196),(2,'SPEC_C_02_商品詳細画像２',3,NULL,197),(4,'SPEC_C_07_カードサイズ',5,'value1:標準SIM（25mm x 15mm）\r\nvalue2:マイクロSIM（15mm x 12mm）\r\nvalue3:ナノSIM（12.3mm x 8.8mm）\r\nvalue4:マルチSIM',201),(6,'SPEC_C_08_備考',2,NULL,203),(8,'SPEC_C_03_商品詳細画像３',3,NULL,207),(9,'SPEC_C_04_商品詳細特徴１',2,NULL,208),(10,'SPEC_C_05_商品詳細特徴２',2,NULL,209),(11,'SPEC_C_06_商品詳細特徴３',2,NULL,210),(12,'SPEC_P_01_ＯＳ',4,'value1:iOS\r\nvalue2:Android 4.1\r\nvalue3:Android 4.2\r\nvalue4:Android 4.5\r\nvalue5:Android 5\r\nvalue6:Android 6',211),(14,'SPEC_P_03_本体サイズ',1,NULL,213),(15,'SPEC_P_04_重さ',1,NULL,214),(16,'SPEC_C_07_発売時期',1,NULL,215),(17,'SPEC_P_05_液晶サイズ',1,NULL,216),(18,'SPEC_P_06_画面解像度',1,NULL,217),(19,'SPEC_P_07_メインカメラ',1,NULL,218),(20,'SPEC_P_08_サブカメラ',1,NULL,219),(21,'SPEC_P_09_バッテリ',1,NULL,220),(22,'SPEC_P_10_ＣＰＵ',1,NULL,221),(23,'SPEC_P_11_ＲＯＭ',1,NULL,222),(24,'SPEC_P_12_ＲＡＭ',1,NULL,223),(25,'SPEC_P_50_その他-防水/防滴機能',4,'value0:\r\nvalue1:○\r\nvalue2:×',224),(26,'SPEC_P_51_その他-テザリング',4,'value1:○\r\nvalue2:×',225),(27,'SPEC_P_52_その他-Wifi対応',4,'value1:○\r\nvalue2:×',226),(28,'SPEC_P_53_その他-Bluetooth',4,'value1:○\r\nvalue2:×',227),(29,'SPEC_P_54_その他-GPS機能',4,'value1:○\r\nvalue2:×',228),(30,'SPEC_P_55_その他-赤外線通信',4,'value1:○\r\nvalue2:×',229),(31,'SPEC_P_56_その他-おサイフケータイ',4,'value1:○\r\nvalue2:×',230),(32,'SPEC_S_01_初期費用',1,NULL,231),(33,'SPEC_S_02_通信速度',1,NULL,232),(34,'SPEC_S_03_データ量',1,NULL,233),(35,'SPEC_S_04_上り速度',1,NULL,234),(36,'SPEC_S_05_下り速度',1,NULL,235),(37,'SPEC_P_02_キャリア2',5,'value1:docomo\r\nvalue2:au\r\nvalue3:softbank\r\nvalue4:SIMフリー',236),(38,'SPEC_C_04_0_商品詳細特徴１タイトル',1,NULL,237),(39,'SPEC_C_05_0_商品詳細特徴２タイトル',1,NULL,238),(40,'SPEC_C_06_0_商品詳細特徴３タイトル',1,NULL,239),(41,'SPEC_C_07_対応キャリア',5,'value1:docomo\r\nvalue2:au\r\nvalue3:softbank',240);
+INSERT INTO `plg_expand_product_columns` VALUES (1,'SPEC_C_01_商品詳細画像１',3,NULL,196),(2,'SPEC_C_02_商品詳細画像２',3,NULL,197),(4,'SPEC_C_07_カードサイズ',5,'value1:標準SIM（25mm x 15mm）\r\nvalue2:マイクロSIM（15mm x 12mm）\r\nvalue3:ナノSIM（12.3mm x 8.8mm）\r\nvalue4:マルチSIM',201),(6,'SPEC_C_08_備考',2,NULL,203),(8,'SPEC_C_03_商品詳細画像３',3,NULL,207),(9,'SPEC_C_04_商品詳細特徴１',2,NULL,208),(10,'SPEC_C_05_商品詳細特徴２',2,NULL,209),(11,'SPEC_C_06_商品詳細特徴３',2,NULL,210),(12,'SPEC_P_01_ＯＳ',4,'value1:iOS\r\nvalue2:Android 4.1\r\nvalue3:Android 4.2\r\nvalue4:Android 4.5\r\nvalue5:Android 5\r\nvalue6:Android 6',211),(14,'SPEC_P_03_本体サイズ',1,NULL,213),(15,'SPEC_P_04_重さ',1,NULL,214),(16,'SPEC_C_07_発売時期',1,NULL,215),(17,'SPEC_P_05_液晶サイズ',1,NULL,216),(18,'SPEC_P_06_画面解像度',1,NULL,217),(19,'SPEC_P_07_メインカメラ',1,NULL,218),(20,'SPEC_P_08_サブカメラ',1,NULL,219),(21,'SPEC_P_09_バッテリ',1,NULL,220),(22,'SPEC_P_10_ＣＰＵ',1,NULL,221),(23,'SPEC_P_11_ＲＯＭ',1,NULL,222),(24,'SPEC_P_12_ＲＡＭ',1,NULL,223),(25,'SPEC_P_50_その他-防水/防滴機能',4,'value0:\r\nvalue1:○\r\nvalue2:×',224),(26,'SPEC_P_51_その他-テザリング',4,'value1:○\r\nvalue2:×',225),(27,'SPEC_P_52_その他-Wifi対応',4,'value1:○\r\nvalue2:×',226),(28,'SPEC_P_53_その他-Bluetooth',4,'value1:○\r\nvalue2:×',227),(29,'SPEC_P_54_その他-GPS機能',4,'value1:○\r\nvalue2:×',228),(30,'SPEC_P_55_その他-赤外線通信',4,'value1:○\r\nvalue2:×',229),(31,'SPEC_P_56_その他-おサイフケータイ',4,'value1:○\r\nvalue2:×',230),(32,'SPEC_S_01_初期費用',1,NULL,231),(33,'SPEC_S_02_通信速度',1,NULL,232),(34,'SPEC_S_03_データ量',1,NULL,233),(35,'SPEC_S_04_上り速度',1,NULL,234),(36,'SPEC_S_05_下り速度',1,NULL,235),(38,'SPEC_C_04_0_商品詳細特徴１タイトル',1,NULL,237),(39,'SPEC_C_05_0_商品詳細特徴２タイトル',1,NULL,238),(40,'SPEC_C_06_0_商品詳細特徴３タイトル',1,NULL,239),(41,'SPEC_C_07_対応キャリア',5,'value1:docomo\r\nvalue2:au\r\nvalue3:softbank',240),(42,'SPEC_S_50_その他-SMS対応',4,'value1:〇\r\nvalue2:×',241),(43,'SPEC_S_51_その他-音声通話',4,'value1:〇\r\nvalue2:×',242);
 /*!40000 ALTER TABLE `plg_expand_product_columns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2816,7 +2816,7 @@ CREATE TABLE `plg_expand_product_columns_value` (
 
 LOCK TABLES `plg_expand_product_columns_value` WRITE;
 /*!40000 ALTER TABLE `plg_expand_product_columns_value` DISABLE KEYS */;
-INSERT INTO `plg_expand_product_columns_value` VALUES (3,12,'value1'),(3,25,'value1'),(3,26,'value1'),(3,27,'value1'),(3,28,'value1'),(3,29,'value1'),(3,30,'value1'),(3,31,'value1'),(5,12,'value1'),(5,25,'value1'),(5,26,'value1'),(5,27,'value1'),(5,28,'value1'),(5,29,'value1'),(5,30,'value1'),(5,31,'value1'),(6,1,'0914084515_57d88f8ba62ff.png'),(6,2,'0914084811_57d8903bc0a23.png'),(6,4,'value1,value2,value3'),(6,6,'tetetetetelilililililigfnfgngfnnfgnfgnfg\r\nytrrtrtrtytryrt\r\n\r\nitutuutyu\r\n'),(6,9,'どなどな１'),(6,10,'どなどな２'),(6,11,'どなどな３'),(6,12,'value1'),(6,22,'あああああああ'),(6,23,'435345ｓｄ'),(6,24,'4353ｗｗｗｗｗｗｗｗｗ'),(6,25,'value1'),(6,26,'value1'),(6,27,'value1'),(6,28,'value1'),(6,29,'value1'),(6,30,'value1'),(6,31,'value1'),(6,32,'１３３'),(6,33,'ｗくぇくぇｑ'),(6,34,'３１２３１２３１２'),(6,37,'value1,value2,value3'),(6,38,'タイトル１ああああああああ'),(6,39,'タイトル２ああああああああ'),(6,40,'タイトル３ああああああああ'),(7,12,'value1'),(7,25,'value1'),(7,26,'value1'),(7,27,'value1'),(7,28,'value1'),(7,29,'value1'),(7,30,'value1'),(7,31,'value1'),(8,4,'value1,value2,value3'),(8,12,'value3'),(8,25,'value0'),(8,26,'value1'),(8,27,'value1'),(8,28,'value1'),(8,29,'value1'),(8,30,'value1'),(8,31,'value1'),(8,37,'value1,value2,value3,value4'),(10,1,'0927143436_57ea04eccde5a.png'),(10,4,'value3'),(10,6,'test12356798989000o\r\niiiiiiiikkkkkkkkkkkkkk\r\nゆうゆゆｙ'),(10,12,'value2'),(10,25,'value2'),(10,26,'value2'),(10,27,'value2'),(10,28,'value2'),(10,29,'value2'),(10,30,'value2'),(10,31,'value1');
+INSERT INTO `plg_expand_product_columns_value` VALUES (3,12,'value1'),(3,25,'value1'),(3,26,'value1'),(3,27,'value1'),(3,28,'value1'),(3,29,'value1'),(3,30,'value1'),(3,31,'value1'),(5,12,'value1'),(5,25,'value1'),(5,26,'value1'),(5,27,'value1'),(5,28,'value1'),(5,29,'value1'),(5,30,'value1'),(5,31,'value1'),(6,1,'0914084515_57d88f8ba62ff.png'),(6,2,'0914084811_57d8903bc0a23.png'),(6,4,'value1,value2,value3,value4'),(6,6,'tetetetetelilililililigfnfgngfnnfgnfgnfg\r\nytrrtrtrtytryrt\r\n\r\nitutuutyu\r\n'),(6,9,'どなどな１'),(6,10,'どなどな２'),(6,11,'どなどな３'),(6,12,'value1'),(6,22,'あああああああ'),(6,23,'435345ｓｄ'),(6,24,'4353ｗｗｗｗｗｗｗｗｗ'),(6,25,'value1'),(6,26,'value1'),(6,27,'value1'),(6,28,'value1'),(6,29,'value1'),(6,30,'value1'),(6,31,'value1'),(6,32,'１３３'),(6,33,'ｗくぇくぇｑ'),(6,34,'３１２３１２３１２'),(6,38,'タイトル１ああああああああ'),(6,39,'タイトル２ああああああああ'),(6,40,'タイトル３ああああああああ'),(6,41,'value1,value2,value3'),(7,12,'value1'),(7,25,'value1'),(7,26,'value1'),(7,27,'value1'),(7,28,'value1'),(7,29,'value1'),(7,30,'value1'),(7,31,'value1'),(8,4,'value1,value2,value3'),(8,6,'teteteteteあああああああああああああああ\r\nああああああああああああ\r\nあああああああああああああああああああああああ'),(8,12,'value3'),(8,16,'2015年11月12日'),(8,25,'value0'),(8,26,'value1'),(8,27,'value1'),(8,28,'value1'),(8,29,'value1'),(8,30,'value1'),(8,31,'value1'),(8,32,'1200'),(8,33,'120kbps'),(8,34,'1M無制限'),(8,35,'１０M'),(8,36,'３M'),(8,41,'value1,value2'),(8,42,'value1'),(8,43,'value2'),(10,1,'0927143436_57ea04eccde5a.png'),(10,4,'value3'),(10,6,'test12356798989000o\r\niiiiiiiikkkkkkkkkkkkkk\r\nゆうゆゆｙ'),(10,12,'value2'),(10,25,'value2'),(10,26,'value2'),(10,27,'value2'),(10,28,'value2'),(10,29,'value2'),(10,30,'value2'),(10,31,'value1');
 /*!40000 ALTER TABLE `plg_expand_product_columns_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3483,7 +3483,7 @@ CREATE TABLE `plg_product_maker` (
 
 LOCK TABLES `plg_product_maker` WRITE;
 /*!40000 ALTER TABLE `plg_product_maker` DISABLE KEYS */;
-INSERT INTO `plg_product_maker` VALUES (3,'5',NULL,0,'0000-00-00 00:00:00','2016-10-28 14:31:05'),(4,'2',NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(5,'2',NULL,0,'0000-00-00 00:00:00','2016-10-24 17:27:49'),(6,'1',NULL,0,'2016-09-14 10:10:56','2016-11-04 13:00:53'),(7,'14','http://umobile.jp/service/sim/d/',0,'2016-10-12 16:01:30','2016-11-04 13:26:51'),(8,'14',NULL,0,'2016-09-14 16:28:23','2016-11-04 14:23:05');
+INSERT INTO `plg_product_maker` VALUES (3,'5',NULL,0,'0000-00-00 00:00:00','2016-10-28 14:31:05'),(4,'2',NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(5,'2',NULL,0,'0000-00-00 00:00:00','2016-10-24 17:27:49'),(6,'1',NULL,0,'2016-09-14 10:10:56','2016-11-05 21:58:13'),(7,'14','http://umobile.jp/service/sim/d/',0,'2016-10-12 16:01:30','2016-11-04 13:26:51'),(8,'14',NULL,0,'2016-09-14 16:28:23','2016-11-05 22:35:07');
 /*!40000 ALTER TABLE `plg_product_maker` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4021,4 +4021,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-05 17:03:41
+-- Dump completed on 2016-11-05 14:01:59
