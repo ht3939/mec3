@@ -1,3 +1,11 @@
+{% set l_producttype = 0 %}
+{% for cc in Product.ProductClasses|slice(0,3) %}
+    {% if (cc.ProductType.id != 0) %}
+        {% set l_producttype = cc.ProductType.id %}
+    {% endif %}
+{% endfor %}
+
+{% if (l_producttype == 2) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -292,3 +300,4 @@
 		</div>
 	</dd>
 </dl>
+{% endif %}
