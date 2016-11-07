@@ -29,6 +29,11 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
 
         $app->match('/guide' , '\Eccube\Controller\HelpController::guide')->bind('help_guide');
 
+        // ブロック
+        $app->match('/block/important_matter_block', '\Plugin\ShoppingEx\Controller\Block\ImportantMatterController::index')
+            ->bind('block_important_matter_block');
+
+
         // Form/Type
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use($app) {
             $types[] = new \Plugin\ShoppingEx\Form\Type\CardNoType($app['config']);
