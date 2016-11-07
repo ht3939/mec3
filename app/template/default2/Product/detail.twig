@@ -141,15 +141,17 @@ $(function(){
 {% set sales_price_month = null %}
 {% set product_type = 0 %}
 {% for ProductClass in Product.ProductClasses %}
-    {% if (ProductClass.ClassCategory2.id == 9) %}
-        {# 月額払い #}
-        {% if (sales_price_month > ProductClass.Price02 or sales_price_month == null) %}
-        {% set sales_price_month = ProductClass.Price02 %}
-        {% endif %}
-    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+    {% if (ProductClass.ClassCategory2.id == 10) %}
         {#  一括払い #}
         {% if (sales_price_bulk > ProductClass.Price02 or sales_price_bulk == null) %}
         {% set sales_price_bulk = ProductClass.Price02 %}
+        {% endif %}
+    {% else %}
+    {# elseif (ProductClass.ClassCategory2.id == 10) #}
+
+        {# 月額払い #}
+        {% if (sales_price_month > ProductClass.Price02 or sales_price_month == null) %}
+        {% set sales_price_month = ProductClass.Price02 %}
         {% endif %}
     {% endif %}
     {#  商品種別（1:端末/2:SIMカード） #}
@@ -208,7 +210,14 @@ $(function(){
 
                     <!-- ▼料金▼ -->
                     <div class="payment-price-box js-payment-price-switch">
-                        <p class="payment-price js-payment-price-switch-contents active">月額<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"> /(24回)</span></p>
+                        {% if Product.ProductClasses.0.ProductType.id == 1 %}
+                        <p class="payment-price js-payment-price-switch-contents active">月々<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span>　分割24回</p>
+
+                        {% else %}
+                        <p class="payment-price js-payment-price-switch-contents active">初期費用<span class="strong">{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext|number_format }}</span>円<span class="number-payment"></span></p>
+                        <p class="payment-price js-payment-price-switch-contents active">月額　　<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span></p>
+
+                        {% endif %}
                         {% if sales_price_bulk != null %}
                         <p class="payment-price js-payment-price-switch-contents">一括<span class="strong">{{ sales_price_bulk|number_format }}</span>円</p>
                         {% endif %}
@@ -315,39 +324,7 @@ $(function(){
             </section>
             <!--詳細ここまで-->
 
-            <section id="item_detail_area" class="col-sm-6">
 
-
-{% for k,i in __EX_PRODUCT %}
-    {% if i.name!='' %}
-        <p>"{{ k }}" : "{{ i.name }}" : 
-        {% if i.valuetext is iterable %}
-            {% for kk,vv in i.valuetext %}
-                "{{ vv }}" /
-            {% endfor %}
-        {% else %}
-            "{{ i.valuetext }}"
-        {% endif %}
-        </p>
-    {% endif %}
-{% endfor %}
-
-
-{% for ProductClass in Product.ProductClasses %}
-<p>ProductId:{{Product.id}}</p>
-<p>ProductClass.id : {{ProductClass.id}}</p>
-<p>ProductClass.Price01 : {{ProductClass.Price01}}</p>
-<p>ProductClass.Price02 : {{ProductClass.Price02}}</p>
-<p>ProductClass.ProductType.id : {{ProductClass.ProductType.id}}</p>
-<p>ProductClass.ClassCategory1.id : {{ProductClass.ClassCategory1.id}}</p>
-<p>ProductClass.ClassCategory1.Name : {{ProductClass.ClassCategory1.Name}}</p>
-<p>ProductClass.ClassCategory2.id : {{ProductClass.ClassCategory2.id}}</p>
-<p>ProductClass.ClassCategory2.Name: {{ProductClass.ClassCategory2.Name}}</p>
-<br>
-{% endfor %}
-
-
-            </section>
         </div>
 
         {# フリーエリア #}

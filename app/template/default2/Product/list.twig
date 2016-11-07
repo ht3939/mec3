@@ -189,14 +189,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     </dt>
 
                                     <ul class="tag-list">
+
                                     {% for ProductTag in Product.ProductTag %}
                                         <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
                                     {% endfor %}
                                     </ul>
+                                    <ul class="tag-list">
+                                    {% if Product.ProductClasses.0.ProductType.id==2 %}
+                                        <li class="product_tag_list">{% if __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_etc_voice].value=='value1' %}音声通話{% else %}データ専用{% endif %}</li>
+                                    {% endif %}
+                                    </ul>
                                 </div>
-
+                                {% if Product.ProductClasses.0.ProductType.id==1 %}
                                 <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                    月々 <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> (税抜) 分割24回
                                 </dd>
 
                                 <div class="td-spec">
@@ -211,6 +217,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <dd>{{ __EX_PRODUCT_LIST[Product.id].21.valuetext }}</dd>
                                     </dl>
                                 </div>
+
+                                {% else %}
+                                <dd id="result_list__price02init_inc_tax--{{ Product.id }}" class="item_price">
+                                    初期費用 <span class="price-num">{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_init_price].valuetext|number_format }}円</span> (税抜)
+                                </dd>                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                </dd>
+
+                                <div class="td-spec">
+                                    <dl>
+                                        <dt>データ容量</dt>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_data].valuetext }}</dd>
+                                        <dt>通信速度</dt>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_speed].valuetext }}</dd>
+                                    </dl>
+                                </div>
+
+                                {% endif %}
 
                                 <a href="{{ url('product_detail', {'id': Product.id}) }}" class="btn-detail">詳細を見る</a>
                             </dl>
