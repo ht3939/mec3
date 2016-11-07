@@ -187,18 +187,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <span>{{ __EX_PRODUCT_LIST_MAKER[Product.id].name }}</span>
                                         {{ Product.name }}
                                     </dt>
-
                                     <ul class="tag-list">
-
                                     {% for ProductTag in Product.ProductTag %}
                                         <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
                                     {% endfor %}
                                     </ul>
-                                    <ul class="tag-list">
                                     {% if Product.ProductClasses.0.ProductType.id==2 %}
+                                    <ul class="tag-list">
                                         <li class="product_tag_list">{% if __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_etc_voice].value=='value1' %}音声通話{% else %}データ専用{% endif %}</li>
-                                    {% endif %}
                                     </ul>
+                                    {% endif %}
                                 </div>
                                 {% if Product.ProductClasses.0.ProductType.id==1 %}
                                 <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
