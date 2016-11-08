@@ -128,6 +128,11 @@ $(function() {
 </script>
 {% endblock javascript %}
 
+{% set ha = app.session.get('eccube.plugin.shoppingex.order.key') %}
+{% set hasPayMonthly = ha['hasPayMonthly'] %}
+{% set hasSimOrder = ha['hasSimOrder'] %}
+
+
 {% block main %}
     <h1 class="page-heading">ご注文内容のご確認</h1>
     <div id="confirm_wrap" class="container-fluid">
@@ -289,6 +294,15 @@ $(function() {
                             {{ form_errors(form.payment) }}
                             </ul>
                         </div>
+                        {% if hasSimOrder %}
+                        <p>
+                        ※SIMカードの初期費用は代引きで請求させていただきます。また、代引き手数料が別途発生する場合があります。
+                        </p>
+                        {% endif %}
+                        <p>
+                        ※クレジットカード払いの場合、お支払い総額の4%の手数料が発生いたします。
+                        </p>
+
                     </div>
                     {% if form.cardno.vars.name %}
                     <h2 class="heading02">クレジットカード欄</h2>
@@ -326,10 +340,12 @@ $(function() {
                             <dt>小計</dt>
                             <dd class="text-primary">{{ Order.subtotal|price }}</dd>
                         </dl>
+                        <!--
                         <dl id="summary_box__quantity_price">
                             <dt>手数料</dt>
                             <dd>{{ Order.charge|price }}</dd>
                         </dl>
+                        -->
                         <dl id="summary_box__shipping_price">
                             <dt>送料</dt>
                             <dd>{{ Order.deliveryFeeTotal|price }}</dd>
@@ -341,9 +357,10 @@ $(function() {
                         </dl>
                         {% endif %}
                         <div id="summary_box__result" class="total_amount">
-                            <p id="summary_box__total_amount" class="total_price">初回請求金額 <strong class="text-primary">{{ Order.total|price }}<span class="small">税込</span></strong></p>
-                            {% if hasMonthlyPayment %}
-                            <p >※２回目以降、月額および分割金額の合計が発生します。</p>
+                            <p id="summary_box__total_amount" class="total_price">
+                                {% if hasPayMonthly %}初回請求金額{% else %}請求金額{% endif %} <strong class="text-primary">{{ Order.total|price }}<span class="small">（税込）</span></strong></p>
+                            {% if hasPayMonthly %}
+                            <p>※２回目以降、月額および分割金額の合計が発生します。</p>                            
                             {% endif %}
                             <p id="summary_box__confirm_button"><button id="order-button" type="submit" class="btn btn-primary btn-block prevention-btn prevention-mask">注文する</button></p>
                         </div>

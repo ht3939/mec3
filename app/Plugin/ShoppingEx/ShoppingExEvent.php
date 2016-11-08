@@ -30,6 +30,7 @@ class ShoppingExEvent
     /**
      * セッションに保存するテンポラリキー
      */
+    const SHOPPINGEX_SESSON_ORDER_KEY = 'eccube.plugin.shoppingex.order.key';
     const SHOPPINGEX_SESSION_KEY = 'eccube.plugin.shoppingex.cardinfovalue.key';
     const SHOPPINGEX_SESSION_REDIRECT_KEY = 'eccube.plugin.shoppingex.redirect.key';
 
@@ -100,16 +101,19 @@ class ShoppingExEvent
 
         $app = $this->app;
         $deli = $Order->getDeliveryFeeTotal();
+        $taxservice = $app['eccube.service.tax_rule'];
         //５００円固定
         if($this->SHOPPINGEX_DELIVERY_FIX_FEE){
-            $Order->setDeliveryFeeTotal($this->SHOPPINGEX_DELIVERY_FIX_FEE);
+            $delifeeIncTax = $taxservice->getPriceIncTax($this->SHOPPINGEX_DELIVERY_FIX_FEE);
+
+            $Order->setDeliveryFeeTotal($delifeeIncTax);
             //５００円固定
 
             $total = $Order->getTotal();
             //５００円固定
 
             if($total_recalc){
-                $Order->setTotal($total - $deli + $this->SHOPPINGEX_DELIVERY_FIX_FEE);
+                $Order->setTotal($total - $deli + $delifeeIncTax);
                 //５００円固定
                
             }
@@ -126,14 +130,26 @@ class ShoppingExEvent
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,true);
 
+        $hasSimOrder = false;
 
         foreach($Order->getOrderDetails() as $od){
             if($od->getProductClass()->getClassCategory2()->getId()
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
                 $this->hasPayMonthly = true;
             }
+            if($od->getProductClass()->getProductType()->getId()
+                ==$app['config']['producttype_ex_sim_type']){
+                $hasSimOrder = true;
+            }
 
         }
+
+        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
+            'hasPayMonthly'=>$this->hasPayMonthly,
+            'hasSimOrder'=>$hasSimOrder,
+            'Order'=>$Order,
+            'OrderMaker'=>null
+            ));
         // dump($event);
         // dump($event->getRequest()->get('shopping')['payment']);
         // dump($Order);

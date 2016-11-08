@@ -45,6 +45,15 @@ class ShoppingExService
         $this->app = $app;
         $this->BaseInfo = $app['eccube.repository.base_info']->get();
     }
+
+    public function getCurrOrder(){
+
+    }
+    public function setCurrOrder($Order)
+    {
+        //$this->app->get
+    }
+
     public function sendShoppingOrder(EventArgs $event){
         $req = $event->getRequest();
         $app = $this->app;
