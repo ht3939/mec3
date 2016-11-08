@@ -141,7 +141,7 @@ $(function(){
 {% set sales_price_month = null %}
 {% set product_type = 0 %}
 {% for ProductClass in Product.ProductClasses %}
-    {% if (ProductClass.ClassCategory2.id == 10) %}
+    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
         {#  一括払い #}
         {% if (sales_price_bulk > ProductClass.Price02 or sales_price_bulk == null) %}
         {% set sales_price_bulk = ProductClass.Price02 %}
@@ -210,7 +210,7 @@ $(function(){
 
                     <!-- ▼料金▼ -->
                     <div class="payment-price-box js-payment-price-switch">
-                        {% if Product.ProductClasses.0.ProductType.id == 1 %}
+                        {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
                         <p class="payment-price js-payment-price-switch-contents active">月々<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span>　分割24回</p>
 
                         {% else %}

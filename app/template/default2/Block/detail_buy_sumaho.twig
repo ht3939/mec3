@@ -5,7 +5,7 @@
     {% endif %}
 {% endfor %}
 
-{% if (l_producttype == 1) %}
+{% if (l_producttype == app.config.producttype_ex_sp_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/

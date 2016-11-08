@@ -36,8 +36,8 @@ class ShoppingExEvent
     const SHOPPINGEX_CREDIT_ORDER_TYPE_ID = "5";    //クレカ
     const SHOPPINGEX_SELFPAY_ORDER_TYPE_ID = "4";   //代引き
 
-    const SHOPPINGEX_PAYMONTHLY_PRODUCTCLASS_ID = "10";   //月額払い
-    const SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID = "4";   //一括払い
+    const SHOPPINGEX_PAYMONTHLY_PRODUCTCLASS_ID = "9";   //月額払い
+    const SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID = "10";   //一括払い
 
 
     /**
@@ -129,8 +129,7 @@ class ShoppingExEvent
 
         foreach($Order->getOrderDetails() as $od){
             if($od->getProductClass()->getClassCategory2()->getId()
-                !=self::SHOPPINGEX_PAYMONTHLY_PRODUCTCLASS_ID){
-
+                !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
                 $this->hasPayMonthly = true;
             }
 
@@ -150,7 +149,6 @@ class ShoppingExEvent
         // dump($builder->get('payment')->GetData());
         //postされなくなるのでコメント
         //$builder->get('payment')->setDisabled($this->hasPayMonthly);
-
         if($this->hasPayMonthly){
 
             foreach($builder->get('payment') as $g){

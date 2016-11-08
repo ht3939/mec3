@@ -4,7 +4,7 @@
         {% set l_producttype = cc.ProductType.id %}
     {% endif %}
 {% endfor %}
-{% if (l_producttype == 1) %}
+{% if (l_producttype == app.config.producttype_ex_sp_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -261,15 +261,15 @@
 				{% set m_sales_price_bulk = null %}
 				{% set m_sales_price_month = null %}
 				{% for ProductClass in mProduct.ProductClasses %}
-				    {% if (ProductClass.ClassCategory2.id == 9) %}
-				        {# 月額払い #}
-				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
-				        {% set m_sales_price_month = ProductClass.Price02 %}
-				        {% endif %}
-				    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+				    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
 				        {#  一括払い #}
 				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
 				        {% set m_sales_price_bulk = ProductClass.Price02 %}
+				        {% endif %}
+				    {% else %}
+				        {# 月額払い #}
+				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+				        {% set m_sales_price_month = ProductClass.Price02 %}
 				        {% endif %}
 				    {% endif %}
 				{% endfor %}
@@ -283,9 +283,9 @@
 						{{ mProduct.name }}
 					</td>
 					<td>{{ m_sales_price_month }}円</td>
-					<td>{{ matchs_info[mProduct.id].3.valuetext }}/月</td>
-					<td>{{ matchs_info[mProduct.id].36.valuetext }}</td>
-					<td>×</td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_data].valuetext }}/月</td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_speed_down].valuetext }}</td>
+					<td></td>
 					<td>
 						<a class="btn-detail" href="{{ url('product_detail', {'id': mProduct.id}) }}">詳細を見る</a>
 					</td>
@@ -318,15 +318,15 @@
 				{% set m_sales_price_bulk = null %}
 				{% set m_sales_price_month = null %}
 				{% for ProductClass in mProduct.ProductClasses %}
-				    {% if (ProductClass.ClassCategory2.id == 9) %}
-				        {# 月額払い #}
-				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
-				        {% set m_sales_price_month = ProductClass.Price02 %}
-				        {% endif %}
-				    {% elseif (ProductClass.ClassCategory2.id == 10) %}
+				    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
 				        {#  一括払い #}
 				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
 				        {% set m_sales_price_bulk = ProductClass.Price02 %}
+				        {% endif %}
+				    {% else %}
+				        {# 月額払い #}
+				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+				        {% set m_sales_price_month = ProductClass.Price02 %}
 				        {% endif %}
 				    {% endif %}
 				{% endfor %}
@@ -334,12 +334,13 @@
 				<li>
 					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
 						<ul class="tag-list">
-							<li>音声通話</li>
+                            <li>{% if matchs_info[mProduct.id][app.config.product_ex_s_etc_voice].value == 'value1' %}音声通話{% else %}データ専用{% endif %}</li>
+
 						</ul>
 						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
 						<p class="brand js-available-product-brand">{{ matchs_info_maker[mProduct.id].name }}</p>
 						<p class="ttl js-available-product-product-name">{{ mProduct.name }}</p>
-						<p class="capa js-available-product-product-capacity">容量｜{{ matchs_info[mProduct.id].3.valuetext }}</p>
+						<p class="capa js-available-product-product-capacity">容量｜{{ matchs_info[mProduct.id][app.config.product_ex_s_data].valuetext }}</p>
 						<p class="price js-available-product-product-price">月額料金:<span>{{ m_sales_price_month }}</span>円</p>
 					</a>
 				</li>

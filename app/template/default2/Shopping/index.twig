@@ -342,6 +342,9 @@ $(function() {
                         {% endif %}
                         <div id="summary_box__result" class="total_amount">
                             <p id="summary_box__total_amount" class="total_price">初回請求金額 <strong class="text-primary">{{ Order.total|price }}<span class="small">税込</span></strong></p>
+                            {% if hasMonthlyPayment %}
+                            <p >※２回目以降、月額および分割金額の合計が発生します。</p>
+                            {% endif %}
                             <p id="summary_box__confirm_button"><button id="order-button" type="submit" class="btn btn-primary btn-block prevention-btn prevention-mask">注文する</button></p>
                         </div>
                     </div>
