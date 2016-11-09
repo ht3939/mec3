@@ -304,15 +304,15 @@ $(function() {
                     </div>
                     {% if form.cardno.vars.name %}
                     <h2 class="heading02">クレジットカード欄</h2>
+                    <dt>{{ form_label(form.cardno) }}</dt>
+                    <dd>
+                        <div class="form-inline form-group">
+                            {{ form_widget(form.cardno) }}
+                            {{ form_errors(form.cardno) }}
+                        </div>
+                    </dd>
                     <div id="top_box__body_inner" class="dl_table">
                         <dl id="top_box__tel">
-                            <dt>{{ form_label(form.cardno) }}</dt>
-                            <dd>
-                                <div class="form-inline form-group input_tel">
-                                    {{ form_widget(form.cardno, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.cardno) }}
-                                </div>
-                            </dd>
                         </dl>
 
                     </div>
