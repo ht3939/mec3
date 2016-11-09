@@ -33,6 +33,8 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
         $app->match('/block/important_matter_block', '\Plugin\ShoppingEx\Controller\Block\ImportantMatterController::index')
             ->bind('block_important_matter_block');
 
+        $app->match('/simfree-sumaho/iphon5.php' , 'Plugin\ShoppingEx\Controller\RedirectController::index');
+        //->bind('help_guide_404_01');
 
         // Form/Type
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use($app) {

@@ -246,9 +246,9 @@ class ShoppingExEvent
                     $ShoppingEx
                             ->setId($Order->getId())
                             ->setCardno1($dat['cardno1'])
-                            ->setCardno2($dat['cardno2'])
-                            ->setCardno3($dat['cardno3'])
-                            ->setCardno4($dat['cardno4'])
+                            //->setCardno2($dat['cardno2'])
+                            //->setCardno3($dat['cardno3'])
+                            //->setCardno4($dat['cardno4'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
                             ->setCardlimitmon($dat['cardlimitmon'])
@@ -263,9 +263,9 @@ class ShoppingExEvent
                 }else{
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
                     $fms->get('cardno1')->setData($ShoppingEx->getCardno1());
-                    $fms->get('cardno2')->setData($ShoppingEx->getCardno2());
-                    $fms->get('cardno3')->setData($ShoppingEx->getCardno3());
-                    $fms->get('cardno4')->setData($ShoppingEx->getCardno4());
+                    //$fms->get('cardno2')->setData($ShoppingEx->getCardno2());
+                    //$fms->get('cardno3')->setData($ShoppingEx->getCardno3());
+                    //$fms->get('cardno4')->setData($ShoppingEx->getCardno4());
                     $fms->get('holder')->setData($ShoppingEx->getHolder());
                     $fms->get('cardtype')->setData($ShoppingEx->getCardtype());
                     $fms->get('cardlimitmon')->setData($ShoppingEx->getCardlimitmon());
@@ -377,9 +377,9 @@ class ShoppingExEvent
         $ShoppingEx
                 ->setId($Order->getId())
                 ->setCardno1($dat['cardno1'])
-                ->setCardno2($dat['cardno2'])
-                ->setCardno3($dat['cardno3'])
-                ->setCardno4($dat['cardno4'])
+                // ->setCardno2($dat['cardno2'])
+                // ->setCardno3($dat['cardno3'])
+                // ->setCardno4($dat['cardno4'])
                 ->setHolder($dat['holder'])
                 ->setCardtype($dat['cardtype'])
                 ->setCardlimitmon($dat['cardlimitmon'])
@@ -395,7 +395,8 @@ class ShoppingExEvent
 
             $event->setArgument('CardInfo',
                 array(
-                    'cardno'=>$dat['cardno1'].$dat['cardno2'].$dat['cardno3'].$dat['cardno4'],
+                    'cardno'=>$dat['cardno1'],
+                    //.$dat['cardno2'].$dat['cardno3'].$dat['cardno4'],
                     'cardholder'=>$dat['holder'],
                     'cardtype'=>$cardtypearr[$dat['cardtype']],
                     'cardsec'=>$dat['cardsec'],
