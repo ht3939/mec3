@@ -254,15 +254,13 @@ $(function() {
                             <p id="shopping_confirm_box__shipping_address_detail--{{ idx }}" class="address">{{ shipping.name01 }} {{ shipping.name02 }} 様<br>
                             〒{{ shipping.zip01 }}-{{ shipping.zip02 }} {{ shipping.pref }}{{ shipping.addr01 }}{{ shipping.addr02 }}<br>
                             {{ shipping.tel01 }}-{{ shipping.tel02 }}-{{ shipping.tel03 }}</p>
-                            <div id="shopping_confirm_box__shipping_delivery--{{ idx }}" class="form-inline form-group">
+                            <div id="shopping_confirm_box__shipping_delivery--{{ idx }}" class="form-inline form-group" style='display:none'>
                                 <label>配送方法</label>
                                 {{ form_widget(form.shippings[idx].delivery, {'attr': {'class': 'delivery'}}) }}
                                 {{ form_errors(form.shippings[idx].delivery) }}
                             </div>
 
                             <div id="shopping_confirm_box__shipping_delivery_date_time--{{ idx }}" class="form-inline form-group">
-                                <label>お届け日</label>
-                                {{ form_widget(form.shippings[idx].shippingDeliveryDate) }}<br class="sp">
                                 <label>お届け時間</label>
                                 {{ form_widget(form.shippings[idx].deliveryTime) }}
                             </div>
@@ -296,11 +294,11 @@ $(function() {
                         </div>
                         {% if hasSimOrder %}
                         <p>
-                        ※SIMカードの初期費用は代引きで請求させていただきます。また、代引き手数料が別途発生する場合があります。
+                        ※SIMカードの初期費用はクレカ決済、または、代引きで請求させていただきます。また、代引き手数料が別途発生する場合があります。
                         </p>
                         {% endif %}
                         <p>
-                        ※クレジットカード払いの場合、お支払い総額の4%の手数料が発生いたします。
+                        ※クレジットカード払いの場合、お支払い総額に手数料が別途発生する可能性があります。
                         </p>
 
                     </div>
