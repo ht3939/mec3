@@ -37,7 +37,7 @@ class ImportantMatterController
         //dump($app);
         $req = $app['request'];
         //注文情報の取得
-        $Order = $req->getSession()->get(self::SHOPPINGEX_SESSON_ORDER_KEY));
+        $Order = $req->getSession()->get(self::SHOPPINGEX_SESSON_ORDER_KEY);
         // $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
         //     'hasPayMonthly'=>$this->hasPayMonthly,
         //     'hasSimOrder'=>$hasSimOrder,
