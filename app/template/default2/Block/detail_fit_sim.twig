@@ -361,7 +361,7 @@ caption, th, td {
 <div class="item-inf sp">
 	<div id="sp" class="inf-content js-scroll-referer-for-follow-header-navigation">
 		<h2>対応端末</h2>
-		<p class="sp-num">全<span></span>製品</p>
+		<p class="sp-num">全<span>{{mProduct|length}}</span>製品</p>
 		<div class="sp-list">
 			<ul>
 			{% for mProduct in matchs_product|slice(0,3) %}

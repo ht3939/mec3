@@ -38,7 +38,7 @@ class ImportantMatterController
         $req = $app['request'];
         //注文情報の取得
         $Order = $req->getSession()->get(self::SHOPPINGEX_SESSON_ORDER_KEY);
-        // $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
+        // array(
         //     'hasPayMonthly'=>$this->hasPayMonthly,
         //     'hasSimOrder'=>$hasSimOrder,
         //     'Order'=>$Order,
@@ -47,7 +47,7 @@ class ImportantMatterController
 
 
         //SIMの重要説明事項の表示制御用
-        //いったｎ不要に。
+        //いったんSIM提供側固有の表記は不要に。
         return $app['view']->render('Block/important_matter_block.twig', array(
             'Order' => null
             ,'ShowImportantMatter' => false
