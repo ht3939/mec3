@@ -69,6 +69,7 @@ class ShoppingExEvent
      */
     public function onRenderProductList(TemplateEvent $event)
     {
+
     /*
         $parameters = $event->getParameters();
 
@@ -138,7 +139,7 @@ class ShoppingExEvent
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
                 $this->hasPayMonthly = true;
             }
-            dump($od);//die();
+
             if($od->getProductClass()->getProductType()->getId()
                 ==$app['config']['producttype_ex_sim_type']){
                 $hasSimOrder = true;
@@ -146,10 +147,9 @@ class ShoppingExEvent
 
                 //SIMのメーカをチェックする
                 if($od->getProduct()->getId()){
-                dump('tete');
                     $makerproduct = $app['eccube.plugin.maker.repository.product_maker']
                                         ->find($od->getProduct()->getId());
-                    dump($makerproduct);
+
 
                     //表示除外メーカを含む場合、
                     if (in_array(

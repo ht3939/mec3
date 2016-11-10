@@ -115,8 +115,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <nav id="category" class="drawer_block sp" style="display:none!important;">
     <ul class="category-nav">
         <li><a href="/"><img src="{{ app.config.front_urlpath }}/img/common/navi-top.png" alt="トップ"></a></li>
-        <li><a href="{{ url('product_list')~'?category_id=2' }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
-        <li><a href="{{ url('product_list')~'?category_id=1' }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
+        <li><a href="{{ url('product_list',{'category_id':app.config.category_sumaho_id}) }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-smartphone.png" alt="SIMフリースマホ"></a></li>
+        <li><a href="{{ url('product_list',{'category_id':app.config.category_sim_id}) }}"><img src="{{ app.config.front_urlpath }}/img/common/navi-sim.png" alt="SIMカード"></a></li>
         <li><a href="{{url('help_guide')}}"><img src="{{ app.config.front_urlpath }}/img/common/navi-guide.png" alt="ご利用ガイド"></a></li>
     </ul>
 </nav>
