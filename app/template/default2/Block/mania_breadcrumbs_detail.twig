@@ -1,0 +1,106 @@
+<style type="text/css">
+p#breadcrumbs {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#breadcrumbs {
+    margin-bottom: 15px;
+}
+#breadcrumbs .children {
+    float: left;
+    font-size: 10px;
+    position: relative;
+}
+#breadcrumbs .parent {
+    overflow: hidden;
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 11px 0;
+    color: #666;
+}
+#breadcrumbs a {
+    color: #666;
+    margin-right: 20px;
+}
+#breadcrumbs a:after {
+    content: ">";
+    position: absolute;
+    top: -1px;
+    right: 5px;
+}
+
+#contents {
+    padding-top: 0px;
+}
+
+.page-heading {
+    display: block;
+    position: relative;
+    padding: 10px 40px;
+    background-color: #333;
+    text-align: center;
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: #fff;
+}
+.page-heading .page-heading-back {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
+    width: 30px;
+    height: 30px;
+    text-align: left;
+    text-indent: 100%;
+    line-height: 30px;
+}
+.page-heading .page-heading-back:before {
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+</style>
+
+{% set cate = null %}
+{% set catename = null %}
+{% set pagecatename = null %}
+{% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sim_type %}
+{% set cate = app.config.category_sim_id %}
+{% set catename = 'SIMカード一覧' %}
+{% set pagecatename = 'SIMカード詳細' %}
+{% endif %}
+{% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
+{% set cate = app.config.category_sumaho_id %}
+{% set catename = 'SIMフリースマホ一覧' %}
+{% set pagecatename = 'SIMフリースマホ詳細' %}
+{% endif %}
+
+    <p id="breadcrumbs" class="pc">
+        <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
+            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">スマホマニアトップ</a></span>
+            <span class="children" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('product_list',{'category_id':cate})}}">{{catename}}</a></span>
+            <span class="children" typeof="v:Breadcrumb"><span property="v:title">{{ __EX_PRODUCT_MAKER.name }}</span>
+                                        {{ Product.name }}</span></span>
+        </span>
+    </p>
+
+    <div class="page-heading sp">
+        <p><a href="{{url('product_list',{'category_id':cate})}}" class="page-heading-back">戻る</a></p>
+        <h1>{{pagecatename}}</h1>
+    </div>    

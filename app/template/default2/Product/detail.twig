@@ -130,6 +130,8 @@ $(function(){
     font-size: 10px;
     color: #666;
 }
+
+
 </style>
 {% endblock %}
 
@@ -161,6 +163,7 @@ $(function(){
 
 
 {% block main %}
+
     {# todo ブロック化}
     <div id="topicpath" class="row">
         {% for ProductCategory in Product.ProductCategories %}
@@ -178,6 +181,7 @@ $(function(){
     <!-- ▼item_detail▼ -->
     <div id="item_detail">
         <div id="detail_wrap" class="row">
+
             <!--★画像★-->
             <div id="item_photo_area" class="col-sm-6">
                 <div id="detail_image_box__slides" class="slides">
@@ -194,7 +198,7 @@ $(function(){
             <section id="item_detail_area" class="col-sm-6">
 
                 <!--★商品名★-->
-                <h3 id="detail_description_box__name" class="item_name">{{ Product.name }}</h3>
+                <h3 id="detail_description_box__name" class="item_name">{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}</h3>
                 <div id="detail_description_box__body" class="item_detail">
 
                     {% if Product.ProductTag is not empty %}

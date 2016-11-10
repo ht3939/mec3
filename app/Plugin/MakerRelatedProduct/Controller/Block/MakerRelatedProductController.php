@@ -47,7 +47,7 @@ class MakerRelatedProductController
         /*
          * 現在の商品id をセッションに保持
          */
-        $_SESSION['ec_save_pr_id'] = $id;
+        //$_SESSION['ec_save_pr_id'] = $id;
 
         return $app['view']->render("Block/maker_related_product.twig", array(
             'title' => $this->_title,

@@ -23,6 +23,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set body_class = 'product_page' %}
 
+{% if CategoryParam %}
+{% block site_canonical %}
+<link rel="canonical" href="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}?category_id={{CategoryParam}}" >
+{% endblock %}
+
+{% endif %}
+
+
 {% block javascript %}
     <script>
         // 並び順を変更
@@ -91,7 +99,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     font-size: 13px;
     padding-bottom: 6px;
     color: #333;
-    height: 24px;
+    /*height: 24px;*/
 }
 #item_list.main_list .col-sm-3.col-xs-6 .btn-detail {
     display: block;
@@ -113,10 +121,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     border-radius: 3px;
     transition: all 0.2s ease 0s;
 }
+
 </style>
 {% endblock %}
 
+
 {% block main %}
+
     <form name="form1" id="form1" method="get" action="?">
         {{ form_widget(search_form) }}
     </form>

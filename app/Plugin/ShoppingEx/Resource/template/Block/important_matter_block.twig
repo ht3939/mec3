@@ -1,32 +1,114 @@
-
 <!-- ▼item_list▼ -->
-<div id="item_list">
-    <div class="row">
-        {% for RecommendProduct in RecommendProducts %}
-            <div class="col-sm-3 col-xs-6">
-                <div class="pickup_item">
-                    <a href="{{ url('product_detail', {'id': RecommendProduct.Product.id}) }}">
-                        <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ RecommendProduct.Product.mainFileName|no_image_product }}"></div>
-                        <p class="item_comment">{{ RecommendProduct.comment|raw }}</p>
+<style type="text/css">
+.cart-confirm-section .important-matters-list {
+    background-color: #fff;
+    margin: 40px 0 30px;
+    padding: 1px;
+}
 
-                        <dl>
-                            <dt class="item_name">{{ RecommendProduct.Product.name }}</dt>
-                            <dd class="item_price">
-                                {% if RecommendProduct.Product.hasProductClass %}
-                                    {% if RecommendProduct.Product.getPrice02Min == RecommendProduct.Product.getPrice02Max %}
-                                        {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
-                                    {% else %}
-                                        {{ RecommendProduct.Product.getPrice02IncTaxMin|price }} ～ {{ RecommendProduct.Product.getPrice02IncTaxMax|price }}
-                                    {% endif %}
-                                {% else %}
-                                    {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
-                                {% endif %}
-                            </dd>
-                        </dl>
-                    </a>
+.cart-confirm-section .important-matters-list-item-inline-box-outer {
+    overflow: auto;
+    width: 477px;
+    height: 160px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.cart-confirm-section .important-matters-list-item-inline-box {
+    padding: 15px;
+    background-color: #f4f4f4;
+    font-size: 11px;
+}
+.cart-confirm-section .important-matters-list-item-inline-box th {
+    width: 120px;
+}
+.cart-confirm-section .important-matters-list-item-inline-box th, .cart-confirm-section .important-matters-list-item-inline-box td {
+    padding: 10px;
+}
+._note {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #999;
+}
+
+
+._container #sp {
+    padding-bottom: 20px;
+}
+._heading-pat3 {
+    padding: 5px 0 5px 6px;
+    background: #d6d6d6;
+    font-size: 1.2rem;
+}
+
+.important-descriptive-matter {
+    overflow-y: scroll;
+    height: 110px;
+    margin: 0 10px 15px;
+    font-size: 1rem;
+}
+
+</style>
+        <div class="cart-confirm-section pc">
+            <div class="heading2">
+                <h2 class="heading2-text">重要説明事項</h2>
+                <p class="heading2-subtext">下記内容を必ずお読みください。</p>
+            </div>
+            {% if ShowImportantMatter %}
+            <div class="important-matters-list">
+                <div class="important-matters-list-item important-matters-list-item--odd">
+                    <p class="important-matters-list-item-text">データ専用プランご希望の方はこちら</p>
+                    <div class="important-matters-list-item-inline-box-outer">
+                        <div class="important-matters-list-item-inline-box">
+                            {{include('Block/important-matters-dataplan.twig')}}                        
+                        </div>
+                    </div>
+                </div>
+                <div class="important-matters-list-item">
+                    <p class="important-matters-list-item-text">通話プラスプランご希望の方はこちら</p>
+                    <div class="important-matters-list-item-inline-box-outer">
+                        <div class="important-matters-list-item-inline-box">
+                            {{include('Block/important-matters-telephoneplan.twig')}}
+                        </div>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-</div>
+            {% endif %}
+        </div>
+
+        {% if ShowImportantMatter %}
+        <p class="_note pc">
+            ※今回ご契約いただく【シムカード（月額料金）】はお客様と株式会社U-NEXTの契約になり【端末（代金引換金）】に関しては株式会社ALL CONNECTとの契約になります。<br>
+            ※当社との契約について お客様は，お客様からＵ－ＮＥＸＴへの申込内容の伝達をスマホマニアに委託するものとし、スマホマニアは，お客様とＵ－ＮＥＸＴとの契約に必要となる事項をすべてお客様に確認するものとします。<br>
+            ※ご入力いただいた個人情報は、お申込内容確認のため、記入いただいたメールアドレス宛に自動送信いたします。
+        </p>
+        {% endif %}
+
+
+        <p class="_note prev-submit-buttons-note pc">
+            ※当社は、お客様に係る氏名、名称、住所若しくは居所、連絡先の電話番号若しくはメールアドレス又は請求書の送付先等の情報を、当社の携帯サービスに係る契約の申込み、契約の締結、料金の適用、料金の請求等、当社の契約約款等の規定に係る業務の遂行上必要な範囲（お客様に係る情報を当社の業務を委託している者に提供する場合を含みます。）で利用します。
+        </p>
+
+
+
+        <section class="_container sp">
+            <h2 class="_heading-pat3 heading sp">重要説明事項</h2>
+            <p class="must-read-text sp">下記内容を必ずお読みください</p>
+            {% if ShowImportantMatter %}
+            <p class="_heading-pat5 rules-heading"><span>U-mobile データ専用利用規約</span></p>
+            <div class="important-descriptive-matter">
+                        {{include('Block/sp/important-matters-dataplan.twig')}}                     
+            </div>
+            <p class="_heading-pat5 rules-heading"><span>U-mobile 通話プラス利用規約</span></p>
+            <div class="important-descriptive-matter">
+                        {{include('Block/sp/important-matters-telephoneplan.twig')}}
+            </div>
+            <p class="rules-note-text">※今回ご契約いただく【シムカード（月額料金）】はお客様と株式会社U-NEXTの契約になり【端末（代金引換金）】に関しては株式会社ALL CONNECTとの契約になります。<br>
+            ※当社との契約について お客様は，お客様からＵ－ＮＥＸＴへの申込内容の伝達をスマホマニアに委託するものとし、スマホマニアは，お客様とＵ－ＮＥＸＴとの契約に必要となる事項をすべてお客様に確認するものとします。<br>※ご入力いただいた個人情報は、お申込内容確認のため、記入いただいたメールアドレス宛に自動送信いたします。</p>
+            {% endif %}
+            <p class="rules-note-text sp">※当社は、お客様に係る氏名、名称、住所若しくは居所、連絡先の電話番号若しくはメールアドレス又は請求書の送付先等の情報を、当社の携帯サービスに係る契約の申込み、契約の締結、料金の適用、料金の請求等、当社の契約約款等の規定に係る業務の遂行上必要な範囲（お客様に係る情報を当社の業務を委託している者に提供する場合を含みます。）で利用します。</p>
+        </section>
+
+
+
 <!-- ▲item_list▲ -->
