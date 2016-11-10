@@ -126,14 +126,73 @@ $(function() {
 
 });
 </script>
+
+
+<script>
+
+//クレカ項目のロジック用
+
+
+
+$('#shopping-form').submit(function(){
+    if(CheckLogic()){
+        //alert('check ok..');
+
+    }else{
+        $('.prevention-masked').remove();
+        $('.prevention-btn').removeAttr('disabled');
+        return false;
+    }
+
+});
+
+function CheckLogic() {
+    if($('#shopping_payment_5').prop('checked')){
+        var entrymnp = $('#shopping_cardno_cardno1').prop('value') 
+                        && $('#shopping_cardno_holder').prop('value') 
+                        && $('#shopping_cardno_cardsec').prop('value');
+        if(entrymnp==""){
+            alert('クレカ決済の場合、必須項目を全て入力してください。');
+            $('#shopping_cardno_cardno1').focus();
+            return false;
+
+        }
+        var entrymnp = $('#shopping_cardno_cardno1').prop('value').length > 13 
+                        && $('#shopping_cardno_cardsec').prop('value').length > 2;
+        if(entrymnp==""){
+            alert('カード番号、または、セキュリティコードの入力桁数が不足しています。');
+            if ( $('#shopping_cardno_cardno1').prop('value').length > 13 ){
+                $('#shopping_cardno_cardsec').focus();
+
+            }else{
+                $('#shopping_cardno_cardno1').focus();
+
+            }
+            return false;
+
+        }
+
+
+    }
+    return true;
+
+}
+
+
+
+</script>
+
+
 {% endblock javascript %}
 
-{% set ha = app.session.get('eccube.plugin.shoppingex.order.key') %}
-{% set hasPayMonthly = ha['hasPayMonthly'] %}
-{% set hasSimOrder = ha['hasSimOrder'] %}
 
 
 {% block main %}
+
+    {% set ha = app.session.get('eccube.plugin.shoppingex.order.key') %}
+    {% set hasPayMonthly = ha['hasPayMonthly'] %}
+    {% set hasSimOrder = ha['hasSimOrder'] %}
+
     <h1 class="page-heading">ご注文内容のご確認</h1>
     <div id="confirm_wrap" class="container-fluid">
         <div id="confirm_flow_box" class="row">
@@ -294,7 +353,7 @@ $(function() {
                         </div>
                         {% if hasSimOrder %}
                         <p>
-                        ※SIMカードの初期費用はクレカ決済、または、代引きで請求させていただきます。また、代引きの場合、手数料が別途発生する場合があります。
+                        ※SIMカードの初期費用はクレカ決済、または、代引きで請求させていただきます。<br>また、代引きの場合、手数料が別途発生する場合があります。
                         </p>
                         {% endif %}
                         <p>
@@ -304,15 +363,17 @@ $(function() {
                     </div>
                     {% if form.cardno.vars.name %}
                     <h2 class="heading02">クレジットカード欄</h2>
-                    <dt>{{ form_label(form.cardno) }}</dt>
-                    <dd>
+                    <div id="top_box__body_inner" class="dl_table">
+                        <dl id="top_box__tel">
+                    <dd class='creditcard'>
+                        <p>※ご契約者様の名義と同一のカードのみご利用可能です</p>
                         <div class="form-inline form-group">
                             {{ form_widget(form.cardno) }}
                             {{ form_errors(form.cardno) }}
                         </div>
+                        <p>※セキュリティコードは、クレジットカード裏面の署名欄にあるコードの下3桁です。</p>
+                        <p>American Expressについては表面のクレジットカード番号右上に記載されている4桁です。</p>
                     </dd>
-                    <div id="top_box__body_inner" class="dl_table">
-                        <dl id="top_box__tel">
                         </dl>
 
                     </div>
@@ -320,7 +381,7 @@ $(function() {
                     {% endif %}
                     <h2 class="heading02">お問い合わせ欄</h2>
                     <div id="contact_message" class="column">
-                        {{ form_widget(form.message, {'attr': {'placeholder': 'お問い合わせ事項がございましたら、こちらにご入力ください。(3000文字まで)', 'rows': '6'}}) }}
+                        {{ form_widget(form.message, {'attr': {'placeholder': 'お問い合わせ事項がございましたら、こちらにご入力ください。(3000文字まで)', 'rows': '10'}}) }}
                         {{ form_errors(form.message) }}
                     </div>
                     <div class="extra-form column">
@@ -368,3 +429,5 @@ $(function() {
         </form>
     </div>
 {% endblock %}
+
+

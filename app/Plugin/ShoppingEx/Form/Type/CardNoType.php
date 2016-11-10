@@ -37,7 +37,7 @@ class CardNoType extends AbstractType
      */
     public function __construct($config = array(
         'card_len' => 4, 'card_len_min' => 2,
-        'cardtype' => 'VISA,JCB,AMEX,MASTER,DINERS',
+        'cardtype' => 'Visa,JCB,AmericanExpress,Master,DinersClub',
         'cardlimit_mon' => '01,02,03,04,05,06,07,08,09,11,12',
         'cardlimit_year' => '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028'
         )
@@ -112,11 +112,27 @@ class CardNoType extends AbstractType
         // 全角英数を事前に半角にする
         $builder->addEventSubscriber(new \Eccube\EventListener\ConvertKanaListener());
         $builder
-            ->add($options['cardno1_name'], 'text', array_merge_recursive($options['options'], $options['cardno1_options']))
+            ->add($options['cardno1_name'], 'text', array_merge_recursive($options['options'], 
+                        array(
+                                'attr' => array(
+                                     'placeholder' => '例) 1234000012340000',
+                                ),
+                                'label' => 'カード番号'
+                           )                
+                )
+            )
             //->add($options['cardno2_name'], 'text', array_merge_recursive($options['options'], $options['cardno2_options']))
             //->add($options['cardno3_name'], 'text', array_merge_recursive($options['options'], $options['cardno3_options']))
             //->add($options['cardno4_name'], 'text', array_merge_recursive($options['options'], $options['cardno4_options']))
-            ->add($options['holder_name'], 'text', array_merge_recursive($options['options'], $options['holder_options']))
+            ->add($options['holder_name'], 'text', array_merge_recursive($options['options'], 
+                        array(
+                                'attr' => array(
+                                     'placeholder' => '例） YAMADA TARO',
+                                ),
+                                'label' => 'カード所有者'
+                           )                
+                )
+            )
             ->add($options['cardtype_name'], 'choice', 
                     array_merge_recursive($options['options'], 
                         array(
@@ -125,25 +141,31 @@ class CardNoType extends AbstractType
                             )                
                         )
                     )
-            ->add($options['cardlimitmon_name'], 'choice', 
-                    array_merge_recursive($options['options'], 
-                        array(
-                                'label' => '月',
+            ->add($options['cardlimitmon_name'], 'choice',
+                     array_merge_recursive($options['options'],
+                         array(
                                 'choices' => $currmonarr,
-                            )                
-                        )
-                    )
-            ->add($options['cardlimityear_name'], 'choice', 
-                    array_merge_recursive($options['options'], 
-                        array(
-                                'label' => '年',
+                                'label' => '有効期限（月／年）'
+                             )
+                         )
+                     )
+
+            ->add($options['cardlimityear_name'], 'choice',
+                     array_merge_recursive($options['options'],
+                         array(
                                 'choices' => $curryeararr,
-                            )                
-                        )
-                    )
+                                'label' => ' '
+                             )
+                         )
+                     )
             ->add($options['cardsec_name'], 'text', 
                     array_merge_recursive($options['options'], 
-                        $options['cardsec_options']
+                        array(
+                                'attr' => array(
+                                     'placeholder' => '例） 123',
+                                ),
+                                'label' => 'セキュリティコード'
+                            )                
                         )
                     )
         ;

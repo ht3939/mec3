@@ -165,7 +165,7 @@ class ShoppingExEvent
             }
 
         }
-        dump($hasExcludeSimMaker);
+        //dump($hasExcludeSimMaker);
         //注記除外メーカのみの場合、表示をはずす
         if($hasExcludeSimMaker && $hasSimOrder && $hasSimCount == 1){
             $hasSimOrder = false;
@@ -251,7 +251,7 @@ class ShoppingExEvent
                             //->setCardno4($dat['cardno4'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
-                            ->setCardlimitmon($dat['cardlimitmon'])
+                            ->setCardlimit($dat['cardlimitmon'])
                             ->setCardlimityear($dat['cardlimityear'])
                             ->setCardsec($dat['cardsec'])
                             ;
@@ -323,7 +323,7 @@ class ShoppingExEvent
         // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        // dump($form);
+        //dump($form);die();
         // dump('confirm check valid');
 
         if (!$form->isValid()) {
