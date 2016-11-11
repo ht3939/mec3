@@ -210,6 +210,20 @@
 {% endblock %}
 
 
+{% block javascript %}
+<script>
+    $(function(){
+        $('.btn-cart').on('click',function(){
+            $('#form1').submit();
+        });
+    });
+
+</script>
+{% endblock %}
+
+
+
+
 <dl class="item-dtl-purchase pc">
 	<dt>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }} のご購入はこちら</dt>
 	<dd>
@@ -235,9 +249,7 @@
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<form action="" method="post" id="addCart-divide">
-						<button class="btn-cart">カートに入れる</button>
-					</form>
+                    <p class="btn-cart">カートに入れる</p>
 				</div>
 			</div>
 
@@ -250,9 +262,7 @@
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<form action="" method="post" id="addCart-bundle">
-						<button class="btn-cart">カートに入れる</button>
-					</form>
+                    <p class="btn-cart">カートに入れる</p>
 				</div>
 			</div>
             {% endif %}

@@ -279,6 +279,21 @@
 </style>
 {% endblock %}
 
+{% block javascript %}
+<script>
+    $(function(){
+        $('.btn-cart').on('click',function(){
+            $('#form1').submit();
+        });
+    });
+
+</script>
+{% endblock %}
+
+
+
+
+
 <dl class="item-dtl-purchase pc">
 	<dt>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }} のご購入はこちら</dt>
 	<dd>
@@ -304,9 +319,7 @@
 					
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<form action="" method="post" id="addCart-divide">
-						<button class="btn-cart">カートに入れる</button>
-					</form>
+					<p class="btn-cart">カートに入れる</p>
 				</div>
 			</div>
 			<div class="note">＊ 表示価格は税抜です。別途消費税が加算されます。</div>
