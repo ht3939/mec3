@@ -23,6 +23,10 @@ productclass_payonce_type: 10
 
 shoppingex_exclude_sim_maker: '13'
 
+# 重要事項の表示対象メーカ
+
+shoppingex_important_matter_disp_maker: '14'
+
 category_sumaho_id: 2
 category_sim_id: 1
 

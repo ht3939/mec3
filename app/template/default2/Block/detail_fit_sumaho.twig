@@ -235,6 +235,20 @@
 </style>
 {% endblock %}
 
+{% block javascript %}
+<script>
+	$(function(){
+		$('.sp .js-more-handle').on('click',function(){
+			$(this).hide();
+			$('.more.js-more-target').show();
+		})
+	});
+
+</script>
+{% endblock %}
+
+
+
 <!-- =============== PC =============== -->
 {% if matchs_product %}
 <dl class="item-dtl-sim pc">
@@ -300,6 +314,7 @@
 {% endif %}
 <!-- =============== /PC =============== -->
 
+
 <!-- =============== SP =============== -->
 {% if matchs_product %}
 <div class="item-inf sp">
@@ -346,7 +361,7 @@
 				</li>
 
 
-		{% if (key == matchs_product|length) %}
+		{% if (key+1 == matchs_product|length) %}
 			</ul>
 		</div>
 		{% elseif (key == 3) %}
@@ -363,4 +378,7 @@
 </div>
 {% endif %}
 <!-- =============== /SP =============== -->
+
+
+
 {% endif %}

@@ -123,14 +123,13 @@ class ShoppingExEvent
     }
     private function onExecute(EventArgs $event){
         $app = $this->app;
-        // dump('request');
         $req = $event->getRequest();
         $sec = $req->getSession();
-        // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
 
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,true);
 
+        $OrderMaker = array();
         $hasSimOrder = false;
         $hasSimCount = 0;
         $hasExcludeSimMaker = false;
@@ -140,17 +139,21 @@ class ShoppingExEvent
                 $this->hasPayMonthly = true;
             }
 
+            if($od->getProduct()->getId()){
+                $makerproduct = $app['eccube.plugin.maker.repository.product_maker']
+                                    ->find($od->getProduct()->getId());
+                if($makerproduct){
+                    $OrderMaker[]=$makerproduct->getMaker()->getId();
+                }
+            }
+
             if($od->getProductClass()->getProductType()->getId()
                 ==$app['config']['producttype_ex_sim_type']){
                 $hasSimOrder = true;
                 $hasSimCount++;
 
                 //SIMのメーカをチェックする
-                if($od->getProduct()->getId()){
-                    $makerproduct = $app['eccube.plugin.maker.repository.product_maker']
-                                        ->find($od->getProduct()->getId());
-
-
+                if($makerproduct){
                     //表示除外メーカを含む場合、
                     if (in_array(
                         $makerproduct->getMaker()->getId(),
@@ -174,7 +177,8 @@ class ShoppingExEvent
         $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
             'hasPayMonthly'=>$this->hasPayMonthly,
             'hasSimOrder'=>$hasSimOrder,
-            'Order'=>$Order
+            'Order'=>$Order,
+            'OrderMaker'=>$OrderMaker
             ));
         // dump($event);
         // dump($event->getRequest()->get('shopping')['payment']);
