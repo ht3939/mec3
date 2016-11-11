@@ -203,7 +203,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
                                     {% endfor %}
                                     </ul>
-                                    {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sim_type %}
+                                    {% if Product.ProductClasses.0.ProductType.id == -1 %}
                                     <ul class="tag-list">
                                         <li class="product_tag_list">{% if __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_etc_voice].value == 'value1' %}音声通話{% else %}データ専用{% endif %}</li>
                                     </ul>
@@ -211,7 +211,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 </div>
                                 {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
                                 <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                    月々 <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> (税抜) 分割24回
+                                    月々 <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> (税抜)<br>分割24回
                                 </dd>
 
                                 <div class="td-spec">
@@ -239,7 +239,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <dt>データ容量</dt>
                                         <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_data].valuetext }}</dd>
                                         <dt>通信速度</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_speed].valuetext }}</dd>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_speed_down].valuetext }}</dd>
                                     </dl>
                                 </div>
 

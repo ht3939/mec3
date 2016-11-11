@@ -14,7 +14,6 @@ p#breadcrumbs {
 #breadcrumbs .parent {
     overflow: hidden;
     display: block;
-    width: 1000px;
     margin: 0 auto;
     padding: 11px 0;
     color: #666;
@@ -105,9 +104,13 @@ p#breadcrumbs {
 
     <div class="page-heading sp">
         <p><a href="{{url('homepage')}}" class="page-heading-back">戻る</a></p>
-        {% if cateid == app.config.category_sumaho_id %}
-        <h1>SIMフリースマホ一覧</h1>
+        {% if showcrumbs %}
+            {% if cateid == app.config.category_sumaho_id %}
+            <h1>SIMフリースマホ一覧</h1>
+            {% else %}
+            <h1>SIMカード一覧</h1>
+            {% endif %}
         {% else %}
-        <h1>SIMカード一覧</h1>
+            <h1>商品一覧</h1>
         {% endif %}
     </div>

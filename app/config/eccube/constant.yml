@@ -31,9 +31,8 @@ category_sumaho_id: 2
 category_sim_id: 1
 
 shoppingex_delivery_fix_fee: 500
-fdroute_reservedparams:　'page_no,category_id,tag_id'
+fdroute_reservedparams:　'page_no,category_id,tag_id,mode,name,disp_number,orderby'
 stext_len: 300
-
 
 # ============= 拡張項目のID =============
 product_ex_img_01: 			1
