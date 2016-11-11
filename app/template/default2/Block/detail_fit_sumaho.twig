@@ -299,7 +299,8 @@
 					<td>{{ m_sales_price_month }}円</td>
 					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_data].valuetext }}/月</td>
 					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_speed_down].valuetext }}</td>
-					<td></td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_etc_voice].valuetext }}
+					</td>
 					<td>
 						<a class="btn-detail" href="{{ url('product_detail', {'id': mProduct.id}) }}">詳細を見る</a>
 					</td>

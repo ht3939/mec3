@@ -51,9 +51,9 @@ class CardNoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $options['cardno1_options']['required'] = $options['required'];
-        $options['cardno2_options']['required'] = $options['required'];
-        $options['cardno3_options']['required'] = $options['required'];
-        $options['cardno4_options']['required'] = $options['required'];
+        // $options['cardno2_options']['required'] = $options['required'];
+        // $options['cardno3_options']['required'] = $options['required'];
+        // $options['cardno4_options']['required'] = $options['required'];
         $options['holder_options']['required'] = $options['required'];
         $options['cardtype_options']['required'] = $options['required'];
         $options['cardlimitmon_options']['required'] = $options['required'];
@@ -73,15 +73,15 @@ class CardNoType extends AbstractType
         if (empty($options['cardno1_name'])) {
             $options['cardno1_name'] = $builder->getName().'1';
         }
-        if (empty($options['cardno2_name'])) {
-            $options['cardno2_name'] = $builder->getName().'2';
-        }
-        if (empty($options['cardno3_name'])) {
-            $options['cardno3_name'] = $builder->getName().'3';
-        }
-        if (empty($options['cardno4_name'])) {
-            $options['cardno4_name'] = $builder->getName().'4';
-        }
+        // if (empty($options['cardno2_name'])) {
+        //     $options['cardno2_name'] = $builder->getName().'2';
+        // }
+        // if (empty($options['cardno3_name'])) {
+        //     $options['cardno3_name'] = $builder->getName().'3';
+        // }
+        // if (empty($options['cardno4_name'])) {
+        //     $options['cardno4_name'] = $builder->getName().'4';
+        // }
         if (empty($options['holder_name'])) {
             $options['holder_name'] = 'holder';
         }
@@ -199,7 +199,7 @@ class CardNoType extends AbstractType
                 $count++;
             }
             */
-            if ($count != 0 && $count != 4) {
+            if ($count != 0 && $count != 1) {
                 // todo メッセージをymlに入れる
                 $form[$builder->getName().'1']->addError(new FormError('全て入力してください。'));
             }
@@ -250,7 +250,7 @@ class CardNoType extends AbstractType
             'cardno1_options' => array(
                 'constraints' => array(
                     new Assert\Type(array('type' => 'numeric', 'message' => 'form.type.numeric.invalid')), //todo  messageは汎用的に出来ないものか?
-                    new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => 4)),
+                    new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => $this->config['cardno_len_min'])),
                 ),
             ),
             /*
