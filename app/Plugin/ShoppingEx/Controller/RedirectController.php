@@ -33,7 +33,13 @@ class RedirectController
         if(isset( $redirectto[$request->getPathInfo()])){
             $redirect = $redirectto[$request->getPathInfo()];
             if($request->getQueryString()){
+                if(explode('?',$request)>1){
+                $redirect .= '&'.$request->getQueryString();
+
+                }else{
+
                 $redirect .= '?'.$request->getQueryString();
+                }
             }
 // dump($request);
 // dump($request->getRequestUri());

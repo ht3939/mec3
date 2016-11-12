@@ -76,6 +76,8 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             '/guide.php'=>'/guide'
             ,'/company.php'=>'/help/company'
             ,'/privacy.php'=>'/help/privacy'
+            ,'/simfree-sumaho/'=>'/products/list?category_id=2'
+            ,'/simcard/'=>'/products/list?category_id=1'
             ,'/simfree-sumaho/iphone6.php'=>'/products/detail/94'
             ,'/simfree-sumaho/iphone5.php'=>'/products/detail/95'
             ,'/simfree-sumaho/zenfone2.php'=>'/products/detail/11'
