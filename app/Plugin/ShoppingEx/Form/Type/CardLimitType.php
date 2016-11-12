@@ -48,8 +48,8 @@ class CardLimitType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $options['cardlimit1_options']['required'] = $options['required'];
-        $options['cardlimit2_options']['required'] = $options['required'];
+        //$options['cardlimit1_options']['required'] = $options['required'];
+        //$options['cardlimit2_options']['required'] = $options['required'];
 
 
         // required の場合は NotBlank も追加する
@@ -74,7 +74,7 @@ class CardLimitType extends AbstractType
         $builder->add('cardlimit1', 'choice', 
                     array_merge_recursive($options['options'], 
                         array(
-                                'label' => '有効期限',
+                                'label' => '月',
                                 'choices' => explode(',',$this->config['cardlimit_mon']),
                             )                
                         )
@@ -88,7 +88,7 @@ class CardLimitType extends AbstractType
         $builder->add('cardlimit2', 'choice', 
                     array_merge_recursive($options['options'], 
                         array(
-                                'label' => '有効期限',
+                                'label' => '年',
                                 'choices' => $curryeararr,
                             )                
                         )

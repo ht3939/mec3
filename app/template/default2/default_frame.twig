@@ -56,10 +56,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% endblock %}
 
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="{{app.request.getPathInfo()}}" >
-<link rel="icon" href="{{ app.config.front_urlpath }}/img/common/favicon.ico">
+{% block site_canonical %}
+<link rel="canonical" href="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}" >
+{% endblock %}
+<link rel="icon" href="{{app.request.getSchemeAndHttpHost()}}{{ app.config.front_urlpath }}/img/common/favicon.ico">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/style.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/slick.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/default.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">

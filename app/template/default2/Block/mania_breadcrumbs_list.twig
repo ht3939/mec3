@@ -1,0 +1,116 @@
+<style type="text/css">
+p#breadcrumbs {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#breadcrumbs {
+    margin-bottom: 15px;
+}
+#breadcrumbs .children {
+    float: left;
+    font-size: 10px;
+    position: relative;
+}
+#breadcrumbs .parent {
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+    padding: 11px 0;
+    color: #666;
+}
+#breadcrumbs a {
+    color: #666;
+    margin-right: 20px;
+}
+#breadcrumbs a:after {
+    content: ">";
+    position: absolute;
+    top: -1px;
+    right: 5px;
+}
+#contents {
+    padding-top: 0px;
+}
+.page-heading {
+    display: block;
+    position: relative;
+    padding: 10px 40px;
+    background-color: #333;
+    text-align: center;
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: #fff;
+}
+.page-heading .page-heading-back {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
+    width: 30px;
+    height: 30px;
+    text-align: left;
+    text-indent: 100%;
+    line-height: 30px;
+}
+.page-heading .page-heading-back:before {
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+</style>
+
+    {% set showcrumbs = null %}
+    {% set cateid = null %}
+    {% if Category is not null %}
+        {% for Path in Category.path %}
+            {% if Path.id == 1 or Path.id == 2 %}
+                {% set showcrumbs = 1 %}
+                {% set cateid = Path.id %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <p id="breadcrumbs" class="pc">
+        <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
+            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">スマホマニアトップ</a></span>
+            {% if showcrumbs %}
+                {% if cateid == app.config.category_sumaho_id %}
+                <span class="children" typeof="v:Breadcrumb">SIMフリースマホ一覧</span>
+                {% elseif cateid == app.config.category_sim_id %}
+                <span class="children" typeof="v:Breadcrumb">SIMカード一覧</span>
+                {% endif %}
+            
+            {% else %}
+                <span class="children" typeof="v:Breadcrumb">商品一覧</span>
+
+            {% endif %}
+        </span>
+    </p>
+
+    <div class="page-heading sp">
+        <p><a href="{{url('homepage')}}" class="page-heading-back">戻る</a></p>
+        {% if showcrumbs %}
+            {% if cateid == app.config.category_sumaho_id %}
+            <h1>SIMフリースマホ一覧</h1>
+            {% else %}
+            <h1>SIMカード一覧</h1>
+            {% endif %}
+        {% else %}
+            <h1>商品一覧</h1>
+        {% endif %}
+    </div>

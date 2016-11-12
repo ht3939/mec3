@@ -1,3 +1,10 @@
+{% set l_producttype = 0 %}
+{% for cc in Product.ProductClasses|slice(0,3) %}
+    {% if (cc.ProductType.id != 0) %}
+        {% set l_producttype = cc.ProductType.id %}
+    {% endif %}
+{% endfor %}
+{% if (l_producttype == app.config.producttype_ex_sp_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -205,7 +212,7 @@
 「商品詳細」の情報がなければ非表示
  #}
 {% set info_flg = false %}
-{% if (__EX_PRODUCT.1.valuetext or __EX_PRODUCT.2.valuetext or __EX_PRODUCT.8.valuetext or __EX_PRODUCT.9.valuetext or __EX_PRODUCT.10.valuetext or __EX_PRODUCT.11.valuetext) %}
+{% if (__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext or __EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext or __EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext ) %}
 {% set info_flg = true %}
 {% endif %}
 
@@ -224,29 +231,34 @@
 	<div id="summary" class="item-dtl-tab-cont">
 		<h2>商品詳細</h2>
 
-		{% if (__EX_PRODUCT.1.valuetext or __EX_PRODUCT.9.valuetext) %}
+		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext) %}
 		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.1.valuetext.0|no_image_product }}" alt="" /></p>
-			<h3>表示カラムなし</h3>
-			<p class="summary-text">{{ __EX_PRODUCT.9.valuetext }}</p>
+			{% if (__EX_PRODUCT[app.config.product_ex_img_01].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0 }}" alt="" /></p>
+			{% endif %}
+			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext}}</h3>
+			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_01].valuetext|nl2br }}</p>
+		</div>
+		{% endif %}
+		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext) %}
+		<div class="item-dtl-summary">
+			{% if (__EX_PRODUCT[app.config.product_ex_img_02].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0 }}" alt="" /></p>
+			{% endif %}
+			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext}}</h3>
+			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_02].valuetext|nl2br }}</p>
+		</div>
+		{% endif %}
+		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext) %}
+		<div class="item-dtl-summary">
+			{% if (__EX_PRODUCT[app.config.product_ex_img_03].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0 }}" alt="" /></p>
+			{% endif %}
+			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext}}</h3>
+			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_03].valuetext|nl2br }}</p>
 		</div>
 		{% endif %}
 
-		{% if (__EX_PRODUCT.2.valuetext or __EX_PRODUCT.10.valuetext) %}
-		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.2.valuetext.0|no_image_product }}" alt="" /></p>
-			<h3>表示カラムなし</h3>
-			<p class="summary-text">{{ __EX_PRODUCT.10.valuetext }}</p>
-		</div>
-		{% endif %}
-
-		{% if (__EX_PRODUCT.8.valuetext or __EX_PRODUCT.11.valuetext) %}
-		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.8.valuetext.0|no_image_product }}" alt="" /></p>
-			<h3>表示カラムなし</h3>
-			<p class="summary-text">{{ __EX_PRODUCT.11.valuetext }}</p>
-		</div>
-		{% endif %}
 
 	</div>
 	<!-- /summary -->
@@ -260,34 +272,39 @@
 			<table>
 				<tr>
 					<th>キャリア</th>
-					<td>{{ __EX_PRODUCT.13.valuetext }}</td>
+					<td>
+					{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+					{% if (loop.first) %}
+					{% else %}/{% endif %}
+					{{ card_size }}
+					{% endfor %}
+					</td>
 				</tr>
 				<tr>
 					<th>SIMカードサイズ</th>
 					<td>
-					{% for key, card_size in __EX_PRODUCT.4.valuetext %}
+					{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+					{% if (loop.first) %}
+					{% else %}<br>{% endif %}
 					{{ card_size }}
-					{% if (key != __EX_PRODUCT.4.valuetext|length) %}
-					<br>
-					{% endif %}
 					{% endfor %}
 					</td>
 				</tr>
 				<tr>
 					<th>発売時期</th>
-					<td>{{ __EX_PRODUCT.16.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>OS</th>
-					<td>{{ __EX_PRODUCT.12.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_os].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>本体サイズ</th>
-					<td>{{ __EX_PRODUCT.14.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_body_size].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>重さ</th>
-					<td>{{ __EX_PRODUCT.15.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_weight].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -297,11 +314,11 @@
 			<table>
 				<tr>
 					<th>液晶サイズ</th>
-					<td>{{ __EX_PRODUCT.17.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_screen_size].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>画面解像度</th>
-					<td>{{ __EX_PRODUCT.18.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_screen_rezo].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -311,11 +328,11 @@
 			<table>
 				<tr>
 					<th>メインカメラ</th>
-					<td>{{ __EX_PRODUCT.19.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_main_cam].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>サブカメラ</th>
-					<td>{{ __EX_PRODUCT.20.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_sub_cam].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -325,7 +342,7 @@
 			<table>
 				<tr>
 					<th>電池容量</th>
-					<td>{{ __EX_PRODUCT.21.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_battery].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -335,15 +352,15 @@
 			<table>
 				<tr>
 					<th>CPU</th>
-					<td>{{ __EX_PRODUCT.22.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_cpu].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>ROM</th>
-					<td>{{ __EX_PRODUCT.23.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_rom].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>RAM</th>
-					<td>{{ __EX_PRODUCT.24.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_ram].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -353,35 +370,35 @@
 			<table>
 				<tr>
 					<th>防水/防滴機能</th>
-					<td>{{ __EX_PRODUCT.25.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_waterproof].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>テザリング</th>
-					<td>{{ __EX_PRODUCT.26.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_tethering].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>Wifi対応</th>
-					<td>{{ __EX_PRODUCT.27.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_wifi].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>Bluetooth</th>
-					<td>{{ __EX_PRODUCT.28.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_bluetooth].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>GPS機能</th>
-					<td>{{ __EX_PRODUCT.29.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_gps].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>赤外線通信</th>
-					<td>{{ __EX_PRODUCT.30.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_infrared].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>おサイフ ケータイ</th>
-					<td>{{ __EX_PRODUCT.31.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_pay].valuetext }}</td>
 				</tr>
 				<tr>
 					<th>備考</th>
-					<td>{{ __EX_PRODUCT.6.valuetext }}</td>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext }}</td>
 				</tr>
 			</table>
 		</div>
@@ -401,27 +418,33 @@
 	<div id="info" class="inf-content js-scroll-referer-for-follow-header-navigation">
 		<h2>製品情報</h2>
 		<ul>
-			{% if (__EX_PRODUCT.1.valuetext or __EX_PRODUCT.9.valuetext) %}
+			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.1.valuetext.0|no_image_product }}" alt=""></div>
-				<p>表示カラムなし</p>
-				{{ __EX_PRODUCT.9.valuetext }}
+				{% if (__EX_PRODUCT[app.config.product_ex_img_01].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0 }}" alt=""></div>
+				{% endif %}
+				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext}}</p>
+				{{ __EX_PRODUCT[app.config.product_ex_info_01].valuetext|nl2br }}
 			</li>
 			{% endif %}
 
-			{% if (__EX_PRODUCT.2.valuetext or __EX_PRODUCT.10.valuetext) %}
+			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.2.valuetext.0|no_image_product }}" alt=""></div>
-				<p>表示カラムなし</p>
-				{{ __EX_PRODUCT.10.valuetext }}
+				{% if (__EX_PRODUCT[app.config.product_ex_img_02].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0 }}" alt=""></div>
+				{% endif %}
+				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext}}</p>
+				{{ __EX_PRODUCT[app.config.product_ex_info_02].valuetext|nl2br }}
 			</li>
 			{% endif %}
 
-			{% if (__EX_PRODUCT.8.valuetext or __EX_PRODUCT.11.valuetext) %}
+			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT.8.valuetext.0|no_image_product }}" alt=""></div>
-				<p>表示カラムなし</p>
-				{{ __EX_PRODUCT.11.valuetext }}
+				{% if (__EX_PRODUCT[app.config.product_ex_img_03].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0 }}" alt=""></div>
+				{% endif %}
+				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext}}</p>
+				{{ __EX_PRODUCT[app.config.product_ex_info_03].valuetext|nl2br }}
 			</li>
 			{% endif %}
 		</ul>
@@ -433,22 +456,27 @@
 			<caption>基本仕様</caption>
 			<tr>
 				<th>キャリア</th>
-				<td>{{ __EX_PRODUCT.13.valuetext }}</td>
+				<td>
+					{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+					{% if (loop.first) %}
+					{% else %}/{% endif %}
+					{{ card_size }}
+					{% endfor %}
+				</td>
 			</tr>
 			<tr>
 				<th>SIMカードサイズ</th>
 				<td>
-				{% for key, card_size in __EX_PRODUCT.4.valuetext %}
-				{{ card_size }}
-				{% if (key != __EX_PRODUCT.4.valuetext|length) %}
-				<br>
-				{% endif %}
-				{% endfor %}
+					{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+					{% if (loop.first) %}
+					{% else %}<br>{% endif %}
+					{{ card_size }}
+					{% endfor %}
 				</td>
 			</tr>
 			<tr>
 				<th>発売時期</th>
-				<td>{{ __EX_PRODUCT.16.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>OS</th>
@@ -456,11 +484,11 @@
 			</tr>
 			<tr>
 				<th>本体サイズ</th>
-				<td>{{ __EX_PRODUCT.14.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_p_body_size].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>重さ</th>
-				<td>{{ __EX_PRODUCT.15.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_p_weight].valuetext }}</td>
 			</tr>
 		</table>
 
@@ -468,86 +496,87 @@
 			<caption>ディスプレイ</caption>
 			<tr>
 				<th>液晶サイズ</th>
-				<td>{{ __EX_PRODUCT.17.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_p_screen_size].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>画面解像度</th>
-				<td>{{ __EX_PRODUCT.18.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_p_screen_rezo].valuetext }}</td>
 			</tr>
 		</table>
 
 		<table>
 			<caption>カメラ</caption>
-			<tr>
-				<th>メインカメラ</th>
-				<td>{{ __EX_PRODUCT.19.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>サブカメラ</th>
-				<td>{{ __EX_PRODUCT.20.valuetext }}</td>
-			</tr>
+				<tr>
+					<th>メインカメラ</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_main_cam].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>サブカメラ</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_sub_cam].valuetext }}</td>
+				</tr>
 		</table>
 
 		<table>
 			<caption>バッテリー</caption>
-			<tr>
-				<th>電池容量</th>
-				<td>{{ __EX_PRODUCT.21.valuetext }}</td>
-			</tr>
+				<tr>
+					<th>電池容量</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_battery].valuetext }}</td>
+				</tr>
 		</table>
 
 		<table>
 			<caption>CPU&amp;内臓メモリ</caption>
-			<tr>
-				<th>CPU</th>
-				<td>{{ __EX_PRODUCT.22.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>ROM</th>
-				<td>{{ __EX_PRODUCT.23.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>RAM</th>
-				<td>{{ __EX_PRODUCT.24.valuetext }}</td>
-			</tr>
+				<tr>
+					<th>CPU</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_cpu].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>ROM</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_rom].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>RAM</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_ram].valuetext }}</td>
+				</tr>
 		</table>
 
 		<table>
 			<caption>その他の機能</caption>
-			<tr>
-				<th>防水/防滴機能</th>
-				<td>{{ __EX_PRODUCT.25.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>テザリング</th>
-				<td>{{ __EX_PRODUCT.26.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>Wifi対応</th>
-				<td>{{ __EX_PRODUCT.27.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>Bluetooth</th>
-				<td>{{ __EX_PRODUCT.28.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>GPS機能</th>
-				<td>{{ __EX_PRODUCT.29.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>赤外線通信</th>
-				<td>{{ __EX_PRODUCT.30.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>おサイフ ケータイ</th>
-				<td>{{ __EX_PRODUCT.31.valuetext }}</td>
-			</tr>
-			<tr>
-				<th>備考</th>
-				<td>{{ __EX_PRODUCT.6.valuetext }}</td>
-			</tr>
+				<tr>
+					<th>防水/防滴機能</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_waterproof].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>テザリング</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_tethering].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>Wifi対応</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_wifi].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>Bluetooth</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_bluetooth].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>GPS機能</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_gps].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>赤外線通信</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_infrared].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>おサイフ ケータイ</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_p_etc_pay].valuetext }}</td>
+				</tr>
+				<tr>
+					<th>備考</th>
+					<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext }}</td>
+				</tr>
 		</table>
 	</div>
 </div>
 
 <!-- ================ /SP ================ -->
+{% endif %}

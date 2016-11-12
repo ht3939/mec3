@@ -96,10 +96,16 @@
                           <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
                       {% endfor %}
                       </ul>
-
+                      {% if checkedItem.Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sim_type %}
                       <dd class="item_price">
+                          初期費用 <span class="price-num">{{ checkedItem.__EX_PRODUCT_LIST[checkedItem.Product.id][app.config.product_ex_s_init_price].valuetext|number_format }}円</span> (税抜)<br>
                           月額 <span class="price-num">{{ checkedItem.Product.getPrice02Min|number_format }}円/月</span> (税抜)
                       </dd>
+                      {% else %}
+                      <dd class="item_price">
+                          月々 <span class="price-num">{{ checkedItem.Product.getPrice02Min|number_format }}円</span> (税抜) 分割24回
+                      </dd>
+                    {% endif %}
                     </dl>
                 </a>
             </div>
