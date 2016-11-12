@@ -43,7 +43,7 @@ class RedirectController
         }
 
         if($redirect){
-            return $app->redirect($redirect);
+            return $app->redirect($redirect,301);
 
         }
         return $app->redirect($app->url('homepage'));
