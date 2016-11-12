@@ -34,6 +34,8 @@ shoppingex_delivery_fix_fee: 500
 fdroute_reservedparams:　'page_no,category_id,tag_id,mode,name,disp_number,orderby'
 stext_len: 300
 
+relatedex_maker_show_price: 'show_price'
+
 # ============= 拡張項目のID =============
 product_ex_img_01: 			1
 product_ex_img_02: 			2
