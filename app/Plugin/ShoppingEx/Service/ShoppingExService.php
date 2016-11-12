@@ -34,6 +34,8 @@ class ShoppingExService
 
     /** @var \Eccube\Entity\BaseInfo */
     public $BaseInfo;
+    
+    public $redirectTo;
 
     /**
      * コンストラクタ
@@ -45,7 +47,12 @@ class ShoppingExService
         $this->app = $app;
         $this->BaseInfo = $app['eccube.repository.base_info']->get();
     }
-
+    public function setRedirectTo($arr){
+        $this->redirectTo = $arr;
+    }
+    public function getRedirectTo(){
+        return $this->redirectTo;
+    }
     public function getCurrOrder(){
 
     }
