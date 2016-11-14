@@ -41,7 +41,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <meta name="robots" content="{{ PageLayout.meta_robots }}">
 {% endif %}
 
-    <meta property="og:url" content="{{app.request.getUri()}}">
+{% block site_og_url %}
+    <meta property="og:url" content="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}">
+{% endblock %}
 
 {% set currentPath = path(app.request.attributes.get('_route'),
                            app.request.attributes.get('_route_params')) %}
