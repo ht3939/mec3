@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.33, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.32, for Linux (x86_64)
 --
--- Host: localhost    Database: maniadb
+-- Host: localhost    Database: mecq3dev
 -- ------------------------------------------------------
--- Server version	5.6.33
+-- Server version	5.6.32
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -868,7 +868,7 @@ CREATE TABLE `dtb_news` (
 
 LOCK TABLES `dtb_news` WRITE;
 /*!40000 ALTER TABLE `dtb_news` DISABLE KEYS */;
-INSERT INTO `dtb_news` VALUES (1,1,'2016-07-22 03:55:59',1,'サイトオープンいたしました!','一人暮らしからオフィスなどさまざまなシーンで あなたの生活をサポートするグッズをご家庭へお届けします！',NULL,0,1,'2016-07-22 03:55:59','2016-07-22 03:55:59',0);
+INSERT INTO `dtb_news` VALUES (1,1,'2016-07-22 00:00:00',1,'サイトオープンいたしました!','一人暮らしからオフィスなどさまざまなシーンで あなたの生活をサポートするグッズをご家庭へお届けします！','https://sumaho-mania-ecq-dev.all-connect-dev.jp/?ac_lp=/&ac_ref=/a1234/',0,1,'2016-07-22 03:55:59','2016-11-15 14:53:36',0);
 /*!40000 ALTER TABLE `dtb_news` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2846,7 +2846,7 @@ CREATE TABLE `plg_fdroute_product` (
 
 LOCK TABLES `plg_fdroute_product` WRITE;
 /*!40000 ALTER TABLE `plg_fdroute_product` DISABLE KEYS */;
-INSERT INTO `plg_fdroute_product` VALUES (1,'ac_source=facebook','FB',1,'222-222-222',2,0,'2016-10-13 12:22:39','2016-10-14 14:32:50'),(2,'ac_source=facebookb','FBB',1,'111-111-111',1,0,'2016-10-13 12:25:39','2016-10-14 14:32:43'),(3,'test=a','A',1,'333-333-333',3,0,'2016-10-13 17:45:13','2016-10-14 14:32:56'),(4,'test=b','B',1,'444-444-444',4,0,'2016-10-14 14:31:27','2016-10-14 14:33:03'),(5,'*','default',1,'000-000-000',5,0,'2016-10-14 14:41:27','2016-10-14 14:41:27');
+INSERT INTO `plg_fdroute_product` VALUES (1,'ac_source=facebook','FB',1,'222-222-222',2,0,'2016-10-13 12:22:39','2016-10-14 14:32:50'),(2,'REFERER=mobareco.jp','MOBA',1,'111-111-111',1,0,'2016-10-13 12:25:39','2016-11-15 15:39:41'),(3,'test=a','A',1,'333-333-333',3,0,'2016-10-13 17:45:13','2016-10-14 14:32:56'),(4,'test=b','B',1,'444-444-444',4,0,'2016-10-14 14:31:27','2016-10-14 14:33:03'),(5,'*','default',1,'000-000-000',5,0,'2016-10-14 14:41:27','2016-10-14 14:41:27');
 /*!40000 ALTER TABLE `plg_fdroute_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2872,7 +2872,7 @@ CREATE TABLE `plg_hsd_related_product` (
 
 LOCK TABLES `plg_hsd_related_product` WRITE;
 /*!40000 ALTER TABLE `plg_hsd_related_product` DISABLE KEYS */;
-INSERT INTO `plg_hsd_related_product` VALUES ('rp_582a76c2058d6','57','64','2016-11-15 02:45:22'),('rp_582a76c3e1e03','64','63','2016-11-15 02:45:23'),('rp_582a76c5d8627','63','55','2016-11-15 02:45:25'),('rp_582a76c7ca462','55','61','2016-11-15 02:45:27'),('rp_582a76c9b7b7b','61','62','2016-11-15 02:45:29'),('rp_582a76caf18ab','62','59','2016-11-15 02:45:30');
+INSERT INTO `plg_hsd_related_product` VALUES ('rp_582aa09242dfa','66','63','2016-11-15 05:43:46'),('rp_582aa09389e17','63','80','2016-11-15 05:43:47'),('rp_582aa0958bf24','80','75','2016-11-15 05:43:49'),('rp_582aa09786d12','75','62','2016-11-15 05:43:51'),('rp_582aa098ce86b','62','84','2016-11-15 05:43:52'),('rp_582aa09ad8623','84','33','2016-11-15 05:43:54');
 /*!40000 ALTER TABLE `plg_hsd_related_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4020,4 +4020,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-15 14:27:16
+-- Dump completed on 2016-11-15 16:04:36
