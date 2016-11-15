@@ -41,7 +41,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <meta name="robots" content="{{ PageLayout.meta_robots }}">
 {% endif %}
 
-    <meta property="og:url" content="{{app.request.getUri()}}">
+{% block site_og_url %}
+    <meta property="og:url" content="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}">
+{% endblock %}
 
 {% set currentPath = path(app.request.attributes.get('_route'),
                            app.request.attributes.get('_route_params')) %}
@@ -56,10 +58,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% endblock %}
 
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="{{app.request.getPathInfo()}}" >
-<link rel="icon" href="{{ app.config.front_urlpath }}/img/common/favicon.ico">
+{% block site_canonical %}
+<link rel="canonical" href="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}" >
+{% endblock %}
+<link rel="icon" href="{{app.request.getSchemeAndHttpHost()}}{{ app.config.front_urlpath }}/img/common/favicon.ico">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/style.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/slick.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
 <link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/default.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">

@@ -3409,7 +3409,7 @@ fieldset[disabled] .btn-link:focus {
     /* topicpath */
 
     #topicpath {
-        padding: 24px 16px;
+        padding: 0px 16px;
         border: 0 none;
     }
     #topicpath ol {

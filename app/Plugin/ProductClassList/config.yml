@@ -1,6 +1,0 @@
-name: 商品規格一覧表示
-code: ProductClassList
-version: 1.0.3
-event: ProductClassListEvent
-service:
-    - ProductClassListServiceProvider

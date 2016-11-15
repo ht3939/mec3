@@ -31,7 +31,7 @@ class Event
     public function setDataTransfer(EventArgs $event)
     {
 
-        dump($event);
+        //dump($event);
         $request = $event->getRequest();
         $response = $event->getResponse();
         /*
@@ -53,7 +53,7 @@ class Event
     public function onFrontShoppingConfirmProcessing(EventArgs $event)
     {
 
-        dump($event);
+        //dump($event);
         $request = $event->getRequest();
         $response = $event->getResponse();
         /*

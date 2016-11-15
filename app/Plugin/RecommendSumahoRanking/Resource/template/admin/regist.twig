@@ -23,8 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set menus = ['content', 'admin_recommendsumahoranking'] %}
 
-{% block title %}おすすめ商品管理{% endblock %}
-{% block sub_title %}おすすめ商品内容設定{% endblock %}
+{% block title %}スマホ商品ランキング管理{% endblock %}
+{% block sub_title %}スマホ商品ランキング内容設定{% endblock %}
 
 {% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
 {% form_theme searchProductModalForm 'Form/bootstrap_3_horizontal_layout.html.twig' %}
@@ -81,6 +81,7 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
             <div class="box accordion">
                 <div class="box-header toggle active">
                     <h3 class="box-title">おすすめ商品情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
+<p>※表示崩れるので、スマホのみ登録するようにしてください。</p>
                 </div><!-- /.box-header -->
                 <div class="box-body accpanel" style="display: block;">
                     <div class="order_list form-horizontal">

@@ -38,7 +38,6 @@ class Event
     public function saveExColValue(FilterResponseEvent $event)
     {
         $app = $this->app;
-//dump($app);
         if ('POST' === $app['request']->getMethod()) {
 
             // ProductControllerの登録成功時のみ処理を通す
@@ -58,14 +57,12 @@ class Event
             /* @var $Product \Eccube\Entity\Product */
             $Product = $this->getTargetProduct($event);
             $builder = $app['form.factory']->createBuilder('admin_product');
-//dump($builder);
             if ($Product->hasProductClass()) {
                 $builder->remove('class');
             }
 
             $form = $builder->getForm();
             $form->handleRequest($app['request']);
-//dump($form);die();
             if ($form->get('admin_plg_expand_product_columns_value')->isValid()) {
                 $save_data = $app['plgExpandProductColumnsValue_temp'];
                 $repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue');
@@ -74,7 +71,7 @@ class Event
                     /**
                      * 値が入っていなければ保存しない
                      */
-                    if (empty($data['value'])) {
+                    if ($data['value']==="" && empty($data['value'])) {
                         continue;
                     }
                     $repository->save(
@@ -83,9 +80,7 @@ class Event
                         $data['value']
                     );
                 }
-
                 unset($app['plgExpandProductColumnsValue_temp']);
-//dump($event);die();
             }
         }
     }
@@ -280,8 +275,6 @@ EOD;
                     // ->setParameters($param)
                     ->groupBy('pepcv1.productId');
 
-// dump($sub_query_sim->getQuery());
-// dump($sub_query_sim->getQuery()->getResult());
                 // ************ /対応するカードサイズ ************ 
 
                 // // ************ 対応するキャリア ************ 
@@ -302,8 +295,8 @@ EOD;
                     // ->setParameters($param)
                     ->groupBy('pepcv2.productId');
 
-// dump($sub_query_carrier->getQuery());
-// dump($sub_query_carrier->getQuery()->getResult());
+                //log_debug($sub_query_carrier->getQuery());
+                //log_debug($sub_query_carrier->getQuery()->getResult());
                 // ************ /対応するキャリア ************ 
 
 
@@ -314,8 +307,6 @@ EOD;
                     ->setParameters($param)
                     ->getQuery();
 
-// dump($query);
-// dump($query->getResult());
 
                 $matchs_product = array();
                 $matchs_product = $query->getResult();

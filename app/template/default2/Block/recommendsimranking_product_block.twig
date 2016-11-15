@@ -88,6 +88,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             </ul>
 
                             <dd class="item_price">
+                                初期費用 <span class="price-num">{{ RecommendSimRanking.__EX_PRODUCT_LIST[RecommendRankingProduct.Product.id][app.config.product_ex_s_init_price].value|number_format }}円</span> (税抜)
+                            </dd>
+                            <dd class="item_price">
                                 月額 <span class="price-num">{{ RecommendRankingProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
                             </dd>
                         </dl>

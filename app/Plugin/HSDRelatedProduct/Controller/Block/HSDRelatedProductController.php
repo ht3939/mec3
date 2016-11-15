@@ -99,9 +99,53 @@ class HSDRelatedProductController
                 $or_str .= '(ecp.product_id=' . $item['to_id'] . ' AND ecp.product_id = ecpi.product_id AND ecpi.rank=1) or ';
             }
             $or_str = substr($or_str, 0, strlen($or_str)-4);
+
+            $sql =
+<<<SQL
+SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name
+, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl 
+    WHERE in_pcl.product_id = ecp.product_id 
+    GROUP BY in_pcl.product_id
+    ) min_price
+, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl 
+    WHERE in_pcl.product_id = ecp.product_id 
+    GROUP BY in_pcl.product_id
+    ) max_price 
+,opm.maker_id maker_id
+,(select name from plg_maker pmk where pmk.maker_id=opm.maker_id)maker_name
+,(select MIN(in_pcl.product_type_id) from dtb_product_class in_pcl
+  WHERE in_pcl.product_id = ecp.product_id  AND in_pcl.del_flg <> 1 
+  and in_pcl.class_category_id1 > 0
+  and in_pcl.class_category_id2 > 0
+  GROUP BY in_pcl.product_id
+) product_type_id
+,(select MIN(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=9
+  WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1 
+  GROUP BY in_pcl.product_id) min_price
+,(select MAX(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=10
+   WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1
+    GROUP BY in_pcl.product_id) max_price 
+,(select MAX(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=12
+   WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1
+    GROUP BY in_pcl.product_id) min_price_pm
+FROM dtb_product ecp
+inner join plg_product_maker opm on ecp.product_id = opm.product_id 
+inner join dtb_product_image ecpi on ecp.product_id = ecpi.product_id AND ecpi.rank=1 
+SQL;
+
             if(strlen($or_str) > 1) {
-                $stmt = $app['orm.em']->getConnection()->prepare('
-                    SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1 GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1 GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ' . $or_str );
+                $stmt = $app['orm.em']->getConnection()->prepare(
+                    $sql
+                    .' WHERE '. $or_str );
                 $stmt->execute();
                 $this->_rp = $stmt->fetchAll();
             }

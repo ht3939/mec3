@@ -8,9 +8,8 @@
 * file that was distributed with this source code.
 #}
 
-<!--最近チェックした商品-->
-{% if checkedItems %}
-<style>
+{% block stylesheet %}
+<style type="text/css">
 #checkeditem .heading{
   background: #f8f8f8;
   padding: 16px;
@@ -31,10 +30,45 @@
   padding: 0;
   margin: 0;
 }
-</style>
 
+
+#checkeditem.item_gallery .item_name{
+    color: #525263;
+    margin: 0 0 8px;
+    font-weight:bold;
+    height: 60px;
+}
+#checkeditem.item_gallery .item_name span {
+    height: 15px;
+    font-size: 11px;
+    display: block;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+#checkeditem.item_gallery .tag-list{
+    display: block;
+    height: 26px;
+}
+#checkeditem.item_gallery .tag-list li{
+    font-size:11px;
+}
+#checkeditem.item_gallery .item_price{
+    font-size:13px;
+    margin: 8px 0px;
+    font-weight:normal;
+}
+#checkeditem.item_gallery .item_price .price-num {
+    color: #ed0505;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+}
+</style>
+{% endblock %}
+
+<!-- ▼最近チェックした商品▼ -->
 <div id="checkeditem" class="item_gallery">
-  {% if delete == 0 %}
+  {% if CheckedItem.delete == 0 %}
     <h2 class="heading">
       <p class="heading01">最近チェックした商品</p>
 
@@ -46,25 +80,32 @@
     <h2 class="heading">最近チェックした商品</h2>
   {% endif %}
     <div class="row">
-      {% for checkedItem in checkedItems|slice(0,displayNum)  %}
+      {% for checkedItem in CheckedItem.ProductList|slice(0,CheckedItem.displayNum)  %}
         <div class="col-sm-3 col-xs-6">
             <div class="pickup_item">
-                <a href="{{ url('product_detail', {'id': checkedItem.id}) }}">
-                    <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ checkedItem.main_list_image|no_image_product }}"></div>
+                <a href="{{ url('product_detail', {'id': checkedItem.Product.id}) }}">
+                    <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ checkedItem.Product.main_list_image|no_image_product }}"></div>
                     <dl>
-                      <dt class="item_name">{{checkedItem.name}}</dt>
+                      <dt class="item_name">
+                          <span>{{ CheckedItem.__EX_PRODUCT_LIST_MAKER[checkedItem.Product.id].name }}</span>
+                          {{ checkedItem.Product.name }}
+                      </dt>
+
+                      <ul class="tag-list">
+                      {% for ProductTag in checkedItem.Product.ProductTag %}
+                          <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
+                      {% endfor %}
+                      </ul>
+                      {% if checkedItem.Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sim_type %}
                       <dd class="item_price">
-                      {% if checkedItem.hasProductClass -%}
-                          {% if checkedItem.getPrice02Min == checkedItem.getPrice02Max %}
-                          <p class="normal_price"><span class="price01_default">{{ checkedItem.getPrice02IncTaxMin|price }}</span></p>
-                          {% elseif checkedItem.getPrice02Min is not null and checkedItem.getPrice02Max is not null %}
-                          <p class="normal_price"><span class="price01_default">{{ checkedItem.getPrice02IncTaxMin|price }}</span> ～ <span class="price01_default">{{ checkedItem.getPrice02IncTaxMax|price }}</span></p>
-                          {% endif %}
-                      {% else -%}
-                          {% if checkedItem.getPrice02Max is not null %}
-                          <p class="normal_price"><span class="price01_default">{{ checkedItem.getPrice02IncTaxMin|price }}</span></p>
-                          {% endif %}
-                      {% endif -%}
+                          初期費用 <span class="price-num">{{ checkedItem.__EX_PRODUCT_LIST[checkedItem.Product.id][app.config.product_ex_s_init_price].valuetext|number_format }}円</span> (税抜)<br>
+                          月額 <span class="price-num">{{ checkedItem.Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                      </dd>
+                      {% else %}
+                      <dd class="item_price">
+                          月々 <span class="price-num">{{ checkedItem.Product.getPrice02Min|number_format }}円</span> (税抜) 分割24回
+                      </dd>
+                    {% endif %}
                     </dl>
                 </a>
             </div>
@@ -73,4 +114,4 @@
     </div>
     
 </div>
-{% endif %}
+<!-- ▲最近チェックした商品▲ -->
