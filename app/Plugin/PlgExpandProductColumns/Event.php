@@ -17,6 +17,7 @@ use Plugin\PlgExpandProductColumns\Controller\PlgExpandProductColumnsCsvImportCo
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Eccube\Event\EventArgs;
 
 class Event
 {
@@ -353,7 +354,6 @@ EOD;
                         $__ex_product_list_maker[$Product->getId()]['url'] = $maker_repository->find($Product->getId())->getMakerUrl();
                     }
                 }
-
                 $app['twig']->addGlobal('__EX_PRODUCT_LIST', $__ex_product_list);
                 $app['twig']->addGlobal('__EX_PRODUCT_LIST_MAKER', $__ex_product_list_maker);
 
@@ -605,6 +605,24 @@ EOD;
         // paginator
         $searchData = $searchForm->getData();
         $qb = $app['eccube.repository.product']->getQueryBuilderBySearchData($searchData);
+        
+
+        //無理やり拡張Tagが処理しているイベントが処理されるようにとばす。
+        if ($request->getMethod() === 'GET') {
+            if($request->query->get('tag_id')){
+                $searchData['tag_id'] = $request->query->get('tag_id');
+            }
+        }
+
+        $event = new EventArgs(
+            array(
+                'qb' => $qb,
+                'searchData' => $searchData
+            ),
+            $request
+        );        
+        $app['eccube.event.dispatcher']->dispatch('front.product.index.search', $event);
+
         $pagination = $app['paginator']()->paginate(
             $qb,
             !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
