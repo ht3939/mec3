@@ -162,7 +162,7 @@ SQL;
             'max_count' => $this->_show_count,
             'rp_count' => count($this->_rp),
             'hsd_related_product' => $this->_rp,
-            'show_price' => $this->show_price
+            'show_price' => $this->_show_price
         ));
 
     }
