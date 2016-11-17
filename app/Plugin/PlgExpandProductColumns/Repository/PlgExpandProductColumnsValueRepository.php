@@ -46,7 +46,7 @@ class PlgExpandProductColumnsValueRepository extends EntityRepository
             /**
              * 保存する値はあるが、まだ登録されていなければ新規追加
              */
-            if (is_null($entity) && !empty($value)) {
+            if (is_null($entity) && !($value==="")) {
                 $entity = new \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue();
                 $entity->setProductId($product_id);
                 $entity->setColumnId($column_id);
@@ -57,13 +57,13 @@ class PlgExpandProductColumnsValueRepository extends EntityRepository
             /**
              * 保存する値がなく、登録済なら削除
              */
-            else if (!is_null($entity) && empty($value)) {
+            else if (!is_null($entity) && ($avlue==="" && empty($value))) {
                 $em->remove($entity);
             }
             /**
              * 保存する値があれば、更新
              */
-            else if (!is_null($entity) && !empty($value)) {
+            else if (!is_null($entity) && !($value==="") ) {
                 $entity->setValue($value);
             }
 

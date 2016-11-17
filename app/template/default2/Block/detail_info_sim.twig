@@ -1,3 +1,10 @@
+{% set l_producttype = 0 %}
+{% for cc in Product.ProductClasses|slice(0,3) %}
+    {% if (cc.ProductType.id != 0) %}
+        {% set l_producttype = cc.ProductType.id %}
+    {% endif %}
+{% endfor %}
+{% if (l_producttype == app.config.producttype_ex_sim_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -236,7 +243,7 @@ caption, th, td {
 		<table>
 			<tr>
 				<th>初期費用</th>
-				<td>パッケージ価格:{{ __EX_PRODUCT.32.valuetext }}円 （税抜）</td>
+				<td>パッケージ価格:{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}円 （税抜）</td>
 			</tr>
 		</table>
 		<table class="center-table">
@@ -251,10 +258,10 @@ caption, th, td {
 			<tr>
 				<td>{{ Product.name }}</td>
 				<td>{{ sales_price_month }}/月(税抜）</td>
-				<td>{{ __EX_PRODUCT.3.valuetext }}</td>
-				<td>{{ __EX_PRODUCT.33.valuetext }}</td>
-				<td>○</td>
-				<td>×</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_data].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_sms].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_voice].valuetext }}</td>
 			</tr>
 		</table>
 	</div>
@@ -263,23 +270,36 @@ caption, th, td {
 		<table>
 			<tr>
 				<th>発売時期</th>
-				<td>{{ __EX_PRODUCT.16.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>カードサイズ</th>
-				<td>{{ __EX_PRODUCT.4.valuetext }}</td>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+				{% if (loop.first) %}
+				{% else %}<br>{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>下り最大{{ __EX_PRODUCT.36.valuetext }}/上り最大{{ __EX_PRODUCT.35.valuetext }}</td>
+				<td>下り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}/上り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_up].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信ネットワーク</th>
-				<td>{{ __EX_PRODUCT.5.valuetext }}<br/>ご利用できるエリアのご確認はコチラ</td>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+				{% if (loop.first) %}
+				{% else %}/{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				<br>ご利用できるエリアは各社製品ページを確認してください。
+				</td>
 			</tr>
 			<tr>
 				<th>備考</th>
-				<td>{{ __EX_PRODUCT.6.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext|nl2br }}</td>
 			</tr>
 		</table>
 	</div>
@@ -299,11 +319,11 @@ caption, th, td {
 			<caption>料金</caption>
 			<tr>
 				<th>初期費用</th>
-				<td>パッケージ価格：<span>{{ __EX_PRODUCT.32.valuetext }}</span>円(税抜)</td>
+				<td>パッケージ価格：<span>{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}</span>円(税抜)</td>
 			</tr>
 			<tr>
 				<th>月額利用料</th>
-				<td><span>1,570</span>円(税抜)</td>
+				<td><span>{{sales_price_month|number_format}}</span>円(税抜)</td>
 			</tr>
 		</table>
 
@@ -315,19 +335,19 @@ caption, th, td {
 			</tr>
 			<tr>
 				<th>データ量</th>
-				<td>{{ __EX_PRODUCT.3.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_data].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>{{ __EX_PRODUCT.33.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>SMS対応</th>
-				<td>○</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_sms].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>音声通話</th>
-				<td>×</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_voice].valuetext }}</td>
 			</tr>
 		</table>
 	</div>
@@ -338,27 +358,39 @@ caption, th, td {
 			<caption>詳細</caption>
 			<tr>
 				<th>発売時期</th>
-				<td>{{ __EX_PRODUCT.16.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>カードサイズ</th>
-				<td>{{ __EX_PRODUCT.4.valuetext }}</td>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+				{% if (loop.first) %}
+				{% else %}<br>{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				</td>
 			</tr>
 			<tr>
 				<th>通信速度</th>
-				<td>下り最大{{ __EX_PRODUCT.36.valuetext }}/上り最大{{ __EX_PRODUCT.35.valuetext }}</td>
+				<td>下り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}/上り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_up].valuetext }}</td>
 			</tr>
 			<tr>
 				<th>通信ネットワーク</th>
 				<td>
-					{{ __EX_PRODUCT.5.valuetext }}<br/>ご利用できるエリアのご確認はコチラ
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+				{% if (loop.first) %}
+				{% else %}/{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				<br>ご利用できるエリアは各社製品ページを確認してください。
 				</td>
 			</tr>
 			<tr>
 				<th>備考</th>
-				<td>{{ __EX_PRODUCT.6.valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext|nl2br }}</td>
 			</tr>
 		</table>
 	</div>
 </div>
 <!-- ============ /SP ============ -->
+{% endif %}

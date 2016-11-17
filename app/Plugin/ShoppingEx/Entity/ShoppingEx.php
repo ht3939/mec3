@@ -23,6 +23,7 @@ class ShoppingEx extends \Eccube\Entity\AbstractEntity
 
     private $holder;
     private $cardtype;
+    private $limit;
     private $limitmon;
     private $limityear;
     private $cardsec;
@@ -102,6 +103,16 @@ class ShoppingEx extends \Eccube\Entity\AbstractEntity
     public function setCardtype($v)
     {
         $this->cardtype = $v;
+
+        return $this;
+    }
+    public function getCardlimit()
+    {
+        return $this->limit;
+    }
+    public function setCardlimit($v)
+    {
+        $this->limit = $v;
 
         return $this;
     }

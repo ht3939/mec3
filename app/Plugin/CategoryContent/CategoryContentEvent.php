@@ -66,6 +66,11 @@ class CategoryContentEvent
 
         // 登録がない、もしくは空で登録されている場合、レンダリングをしない
         $Category = $parameters['Category'];
+        if($Category){
+            $parameters['CategoryParam'] = $Category->getId();
+            $event->setParameters($parameters);
+            
+        }
         $CategoryContent = $this->app['category_content.repository.category_content']
             ->find($Category->getId());
         if (is_null($CategoryContent) || $CategoryContent->getContent() == '') {

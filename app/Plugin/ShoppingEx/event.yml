@@ -1,6 +1,6 @@
 # front page event
-#Product/list.twig:
-#    - [onRenderProductList, NORMAL]
+Product/list.twig:
+    - [onRenderProductList, NORMAL]
 
 
 front.shopping.index.initialize:
