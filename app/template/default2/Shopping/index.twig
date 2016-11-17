@@ -154,29 +154,37 @@ function CheckLogic() {
 
         }else{
 
+            if ($('#shopping-form').prop('action')=='https://sumaho-mania-ecq-dev.all-connect-dev.jp/shopping/confirm'){
 
-            var entrymnp = $('#shopping_cardno_cardno1').prop('value') 
-                            && $('#shopping_cardno_holder').prop('value') 
-                            && $('#shopping_cardno_cardsec').prop('value');
-            if(entrymnp==""){
-                alert('クレカ決済の場合、必須項目を全て入力してください。');
-                $('#shopping_cardno_cardno1').focus();
-                return false;
 
-            }
-            var entrymnp = $('#shopping_cardno_cardno1').prop('value').length > 13 
-                            && $('#shopping_cardno_cardsec').prop('value').length > 2;
-            if(entrymnp==""){
-                alert('カード番号、または、セキュリティコードの入力桁数が不足しています。');
-                if ( $('#shopping_cardno_cardno1').prop('value').length > 13 ){
-                    $('#shopping_cardno_cardsec').focus();
 
-                }else{
+                var entrymnp = $('#shopping_cardno_cardno1').prop('value') 
+                                && $('#shopping_cardno_holder').prop('value') 
+                                && $('#shopping_cardno_cardsec').prop('value');
+                if(entrymnp==""){
+                    alert('クレカ決済の場合、必須項目を全て入力してください。');
                     $('#shopping_cardno_cardno1').focus();
+                    return false;
 
                 }
-                return false;
+                var entrymnp = $('#shopping_cardno_cardno1').prop('value').length > 13 
+                                && $('#shopping_cardno_cardsec').prop('value').length > 2;
+                if(entrymnp==""){
+                    alert('カード番号、または、セキュリティコードの入力桁数が不足しています。AMEXの場合１４桁になります。');
+                    if ( $('#shopping_cardno_cardno1').prop('value').length > 13 ){
+                        $('#shopping_cardno_cardsec').focus();
 
+                    }else{
+                        $('#shopping_cardno_cardno1').focus();
+
+                    }
+                    return false;
+
+                }
+
+            }else{
+                //注文ボタンでなければチェックしない
+                return true;
             }
 
         }
@@ -375,6 +383,7 @@ function CheckLogic() {
                         <dl id="top_box__tel">
                     <dd class='creditcard'>
                         <p>※ご契約者様の名義と同一のカードのみご利用可能です</p>
+                        <p>※クレジットカード番号は、American Expressは14桁、VISA・MasterCardは16桁となります。</p>
                         <div class="form-inline form-group">
                             {{ form_widget(form.cardno) }}
                             {{ form_errors(form.cardno) }}
