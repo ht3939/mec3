@@ -305,6 +305,7 @@ EOD;
                     ->where("p.id IN ({$sub_query_sim->getDql()})")
                     ->andWhere("p.id IN ({$sub_query_carrier->getDql()})")
                     ->andWhere("p.Status <> 2")
+                    ->andWhere("p.del_flg <> 1")
                     ->groupBy('p.id')
                     ->setParameters($param)
                     ->getQuery();
