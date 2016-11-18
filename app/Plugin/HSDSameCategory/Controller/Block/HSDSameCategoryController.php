@@ -56,7 +56,7 @@ class HSDSameCategoryController
         foreach($rs as $cid){
             $dmy = $cid['category_id'];
             $stmt = $app['orm.em']->getConnection()->prepare('
-                SELECT pc.product_id FROM dtb_product_category as pc, dtb_product as p WHERE p.product_id = pc.product_id AND pc.category_id =' . $dmy);
+                SELECT pc.product_id FROM dtb_product_category as pc, dtb_product as p WHERE p.product_id = pc.product_id AND p.del_flg = 0 AND p.status = 1 AND pc.category_id =' . $dmy);
             $stmt->execute();
             $rs = $stmt->fetchAll();
 
@@ -172,7 +172,7 @@ SQL;
             if( $israndom ) {
                 $stmt = $app['orm.em']->getConnection()->prepare(
                     $sql
-                    .' WHERE ecp.product_id = ecpi.product_id AND ecpi.rank = 1 AND ' . $or_str);
+                    .' WHERE ecp.product_id = ecpi.product_id AND ecpi.rank = 1 AND ecp.del_flg = 0 AND ecp.status = 1 AND ' . $or_str);
             }else{
                 $stmt = $app['orm.em']->getConnection()->prepare(
                     $sql
