@@ -27,16 +27,36 @@ use Eccube\Application;
 
 class ImportantMatterController
 {
+    const SHOPPINGEX_SESSON_ORDER_KEY = 'eccube.plugin.shoppingex.order.key';
+
     /**
      * @param Application $app
      */
     public function index(Application $app)
     {
+        //dump($app);
+        $req = $app['request'];
+        //注文情報の取得
+        $Order = $req->getSession()->get(self::SHOPPINGEX_SESSON_ORDER_KEY);
+        // array(
+        //     'hasPayMonthly'=>$this->hasPayMonthly,
+        //     'hasSimOrder'=>$hasSimOrder,
+        //     'Order'=>$Order,
+        //     'OrderMaker'=>null
+        //     ));
+        $importantmattermakers = explode(',',$app['config']['shoppingex_important_matter_disp_maker']);
+        $important_matter_disp = false;
+        foreach($importantmattermakers as $mk){
+            if(in_array($mk,$Order['OrderMaker'])){
+                $important_matter_disp=true;
+            }
+        }
 
-
+        //SIMの重要説明事項の表示制御用
+        //いったんSIM提供側固有の表記は不要に。
         return $app['view']->render('Block/important_matter_block.twig', array(
             'Order' => null
-            ,'ShowImportantMatter' => true
+            ,'ShowImportantMatter' => $important_matter_disp
         ));
     }
 }

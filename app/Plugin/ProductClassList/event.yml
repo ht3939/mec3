@@ -1,4 +1,0 @@
-eccube.event.render.product_detail.before:
-    - [productClassListBefore, NORMAL]
-eccube.event.controller.product_detail.after:
-    - [addCartBefore, NORMAL]

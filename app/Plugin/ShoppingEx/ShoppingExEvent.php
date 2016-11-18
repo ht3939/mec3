@@ -30,6 +30,7 @@ class ShoppingExEvent
     /**
      * セッションに保存するテンポラリキー
      */
+    const SHOPPINGEX_SESSON_ORDER_KEY = 'eccube.plugin.shoppingex.order.key';
     const SHOPPINGEX_SESSION_KEY = 'eccube.plugin.shoppingex.cardinfovalue.key';
     const SHOPPINGEX_SESSION_REDIRECT_KEY = 'eccube.plugin.shoppingex.redirect.key';
 
@@ -68,6 +69,7 @@ class ShoppingExEvent
      */
     public function onRenderProductList(TemplateEvent $event)
     {
+
     /*
         $parameters = $event->getParameters();
 
@@ -100,16 +102,19 @@ class ShoppingExEvent
 
         $app = $this->app;
         $deli = $Order->getDeliveryFeeTotal();
+        $taxservice = $app['eccube.service.tax_rule'];
         //５００円固定
         if($this->SHOPPINGEX_DELIVERY_FIX_FEE){
-            $Order->setDeliveryFeeTotal($this->SHOPPINGEX_DELIVERY_FIX_FEE);
+            $delifeeIncTax = $taxservice->getPriceIncTax($this->SHOPPINGEX_DELIVERY_FIX_FEE);
+
+            $Order->setDeliveryFeeTotal($delifeeIncTax);
             //５００円固定
 
             $total = $Order->getTotal();
             //５００円固定
 
             if($total_recalc){
-                $Order->setTotal($total - $deli + $this->SHOPPINGEX_DELIVERY_FIX_FEE);
+                $Order->setTotal($total - $deli + $delifeeIncTax);
                 //５００円固定
                
             }
@@ -118,22 +123,63 @@ class ShoppingExEvent
     }
     private function onExecute(EventArgs $event){
         $app = $this->app;
-        // dump('request');
         $req = $event->getRequest();
         $sec = $req->getSession();
-        // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
 
         $Order = $event->getArgument('Order');
         $this->setCustomDeliveryFee($Order,true);
 
-
+        $OrderMaker = array();
+        $hasSimOrder = false;
+        $hasSimCount = 0;
+        $hasExcludeSimMaker = false;
         foreach($Order->getOrderDetails() as $od){
             if($od->getProductClass()->getClassCategory2()->getId()
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
                 $this->hasPayMonthly = true;
             }
 
+            if($od->getProduct()->getId()){
+                $makerproduct = $app['eccube.plugin.maker.repository.product_maker']
+                                    ->find($od->getProduct()->getId());
+                if($makerproduct){
+                    $OrderMaker[]=$makerproduct->getMaker()->getId();
+                }
+            }
+
+            if($od->getProductClass()->getProductType()->getId()
+                ==$app['config']['producttype_ex_sim_type']){
+                $hasSimOrder = true;
+                $hasSimCount++;
+
+                //SIMのメーカをチェックする
+                if($makerproduct){
+                    //表示除外メーカを含む場合、
+                    if (in_array(
+                        $makerproduct->getMaker()->getId(),
+                        explode(',',$app['config']['shoppingex_exclude_sim_maker'])
+                        )){
+                        $hasExcludeSimMaker = true;
+                    }
+
+
+
+                }
+            }
+
         }
+        //dump($hasExcludeSimMaker);
+        //注記除外メーカのみの場合、表示をはずす
+        if($hasExcludeSimMaker && $hasSimOrder && $hasSimCount == 1){
+            $hasSimOrder = false;
+        }
+
+        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
+            'hasPayMonthly'=>$this->hasPayMonthly,
+            'hasSimOrder'=>$hasSimOrder,
+            'Order'=>$Order,
+            'OrderMaker'=>$OrderMaker
+            ));
         // dump($event);
         // dump($event->getRequest()->get('shopping')['payment']);
         // dump($Order);
@@ -204,12 +250,12 @@ class ShoppingExEvent
                     $ShoppingEx
                             ->setId($Order->getId())
                             ->setCardno1($dat['cardno1'])
-                            ->setCardno2($dat['cardno2'])
-                            ->setCardno3($dat['cardno3'])
-                            ->setCardno4($dat['cardno4'])
+                            //->setCardno2($dat['cardno2'])
+                            //->setCardno3($dat['cardno3'])
+                            //->setCardno4($dat['cardno4'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
-                            ->setCardlimitmon($dat['cardlimitmon'])
+                            ->setCardlimit($dat['cardlimitmon'])
                             ->setCardlimityear($dat['cardlimityear'])
                             ->setCardsec($dat['cardsec'])
                             ;
@@ -221,9 +267,9 @@ class ShoppingExEvent
                 }else{
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
                     $fms->get('cardno1')->setData($ShoppingEx->getCardno1());
-                    $fms->get('cardno2')->setData($ShoppingEx->getCardno2());
-                    $fms->get('cardno3')->setData($ShoppingEx->getCardno3());
-                    $fms->get('cardno4')->setData($ShoppingEx->getCardno4());
+                    //$fms->get('cardno2')->setData($ShoppingEx->getCardno2());
+                    //$fms->get('cardno3')->setData($ShoppingEx->getCardno3());
+                    //$fms->get('cardno4')->setData($ShoppingEx->getCardno4());
                     $fms->get('holder')->setData($ShoppingEx->getHolder());
                     $fms->get('cardtype')->setData($ShoppingEx->getCardtype());
                     $fms->get('cardlimitmon')->setData($ShoppingEx->getCardlimitmon());
@@ -281,7 +327,7 @@ class ShoppingExEvent
         // dump($event->getRequest());
         $request = $event->getRequest();
         $form->handleRequest($request);
-        // dump($form);
+        //dump($form);die();
         // dump('confirm check valid');
 
         if (!$form->isValid()) {
@@ -335,9 +381,9 @@ class ShoppingExEvent
         $ShoppingEx
                 ->setId($Order->getId())
                 ->setCardno1($dat['cardno1'])
-                ->setCardno2($dat['cardno2'])
-                ->setCardno3($dat['cardno3'])
-                ->setCardno4($dat['cardno4'])
+                // ->setCardno2($dat['cardno2'])
+                // ->setCardno3($dat['cardno3'])
+                // ->setCardno4($dat['cardno4'])
                 ->setHolder($dat['holder'])
                 ->setCardtype($dat['cardtype'])
                 ->setCardlimitmon($dat['cardlimitmon'])
@@ -353,7 +399,8 @@ class ShoppingExEvent
 
             $event->setArgument('CardInfo',
                 array(
-                    'cardno'=>$dat['cardno1'].$dat['cardno2'].$dat['cardno3'].$dat['cardno4'],
+                    'cardno'=>$dat['cardno1'],
+                    //.$dat['cardno2'].$dat['cardno3'].$dat['cardno4'],
                     'cardholder'=>$dat['holder'],
                     'cardtype'=>$cardtypearr[$dat['cardtype']],
                     'cardsec'=>$dat['cardsec'],

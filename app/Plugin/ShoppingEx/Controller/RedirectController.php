@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RedirectController
 {
-
     /**
      * SEO3画面
      *
@@ -25,9 +24,29 @@ class RedirectController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Application $app, Request $request)
-    {
+    {   
 
-        // add code...
+        $redirect = null;
+
+        $redirectto = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
+        if(isset( $redirectto[$request->getPathInfo()])){
+            $redirect = $redirectto[$request->getPathInfo()];
+            $query = $request->getQueryString();
+            if($request->getQueryString()){
+                if(count(explode('?',$redirect))>1){
+                $redirect .= '&'.urldecode(($query));
+
+                }else{
+
+                $redirect .= '?'.urldecode(($query));
+                }
+            }
+        }
+
+        if($redirect){
+            return $app->redirect($redirect,301);
+
+        }
         return $app->redirect($app->url('homepage'));
 
         //return $app->redirect(url('home_page'));

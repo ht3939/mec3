@@ -233,21 +233,27 @@
 
 		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext) %}
 		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0|no_image_product }}" alt="" /></p>
+			{% if (__EX_PRODUCT[app.config.product_ex_img_01].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0 }}" alt="" /></p>
+			{% endif %}
 			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext}}</h3>
 			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_01].valuetext|nl2br }}</p>
 		</div>
 		{% endif %}
 		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext) %}
 		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0|no_image_product }}" alt="" /></p>
+			{% if (__EX_PRODUCT[app.config.product_ex_img_02].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0 }}" alt="" /></p>
+			{% endif %}
 			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext}}</h3>
 			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_02].valuetext|nl2br }}</p>
 		</div>
 		{% endif %}
 		{% if (__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext) %}
 		<div class="item-dtl-summary">
-			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0|no_image_product }}" alt="" /></p>
+			{% if (__EX_PRODUCT[app.config.product_ex_img_03].valuetext.0) %}
+			<p class="summary-img"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0 }}" alt="" /></p>
+			{% endif %}
 			<h3>{{__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext}}</h3>
 			<p class="summary-text">{{ __EX_PRODUCT[app.config.product_ex_info_03].valuetext|nl2br }}</p>
 		</div>
@@ -414,7 +420,9 @@
 		<ul>
 			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0|no_image_product }}" alt=""></div>
+				{% if (__EX_PRODUCT[app.config.product_ex_img_01].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_01].valuetext.0 }}" alt=""></div>
+				{% endif %}
 				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_01].valuetext}}</p>
 				{{ __EX_PRODUCT[app.config.product_ex_info_01].valuetext|nl2br }}
 			</li>
@@ -422,7 +430,9 @@
 
 			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0|no_image_product }}" alt=""></div>
+				{% if (__EX_PRODUCT[app.config.product_ex_img_02].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_02].valuetext.0 }}" alt=""></div>
+				{% endif %}
 				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_02].valuetext}}</p>
 				{{ __EX_PRODUCT[app.config.product_ex_info_02].valuetext|nl2br }}
 			</li>
@@ -430,7 +440,9 @@
 
 			{% if (__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext) %}
 			<li>
-				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0|no_image_product }}" alt=""></div>
+				{% if (__EX_PRODUCT[app.config.product_ex_img_03].valuetext.0) %}
+				<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ __EX_PRODUCT[app.config.product_ex_img_03].valuetext.0 }}" alt=""></div>
+				{% endif %}
 				<p>{{__EX_PRODUCT[app.config.product_ex_infotitle_03].valuetext}}</p>
 				{{ __EX_PRODUCT[app.config.product_ex_info_03].valuetext|nl2br }}
 			</li>

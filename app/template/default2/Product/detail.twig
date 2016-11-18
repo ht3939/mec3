@@ -34,6 +34,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% endblock %}
 
+{% block site_canonical %}
+<link rel="canonical" href="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}" >
+{% endblock %}
+{% block site_og_url %}
+    <meta property="og:url" content="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}">
+{% endblock %}
+
+
 {% block javascript %}
 <script>
     eccube.classCategories = {{ Product.class_categories|json_encode|raw }};
@@ -130,6 +138,8 @@ $(function(){
     font-size: 10px;
     color: #666;
 }
+
+
 </style>
 {% endblock %}
 
@@ -161,6 +171,7 @@ $(function(){
 
 
 {% block main %}
+
     {# todo ブロック化}
     <div id="topicpath" class="row">
         {% for ProductCategory in Product.ProductCategories %}
@@ -194,7 +205,9 @@ $(function(){
             <section id="item_detail_area" class="col-sm-6">
 
                 <!--★商品名★-->
-                <h3 id="detail_description_box__name" class="item_name">{{ Product.name }}</h3>
+                <!--★商品名★-->
+                <h3 id="detail_description_box__name" class="item_name">{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}</h3>
+
                 <div id="detail_description_box__body" class="item_detail">
 
                     {% if Product.ProductTag is not empty %}

@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set menus = ['content', 'admin_recommendsumahoranking'] %}
 
-{% block title %}おすすめ商品管理{% endblock %}
-{% block sub_title %}おすすめ商品内容設定{% endblock %}
+{% block title %}スマホ商品ランキング管理{% endblock %}
+{% block sub_title %}スマホ商品ランキング内容設定{% endblock %}
 
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ app.config.admin_urlpath }}/assets/css/bootstrap-datetimepicker.min.css">
@@ -42,6 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% endblock javascript %}
 
 {% block main %}
+<p>※表示崩れるので、スマホのみ登録するようにしてください。</p>
 <form name="search_form" id="search_form" method="post" action="">
     <div class="row">
         <div class="col-md-12">

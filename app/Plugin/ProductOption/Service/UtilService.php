@@ -122,7 +122,6 @@ class UtilService
         $plgOrderDetails = array();
         foreach($OrderDetails as $orderDetail){
             $plgOrderDetail = $this->app['eccube.productoption.repository.order_detail']->findOneBy(array('order_detail_id' => $orderDetail->getId()));
-//dump($plgOrderDetail);            
             if($plgOrderDetail){
                 $labelarr = $plgOrderDetail->getOrderOption()->getLabel();
                 $labelpricearr = $plgOrderDetail->getOrderOption()->getLabelPrice();
