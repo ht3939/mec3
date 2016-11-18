@@ -168,7 +168,6 @@ class ShoppingExEvent
             }
 
         }
-        //dump($hasExcludeSimMaker);
         //注記除外メーカのみの場合、表示をはずす
         if($hasExcludeSimMaker && $hasSimOrder && $hasSimCount == 1){
             $hasSimOrder = false;
@@ -180,9 +179,6 @@ class ShoppingExEvent
             'Order'=>$Order,
             'OrderMaker'=>$OrderMaker
             ));
-        // dump($event);
-        // dump($event->getRequest()->get('shopping')['payment']);
-        // dump($Order);
 
 
         //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
@@ -208,7 +204,6 @@ class ShoppingExEvent
         }
         //クレカ決済を選択した場合
         if($currpayment==5){
-            // dump('currpayment 5');
             $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
             if(is_null($ShoppingEx)){
                 $ShoppingEx = new ShoppingEx();
@@ -216,8 +211,6 @@ class ShoppingExEvent
             }
 
 
-            //$bud = $app['form.factory']->createBuilder('cardform',$ShoppingEx)
-            //;
             $builder->add(
                         self::SHOPPINGEX_TEXTAREA_NAME,
                         'cardno',
@@ -229,30 +222,23 @@ class ShoppingExEvent
                     )
             ;
 
-            // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
             if($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)){
                 $form  = $builder->getForm();
                 $reqbulkdata = $sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping');
                 if(isset($reqbulkdata['cardno'])){
 
-                    // dump($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping')['cardno']);
                     // 初期値を設定
-                    // dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
                     $dat = $sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)->get('shopping')['cardno'];
                     foreach($fms as $f){
                         $f->setData($dat[$f->getName()]);
                     }
                     $form->isValid();
-                    // dump($builder->get(self::SHOPPINGEX_TEXTAREA_NAME));
 
                     
                     $ShoppingEx
                             ->setId($Order->getId())
                             ->setCardno1($dat['cardno1'])
-                            //->setCardno2($dat['cardno2'])
-                            //->setCardno3($dat['cardno3'])
-                            //->setCardno4($dat['cardno4'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
                             ->setCardlimit($dat['cardlimitmon'])
@@ -267,9 +253,6 @@ class ShoppingExEvent
                 }else{
                     $fms = $builder->get(self::SHOPPINGEX_TEXTAREA_NAME);
                     $fms->get('cardno1')->setData($ShoppingEx->getCardno1());
-                    //$fms->get('cardno2')->setData($ShoppingEx->getCardno2());
-                    //$fms->get('cardno3')->setData($ShoppingEx->getCardno3());
-                    //$fms->get('cardno4')->setData($ShoppingEx->getCardno4());
                     $fms->get('holder')->setData($ShoppingEx->getHolder());
                     $fms->get('cardtype')->setData($ShoppingEx->getCardtype());
                     $fms->get('cardlimitmon')->setData($ShoppingEx->getCardlimitmon());
@@ -278,31 +261,21 @@ class ShoppingExEvent
 
                 }
 
-                //$form->handleRequest($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY));
             }
         }else{
             //formのvalidationで不要なチェックが入るので削除する
             $builder->remove('cardno');
-            // $builder->remove('cardlimit');
-            // $builder->remove('cardtype');
-            // $builder->remove('cardsec');
-            // $builder->remove('tel');
             $req = $event->getRequest();
-            // dump($req);
-            // dump($req->request);
 
             $dd = $req->request->get('shopping');
             unset($dd['cardno']);
-            // unset($dd['cardlimit']);
-            // unset($dd['cardtype']);
-            // unset($dd['cardsec']);
-            // unset($dd['tel']);
             $req->request->set('shopping',$dd);
             
-            // dump($req->request);
-            //$currpayment = $event->getRequest()->get('shopping');
 
         }
+
+dump('service call');
+        $app['eccube.plugin.shoppingex.service.shoppingex']->cleanupShoppingOrder($event);
 
     }
     public function onFrontShoppingIndexInitialize(EventArgs $event){
@@ -434,6 +407,8 @@ class ShoppingExEvent
         if($sec->get(self::SHOPPINGEX_SESSION_REDIRECT_KEY)){
             $sec->remove(self::SHOPPINGEX_SESSION_REDIRECT_KEY);
         }
+
+        $app['eccube.plugin.shoppingex.service.shoppingex']->cleanupShoppingOrder($event);
 
     }
 

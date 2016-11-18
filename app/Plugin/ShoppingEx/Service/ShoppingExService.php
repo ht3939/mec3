@@ -26,6 +26,9 @@ namespace Plugin\ShoppingEx\Service;
 use Eccube\Application;
 use Eccube\Common\Constant;
 use Eccube\Event\EventArgs;
+use Eccube\Entity\Order;
+use Plugin\ShoppingEx\Entity\ShoppingEx;
+
 
 class ShoppingExService
 {
@@ -165,5 +168,86 @@ class ShoppingExService
 
     }
 
+    public function cleanupShoppingOrder(EventArgs $event){
+        $req = $event->getRequest();
+        $app = $this->app;
+        $Order = $event->getArgument('Order');
+
+        //最後のオーダーから１週間過ぎたものは、個人情報消す
+
+
+//
+//SELECT `order_id`, `customer_id`, `order_country_id`
+        //, `order_pref`, `order_sex`, `order_job`, `payment_id`
+        //, `device_type_id`, `pre_order_id`, `message`
+        //, `order_name01`, `order_name02`, `order_kana01`
+        //, `order_kana02`, `order_company_name`
+        //, `order_email`, `order_tel01`, `order_tel02`, `order_tel03`
+        //, `order_fax01`, `order_fax02`, `order_fax03`
+        //, `order_zip01`, `order_zip02`, `order_zipcode`
+        //, `order_addr01`, `order_addr02`, `order_birth`
+        //, `subtotal`, `discount`, `delivery_fee_total`, `charge`, `tax`, `total`
+        //, `payment_total`, `payment_method`, `note`, `create_date`, `update_date`, `order_date`, `commit_date`, `payment_date`, `del_flg`, `status` 
+//FROM `mecq3dev`.`dtb_order`;
+//
+
+dump('gggg111');
+
+
+        $query = $app['eccube.repository.order']->createQueryBuilder('p')
+            ->where("p.create_date < :oneweek")
+            ->setParameters('oneweek','2016/11/05')
+            ->getQuery();
+
+dump('gggg');
+        $oldOrder = array();
+        $oldOrder = $query->getResult();
+        dump($oldOrder);
+
+        $Order = $this->app['eccube.repository.order']->findOneBy($condition);
+
+
+    }
+    private function cleanupOrderInfo(Order $Order, ShoppingEx $ShoppingEx)
+    {
+        if($ShoppingEx){
+            $ShoppingEx
+                ->setCardno1('****')
+                ->setCardno2('****')
+                ->setCardno3('****')
+                ->setCardno4('****')
+                ->setHolder('***')
+                //->setCardtype()
+                ->setLimitmon('1')
+                ->setLimityear('2016')
+                ->setCardsec('***');
+
+
+        }
+
+        $Order
+            ->setName01('***')
+            ->setName02('***')
+            ->setKana01('***')
+            ->setKana02('***')
+            ->setCompanyName('***')
+            ->setEmail('***')
+            ->setTel01('0000')
+            ->setTel02('0000')
+            ->setTel03('0000')
+            ->setFax01('0000')
+            ->setFax02('0000')
+            ->setFax03('0000')
+            ->setZip01('000')
+            ->setZip02('0000')
+            ->setZipCode('000'.'0000')
+            //->setPref($Customer->getPref())
+            ->setAddr01('****')
+            ->setAddr02('***')
+            ->setBirth('')
+            ->setJob('');
+
+        //return $Order;
+    }
 
 }
