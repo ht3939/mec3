@@ -29,23 +29,18 @@ class RedirectController
         $redirect = null;
 
         $redirectto = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
-//dump($redirectto);die();
         if(isset( $redirectto[$request->getPathInfo()])){
             $redirect = $redirectto[$request->getPathInfo()];
+            $query = $request->getQueryString();
             if($request->getQueryString()){
-                if(explode('?',$request)>1){
-                $redirect .= '&'.$request->getQueryString();
+                if(count(explode('?',$redirect))>1){
+                $redirect .= '&'.urldecode(($query));
 
                 }else{
 
-                $redirect .= '?'.$request->getQueryString();
+                $redirect .= '?'.urldecode(($query));
                 }
             }
-// dump($request);
-// dump($request->getRequestUri());
-// dump($request->getUri());
-// dump($redirect);
-//die();
         }
 
         if($redirect){

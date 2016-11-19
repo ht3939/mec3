@@ -41,12 +41,13 @@ table {
 	background: #333;
 	color: #fff;
 	border-left: 1px solid #fff;
-	font-size: 14px;
+	font-size: 1.3rem;
 	text-align: center;
 }
 caption, th, td {
 	text-align: left;
 	font-weight: normal;
+	font-size: 1.3rem;
 	vertical-align: middle;
 }
 .item-dtl-sim dd table thead th.fit_btn {
@@ -251,12 +252,17 @@ caption, th, td {
 }
 .item-inf #sp .sp-list .brand, .item-inf #sp .sp-list .ttl, .item-inf #sp .sp-list .capa, .item-inf #sp .sp-list .price {
 	padding-right: 15px;
+	margin:0px;
+}
+.item-inf #sp .sp-list .brand {
+	font-size:11px;
+	margin-bottom:5px;
 }
 .item-inf #sp .sp-list .ttl {
-	color: #3243c2;
-	text-decoration: underline;
-	margin-bottom: 5px;
-	padding-top: 8px;
+    color: #525263;
+    font-size:16px;
+    font-weight: bold;
+	margin-bottom:10px;
 }
 .item-inf #sp .sp-list .capa {
 	color: #666;
@@ -396,32 +402,36 @@ caption, th, td {
 <!-- ============ /PC ============ -->
 
 <!-- ============ SP ============ -->
+{% if matchs_product %}
 <div class="item-inf sp">
 	<div id="sp" class="inf-content js-scroll-referer-for-follow-header-navigation">
 		<h2>対応端末</h2>
 		<p class="sp-num">全<span>{{matchs_product|length}}</span>製品</p>
+		{% for key, mProduct in matchs_product %}
+		{% if (key == 0) %}
 		<div class="sp-list">
 			<ul>
-			{% for mProduct in matchs_product|slice(0,3) %}
+		{% endif %}
 
-				{# 
-				「月額料金」と「一括料金」の一番安い「販売価格」を取得
-				 #}
-				{% set m_sales_price_bulk = null %}
-				{% set m_sales_price_month = null %}
-				{% for ProductClass in mProduct.ProductClasses %}
-				    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
-				        {#  一括払い #}
-				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
-				        {% set m_sales_price_bulk = ProductClass.Price02 %}
-				        {% endif %}
-				    {% else %}
-				        {# 月額払い #}
-				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
-				        {% set m_sales_price_month = ProductClass.Price02 %}
-				        {% endif %}
-				    {% endif %}
-				{% endfor %}
+			{# 
+			「月額料金」と「一括料金」の一番安い「販売価格」を取得
+			 #}
+			{% set m_sales_price_bulk = null %}
+			{% set m_sales_price_month = null %}
+			{% for ProductClass in mProduct.ProductClasses %}
+			    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
+			        {#  一括払い #}
+			        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
+			        {% set m_sales_price_bulk = ProductClass.Price02 %}
+			        {% endif %}
+			    {% else %}
+			        {# 月額払い #}
+			        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+			        {% set m_sales_price_month = ProductClass.Price02 %}
+			        {% endif %}
+			    {% endif %}
+			{% endfor %}
+
 				<li>
 					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
 						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
@@ -437,51 +447,26 @@ caption, th, td {
 					</a>
 				</li>
 
-			{% endfor %}			
+		{% if (key%2 != 0) %}
+		<div style="height: 1px;float: left;width: 100%;"></div>
+		{% endif %}
+
+		{% if (key+1 == matchs_product|length) %}
+			</ul>
+		</div>
+		{% elseif (key == 3) %}
 			</ul>
 		</div>
 		<p class="btn-show js-more-handle">すべての製品を見る</p>
-		<div class="sp-list more  js-more-target">
+		<div class="sp-list more js-more-target">
 			<ul>
-			{% for mProduct in matchs_product|slice(4,100) %}
+		{% endif %}
 
-				{# 
-				「月額料金」と「一括料金」の一番安い「販売価格」を取得
-				 #}
-				{% set m_sales_price_bulk = null %}
-				{% set m_sales_price_month = null %}
-				{% for ProductClass in mProduct.ProductClasses %}
-				    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
-				        {#  一括払い #}
-				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
-				        {% set m_sales_price_bulk = ProductClass.Price02 %}
-				        {% endif %}
-				    {% else %}
-				        {# 月額払い #}
-				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
-				        {% set m_sales_price_month = ProductClass.Price02 %}
-				        {% endif %}
-				    {% endif %}
-				{% endfor %}
-				<li>
-					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
-						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
-						<p class="brand js-available-product-brand">{{ matchs_info_maker[mProduct.id].name }}</p>
-						<p class="ttl js-available-product-product-name">{{ mProduct.name }}</p>
-						<p class="capa js-available-product-product-capacity">カードサイズ：<br>
-					{% for key, card_size in matchs_info[mProduct.id][app.config.product_ex_sim_size].valuetext %}
-					{% if (loop.first) %}
-					{% else %}<br>{% endif %}
-					{{ card_size }}
-					{% endfor %}
-						</p>
-					</a>
-				</li>
+		{% endfor %}
 
-			{% endfor %}			
-			</ul>
-		</div>
 	</div>
 </div>
+{% endif %}
+
 <!-- ============ /SP ============ -->
 {% endif %}
