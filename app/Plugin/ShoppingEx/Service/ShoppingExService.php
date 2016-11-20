@@ -195,8 +195,9 @@ dump('gggg111');
 
 
         $query = $app['eccube.repository.order']->createQueryBuilder('p')
-            ->where("p.create_date < :oneweek")
-            ->setParameters('oneweek','2016/11/05')
+            ->where("p.create_date <'2016/11/10'")
+            ->andWhere("not exists(select m.order_id from plg_shoppingex_cleanup c where c.create is null)")
+            //->setParameters('oneweek',new \DateTime())
             ->getQuery();
 
 dump('gggg');
