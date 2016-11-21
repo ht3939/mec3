@@ -1,5 +1,5 @@
 http_cache:
-    enabled: true
+    enabled: false
     age: 72000
     # フロントでキャッシュを適用させる画面のrouteを設定
     route:
