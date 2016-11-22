@@ -32,5 +32,7 @@ class Version20150706204400 extends AbstractMigration
         $table->addColumn('cardsec', 'text', array('notnull' => false));
         $table->addColumn('content', 'text', array('notnull' => false));
         $table->setPrimaryKey(array('order_id'));
+
+
     }
 }
