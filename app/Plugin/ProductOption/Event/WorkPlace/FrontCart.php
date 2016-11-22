@@ -63,7 +63,7 @@ class FrontCart extends AbstractWorkPlace
             $replace = $snipet;
             $source = str_replace($search, $replace, $source);
         }
-dump($CartOption->getCartOptions());
+//dump($CartOption->getCartOptions());
         $event->setSource($source);
         $parameters['CartOptions'] = $CartOption->getCartOptions();
         $event->setParameters($parameters);

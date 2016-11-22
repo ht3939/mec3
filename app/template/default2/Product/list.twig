@@ -23,6 +23,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set body_class = 'product_page' %}
 
+{% if CategoryParam %}
+{% block site_canonical %}
+<link rel="canonical" href="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}?category_id={{CategoryParam}}" >
+{% endblock %}
+{% block site_og_url %}
+    <meta property="og:url" content="{{app.request.getSchemeAndHttpHost()}}{{app.request.getPathInfo()}}?category_id={{CategoryParam}}">
+{% endblock %}
+
+{% endif %}
+
+
 {% block javascript %}
     <script>
         // 並び順を変更
@@ -58,10 +69,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     margin-bottom: 5px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_name{
-    height: 60px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_name span{
-    height:15px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_price {
     font-size:13px;
@@ -91,7 +100,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     font-size: 13px;
     padding-bottom: 6px;
     color: #333;
-    height: 24px;
+    /*height: 24px;*/
 }
 #item_list.main_list .col-sm-3.col-xs-6 .btn-detail {
     display: block;
@@ -113,10 +122,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     border-radius: 3px;
     transition: all 0.2s ease 0s;
 }
+
 </style>
 {% endblock %}
 
+
 {% block main %}
+
     <form name="form1" id="form1" method="get" action="?">
         {{ form_widget(search_form) }}
     </form>
@@ -187,16 +199,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <span>{{ __EX_PRODUCT_LIST_MAKER[Product.id].name }}</span>
                                         {{ Product.name }}
                                     </dt>
-
                                     <ul class="tag-list">
                                     {% for ProductTag in Product.ProductTag %}
                                         <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
                                     {% endfor %}
                                     </ul>
+                                    {% if Product.ProductClasses.0.ProductType.id == -1 %}
+                                    <ul class="tag-list">
+                                        <li class="product_tag_list">{% if __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_etc_voice].value == 'value1' %}音声通話{% else %}データ専用{% endif %}</li>
+                                    </ul>
+                                    {% endif %}
                                 </div>
-
+                                {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
                                 <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                    月々 <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> (税抜)<br>分割24回
                                 </dd>
 
                                 <div class="td-spec">
@@ -211,6 +227,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <dd>{{ __EX_PRODUCT_LIST[Product.id].21.valuetext }}</dd>
                                     </dl>
                                 </div>
+
+                                {% else %}
+                                <dd id="result_list__price02init_inc_tax--{{ Product.id }}" class="item_price">
+                                    初期費用 <span class="price-num">{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_init_price].valuetext|number_format }}円</span> (税抜)
+                                </dd>                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
+                                </dd>
+
+                                <div class="td-spec">
+                                    <dl>
+                                        <dt>データ容量</dt>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_data].valuetext }}</dd>
+                                        <dt>通信速度</dt>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_speed_down].valuetext }}</dd>
+                                    </dl>
+                                </div>
+
+                                {% endif %}
 
                                 <a href="{{ url('product_detail', {'id': Product.id}) }}" class="btn-detail">詳細を見る</a>
                             </dl>

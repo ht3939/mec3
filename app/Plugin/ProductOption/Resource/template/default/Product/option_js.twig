@@ -96,7 +96,6 @@ function onOptionChange(){
     $('#option_price_inctax_default').text(number_format(optionPriceTotal + sfTax(optionPriceTotal, tax_rate, tax_rule)));
     $('#option_point_default').text(number_format(optionPointTotal));
 
-    console.log('hogege');
 }
 
 
@@ -213,33 +212,7 @@ function ChangeMNPEntryAreaVisible(visible){
             if(visible){ $(this).show() }else{ $(this).hide() };
 
         }
-/*
-        if($(this).children('.control-label').prop('htmlFor') == 'productoption10'){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('.control-label').prop('htmlFor') == 'productoption11'){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('.control-label').prop('htmlFor') == 'productoption12'){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('.control-label').prop('htmlFor') == 'productoption13'){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
 
-        if($(this).children('#productoption10').length){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('#productoption11').length){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('#productoption12').length){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-        if($(this).children('#productoption13').length){
-            if(visible){ $(this).show() }else{ $(this).hide() };
-        }
-*/
 
     });
 }

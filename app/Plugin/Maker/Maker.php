@@ -193,9 +193,10 @@ class Maker
         $html = $this->getHtmlFromCrawler($crawler);
 
         try {
-            $oldHtml = $crawler->filter('#form1 .accordion')->last()->html();
-            $newHtml = $oldHtml.$parts;
-            $html = str_replace($oldHtml, $newHtml, $html);
+            $oldHtml = $crawler->filter('#form1 .accordion')->last()->html();//dump($oldHtml);
+        $oldHtml2 = html_entity_decode($oldHtml, ENT_NOQUOTES, 'UTF-8');//dump($oldHtml2);
+            $newHtml = $oldHtml2.$parts;//dump($newHtml);
+            $html = str_replace($oldHtml2, $newHtml, $html);//dump($html);
         } catch (\InvalidArgumentException $e) {
             // no-op
         }

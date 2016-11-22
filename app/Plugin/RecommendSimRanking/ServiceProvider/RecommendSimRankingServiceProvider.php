@@ -107,7 +107,7 @@ class RecommendSimRankingServiceProvider implements ServiceProviderInterface
         // メニュー登録
         $app['config'] = $app->share($app->extend('config', function ($config) {
             $addNavi['id'] = 'admin_recommendsimranking';
-            $addNavi['name'] = 'SIMおすすめ商品ランキング管理';
+            $addNavi['name'] = 'SIM商品ランキング管理';
             $addNavi['url'] = 'admin_recommendsimranking_list';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {

@@ -37,7 +37,7 @@ class CardNoType extends AbstractType
      */
     public function __construct($config = array(
         'card_len' => 4, 'card_len_min' => 2,
-        'cardtype' => 'VISA,JCB,AMEX,MASTER,DINERS',
+        'cardtype' => 'Visa,JCB,AmericanExpress,Master,DinersClub',
         'cardlimit_mon' => '01,02,03,04,05,06,07,08,09,11,12',
         'cardlimit_year' => '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028'
         )
@@ -51,9 +51,9 @@ class CardNoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $options['cardno1_options']['required'] = $options['required'];
-        $options['cardno2_options']['required'] = $options['required'];
-        $options['cardno3_options']['required'] = $options['required'];
-        $options['cardno4_options']['required'] = $options['required'];
+        // $options['cardno2_options']['required'] = $options['required'];
+        // $options['cardno3_options']['required'] = $options['required'];
+        // $options['cardno4_options']['required'] = $options['required'];
         $options['holder_options']['required'] = $options['required'];
         $options['cardtype_options']['required'] = $options['required'];
         $options['cardlimitmon_options']['required'] = $options['required'];
@@ -73,15 +73,15 @@ class CardNoType extends AbstractType
         if (empty($options['cardno1_name'])) {
             $options['cardno1_name'] = $builder->getName().'1';
         }
-        if (empty($options['cardno2_name'])) {
-            $options['cardno2_name'] = $builder->getName().'2';
-        }
-        if (empty($options['cardno3_name'])) {
-            $options['cardno3_name'] = $builder->getName().'3';
-        }
-        if (empty($options['cardno4_name'])) {
-            $options['cardno4_name'] = $builder->getName().'4';
-        }
+        // if (empty($options['cardno2_name'])) {
+        //     $options['cardno2_name'] = $builder->getName().'2';
+        // }
+        // if (empty($options['cardno3_name'])) {
+        //     $options['cardno3_name'] = $builder->getName().'3';
+        // }
+        // if (empty($options['cardno4_name'])) {
+        //     $options['cardno4_name'] = $builder->getName().'4';
+        // }
         if (empty($options['holder_name'])) {
             $options['holder_name'] = 'holder';
         }
@@ -112,11 +112,27 @@ class CardNoType extends AbstractType
         // 全角英数を事前に半角にする
         $builder->addEventSubscriber(new \Eccube\EventListener\ConvertKanaListener());
         $builder
-            ->add($options['cardno1_name'], 'text', array_merge_recursive($options['options'], $options['cardno1_options']))
-            ->add($options['cardno2_name'], 'text', array_merge_recursive($options['options'], $options['cardno2_options']))
-            ->add($options['cardno3_name'], 'text', array_merge_recursive($options['options'], $options['cardno3_options']))
-            ->add($options['cardno4_name'], 'text', array_merge_recursive($options['options'], $options['cardno4_options']))
-            ->add($options['holder_name'], 'text', array_merge_recursive($options['options'], $options['holder_options']))
+            ->add($options['cardno1_name'], 'text', array_merge_recursive($options['options'], 
+                        array(
+                                'attr' => array(
+                                     'placeholder' => '例) 1234000012340000',
+                                ),
+                                'label' => 'カード番号'
+                           )                
+                )
+            )
+            //->add($options['cardno2_name'], 'text', array_merge_recursive($options['options'], $options['cardno2_options']))
+            //->add($options['cardno3_name'], 'text', array_merge_recursive($options['options'], $options['cardno3_options']))
+            //->add($options['cardno4_name'], 'text', array_merge_recursive($options['options'], $options['cardno4_options']))
+            ->add($options['holder_name'], 'text', array_merge_recursive($options['options'], 
+                        array(
+                                'attr' => array(
+                                     'placeholder' => '例） YAMADA TARO',
+                                ),
+                                'label' => 'カード所有者'
+                           )                
+                )
+            )
             ->add($options['cardtype_name'], 'choice', 
                     array_merge_recursive($options['options'], 
                         array(
@@ -125,29 +141,39 @@ class CardNoType extends AbstractType
                             )                
                         )
                     )
-            ->add($options['cardlimitmon_name'], 'choice', 
-                    array_merge_recursive($options['options'], 
-                        array(
-                                'label' => '有効期限',
+            ->add($options['cardlimitmon_name'], 'choice',
+                     array_merge_recursive($options['options'],
+                         array(
                                 'choices' => $currmonarr,
-                            )                
-                        )
-                    )
-            ->add($options['cardlimityear_name'], 'choice', 
+                                'label' => '有効期限（月／年）'
+                             )
+                         )
+                     )
+
+            ->add($options['cardlimityear_name'], 'choice',
+                     array_merge_recursive($options['options'],
+                         array(
+                                'choices' => $curryeararr,
+                                'label' => ' '
+                             )
+                         )
+                     )
+            ->add($options['cardsec_name'], 'text', 
                     array_merge_recursive($options['options'], 
                         array(
-                                'label' => '有効期限',
-                                'choices' => $curryeararr,
+                                'attr' => array(
+                                     'placeholder' => '例） 123',
+                                ),
+                                'label' => 'セキュリティコード'
                             )                
                         )
                     )
-            ->add($options['cardsec_name'], 'text', array_merge_recursive($options['options'], $options['cardsec_options']))
         ;
 
         $builder->setAttribute('cardno1_name', $options['cardno1_name']);
-        $builder->setAttribute('cardno2_name', $options['cardno2_name']);
-        $builder->setAttribute('cardno3_name', $options['cardno3_name']);
-        $builder->setAttribute('cardno4_name', $options['cardno4_name']);
+        //$builder->setAttribute('cardno2_name', $options['cardno2_name']);
+        //$builder->setAttribute('cardno3_name', $options['cardno3_name']);
+        //$builder->setAttribute('cardno4_name', $options['cardno4_name']);
         $builder->setAttribute('holder_name', $options['holder_name']);
         $builder->setAttribute('cardtype_name', $options['cardtype_name']);
         $builder->setAttribute('cardlimitmon_name', $options['cardlimitmon_name']);
@@ -162,6 +188,7 @@ class CardNoType extends AbstractType
             if ($form[$builder->getName().'1']->getData() != '') {
                 $count++;
             }
+            /*
             if ($form[$builder->getName().'2']->getData() != '') {
                 $count++;
             }
@@ -171,8 +198,8 @@ class CardNoType extends AbstractType
             if ($form[$builder->getName().'4']->getData() != '') {
                 $count++;
             }
-
-            if ($count != 0 && $count != 4) {
+            */
+            if ($count != 0 && $count != 1) {
                 // todo メッセージをymlに入れる
                 $form[$builder->getName().'1']->addError(new FormError('全て入力してください。'));
             }
@@ -186,9 +213,9 @@ class CardNoType extends AbstractType
     {
         $builder = $form->getConfig();
         $view->vars['cardno1_name'] = $builder->getAttribute('cardno1_name');
-        $view->vars['cardno2_name'] = $builder->getAttribute('cardno2_name');
-        $view->vars['cardno3_name'] = $builder->getAttribute('cardno3_name');
-        $view->vars['cardno4_name'] = $builder->getAttribute('cardno4_name');
+        //$view->vars['cardno2_name'] = $builder->getAttribute('cardno2_name');
+        //$view->vars['cardno3_name'] = $builder->getAttribute('cardno3_name');
+        //$view->vars['cardno4_name'] = $builder->getAttribute('cardno4_name');
         $view->vars['holder_name'] = $builder->getAttribute('holder_name');
         $view->vars['cardtype_name'] = $builder->getAttribute('cardtype_name');
         $view->vars['cardlimitmon_name'] = $builder->getAttribute('cardlimitmon_name');
@@ -223,9 +250,10 @@ class CardNoType extends AbstractType
             'cardno1_options' => array(
                 'constraints' => array(
                     new Assert\Type(array('type' => 'numeric', 'message' => 'form.type.numeric.invalid')), //todo  messageは汎用的に出来ないものか?
-                    new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => 4)),
+                    new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => $this->config['cardno_len_min'])),
                 ),
             ),
+            /*
             'cardno2_options' => array(
                 'constraints' => array(
                     new Assert\Type(array('type' => 'numeric', 'message' => 'form.type.numeric.invalid')), //todo  messageは汎用的に出来ないものか?
@@ -244,6 +272,7 @@ class CardNoType extends AbstractType
                     new Assert\Length(array('max' => $this->config['cardno_len'], 'min' => $this->config['cardno_len_min'] )),
                 ),
             ),
+            */
             'holder_options' => array(
                 'constraints' => array(
                     new Assert\Length(array('max' => 50, 'min' => 1)),
@@ -256,9 +285,11 @@ class CardNoType extends AbstractType
                 ),
             ),
             'cardno1_name' => '',
+            /*
             'cardno2_name' => '',
             'cardno3_name' => '',
             'cardno4_name' => '',
+            */
             'holder_name' => '',
             'cardtype_name' => '',
             'cardlimitmon_name' => '',
