@@ -230,12 +230,17 @@ class FdRouteService
     判定はランク順に見て、ルートは最初に一致したもの、FDは最後に一致したもの
     */
     public function registFdRoute(){
-        // dump($this->app['request']);
+
         $app = $this->app;
+        $req = $app['request'];
+        $referer = $req->headers->get('referer');
+
         $query = $this->app['request']->query->all();
         $keys = array_keys($query);
         $includequery = false;
         $reservedparam = explode(',',$app['config']['fdroute_reservedparams']);
+
+        //予約分のパラメータを除外するための前処理
         foreach($keys as $key){
             if(in_array($key
                 ,$reservedparam)>0){
@@ -247,28 +252,23 @@ class FdRouteService
                 }
             }
         }
-        // dump($this->CurrFdRoute);
-        // dump($this->app['request']->query->all());
-        // dump($this->app['request']);
+        //パラメータが付与されている場合、上書きするのでセッションに格納してある情報を削除
         if($includequery){
             $this->app['request']->getSession()->remove($this->currsessionkey);
 
         }
         $identitykeys = $this->app['request']->getSession()->get($this->currsessionkey);
-        // dump($identitykeys);
 
+        //すでにルート情報が記録されていれば、セッションに格納してあるものを返す
         if(count($identitykeys)>0){
-            // $this->app['request']->getSession()->remove('route_name');
-            // $this->app['request']->getSession()->remove('fd_num');
-            // $this->app['request']->getSession()->remove('param');
 
             $param_arr = $this->app['request']->query->all();
-            //foreach ($this->app['request']->query->all() as $key => $val) {
-            //  $param_arr[$key] = $val;
-            //}
             $this->CurrFdRoute = $identitykeys;
 
         }else{
+        //判定処理
+        //GET以外は判定しない
+
             if($this->app['request']->getMethod()=='GET'){
 
                 // FDルート管理一覧取得（rankの昇順）
@@ -284,27 +284,42 @@ class FdRouteService
                 $fd_num = '';
                 foreach ($list as $key => $val) {
                     $conditions = explode('=',$val['conditions']);
-                    if((array_key_exists($conditions[0],$param_arr) 
-                        && array_search($conditions[1],$param_arr)
-                        ) || $val['conditions'] == '*'
-                    ){
-                        if($val['conditions'] == '*'){
-                            $fd_num = 
-                                empty($fd_num)
-                                    ? $val['fd_string']
-                                    : $fd_num;
-                        }else{
+                    if($conditions[0]=="REFERER"){
+                        //特別ルール：リファラーによる判定
+                        if(strpos($referer,$conditions[1])){
                             $route_col[intval($val['route_string_pos'])] = 
                                 !empty($route_col[intval($val['route_string_pos'])])
                                     ? $route_col[intval($val['route_string_pos'])]
                                     : $val['route_string'].'_';
                             $fd_num = $val['fd_string'];
+
                         }
+
+
+                    }else{
+
+                        if((array_key_exists($conditions[0],$param_arr) 
+                            && array_search($conditions[1],$param_arr)
+                            ) || $val['conditions'] == '*'
+                        ){
+                            if($val['conditions'] == '*'){
+                                $fd_num = 
+                                    empty($fd_num)
+                                        ? $val['fd_string']
+                                        : $fd_num;
+                            }else{
+                                $route_col[intval($val['route_string_pos'])] = 
+                                    !empty($route_col[intval($val['route_string_pos'])])
+                                        ? $route_col[intval($val['route_string_pos'])]
+                                        : $val['route_string'].'_';
+                                $fd_num = $val['fd_string'];
+                            }
+                        }
+
                     }
                 }
                 $identitykeys['fd_num'] = $fd_num;
 
-                //$this->app['request']->getSession()->set('fd_num',$fd_num);
 
                 $ua = $this->app['request']->server->get('HTTP_USER_AGENT');
                 $browser = ((strpos($ua, 'iPhone') !== false) || (strpos($ua, 'iPod') !== false) || ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false)));
@@ -312,7 +327,6 @@ class FdRouteService
 
                 $route = 'WEB_'.$browser.'_'.$route_col[1].$route_col[2].$route_col[3];
                 $identitykeys['route_name'] = $route;
-                //$this->app['request']->getSession()->set('route_name',$route);
 
                 $this->CurrFdRoute = $identitykeys;
 
@@ -324,18 +338,11 @@ class FdRouteService
 
 
         }
-
-
-        // dump($this->app['request']->getSession()->get($this->currsessionkey));
-
         return $this->CurrFdRoute;
     }
     //セッションに保存してあるFDルートを取得する
     public function getStoredFdRoute(){
 
-        // dump('getStoredRoute');
-        // dump($this->CurrFdRoute);
-        // dump($this->app['request']->getSession()->get($this->currsessionkey));
         if(empty($this->CurrFdRoute)){
             $this->CurrFdRoute = $this->app['request']->getSession()->get($this->currsessionkey);
         }

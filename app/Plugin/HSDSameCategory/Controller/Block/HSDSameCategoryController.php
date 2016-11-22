@@ -45,18 +45,22 @@ class HSDSameCategoryController
          * 同じカテゴリのproduct_idを取得
          */
         $dmy_cate = null;
-        $stmt = $app['orm.em']->getConnection()->prepare('
-                SELECT pc.category_id FROM dtb_product as p, dtb_product_category as pc WHERE p.product_id =' . $id . ' AND p.product_id = pc.product_id AND p.del_flg = 0 AND p.status = 1 ORDER BY pc.rank
-                ');
-        $stmt->execute();
-        $rs = $stmt->fetchAll();
+        $rs = array();
+        if($id){
+            $stmt = $app['orm.em']->getConnection()->prepare('
+                    SELECT pc.category_id FROM dtb_product as p, dtb_product_category as pc WHERE p.product_id =' . $id . ' AND p.product_id = pc.product_id AND p.del_flg = 0 AND p.status = 1 ORDER BY pc.rank
+                    ');
+            $stmt->execute();
+            $rs = $stmt->fetchAll();
+            
+        }
 
         $pid_ar = array();
         $dmy_count = 0;
         foreach($rs as $cid){
             $dmy = $cid['category_id'];
             $stmt = $app['orm.em']->getConnection()->prepare('
-                SELECT pc.product_id FROM dtb_product_category as pc, dtb_product as p WHERE p.product_id = pc.product_id AND pc.category_id =' . $dmy);
+                SELECT pc.product_id FROM dtb_product_category as pc, dtb_product as p WHERE p.product_id = pc.product_id AND p.del_flg = 0 AND p.status = 1 AND pc.category_id =' . $dmy);
             $stmt->execute();
             $rs = $stmt->fetchAll();
 
@@ -126,16 +130,61 @@ class HSDSameCategoryController
                     break;
 
             }
+            $sql =
+<<<SQL
+SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name
+, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl 
+    WHERE in_pcl.product_id = ecp.product_id 
+    GROUP BY in_pcl.product_id
+    ) min_price
+, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl 
+    WHERE in_pcl.product_id = ecp.product_id 
+    GROUP BY in_pcl.product_id
+    ) max_price 
+,opm.maker_id maker_id
+,(select name from plg_maker pmk where pmk.maker_id=opm.maker_id)maker_name
+,(select MIN(in_pcl.product_type_id) from dtb_product_class in_pcl
+  WHERE in_pcl.product_id = ecp.product_id  AND in_pcl.del_flg <> 1 
+  and in_pcl.class_category_id1 > 0
+  and in_pcl.class_category_id2 > 0
+  GROUP BY in_pcl.product_id
+) product_type_id
+,(select MIN(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=9
+  WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1 
+  GROUP BY in_pcl.product_id) min_price
+,(select MAX(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=10
+   WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1
+    GROUP BY in_pcl.product_id) max_price 
+,(select MAX(in_pcl.price02) FROM dtb_product_class in_pcl
+ inner join dtb_category in_cl
+ on in_cl.category_id=in_pcl.class_category_id2
+ and in_cl.category_id=12
+   WHERE in_pcl.product_id = ecp.product_id AND in_pcl.del_flg <> 1
+    GROUP BY in_pcl.product_id) min_price_pm
+FROM dtb_product ecp
+inner join plg_product_maker opm on ecp.product_id = opm.product_id 
+inner join dtb_product_image ecpi on ecp.product_id = ecpi.product_id AND ecpi.rank=1 
+SQL;
+
 
             if( $israndom ) {
-                $stmt = $app['orm.em']->getConnection()->prepare('SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ecp.product_id = ecpi.product_id AND ecpi.rank = 1 AND ' . $or_str);
+                $stmt = $app['orm.em']->getConnection()->prepare(
+                    $sql
+                    .' WHERE ecp.product_id = ecpi.product_id AND ecpi.rank = 1 AND ecp.del_flg = 0 AND ecp.status = 1 AND ' . $or_str);
             }else{
-                $stmt = $app['orm.em']->getConnection()->prepare('SELECT ecp.product_id, ecp.name, ecp.description_detail, ecpi.file_name, (select MIN(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) min_price, (select MAX(in_pcl.price02) FROM dtb_product_class in_pcl WHERE in_pcl.product_id = ecp.product_id GROUP BY in_pcl.product_id) max_price FROM dtb_product ecp, dtb_product_image ecpi WHERE ' . $or_str . ' ORDER BY ' . $sort_str);
+                $stmt = $app['orm.em']->getConnection()->prepare(
+                    $sql
+                    .' WHERE ' . $or_str . ' ORDER BY ' . $sort_str);
             }
 
             $stmt->execute();
             $this->_rp = $stmt->fetchAll();
-
             // 表示をシャッフル
             shuffle($this->_rp);
         }

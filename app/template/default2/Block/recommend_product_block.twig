@@ -31,7 +31,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     color: #525263;
     margin: 0 0 8px;
     font-weight:bold;
-    height: 60px;
 }
 #item_list.recommend .item_name span {
     height: 15px;
@@ -65,7 +64,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <!-- ▼item_list▼ -->
 <div id="pickupitem" >
-    <h2 class="heading">独自のおすすめ商品</h2>
+    <h2 class="heading">スマホマニアのおすすめ商品</h2>
 
 <div id="item_list" class="recommend">
     <div class="row">
@@ -87,10 +86,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag.name }}</li>
                             {% endfor %}
                             </ul>
-
+                            {% set ptypeid = RecommendProduct.Product.ProductClasses.0.ProductType.id %}
+                             {% if ptypeid == app.config.producttype_ex_sim_type %}
+                            
+                            <dd class="item_price">
+                                初期費用 <span class="price-num">{{ RecommendProduct.__EX_PRODUCT_LIST[RecommendRankingProduct.Product.id][app.config.product_ex_s_init_price].value|number_format }}円</span> (税抜)
+                            </dd>
                             <dd class="item_price">
                                 月額 <span class="price-num">{{ RecommendProduct.Product.getPrice02Min|number_format }}円/月</span> (税抜)
                             </dd>
+                            {% else %}
+                            <dd class="item_price">
+                                月々 <span class="price-num">{{ RecommendProduct.Product.getPrice02Min|number_format }}円</span> (税抜)<br>分割24回
+                            </dd>
+                            {% endif %}
+
                         </dl>
                     </a>
                 </div>

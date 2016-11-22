@@ -1,3 +1,11 @@
+{% set l_producttype = 0 %}
+{% for cc in Product.ProductClasses|slice(0,3) %}
+    {% if (cc.ProductType.id != 0) %}
+        {% set l_producttype = cc.ProductType.id %}
+    {% endif %}
+{% endfor %}
+
+{% if (l_producttype == app.config.producttype_ex_sp_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -202,6 +210,20 @@
 {% endblock %}
 
 
+{% block javascript %}
+<script>
+    $(function(){
+        $('.btn-cart').on('click',function(){
+            $('#form1').submit();
+        });
+    });
+
+</script>
+{% endblock %}
+
+
+
+
 <dl class="item-dtl-purchase pc">
 	<dt>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }} のご購入はこちら</dt>
 	<dd>
@@ -223,13 +245,11 @@
 				<div class="item-dtl-purchase-tab-cont-l">
 					<dl>
 						<dt>分割端末代金（24回払い）*</dt>
-						<dd><span>{{ sales_price_month }}</span>円/月</dd>
+						<dd><span>{{ sales_price_month|number_format }}</span>円/月</dd>
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<form action="" method="post" id="addCart-divide">
-						<button class="btn-cart">カートに入れる</button>
-					</form>
+                    <p class="btn-cart">カートに入れる</p>
 				</div>
 			</div>
 
@@ -238,13 +258,11 @@
 				<div class="item-dtl-purchase-tab-cont-l">
 					<dl>
 						<dt>一括端末代金*</dt>
-						<dd><span>{{ sales_price_bulk }}</span>円</dd>
+						<dd><span>{{ sales_price_bulk|number_format }}</span>円</dd>
 					</dl>
 				</div>
 				<div class="item-dtl-purchase-cart">
-					<form action="" method="post" id="addCart-bundle">
-						<button class="btn-cart">カートに入れる</button>
-					</form>
+                    <p class="btn-cart">カートに入れる</p>
 				</div>
 			</div>
             {% endif %}
@@ -253,3 +271,4 @@
 		</div>
 	</dd>
 </dl>
+{% endif %}

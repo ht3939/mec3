@@ -111,7 +111,7 @@ class KintoneTransAdminService
     }
 
     public function sendKintone($req,$data){
-        dump('sendkitone');
+        //dump('sendkitone');
         // $Order = $data['Order'];
         // $route = $data['Route'];
         // $note  = $data['Note'];

@@ -6,6 +6,9 @@ composer.phar
 !/app/cache/.gitkeep
 /app/config/eccube/*
 !/app/config/eccube/.gitkeep
+!/app/config/eccube/constant.yml
+!/app/config/eccube/http_cache.yml
+!/app/config/eccube/doctrine_cache.yml
 /app/log/*
 !/app/log/.gitkeep
 !/app/Plugin/*
