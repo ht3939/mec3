@@ -1,0 +1,18 @@
+Plugin\ShoppingEx\Entity\ShoppingEx:
+    type: entity
+    table: plg_shoppingex_cleanup
+    repositoryClass: Plugin\ShoppingEx\Repository\ShoppingExCleanupRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: order_id
+            generator:
+                strategy: NONE
+    fields:
+        create_date:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks: {  }
