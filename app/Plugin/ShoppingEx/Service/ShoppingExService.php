@@ -200,7 +200,11 @@ class ShoppingExService
             ->where("p.create_date < :oneweek")
             ->setParameter('oneweek',$lastweek)
             ->getQuery();
-
+            /*
+            ->where("p.create_date <'2016/11/10'")
+            ->andWhere("not exists(select m.order_id from plg_shoppingex_cleanup c where c.create is null)")
+            //->setParameters('oneweek',new \DateTime())
+            */
         $oldOrder = array();
         $oldOrder = $query->getResult();
 
