@@ -1,4 +1,4 @@
-Plugin\ShoppingEx\Entity\ShoppingEx:
+Plugin\ShoppingEx\Entity\ShoppingExCleanup:
     type: entity
     table: plg_shoppingex_cleanup
     repositoryClass: Plugin\ShoppingEx\Repository\ShoppingExCleanupRepository

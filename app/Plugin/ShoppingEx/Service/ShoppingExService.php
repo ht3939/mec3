@@ -28,6 +28,7 @@ use Eccube\Common\Constant;
 use Eccube\Event\EventArgs;
 use Eccube\Entity\Order;
 use Plugin\ShoppingEx\Entity\ShoppingEx;
+use Plugin\ShoppingEx\Entity\ShoppingExCleanup;
 
 
 class ShoppingExService
@@ -267,7 +268,21 @@ class ShoppingExService
 
             $app['orm.em']->persist($Order);
             $app['orm.em']->flush();
+dump('add cleanup');
+            $OrderCleanup = $app['shoppingex.repository.shoppingexcleanup']->find($Order->getId());
+            if($OrderCleanup){
+                //すでに処理済みであれば追加しない
+            }else{
+                $OrderCleanup = new ShoppingExCleanup();
+                $OrderCleanup
+                    ->setId($Order->getId())
+                    ->setCreateDate(new \Datetime());
 
+                $app['orm.em']->persist($ShoppingEx);
+                $app['orm.em']->flush();
+
+            }
+dump('add cleanup done');
 
 
         }
