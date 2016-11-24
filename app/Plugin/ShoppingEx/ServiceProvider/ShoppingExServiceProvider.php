@@ -335,6 +335,50 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/sp/simcard/uq-mobile/'=>'/products/list?category_id=29'
             ,'/sp/simcard/mobarecomobile/'=>'/products/list?categoy_id=22'
             ,'/sp/simcard/biglobe/'=>'/products/list?category_id=36'
+
+            ,'/products/detail/41'=>'/'
+            ,'/products/detail/42'=>'/'
+            ,'/products/detail/103'=>'/'
+            ,'/products/detail/11'=>'/'
+            ,'/products/detail/13'=>'/'
+
+            ,'/products/detail/15'=>'/'
+            ,'/products/detail/18'=>'/'
+            ,'/products/detail/19'=>'/'
+            ,'/products/detail/29'=>'/'
+            ,'/products/detail/43'=>'/'
+
+            ,'/products/detail/44'=>'/'
+            ,'/products/detail/47'=>'/'
+            ,'/products/detail/48'=>'/'
+            ,'/products/detail/52'=>'/'
+            ,'/products/detail/53'=>'/'
+
+            ,'/products/detail/54'=>'/'
+            ,'/products/detail/55'=>'/'
+            ,'/products/detail/94'=>'/'
+            ,'/products/detail/95'=>'/'
+            ,'/products/detail/96'=>'/'
+
+            ,'/products/detail/97'=>'/'
+            ,'/products/detail/98'=>'/'
+            ,'/products/detail/99'=>'/'
+            ,'/products/detail/100'=>'/'
+            ,'/products/detail/101'=>'/'
+
+            ,'/products/detail/102'=>'/'
+            ,'/products/detail/104'=>'/'
+            ,'/products/detail/105'=>'/'
+            ,'/products/detail/86'=>'/'
+            ,'/products/detail/87'=>'/'
+
+            ,'/products/detail/88'=>'/'
+            ,'/products/detail/89'=>'/'
+            ,'/products/detail/90'=>'/'
+            ,'/products/detail/91'=>'/'
+            ,'/products/detail/92'=>'/'
+
+
             );
 
         return $redirectto;
