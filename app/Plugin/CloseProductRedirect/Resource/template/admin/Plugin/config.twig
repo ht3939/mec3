@@ -1,0 +1,123 @@
+{#
+ Copyright(c) 2015 SystemFriend Inc. All rights reserved.
+ http://ec-cube.systemfriend.co.jp/
+#}
+{% extends 'default_frame.twig' %}
+
+{% block javascript %}
+    <script type="text/javascript">
+
+        self.moveTo(20, 20);
+        self.focus();
+
+        function win_open(URL) {
+            var WIN;
+            WIN = window.open(URL);
+            WIN.focus();
+        }
+
+    </script>
+{% endblock %}
+
+{% block title %}{{ tpl_subtitle }}{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+{% block main %}
+    <div class="row" id="aside_wrap">
+        <form name="form1" role="form" novalidate class="form-horizontal" id="point_form" method="post" action="">
+            {{ form_widget(form._token) }}
+            <div class="col-md-9">
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">商品にリダイレクト先が指定されていない際に表示するページの指定</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        {% set key = 'redirect_select' %}
+                        <div class="form-group" {% if form[key].vars.errors is not empty %}has-error{% endif %}>
+                            <label class="col-sm-2 control-label{% if form[key].vars.required %} required{% endif %}">
+                                {{ form[key].vars.label }}
+                                {% if form[key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+                            </label>
+
+                            <div class="col-sm-10 {% if form[key].vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form[key]) }}
+                                {{ form_errors(form[key]) }}
+                            </div>
+                        </div>
+
+                        {% set key = 'redirect_url' %}
+                        <div class="form-group" {% if form[key].vars.errors is not empty %}has-error{% endif %}>
+                            <label class="col-sm-2 control-label{% if form[key].vars.required %} required{% endif %}">
+                                {{ form[key].vars.label }}
+                                {% if form[key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+                            </label>
+
+                            <div class="col-sm-10 {% if form[key].vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form[key]) }}
+                                {{ form_errors(form[key]) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">リダイレクト時の動作</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        {% set key = 'guide_flg' %}
+                        <div class="form-group" {% if form[key].vars.errors is not empty %}has-error{% endif %}>
+                            <label class="col-sm-2 control-label{% if form[key].vars.required %} required{% endif %}">
+                                {{ form[key].vars.label }}
+                                {% if form[key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+                            </label>
+
+                            <div class="col-sm-10 {% if form[key].vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form[key]) }}
+                                {{ form_errors(form[key]) }}
+                            </div>
+                        </div>
+
+                        {% set key = 'wait_time' %}
+                        <div class="form-group" {% if form[key].vars.errors is not empty %}has-error{% endif %}>
+                            <label class="col-sm-2 control-label{% if form[key].vars.required %} required{% endif %}">
+                                {{ form[key].vars.label }}
+                                {% if form[key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+                            </label>
+
+                            <div class="col-sm-10 {% if form[key].vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form[key]) }}
+                                {{ form_errors(form[key]) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <div class="col-md-3" id="aside_column">
+                <div class="col_inner">
+                    <div class="box no-header">
+                        <div class="box-body">
+                            <div class="row text-center">
+                                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                                    <button class="btn btn-primary btn-block btn-lg" onclick="document.form1.submit();">
+                                        この内容で登録する
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </form>
+    </div>
+
+{% endblock %}
