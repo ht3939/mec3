@@ -348,19 +348,36 @@ class ShoppingExEvent
             $ShoppingEx = new ShoppingEx();
 
         }
+        if(isset($dat['cardno1'])
+            ){
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1($dat['cardno1'])
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder($dat['holder'])
+                    ->setCardtype($dat['cardtype'])
+                    ->setCardlimitmon($dat['cardlimitmon'])
+                    ->setCardlimityear($dat['cardlimityear'])
+                    ->setCardsec($dat['cardsec'])
+                    ;
 
-        $ShoppingEx
-                ->setId($Order->getId())
-                ->setCardno1($dat['cardno1'])
-                // ->setCardno2($dat['cardno2'])
-                // ->setCardno3($dat['cardno3'])
-                // ->setCardno4($dat['cardno4'])
-                ->setHolder($dat['holder'])
-                ->setCardtype($dat['cardtype'])
-                ->setCardlimitmon($dat['cardlimitmon'])
-                ->setCardlimityear($dat['cardlimityear'])
-                ->setCardsec($dat['cardsec'])
-                ;
+        }else{
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1('')
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder('')
+                    ->setCardtype(0)
+                    ->setCardlimitmon(0)
+                    ->setCardlimityear(0)
+                    ->setCardsec('')
+                    ;
+
+        }
         $app['orm.em']->persist($ShoppingEx);
         $app['orm.em']->flush();
 

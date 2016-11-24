@@ -198,17 +198,20 @@ class ShoppingExService
         $lastweek = $now->add($interval);
 
         $query = $app['eccube.repository.order']->createQueryBuilder('p')
+            //->leftjoin()
             ->where("p.create_date < :oneweek")
+            //->andWhere("not exists(select c.order_id from \Plugin\ShoppingEx\Entity\ShoppingExCleanup c where c.order_id = p.order_id)")
             ->setParameter('oneweek',$lastweek)
             ->getQuery();
             /*
             ->where("p.create_date <'2016/11/10'")
-            ->andWhere("not exists(select m.order_id from plg_shoppingex_cleanup c where c.create is null)")
             //->setParameters('oneweek',new \DateTime())
             */
+/*
+dump($query);
         $oldOrder = array();
         $oldOrder = $query->getResult();
-
+dump($oldOrder);die();
 
         foreach($oldOrder as $order){
             //$order = $this->app['eccube.repository.order']->find($order->getId());
@@ -218,7 +221,7 @@ class ShoppingExService
 
         }
 
-
+*/
 
     }
     private function cleanupOrderInfo($Order,$ShoppingEx)
@@ -226,6 +229,7 @@ class ShoppingExService
         $app = $this->app;
 
         if($ShoppingEx){
+//dump('shopping cleanup');
             $ShoppingEx
                 ->setCardno1('****')
                 ->setCardno2('****')
@@ -245,6 +249,7 @@ class ShoppingExService
 
         }
         if($Order){
+//dump('order cleanup');
             $Order
                 ->setName01('***')
                 ->setName02('***')
@@ -268,22 +273,24 @@ class ShoppingExService
 
             $app['orm.em']->persist($Order);
             $app['orm.em']->flush();
-dump('add cleanup');
+            /*
+//dump('add cleanup');
             $OrderCleanup = $app['shoppingex.repository.shoppingexcleanup']->find($Order->getId());
             if($OrderCleanup){
                 //すでに処理済みであれば追加しない
             }else{
+//dump('add cleanup ins');
                 $OrderCleanup = new ShoppingExCleanup();
                 $OrderCleanup
                     ->setId($Order->getId())
                     ->setCreateDate(new \Datetime());
 
-                $app['orm.em']->persist($ShoppingEx);
+                $app['orm.em']->persist($OrderCleanup);
                 $app['orm.em']->flush();
 
             }
-dump('add cleanup done');
-
+//dump('add cleanup done');
+            */
 
         }
 
