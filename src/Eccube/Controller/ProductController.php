@@ -208,6 +208,10 @@ class ProductController
 
         /* @var $Product \Eccube\Entity\Product */
         $Product = $app['eccube.repository.product']->get($id);
+        if ($Product->getStatus()->getId() !== 1) {
+            throw new NotFoundHttpException();
+        }
+
         if (!$request->getSession()->has('_security_admin') && $Product->getStatus()->getId() !== 1) {
             throw new NotFoundHttpException();
         }
