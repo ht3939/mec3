@@ -170,6 +170,8 @@ class FrontProductDetail extends AbstractWorkPlace
         //dump($request->get('_route'));
         //dump($request->getRequestURI());
 
+        /*
+        プラグインで対応可能になるので、取りやめ
         $redirects = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
         //dump($redirects);
         if(isset($redirects[$request->getRequestURI()])){
@@ -179,7 +181,7 @@ class FrontProductDetail extends AbstractWorkPlace
             );
             return;
         }
-
+        */
 
 
         $ProductOption = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());        
