@@ -61,13 +61,13 @@ class AdminProductPageService extends HookBaseService
         // データの設定
         $form = $builder->getForm();
         $form->get('ProductRedirect')->setData($CprProductRedirect);
-
+//dump($form);die();
         $form->handleRequest($request);
 
         $error_flg = 0;
         // POST時の処理
         if ('POST' === $request->getMethod()) {
-            if ($form->isValid()) {
+            if ($form->get('ProductRedirect')->isValid()) {
                 // 登録は商品登録画面が登録できるときに行う
                 // RedirectResponseかどうかで判定する.
                 if ($response instanceof RedirectResponse) {
