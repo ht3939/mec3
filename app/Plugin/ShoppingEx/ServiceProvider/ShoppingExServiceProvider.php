@@ -60,6 +60,9 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
         $app['shoppingex.repository.shoppingex'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\ShoppingEx\Entity\ShoppingEx');
         });
+        $app['shoppingex.repository.shoppingexcleanup'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Plugin\ShoppingEx\Entity\ShoppingExCleanup');
+        });
 
         // サービスの登録
         $app['eccube.plugin.shoppingex.service.shoppingex'] = $app->share(function () use ($app) {
@@ -77,12 +80,15 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             '/guide.php'=>'/guide'
             ,'/company.php'=>'/help/company'
             ,'/privacy.php'=>'/help/privacy'
+            
             ,'/ckks.php'=>''
             ,'/cggs.php'=>''
             ,'/kakuyasusumaho-kousoku-ranking.php'=>''
             ,'/kakuyasusumaho-saiyasu-ranking.php'=>''
+
             ,'/simfree-sumaho/'=>'/products/list?category_id=2'
             ,'/simcard/'=>'/products/list?category_id=1'
+
             ,'/simfree-sumaho/iphone6.php'=>'/products/detail/94'
             ,'/simfree-sumaho/iphone5.php'=>'/products/detail/95'
             ,'/simfree-sumaho/zenfone2.php'=>'/products/detail/11'
@@ -180,12 +186,15 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/sp/guide.php'=>'/guide'
             ,'/sp/company.php'=>'/help/company'
             ,'/sp/privacy.php'=>'/help/privacy'
-            ,'/sp/simfree-sumaho/'=>'/products/list?category_id=2'
-            ,'/sp/simcard/'=>'/products/list?category_id=1'
+            
             ,'/sp/ckks.php'=>''
             ,'/sp/cggs.php'=>''
             ,'/sp/kakuyasusumaho-kousoku-ranking.php'=>''
             ,'/sp/kakuyasusumaho-saiyasu-ranking.php'=>''
+
+            ,'/sp/simfree-sumaho/'=>'/products/list?category_id=2'
+            ,'/sp/simcard/'=>'/products/list?category_id=1'
+
             ,'/sp/simfree-sumaho/iphone6.php'=>'/products/detail/94'
             ,'/sp/simfree-sumaho/iphone5.php'=>'/products/detail/95'
             ,'/sp/simfree-sumaho/zenfone2.php'=>'/products/detail/11'
@@ -278,6 +287,97 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/sp/simcard/iijmio-onsei-mini-a.php'=>'/products/detail/81'
             ,'/sp/simcard/iijmio-onsei-light-a.php'=>'/products/detail/82'
             ,'/sp/simcard/iijmio-onsei-family-a.php'=>'/products/detail/83'
+
+
+            ,'/simfree-sumaho/apple/'=>'/products/list?category_id=12'
+            ,'/simfree-sumaho/asus/'=>'/products/list?category_id=13'
+            ,'/simfree-sumaho/freetel/'=>'/products/list?category_id=20'
+            ,'/simfree-sumaho/goo/'=>'/products/list?category_id=15'
+            ,'/simfree-sumaho/google/'=>'/products/list?category_id=16'
+            ,'/simfree-sumaho/huawei/'=>'/products/list?category_id=17'
+            ,'/simfree-sumaho/kyocera/'=>'/products/list?category_id=18'
+            ,'/simfree-sumaho/samsung/'=>'/products/list?category_id=31'
+            ,'/simfree-sumaho/sony/'=>'/products/list?category_id=32'
+            ,'/simfree-sumaho/zte/'=>'/products/list?category_id=33'
+            ,'/simcard/freetel/'=>'/products/list?category_id=14'
+            ,'/simcard/iijmio/'=>'/products/list?category_id=21'
+            ,'/simcard/nifmo/'=>'/products/list?category_id=23'
+            ,'/simcard/ocn/'=>'/products/list?category_id=24'
+            ,'/simcard/only/'=>'/products/list?category_id=25'
+            ,'/simcard/rakuten/'=>'/products/list?category_id=26'
+            ,'/simcard/so-net/'=>'/products/list?category_id=27'
+            ,'/simcard/tjc/'=>'/products/list?category_id=34'
+            ,'/simcard/u-mobile/'=>'/products/list?category_id=28'
+            ,'/simcard/uq-mobile/'=>'/products/list?category_id=29'
+            ,'/simcard/mobarecomobile/'=>'/products/list?categoy_id=22'
+            ,'/simcard/biglobe/'=>'/products/list?category_id=36'
+
+
+            ,'/sp/simfree-sumaho/apple/'=>'/products/list?category_id=12'
+            ,'/sp/simfree-sumaho/asus/'=>'/products/list?category_id=13'
+            ,'/sp/simfree-sumaho/freetel/'=>'/products/list?category_id=20'
+            ,'/sp/simfree-sumaho/goo/'=>'/products/list?category_id=15'
+            ,'/sp/simfree-sumaho/google/'=>'/products/list?category_id=16'
+            ,'/sp/simfree-sumaho/huawei/'=>'/products/list?category_id=17'
+            ,'/sp/simfree-sumaho/kyocera/'=>'/products/list?category_id=18'
+            ,'/sp/simfree-sumaho/samsung/'=>'/products/list?category_id=31'
+            ,'/sp/simfree-sumaho/sony/'=>'/products/list?category_id=32'
+            ,'/sp/simfree-sumaho/zte/'=>'/products/list?category_id=33'
+            ,'/sp/simcard/freetel/'=>'/products/list?category_id=14'
+            ,'/sp/simcard/iijmio/'=>'/products/list?category_id=21'
+            ,'/sp/simcard/nifmo/'=>'/products/list?category_id=23'
+            ,'/sp/simcard/ocn/'=>'/products/list?category_id=24'
+            ,'/sp/simcard/only/'=>'/products/list?category_id=25'
+            ,'/sp/simcard/rakuten/'=>'/products/list?category_id=26'
+            ,'/sp/simcard/so-net/'=>'/products/list?category_id=27'
+            ,'/sp/simcard/tjc/'=>'/products/list?category_id=34'
+            ,'/sp/simcard/u-mobile/'=>'/products/list?category_id=28'
+            ,'/sp/simcard/uq-mobile/'=>'/products/list?category_id=29'
+            ,'/sp/simcard/mobarecomobile/'=>'/products/list?categoy_id=22'
+            ,'/sp/simcard/biglobe/'=>'/products/list?category_id=36'
+
+            ,'/products/detail/41'=>'/'
+            ,'/products/detail/42'=>'/'
+            ,'/products/detail/103'=>'/'
+            ,'/products/detail/11'=>'/'
+            ,'/products/detail/13'=>'/'
+
+            ,'/products/detail/15'=>'/'
+            ,'/products/detail/18'=>'/'
+            ,'/products/detail/19'=>'/'
+            ,'/products/detail/29'=>'/'
+            ,'/products/detail/43'=>'/'
+
+            ,'/products/detail/44'=>'/'
+            ,'/products/detail/47'=>'/'
+            ,'/products/detail/48'=>'/'
+            ,'/products/detail/52'=>'/'
+            ,'/products/detail/53'=>'/'
+
+            ,'/products/detail/54'=>'/'
+            ,'/products/detail/55'=>'/'
+            ,'/products/detail/94'=>'/'
+            ,'/products/detail/95'=>'/'
+            ,'/products/detail/96'=>'/'
+
+            ,'/products/detail/97'=>'/'
+            ,'/products/detail/98'=>'/'
+            ,'/products/detail/99'=>'/'
+            ,'/products/detail/100'=>'/'
+            ,'/products/detail/101'=>'/'
+
+            ,'/products/detail/102'=>'/'
+            ,'/products/detail/104'=>'/'
+            ,'/products/detail/105'=>'/'
+            ,'/products/detail/86'=>'/'
+            ,'/products/detail/87'=>'/'
+
+            ,'/products/detail/88'=>'/'
+            ,'/products/detail/89'=>'/'
+            ,'/products/detail/90'=>'/'
+            ,'/products/detail/91'=>'/'
+            ,'/products/detail/92'=>'/'
+
 
             );
 
