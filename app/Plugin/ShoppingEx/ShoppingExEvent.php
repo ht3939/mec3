@@ -274,8 +274,6 @@ class ShoppingExEvent
 
         }
 
-dump('service call');
-        $app['eccube.plugin.shoppingex.service.shoppingex']->cleanupShoppingOrder($event);
 
     }
     public function onFrontShoppingIndexInitialize(EventArgs $event){
@@ -400,6 +398,7 @@ dump('service call');
     }
 
     public function onFrontShoppingConfirmComplete(EventArgs $event){
+        $app = $this->app;
         //セッションから消す
         //$session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
         $req = $event->getRequest();
