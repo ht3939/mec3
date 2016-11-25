@@ -92,7 +92,7 @@ p#breadcrumbs {
 
     <p id="breadcrumbs" class="pc">
         <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
-            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">スマホマニアトップ</a></span>
+            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
             <span class="children" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('product_list',{'category_id':cate})}}">{{catename}}</a></span>
             <span class="children" typeof="v:Breadcrumb"><span property="v:title">{{ __EX_PRODUCT_MAKER.name }}</span>
                                         {{ Product.name }}</span></span>
@@ -102,4 +102,4 @@ p#breadcrumbs {
     <div class="page-heading sp">
         <p><a href="{{url('product_list',{'category_id':cate})}}" class="page-heading-back">戻る</a></p>
         <h1>{{pagecatename}}</h1>
-    </div>    
+    </div>
