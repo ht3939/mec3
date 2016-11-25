@@ -198,20 +198,31 @@ class ShoppingExService
         $lastweek = $now->add($interval);
 
         $query = $app['eccube.repository.order']->createQueryBuilder('p')
-            //->leftjoin()
+            //->select('pr.id')
             ->where("p.create_date < :oneweek")
-            //->andWhere("not exists(select c.order_id from \Plugin\ShoppingEx\Entity\ShoppingExCleanup c where c.order_id = p.order_id)")
+            ->leftJoin('Plugin\ShoppingEx\Entity\ShoppingExCleanup', 'pr', 'WITH', 'p.id = pr.id')
+            ->andWhere("pr.id is null")
             ->setParameter('oneweek',$lastweek)
             ->getQuery();
+                /*
+                ->andWhere('p.id               = :product_id')
+                ->andWhere('p.Status           = 2')
+                ->andWhere('p.del_flg          = 0')
+                ->andWhere('pr.redirect_select = :redirect_select')
+                ->setParameter('product_id'       , $product_id)
+                ->setParameter('redirect_select' , $const['redirect_id'])
+                ->setMaxResults(1);
+                */
+
             /*
             ->where("p.create_date <'2016/11/10'")
             //->setParameters('oneweek',new \DateTime())
             */
-/*
-dump($query);
+
+//dump($query);
         $oldOrder = array();
         $oldOrder = $query->getResult();
-dump($oldOrder);die();
+//dump($oldOrder);die();
 
         foreach($oldOrder as $order){
             //$order = $this->app['eccube.repository.order']->find($order->getId());
@@ -221,7 +232,7 @@ dump($oldOrder);die();
 
         }
 
-*/
+
 
     }
     private function cleanupOrderInfo($Order,$ShoppingEx)
@@ -273,7 +284,7 @@ dump($oldOrder);die();
 
             $app['orm.em']->persist($Order);
             $app['orm.em']->flush();
-            /*
+            
 //dump('add cleanup');
             $OrderCleanup = $app['shoppingex.repository.shoppingexcleanup']->find($Order->getId());
             if($OrderCleanup){
@@ -290,8 +301,7 @@ dump($oldOrder);die();
 
             }
 //dump('add cleanup done');
-            */
-
+            
         }
 
         //return $Order;
