@@ -164,6 +164,26 @@ class FrontProductDetail extends AbstractWorkPlace
         $app = $this->app;
         $request = $app['request'];
         $Product = $event->getArgument('Product');
+
+        //$app['']
+        //非公開をリダイレクトする
+        //dump($request->get('_route'));
+        //dump($request->getRequestURI());
+
+        /*
+        プラグインで対応可能になるので、取りやめ
+        $redirects = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
+        //dump($redirects);
+        if(isset($redirects[$request->getRequestURI()])){
+
+            $event->setResponse(
+                $app->redirect($redirects[$request->getRequestURI()])
+            );
+            return;
+        }
+        */
+
+
         $ProductOption = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());        
         
         $builder = $app['form.factory']->createNamedBuilder('', 'add_cart', null, array(

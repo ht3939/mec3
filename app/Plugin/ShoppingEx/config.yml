@@ -1,7 +1,7 @@
 name: ShoppingEx
 event: ShoppingExEvent
 code: ShoppingEx
-version: 0.0.4
+version: 0.0.5
 service:
     - ShoppingExServiceProvider
 orm.path:
