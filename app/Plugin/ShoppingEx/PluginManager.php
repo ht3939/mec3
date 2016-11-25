@@ -51,22 +51,22 @@ class PluginManager extends AbstractPluginManager
     public function uninstall($config, $app)
     {
         // ブロックの削除
-        $this->removeBlock($app);
+        //$this->removeBlock($app);
 
-        $this->migrationSchema($app, __DIR__.'/Migration', $config['code'], 0);
+        //$this->migrationSchema($app, __DIR__.'/Migration', $config['code'], 0);
     }
 
     public function enable($config, $app)
     {
         // ブロックへ登録
-        $this->copyBlock($app);
+        //$this->copyBlock($app);
 
     }
 
     public function disable($config, $app)
     {
         // ブロックの削除
-        $this->removeBlock($app);
+        //$this->removeBlock($app);
 
     }
 
