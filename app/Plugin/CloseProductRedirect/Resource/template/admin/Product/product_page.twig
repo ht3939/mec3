@@ -1,0 +1,53 @@
+{#
+ Copyright(c) 2015 SystemFriend Inc. All rights reserved.
+ http://ec-cube.systemfriend.co.jp/
+#}
+</div>
+
+<div class="box accordion form-horizontal">
+    {% set parentKey = 'ProductRedirect' %}
+    <div class="box-header toggle{% if error_flg == 1 %} active{% endif %}">
+        <h3 class="box-title">{{ form[parentKey].vars.label }}<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body accpanel" {% if error_flg == 1 %}style="display: block;"{% endif %}>
+        {{ form_errors(form) }}
+        {% set key = 'redirect_select' %}
+        <div class="form-group" {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}>
+            <label class="col-sm-2 control-label{% if form[parentKey][key].vars.required %} required{% endif %}">
+                {{ form[parentKey][key].vars.label }}
+                {% if form[parentKey][key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+            </label>
+
+            <div class="col-sm-10 {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}">
+                {{ form_widget(form[parentKey][key]) }}
+                {{ form_errors(form[parentKey][key]) }}
+            </div>
+        </div>
+
+        {% set key = 'redirect_product_id' %}
+        <div class="form-group" {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}>
+            <label class="col-sm-2 control-label{% if form[parentKey][key].vars.required %} required{% endif %}">
+                {{ form[parentKey][key].vars.label }}
+                {% if form[parentKey][key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+            </label>
+
+            <div class="col-sm-10 {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}">
+                {{ form_widget(form[parentKey][key]) }}
+                {{ form_errors(form[parentKey][key]) }}
+            </div>
+        </div>
+
+        {% set key = 'redirect_url' %}
+        <div class="form-group" {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}>
+            <label class="col-sm-2 control-label{% if form[parentKey][key].vars.required %} required{% endif %}">
+                {{ form[parentKey][key].vars.label }}
+                {% if form[parentKey][key].vars.required %}<span class="text-danger"> *</span>{% endif %}
+            </label>
+
+            <div class="col-sm-10 {% if form[parentKey][key].vars.errors is not empty %}has-error{% endif %}">
+                {{ form_widget(form[parentKey][key]) }}
+                {{ form_errors(form[parentKey][key]) }}
+            </div>
+        </div>
+
+    </div>

@@ -336,6 +336,8 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/sp/simcard/mobarecomobile/'=>'/products/list?categoy_id=22'
             ,'/sp/simcard/biglobe/'=>'/products/list?category_id=36'
 
+            /*
+            プラグインで対応のため、取りやめ
             ,'/products/detail/41'=>'/'
             ,'/products/detail/42'=>'/'
             ,'/products/detail/103'=>'/'
@@ -377,7 +379,7 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/products/detail/90'=>'/'
             ,'/products/detail/91'=>'/'
             ,'/products/detail/92'=>'/'
-
+            */
 
             );
 

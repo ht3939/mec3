@@ -87,7 +87,7 @@ p#breadcrumbs {
     {% endif %}
     <p id="breadcrumbs" class="pc">
         <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
-            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">スマホマニアトップ</a></span>
+            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
             {% if showcrumbs %}
                 {% if cateid == app.config.category_sumaho_id %}
                 <span class="children" typeof="v:Breadcrumb">SIMフリースマホ一覧</span>
