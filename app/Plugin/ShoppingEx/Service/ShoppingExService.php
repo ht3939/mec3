@@ -28,6 +28,7 @@ use Eccube\Common\Constant;
 use Eccube\Event\EventArgs;
 use Eccube\Entity\Order;
 use Plugin\ShoppingEx\Entity\ShoppingEx;
+use Plugin\ShoppingEx\Entity\ShoppingExCleanup;
 
 
 class ShoppingExService
@@ -176,42 +177,59 @@ class ShoppingExService
         //最後のオーダーから１週間過ぎたものは、個人情報消す
 
 
-//
-//SELECT `order_id`, `customer_id`, `order_country_id`
-        //, `order_pref`, `order_sex`, `order_job`, `payment_id`
-        //, `device_type_id`, `pre_order_id`, `message`
-        //, `order_name01`, `order_name02`, `order_kana01`
-        //, `order_kana02`, `order_company_name`
-        //, `order_email`, `order_tel01`, `order_tel02`, `order_tel03`
-        //, `order_fax01`, `order_fax02`, `order_fax03`
-        //, `order_zip01`, `order_zip02`, `order_zipcode`
-        //, `order_addr01`, `order_addr02`, `order_birth`
-        //, `subtotal`, `discount`, `delivery_fee_total`, `charge`, `tax`, `total`
-        //, `payment_total`, `payment_method`, `note`, `create_date`, `update_date`, `order_date`, `commit_date`, `payment_date`, `del_flg`, `status` 
-//FROM `mecq3dev`.`dtb_order`;
-//
+        //
+        //SELECT `order_id`, `customer_id`, `order_country_id`
+                //, `order_pref`, `order_sex`, `order_job`, `payment_id`
+                //, `device_type_id`, `pre_order_id`, `message`
+                //, `order_name01`, `order_name02`, `order_kana01`
+                //, `order_kana02`, `order_company_name`
+                //, `order_email`, `order_tel01`, `order_tel02`, `order_tel03`
+                //, `order_fax01`, `order_fax02`, `order_fax03`
+                //, `order_zip01`, `order_zip02`, `order_zipcode`
+                //, `order_addr01`, `order_addr02`, `order_birth`
+                //, `subtotal`, `discount`, `delivery_fee_total`, `charge`, `tax`, `total`
+                //, `payment_total`, `payment_method`, `note`, `create_date`, `update_date`, `order_date`, `commit_date`, `payment_date`, `del_flg`, `status` 
+        //FROM `mecq3dev`.`dtb_order`;
+        //
 
-dump('gggg111');
+        $now = new \Datetime();
+        $interval = \DateInterval::createfromdatestring('-1 week');
 
+        $lastweek = $now->add($interval);
 
         $query = $app['eccube.repository.order']->createQueryBuilder('p')
-            ->where("p.create_date <'2016/11/10'")
-            ->andWhere("not exists(select m.order_id from plg_shoppingex_cleanup c where c.create is null)")
-            //->setParameters('oneweek',new \DateTime())
+            //->leftjoin()
+            ->where("p.create_date < :oneweek")
+            //->andWhere("not exists(select c.order_id from \Plugin\ShoppingEx\Entity\ShoppingExCleanup c where c.order_id = p.order_id)")
+            ->setParameter('oneweek',$lastweek)
             ->getQuery();
-
-dump('gggg');
+            /*
+            ->where("p.create_date <'2016/11/10'")
+            //->setParameters('oneweek',new \DateTime())
+            */
+/*
+dump($query);
         $oldOrder = array();
         $oldOrder = $query->getResult();
-        dump($oldOrder);
+dump($oldOrder);die();
 
-        $Order = $this->app['eccube.repository.order']->findOneBy($condition);
+        foreach($oldOrder as $order){
+            //$order = $this->app['eccube.repository.order']->find($order->getId());
+            $orderid = $order->getId();
+            $shoppingex = $this->app['shoppingex.repository.shoppingex']->find($orderid);
+            $this->cleanupOrderInfo($order,$shoppingex);
 
+        }
+
+*/
 
     }
-    private function cleanupOrderInfo(Order $Order, ShoppingEx $ShoppingEx)
+    private function cleanupOrderInfo($Order,$ShoppingEx)
     {
+        $app = $this->app;
+
         if($ShoppingEx){
+//dump('shopping cleanup');
             $ShoppingEx
                 ->setCardno1('****')
                 ->setCardno2('****')
@@ -223,30 +241,58 @@ dump('gggg');
                 ->setLimityear('2016')
                 ->setCardsec('***');
 
+            $app['orm.em']->persist($ShoppingEx);
+            $app['orm.em']->flush();
+
+            //$app['orm.em']->persist($shoppingex);
+
 
         }
+        if($Order){
+//dump('order cleanup');
+            $Order
+                ->setName01('***')
+                ->setName02('***')
+                ->setKana01('***')
+                ->setKana02('***')
+                ->setCompanyName('***')
+                ->setEmail('***')
+                ->setTel01('0000')
+                ->setTel02('0000')
+                ->setTel03('0000')
+                ->setFax01('0000')
+                ->setFax02('0000')
+                ->setFax03('0000')
+                ->setZip01('000')
+                ->setZip02('0000')
+                //->setZipCode('000'.'0000')
+                //->setPref($Customer->getPref())
+                ->setAddr01('****')
+                ->setAddr02('***')
+                ->setBirth(null);
 
-        $Order
-            ->setName01('***')
-            ->setName02('***')
-            ->setKana01('***')
-            ->setKana02('***')
-            ->setCompanyName('***')
-            ->setEmail('***')
-            ->setTel01('0000')
-            ->setTel02('0000')
-            ->setTel03('0000')
-            ->setFax01('0000')
-            ->setFax02('0000')
-            ->setFax03('0000')
-            ->setZip01('000')
-            ->setZip02('0000')
-            ->setZipCode('000'.'0000')
-            //->setPref($Customer->getPref())
-            ->setAddr01('****')
-            ->setAddr02('***')
-            ->setBirth('')
-            ->setJob('');
+            $app['orm.em']->persist($Order);
+            $app['orm.em']->flush();
+            /*
+//dump('add cleanup');
+            $OrderCleanup = $app['shoppingex.repository.shoppingexcleanup']->find($Order->getId());
+            if($OrderCleanup){
+                //すでに処理済みであれば追加しない
+            }else{
+//dump('add cleanup ins');
+                $OrderCleanup = new ShoppingExCleanup();
+                $OrderCleanup
+                    ->setId($Order->getId())
+                    ->setCreateDate(new \Datetime());
+
+                $app['orm.em']->persist($OrderCleanup);
+                $app['orm.em']->flush();
+
+            }
+//dump('add cleanup done');
+            */
+
+        }
 
         //return $Order;
     }

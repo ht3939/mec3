@@ -274,8 +274,6 @@ class ShoppingExEvent
 
         }
 
-dump('service call');
-        $app['eccube.plugin.shoppingex.service.shoppingex']->cleanupShoppingOrder($event);
 
     }
     public function onFrontShoppingIndexInitialize(EventArgs $event){
@@ -350,19 +348,36 @@ dump('service call');
             $ShoppingEx = new ShoppingEx();
 
         }
+        if(isset($dat['cardno1'])
+            ){
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1($dat['cardno1'])
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder($dat['holder'])
+                    ->setCardtype($dat['cardtype'])
+                    ->setCardlimitmon($dat['cardlimitmon'])
+                    ->setCardlimityear($dat['cardlimityear'])
+                    ->setCardsec($dat['cardsec'])
+                    ;
 
-        $ShoppingEx
-                ->setId($Order->getId())
-                ->setCardno1($dat['cardno1'])
-                // ->setCardno2($dat['cardno2'])
-                // ->setCardno3($dat['cardno3'])
-                // ->setCardno4($dat['cardno4'])
-                ->setHolder($dat['holder'])
-                ->setCardtype($dat['cardtype'])
-                ->setCardlimitmon($dat['cardlimitmon'])
-                ->setCardlimityear($dat['cardlimityear'])
-                ->setCardsec($dat['cardsec'])
-                ;
+        }else{
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1('')
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder('')
+                    ->setCardtype(0)
+                    ->setCardlimitmon(0)
+                    ->setCardlimityear(0)
+                    ->setCardsec('')
+                    ;
+
+        }
         $app['orm.em']->persist($ShoppingEx);
         $app['orm.em']->flush();
 
@@ -400,6 +415,7 @@ dump('service call');
     }
 
     public function onFrontShoppingConfirmComplete(EventArgs $event){
+        $app = $this->app;
         //セッションから消す
         //$session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
         $req = $event->getRequest();
