@@ -29,6 +29,9 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
         //$c->match('/about-sim', '\Eccube\Controller\UserDataController::index')->bind('aboutsim');
 
         $app->match('/guide' , '\Eccube\Controller\HelpController::guide')->bind('help_guide');
+        $app->match('/entry' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('entry');
+        $app->match('/mypage/login' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('mypage_login');
+        $app->match('/mypage/favorite' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('mypage_favorite');
 
         // ブロック
         $app->match('/block/important_matter_block', '\Plugin\ShoppingEx\Controller\Block\ImportantMatterController::index')
