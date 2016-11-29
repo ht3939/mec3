@@ -208,6 +208,12 @@ class ProductController
         /* @var $Product \Eccube\Entity\Product */
         $Product = $app['eccube.repository.product']->get($id);
 
+        if (!$request->getSession()->has('_security_admin') && $Product->getStatus()->getId() !== 1) {
+            throw new NotFoundHttpException();
+        }
+        if (count($Product->getProductClasses()) < 1) {
+            throw new NotFoundHttpException();
+        }
 
 
         /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
@@ -224,16 +230,6 @@ class ProductController
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_DETAIL_INITIALIZE, $event);
-        if ($event->getResponse() !== null) {
-            return $event->getResponse();
-        }
-
-        if (!$request->getSession()->has('_security_admin') && $Product->getStatus()->getId() !== 1) {
-            throw new NotFoundHttpException();
-        }
-        if (count($Product->getProductClasses()) < 1) {
-            throw new NotFoundHttpException();
-        }
 
         /* @var $form \Symfony\Component\Form\FormInterface */
         $form = $builder->getForm();

@@ -29,6 +29,9 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
         //$c->match('/about-sim', '\Eccube\Controller\UserDataController::index')->bind('aboutsim');
 
         $app->match('/guide' , '\Eccube\Controller\HelpController::guide')->bind('help_guide');
+        $app->match('/entry' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('entry');
+        $app->match('/mypage/login' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('mypage_login');
+        $app->match('/mypage/favorite' , 'Plugin\ShoppingEx\Controller\RedirectController::index')->bind('mypage_favorite');
 
         // ブロック
         $app->match('/block/important_matter_block', '\Plugin\ShoppingEx\Controller\Block\ImportantMatterController::index')
@@ -336,6 +339,8 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/sp/simcard/mobarecomobile/'=>'/products/list?categoy_id=22'
             ,'/sp/simcard/biglobe/'=>'/products/list?category_id=36'
 
+            /*
+            プラグインで対応のため、取りやめ
             ,'/products/detail/41'=>'/'
             ,'/products/detail/42'=>'/'
             ,'/products/detail/103'=>'/'
@@ -377,7 +382,7 @@ class ShoppingExServiceProvider implements ServiceProviderInterface
             ,'/products/detail/90'=>'/'
             ,'/products/detail/91'=>'/'
             ,'/products/detail/92'=>'/'
-
+            */
 
             );
 
