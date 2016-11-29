@@ -37,8 +37,12 @@ class AdminProductPageService extends HookBaseService
         /* @var $CprProductRedirect \Plugin\CloseProductRedirect\Entity\CprProductRedirect */
         if ($product_id > 0){
             $CprProductRedirect = $CprProductRedirectRepo->find($product_id);
-        }else{
+        }
+        //データなければ初期値を設定
+        if(!$CprProductRedirect){
             $CprProductRedirect = new \Plugin\CloseProductRedirect\Entity\CprProductRedirect;
+            $CprProductRedirect->setRedirectSelect(0);
+
         }
 
         if ($product_id > 0){
@@ -61,7 +65,7 @@ class AdminProductPageService extends HookBaseService
         // データの設定
         $form = $builder->getForm();
         $form->get('ProductRedirect')->setData($CprProductRedirect);
-//dump($form);die();
+
         $form->handleRequest($request);
 
         $error_flg = 0;
