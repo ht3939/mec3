@@ -1,0 +1,45 @@
+<script>
+    function state_change(id)
+    {
+        var data = {};
+        data.id = id;
+
+        // 現在の状態
+        var btnMsg = $('#ssc_btn_' + id).text();
+
+        // 表示文言を処理中へ変更
+        $('#ssc_btn_' + id).text('変更中');
+        $('#ssc_btn_' + id).prop("disabled", true);
+
+        $.ajax({
+            'type' : 'POST',
+            url : '{{ url('plg_ssc') }}',
+            data : data,
+            dataType : 'json',
+            error: function() {
+                // error
+                // 変更中・無効化解除
+                $('#ssc_btn_' + id).text(btnMsg);
+                $('#ssc_btn_' + id).prop("disabled", false);
+            },
+            success : function(data, dataType) {
+                if(data.ret == 1) {
+                    // OK
+                    var status = data.now_status;
+
+                    if(status == 1) {
+                        $('#ssc_btn_' + id).removeClass('btn-primary');
+                    } else {
+                        $('#ssc_btn_' + id).addClass('btn-primary');
+                    }
+                    $('#ssc_btn_' + id).text(data.status_value);
+                    $('#ssc_btn_' + id).prop("disabled", false);
+
+                } else{
+                    $('#ssc_btn_' + id).text(btnMsg);
+                    $('#ssc_btn_' + id).prop("disabled", false);
+                }
+            }
+        });
+    }
+</script>

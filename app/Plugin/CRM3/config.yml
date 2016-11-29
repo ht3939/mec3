@@ -1,0 +1,8 @@
+name: お問い合わせ管理プラグイン
+code: CRM3
+version: 1.0.0
+event: CRM3Event
+service:
+    - CRM3ServiceProvider
+orm.path:
+    - /Resource/doctrine

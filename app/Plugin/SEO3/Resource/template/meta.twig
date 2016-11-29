@@ -1,0 +1,13 @@
+{#
+(c) Nobuhiko Kimoto
+info@nob-log.info
+#}
+{% if meta.title is defined and meta.title is not empty %}
+<title>{{ meta.title }}</title>
+{% endif %}
+{% if meta.description is defined and meta.description is not empty %}
+<meta name="description" content="{{ meta.description }}">
+{% endif %}
+{% if meta.keywords is defined and meta.keywords is not empty %}
+<meta name="keywords" content="{{ meta.keywords }}">
+{% endif %}

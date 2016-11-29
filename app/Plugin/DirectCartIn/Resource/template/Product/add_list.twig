@@ -1,0 +1,23 @@
+{% if Product.stock_find %}
+
+    {% if Product.hasProductClass %}
+
+        <div id="result_list__cart--{{ Product.id }}">
+            <button class=" btn btn-primary btn-block" style="margin-top: 10px;" data-target="#productClassModal" data-toggle="modal" data-whatever="{{ Product.id }}"
+                id="cart_{{ Product.id }}" type="button" onclick="return false;">{{ app.config.DirectCartIn.const.DIRECT_CART_IN }}</button>
+        </div>
+
+    {% else %}
+
+        {% set ProductClass = Product.ProductClasses %}
+        <div id="result_list__cart--{{ Product.id }}">
+            <button class=" btn btn-primary btn-block prevention-btn prevention-mask" style="margin-top: 10px;"
+                id="cart_{{ Product.id }}" type="button" onclick="cartInProduct(&quot;{{ url('plg_pd_direct_cartin', {'id': Product.id}) }}&quot;, {{ Product.id }}, {{ ProductClass[0].id }}); return false;">{{ app.config.DirectCartIn.const.DIRECT_CART_IN }}</button>
+        </div>
+    {% endif %}
+
+{% else %}
+    <div id="result_list__cart--{ Product.id }}" style="margin-top: 10px;">
+        <button type="button" class="btn btn-default btn-block" disabled="disabled">{{ app.config.DirectCartIn.const.NO_STOCK }}</button>
+    </div>
+{% endif %}

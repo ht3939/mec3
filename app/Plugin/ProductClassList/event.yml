@@ -1,0 +1,8 @@
+eccube.event.render.product_detail.before:
+    - [productClassListBefore, NORMAL]
+eccube.event.route.product_detail.response:
+    - [addCartBefore, NORMAL]
+
+# v3.0.8まで
+eccube.event.controller.product_detail.after:
+    - [onControlleraddCartAfter, NORMAL]

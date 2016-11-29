@@ -1,0 +1,35 @@
+<script>
+
+function tagexModalShow(param) {
+    $("[name='tagex_update_mode']").val(param);
+    $('#tagexModal').modal('show');
+}
+
+
+$(function() {
+
+    $('#tagexModal').on('show.bs.modal', function (event) {
+
+        var tagex_update_mode = $("[name='tagex_update_mode']").val();
+
+        var modal = $('#tagexModal');
+
+        modal.find('.modal-body').text('読込中・・・');
+
+        $.ajax({
+            url: "{{ url('admin_product_tag_ex_update') }}",
+            cache: false,
+            data: {
+                'tagex_update_mode' : tagex_update_mode,
+            },
+        }).done(function(data, textStatus, jqXHR){
+            modal.find('.modal-body').html(data);
+        }).fail(function(data, textStatus, errorThrown){
+            modal.find('.modal-body').text('取得に失敗しました。');
+        });
+    });
+
+
+});
+</script>
+{% endblock javascript %}

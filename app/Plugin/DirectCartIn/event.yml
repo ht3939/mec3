@@ -1,0 +1,12 @@
+#商品一覧テンプレートl
+Product/list.twig:
+    - [onProductListTwig, NORMAL]
+#カート追加完了時
+front.product.detail.complete:
+    - [onFrontProductDetailComplete, LAST]
+#商品一覧レスポンス
+eccube.event.route.product_list.response:
+    - [onEccubeEventRouteProductListResponse, NORMAL]
+#商品詳細初期処理
+front.product.detail.initialize:
+    - [onFrontProductDetailInitialize, NORMAL]

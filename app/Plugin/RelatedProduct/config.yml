@@ -1,0 +1,10 @@
+name: 関連商品プラグイン
+code: RelatedProduct
+version: 0.0.2
+service:
+    - RelatedProductServiceProvider
+orm.path:
+    - /Resource/doctrine
+migration.path:
+    - /migration
+event: Event

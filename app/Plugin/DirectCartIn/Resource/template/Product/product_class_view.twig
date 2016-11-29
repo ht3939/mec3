@@ -1,0 +1,279 @@
+<style type="text/css">
+<!--
+.modal-content {
+    background-color: #fff;
+}
+button.close {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    margin-top: 15px;
+}
+-->
+</style>
+
+{% block javascript %}
+<script>
+
+    $(function() {
+        // 規格1選択時
+        $('select[name=classcategory_id1]')
+        .change(function() {
+            var $form = $(this).parents('form');
+            var product_id = $form.find('input[name=product_id]').val();
+            var $sele1 = $(this);
+            var $sele2 = $form.find('select[name=classcategory_id2]');
+
+            // 規格1のみの場合
+            if (!$sele2.length) {
+                eccube.checkStock($form, product_id, $sele1.val(), null);
+                // 規格2ありの場合
+            } else {
+                eccube.setClassCategories($form, product_id, $sele1, $sele2);
+            }
+        });
+
+        // 規格2選択時
+        $('select[name=classcategory_id2]')
+        .change(function() {
+            var $form = $(this).parents('form');
+            var product_id = $form.find('input[name=product_id]').val();
+            var $sele1 = $form.find('select[name=classcategory_id1]');
+            var $sele2 = $(this);
+            eccube.checkStock($form, product_id, $sele1.val(), $sele2.val());
+        });
+
+    });
+
+    eccube.classCategories = {{ Product.class_categories|json_encode|raw }};
+
+    // 規格2に選択肢を割り当てる。
+    function fnSetClassCategories(form, classcat_id2_selected) {
+        var $form = $(form);
+        var product_id = $form.find('input[name=product_id]').val();
+        var $sele1 = $form.find('select[name=classcategory_id1]');
+        var $sele2 = $form.find('select[name=classcategory_id2]');
+        eccube.setClassCategories($form, product_id, $sele1, $sele2, classcat_id2_selected);
+    }
+
+    {% if form.classcategory_id2 is defined %}
+    fnSetClassCategories(
+            document.form1, {{ form.classcategory_id2.vars.value|json_encode|raw }}
+    );
+    {% endif %}
+
+    function lockChange(lock_mode) {
+        $("#classcategory_id1").prop("disabled", lock_mode);
+        $("#classcategory_id2").prop("disabled", lock_mode);
+        $("#add_cart").prop("disabled", lock_mode);
+    }
+
+    function inputLock() {
+        lockChange(true);
+    }
+
+    function inputUnLock() {
+        lockChange(false);
+    }
+
+    // カートへ追加
+    function cartInProductClass(action_url, id) {
+
+        // 入力チェック
+        var classcategory_id1 = $('[name=classcategory_id1]').val();
+        var classcategory_id2 = $('[name=classcategory_id2]').val();
+
+        // エラー表示クリア
+        $('#err_msg_pc1__' + id).text("");
+        $('#err_msg_pc2__' + id).text("");
+
+        var error = false;
+
+        if(classcategory_id1 == "" || classcategory_id1 == "__unselected") {
+            $('#err_msg_pc1__' + id).text("{{ app.config.DirectCartIn.const.EMPTY }}");
+            error = true;
+        }
+
+        if(classcategory_id2 == "" || classcategory_id2 == "__unselected") {
+            $('#err_msg_pc2__' + id).text("{{ app.config.DirectCartIn.const.EMPTY }}");
+            error = true;
+        }
+
+        if(error) {
+            // 入力エラー
+            return;
+        }
+
+        // 入力ロック
+        inputLock();
+
+        var data = {};
+        data.mode = 'add_cart';
+        data.mode_ex = 'direct_cart_in';
+        data._token = $("#_token").val();
+        data.product_class_id = $("#product_class_id").val();
+        data.product_id = id;
+        data.quantity = 1;
+        data.classcategory_id1 = $('[name=classcategory_id1]').val();
+        data.classcategory_id2 = $('[name=classcategory_id2]').val();
+
+        // カートへ商品を追加
+        $.ajax({
+            'type' : 'POST',
+            url : action_url,
+            data : data,
+            dataType : 'json',
+            error: function() {
+                // error
+                resetPage(id, "", 0);
+
+                alert('{{ app.config.DirectCartIn.const.DIRECT_CART_ERROR }}');
+
+                // モーダル非表示
+                $('#productClassModal').modal('hide');
+            },
+            success : function(data, dataType) {
+                if(data.ret == 1) {
+                    // OK
+                    $("p .cart_price .price").text(data.total_price);
+                    $(".badge").text(data.total_quantity);
+
+                    resetPage(id, data.cart_html, data.total_quantity);
+
+                    // 完了メッセージ
+                    completeMessage(id);
+
+                    // モーダル非表示
+                    $('#productClassModal').modal('hide');
+                } else{
+                    // NG
+                    resetPage(id, "", 0);
+                    alert(data.msg);
+
+                    // 再入力可能とする
+                    inputUnLock();
+                }
+            }
+
+    });
+
+}
+</script>
+
+{% endblock %}
+
+<div id="product_class_modal_box__header" class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"
+        aria-label="Close">
+        <span class="modal-close" aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<section id="item_detail_area">
+
+    <!--★商品名★-->
+    <h3 id="detail_description_box__name" class="item_name">{{ Product.name }}</h3>
+    <div id="detail_description_box__body" class="item_detail">
+
+        {% if tag_flg %}
+        {% if Product.ProductTag is not empty %}
+            <!--▼商品タグ-->
+            <div id="product_tag_box" class="product_tag">
+                {% for ProductTag in Product.ProductTag %}
+                    <span id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</span>
+                {% endfor %}
+            </div>
+            <hr>
+            <!--▲商品タグ-->
+        {% endif %}
+        {% endif %}
+
+        <!--★通常価格★-->
+        {% if Product.hasProductClass -%}
+            {% if Product.getPrice01Min is not null and Product.getPrice01Min == Product.getPrice01Max %}
+            <p id="detail_description_box__class_normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
+            {% elseif Product.getPrice01Min is not null and Product.getPrice01Max is not null %}
+            <p id="detail_description_box__class_normal_range_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }} ～ {{ Product.getPrice01IncTaxMax|price }}</span> <span class="small">税込</span></p>
+            {% endif %}
+        {% else -%}
+            {% if Product.getPrice01Max is not null %}
+            <p id="detail_description_box__normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
+            {% endif %}
+        {% endif -%}
+
+        <!--★販売価格★-->
+        {% if Product.hasProductClass -%}
+            {% if Product.getPrice02Min == Product.getPrice02Max %}
+            <p id="detail_description_box__class_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
+            {% else %}
+            <p id="detail_description_box__class_range_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }} ～ {{  Product.getPrice02IncTaxMax|price }}</span> <span class="small">税込</span></p>
+            {% endif %}
+        {% else -%}
+            <p id="detail_description_box__sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
+        {% endif -%}
+
+        <!--▼商品コード-->
+        <p id="detail_description_box__item_range_code" class="item_code">商品コード： <span id="item_code_default">
+            {{ Product.code_min }}
+            {% if Product.code_min != Product.code_max %} ～ {{ Product.code_max }}{% endif %}
+            </span> </p>
+        <!--▲商品コード-->
+
+        <!-- ▼関連カテゴリ▼ -->
+        <div id="relative_category_box" class="relative_cat">
+            <p>関連カテゴリ</p>
+              {% for ProductCategory in Product.ProductCategories %}
+            <ol id="relative_category_box__relative_category--{{ ProductCategory.product_id }}_{{ loop.index }}">
+                {% for Category in ProductCategory.Category.path %}
+                <li><a id="relative_category_box__relative_category--{{ ProductCategory.product_id }}_{{ loop.parent.loop.index }}_{{ Category.id }}" href="{{ url('product_list') }}?category_id={{ Category.id }}">{{ Category.name }}</a></li>
+                {% endfor %}
+            </ol>
+            {% endfor %}
+        </div>
+        <!-- ▲関連カテゴリ▲ -->
+
+        <form action="?" method="post" id="form1" name="form1">
+            <!--▼買い物かご-->
+            <div id="detail_cart_box" class="cart_area">
+                {% if Product.stock_find %} {# 規格 #} {% if form.classcategory_id1 is
+                defined %}
+                <ul id="detail_cart_box__cart_class_category_id"
+                    class="classcategory_list">
+                    {# 規格1 #}
+                    <li>{{ form_widget(form.classcategory_id1) }}
+                        <p id="err_msg_pc1__{{ Product.id }}" class="errormsg text-danger"></p>
+                    </li> {# 規格2 #} {% if form.classcategory_id2 is defined %}
+                    <li>{{ form_widget(form.classcategory_id2) }}
+                        <p id="err_msg_pc2__{{ Product.id }}" class="errormsg text-danger"></p>
+                    </li> {% endif %}
+                </ul>
+                {% endif %} {# 数量 #}
+                <dl id="detail_cart_box__cart_quantity" class="quantity">
+                    <dd>{{ form_widget(form.quantity, { type : 'hidden' } ) }}</dd>
+                </dl>
+
+                {# カートボタン #}
+                <div id="detail_cart_box__button_area" class="btn_area">
+                    <ul id="detail_cart_box__insert_button" class="row">
+                        <li class="col-xs-12 col-sm-8">
+                            <button type="button" id="add_cart"
+                                class="btn btn-primary btn-block prevention-btn prevention-mask"
+                                onclick="cartInProductClass(&quot;{{ url('plg_pd_direct_cartin', {'id': Product.id}) }}&quot;, {{ Product.id }}); return false;">カートに入れる</button>
+                        </li>
+                    </ul>
+                </div>
+
+                {{ form_widget(form.product_class_id) }} {{ form_widget(form._token)
+                }} {% else %} {# 在庫がない場合は品切れボタンのみ表示 #}
+                <div id="detail_cart_box__button_area" class="btn_area">
+                    <ul class="row">
+                        <li class="col-xs-12 col-sm-8"><button type="button"
+                                class="btn btn-default btn-block" disabled="disabled">ただいま品切れ中です</button></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </form>
+
+    </div>
+
+</section>

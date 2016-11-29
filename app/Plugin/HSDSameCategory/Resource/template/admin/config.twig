@@ -1,0 +1,133 @@
+{% extends 'default_frame.twig' %}
+
+{% block title %}「同じカテゴリの商品を自動で表示」設定画面{% endblock %}
+{% block sub_title %}{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal" method="post" action="{{ url('plugin_HSDSameCategory_config') }}">
+
+                <div class="form-group {% if form.max_count.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示に使用する商品数 <span class="text-danger">*</span><br />(初期設定は4)</label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.max_count) }}
+                        {{ form_errors(form.max_count) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">タイトル <span class="text-danger">*</span>(全角64文字まで)<br />(初期設定は「同じカテゴリの商品」)</label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if mode.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示順 <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.mode) }}
+                        {{ form_errors(form.mode) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if show_type.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示タイプ <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.show_type) }}
+                        {{ form_errors(form.show_type) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if pagination.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">ページネーション <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.pagination) }}
+                        {{ form_errors(form.pagination) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if navbuttons.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">ナビゲーションボタン <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.navbuttons) }}
+                        {{ form_errors(form.navbuttons) }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if showloop.title.vars.errors|length %} has-error {% endif %}">
+                    <label class="col-sm-4 control-label">表示の自動ループ <span class="text-danger">*</span></label>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.showloop) }}
+                        {{ form_errors(form.showloop) }}
+                    </div>
+                </div>
+
+                <div style="margin-top: 70px;"></div>
+
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">登録</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 70px;"></div>
+
+                <div class="wall">
+                    <h3>各項目の説明</h3>
+                        <ul>
+                            <li>【表示に使用する商品数】</li>
+                            <li>
+                                <p>
+                                    表示するために取得する、商品数を指定します。
+                                </p>
+                            </li>
+                            <li>【タイトル】</li>
+                            <li>
+                                <p>
+                                    「同じカテゴリの商品を自動で表示」を設置したブロックに表示されるタイトルです。<br />
+                                </p>
+                            </li>
+                            <li>【表示順】</li>
+                            <li>
+                                <p>
+                                    「同じカテゴリの商品を自動で表示」を設置したブロックに、左から商品が表示される際の順序の決め方です。<br />
+                                    この設定はスライダーがなしの場合に有効です。
+                                </p>
+                            </li>
+
+                            <li>【表示タイプ】</li>
+                            <li>
+                                <p>
+                                    商品を表示するタイプです。<br />
+                                </p>
+                            </li>
+                            <li>【ページネーション】</li>
+                            <li>
+                                <p>
+                                    ページネーションの有無です。この設定はスライダーがありの場合に有効です。<br />
+                                </p>
+                            </li>
+                            <li>【ナビゲーションボタン】</li>
+                            <li>
+                                <p>
+                                    ナビゲーションボタンの有無です。この設定はスライダーがありの場合に有効です。<br />
+                                </p>
+                            </li>
+                            <li>【表示の自動ループ】</li>
+                            <li>
+                                <p>
+                                    「あり」の場合、商品を自動でループ表示します。この設定はスライダーがありの場合に有効です。<br />
+                                </p>
+                            </li>
+
+                        </ul>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock main %}

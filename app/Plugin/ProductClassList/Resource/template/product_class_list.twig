@@ -1,0 +1,70 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) 2015 Takashi Otaki All Rights Reserved.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#}
+
+
+<form action="?" method="post" id="form1" name="form1">
+    <!--▼買い物かご-->
+    <div id="detail_cart_box" class="cart_area">
+        {% if Product.stock_find %}
+
+            {# 規格 #}
+            {% if form.product_class is defined %}
+
+            {{ form_widget(form.product_class) }}
+            {{ form_errors(form.product_class) }}
+
+            {% endif %}
+
+            {# 数量 #}
+            <dl id="detail_cart_box__cart_quantity" class="quantity">
+                <dt>数量</dt>
+                <dd>
+                    {{ form_widget(form.quantity) }}
+                    {{ form_errors(form.quantity) }}
+                </dd>
+            </dl>
+
+            {# カートボタン #}
+            <div id="detail_cart_box__button_area" class="btn_area">
+                <ul id="detail_cart_box__insert_button" class="row">
+                    <li class="col-xs-12 col-sm-8"><button type="submit" id="cart" class="btn btn-primary btn-block prevention-btn prevention-mask">カートに入れる</button></li>
+                </ul>
+                {% if BaseInfo.option_favorite_product == 1 %}
+                <ul id="detail_cart_box__favorite_button" class="row">
+                    {% if is_favorite == false %}
+                        <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block prevention-btn prevention-mask">お気に入りに追加</button></li>
+                    {% else %}
+                        <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block" disabled="disabled">お気に入りに追加済みです</button></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        {% else %}
+            {# 在庫がない場合は品切れボタンのみ表示 #}
+            <div id="detail_cart_box__button_area" class="btn_area">
+                <ul class="row">
+                    <li class="col-xs-12 col-sm-8"><button type="button" class="btn btn-default btn-block" disabled="disabled">ただいま品切れ中です</button></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <!--▲買い物かご-->
+    {{ form_rest(form) }}
+</form>

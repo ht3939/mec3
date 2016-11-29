@@ -1,0 +1,21 @@
+#フロント商品詳細テンプレート
+Product/detail.twig:
+    - [onProductDetailTwig, NORMAL]
+#フロント商品詳細初期処理
+front.product.index.initialize:
+    - [onFrontProductIndexInitialize, NORMAL]
+#フロント商品一覧テンプレート
+Product/list.twig:
+    - [onProductListTiwg, NORMAL]
+#フロント商品一覧検索処理
+front.product.index.search:
+    - [onFrontProductIndexSearch, NORMAL]
+#商品一覧画面初期処理
+admin.product.index.initialize:
+    - [onAdminProductIndexInitialize, NORMAL]
+#商品一覧テンプレート
+Admin/Product/index.twig:
+    - [onAdminProductIndexTwig, NORMAL]
+#商品一覧検索処理
+admin.product.index.search:
+    - [onAdminProductIndexSearch, NORMAL]

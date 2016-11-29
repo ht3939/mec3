@@ -1,0 +1,6 @@
+name: １クリック公開
+code: SimpleStateChange
+event: SimpleStateChange
+version: 1.1.0
+service:
+    - SimpleStateChangeServiceProvider
