@@ -117,8 +117,8 @@ class ShoppingExService
                     "_Card_Num"          => is_array($card)?$CardInfo['cardno']:"" ,
                     "_Card_Name"         => is_array($card)?$CardInfo['cardholder']:"" ,
                     "_Card_Type"         => is_array($card)?$CardInfo['cardtype']:"" ,
-                    "_Card_Limit_Year"   => is_array($card)?$CardInfo['cardlimitmon']:"" ,
-                    "_Card_Limit_Month"  => is_array($card)?$CardInfo['cardlimityear']:"" ,
+                    "_Card_Limit_Year"   => is_array($card)?$CardInfo['cardlimityear']:"" ,
+                    "_Card_Limit_Month"  => is_array($card)?$CardInfo['cardlimitmon']:"" ,
                     "_card_cord"         => is_array($card)?$CardInfo['cardsec']:"" ,
                     "_Password"          => "",
                     "_Message"           => $extendmsg,
@@ -248,8 +248,8 @@ class ShoppingExService
                 ->setCardno4('****')
                 ->setHolder('***')
                 //->setCardtype()
-                ->setLimitmon('1')
-                ->setLimityear('2016')
+                ->setCardlimitmon('1')
+                ->setCardlimityear('2016')
                 ->setCardsec('***');
 
             $app['orm.em']->persist($ShoppingEx);
