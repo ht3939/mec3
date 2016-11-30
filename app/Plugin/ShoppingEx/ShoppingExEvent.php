@@ -241,7 +241,7 @@ class ShoppingExEvent
                             ->setCardno1($dat['cardno1'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
-                            ->setCardlimit($dat['cardlimitmon'])
+                            ->setCardlimitmon($dat['cardlimitmon'])
                             ->setCardlimityear($dat['cardlimityear'])
                             ->setCardsec($dat['cardsec'])
                             ;
