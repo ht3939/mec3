@@ -1,0 +1,396 @@
+{% set l_producttype = 0 %}
+{% for cc in Product.ProductClasses|slice(0,3) %}
+    {% if (cc.ProductType.id != 0) %}
+        {% set l_producttype = cc.ProductType.id %}
+    {% endif %}
+{% endfor %}
+{% if (l_producttype == app.config.producttype_ex_psim_type) %}
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+#item-dtl-tab {
+	width: 1000px;
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+#item-dtl-tab>ul {
+	overflow: hidden;
+	height: 50px;
+	width: 1010px;
+	margin-right: -10px;
+	background: url({{ app.config.front_urlpath }}/img/product/bd-item-dtl-tab.gif) repeat-x 0 bottom;
+}
+#item-dtl-tab>ul li.active, #item-dtl-tab>ul li:hover {
+	border-top: 2px solid #444;
+	border-left: 2px solid #444;
+	border-right: 2px solid #444;
+	margin-top: 0;
+	padding-top: 3px;
+	height: 45px;
+	line-height: 45px;
+	width: 326px;
+	color: #232f3e;
+	background: #fff;
+}
+#item-dtl-tab>ul li {
+	float: left;
+	width: 330px;
+	margin-top: 5px;
+	margin-right: 5px;
+	height: 43px;
+	line-height: 43px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #fff;
+	background: #444;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	border-bottom: 2px solid #444;
+	cursor: pointer;
+}
+.item-dtl-tab-cont {
+	width: 1000px;
+	display: none;
+	background: #fff;
+	margin-bottom: 20px;
+}
+.item-dtl-tab-cont>h2 {
+	border-top: 5px solid #333;
+	border-bottom: 1px solid #ccc;
+	padding: 15px 20px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #232f3e;
+	line-height: 1;
+	margin-bottom: 45px;
+}
+.item-dtl-tab-cont .item-dtl-summary {
+	width: 830px;
+	margin: 0 auto;
+	padding-bottom: 80px;
+	overflow: hidden;
+}
+.item-dtl-tab-cont .item-dtl-summary .summary-img {
+	float: right;
+	margin-left: 45px;
+}
+.item-dtl-tab-cont .item-dtl-summary h3 {
+	font-size: 26px;
+	font-weight: bold;
+	padding-top: 20px;
+	margin-bottom: 15px;
+}
+.item-dtl-tab-cont .item-dtl-spec {
+	width: 860px;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+.item-dtl-tab-cont .item-dtl-spec h3 {
+	padding: 10px 15px;
+	background: #ccc;
+	color: #232f3e;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.item-dtl-tab-cont .item-dtl-spec table {
+	width: 100%;
+	margin-top: 20px;
+	font-size: 12px;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.item-dtl-tab-cont .item-dtl-spec table th {
+	width: 165px;
+	background: #f5f5f5;
+	font-weight: normal;
+}
+.item-dtl-tab-cont .item-dtl-spec table th, .item-dtl-tab-cont .item-dtl-spec table td {
+	border: 1px solid #e8e8e8;
+	padding: 12px;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle;
+}
+#item-dtl-tab>ul li.active, #item-dtl-tab>ul li:hover {
+	height: 52px;
+	line-height: 52px;
+}
+/* ======== PC ==========*/
+
+/* ======== SP ==========*/
+.item-inf .tab-list {
+    overflow: hidden;
+    border-top: 1px solid #ccc;
+}
+.item-inf .tab-list li:first-child {
+    border-left: none;
+}
+.item-inf .tab-list li {
+    float: left;
+    display: table;
+    box-sizing: border-box;
+    width: 33.33%;
+    vertical-align: middle;
+    border-left: 1px solid #ccc;
+}
+.item-inf .tab-list a {
+    display: table-cell;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.item-inf #plan, .item-inf #spec {
+    padding-bottom: 20px;
+}
+.item-inf .inf-content {
+    padding: 0 10px;
+    border-top: 2px solid #ccc;
+}
+.item-inf .inf-content h2 {
+    padding: 10px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.item-inf #plan table, .item-inf #spec table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.item-inf #plan caption, .item-inf #spec caption {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.item-inf #plan th, .item-inf #spec th {
+    background: #f7f7f7;
+    font-weight: bold;
+    width: 33%;
+}
+.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+    border: 1px solid #ccc;
+    padding: 8px 5px;
+    font-size: 1rem;
+}
+.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+    border: 1px solid #ccc;
+    padding: 8px 5px;
+    font-size: 1rem;
+}
+.item-inf #plan, .item-inf #spec {
+    padding-bottom: 20px;
+}
+.item-inf .inf-content {
+    padding: 0 10px;
+    border-top: 2px solid #ccc;
+}
+.item-inf .inf-content h2 {
+    padding: 10px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.item-inf #plan table, .item-inf #spec table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.item-inf #plan caption, .item-inf #spec caption {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.item-inf #plan th, .item-inf #spec th {
+    background: #f7f7f7;
+    font-weight: bold;
+    width: 33%;
+}
+.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+    border: 1px solid #ccc;
+    padding: 8px 5px;
+    font-size: 1rem;
+}
+.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+    border: 1px solid #ccc;
+    padding: 8px 5px;
+    font-size: 1rem;
+}
+
+
+/* ======== SP ==========*/
+
+
+</style>
+{% endblock %}
+
+<!-- ============ PC ============ -->
+<div id="fee_spec" class="item-dtl-tab-cont pc" style="display: block;">
+	<h2>料金・スペック詳細</h2>
+
+	<div class="item-dtl-spec">
+		<h3>料金プラン</h3>
+		<table>
+			<tr>
+				<th>初期費用</th>
+				<td>パッケージ価格:{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}円 （税抜）</td>
+			</tr>
+		</table>
+		<table class="center-table">
+			<tr>
+				<th>プラン名</th>
+				<th>月額料金</th>
+				<th>データ量</th>
+				<th>通信速度</th>
+				<th>SMS対応</th>
+				<th>音声通話</th>
+			</tr>
+			<tr>
+				<td>{{ Product.name }}</td>
+				<td>{{ sales_price_month }}円/月(税抜）</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_data].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_sms].valuetext }}</td>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_voice].valuetext }}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="item-dtl-spec">
+		<h3>スペック</h3>
+		<table>
+			<tr>
+				<th>発売時期</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>カードサイズ</th>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+				{% if (loop.first) %}
+				{% else %}<br>{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>通信速度</th>
+				<td>下り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}/上り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_up].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>通信ネットワーク</th>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+				{% if (loop.first) %}
+				{% else %}/{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				<br>ご利用できるエリアは各社製品ページを確認してください。
+				</td>
+			</tr>
+			<tr>
+				<th>備考</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext|nl2br }}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!-- ============ /PC ============ -->
+
+<!-- ============ SP ============ -->
+<div class="item-inf sp">
+	<ul id="js-scroll-referer-for-follow-header" class="tab-list">
+		<li><a href="#plan" class="js-scroll" data-scroll-offset="-50">料金プラン</a></li>
+		<li><a href="#spec" class="js-scroll" data-scroll-offset="-50">スペック</a></li>
+		<li><a href="#sp" class="js-scroll" data-scroll-offset="-50">対応端末</a></li>
+	</ul>
+	<div id="plan" class="inf-content js-scroll-referer-for-follow-header-navigation">
+		<h2>料金プラン</h2>
+		<table>
+			<caption>料金</caption>
+			<tr>
+				<th>初期費用</th>
+				<td>パッケージ価格：<span>{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}</span>円(税抜)</td>
+			</tr>
+			<tr>
+				<th>月額利用料</th>
+				<td><span>{{sales_price_month|number_format}}</span>円(税抜)</td>
+			</tr>
+		</table>
+
+		<table>
+			<caption>プラン・サービス内容</caption>
+			<tr>
+				<th>プラン名</th>
+				<td>{{ Product.name }}</td>
+			</tr>
+			<tr>
+				<th>データ量</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_data].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>通信速度</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>SMS対応</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_sms].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>音声通話</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_voice].valuetext }}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="spec" class="inf-content js-scroll-referer-for-follow-header-navigation">
+		<h2>スペック</h2>
+		<table>
+			<caption>詳細</caption>
+			<tr>
+				<th>発売時期</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_sale_date].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>カードサイズ</th>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_sim_size].valuetext %}
+				{% if (loop.first) %}
+				{% else %}<br>{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>通信速度</th>
+				<td>下り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}/上り最大{{ __EX_PRODUCT[app.config.product_ex_s_speed_up].valuetext }}</td>
+			</tr>
+			<tr>
+				<th>通信ネットワーク</th>
+				<td>
+				{% for key, card_size in __EX_PRODUCT[app.config.product_ex_carrier].valuetext %}
+				{% if (loop.first) %}
+				{% else %}/{% endif %}
+				{{ card_size }}
+				{% endfor %}
+				<br>ご利用できるエリアは各社製品ページを確認してください。
+				</td>
+			</tr>
+			<tr>
+				<th>備考</th>
+				<td>{{ __EX_PRODUCT[app.config.product_ex_msg].valuetext|nl2br }}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!-- ============ /SP ============ -->
+{% endif %}

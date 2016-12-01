@@ -9,7 +9,64 @@ cardlimit_year: '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,202
 productclassex_sim_payment: '9,10'
 productclassex_sp_payment: '10,12'
 producttype_ex_sim_type: 2
+producttype_ex_psim_type: 3
 producttype_ex_sp_type: 1
+#月額、月々、分割を表示する商品種別
+producttype_ex_monthly_type_grp: 
+ - 1
+ - 2
+producttype_ex_monthly_type_grp_disp:
+ front:
+  1: "月々"
+  2: "月額"
+  3: "一括"
+ back:
+  1: "分割24回"
+  2: "/月"
+  3: ""
+#  1:
+#   - "月々"
+#   - "分割24回"
+#  2:
+#   - "月額"
+#   - "/月"
+
+#商品種別ごとに一覧の拡張項目の表示を設定する
+producttype_ex_list_extends_disp:
+ 1:
+  -
+   - 12
+   - "O　　S"
+  -
+   - 17
+   - "液　　晶"
+  -
+   - 19
+   - "カ  メ  ラ"
+  -
+   - 21
+   - "電池容量"
+ 2:
+  -
+   - 34
+   - "データ容量"
+  -
+   - 36
+   - "通信速度"
+ 3:
+  -
+   - 34
+   - "データ容量"
+  -
+   - 36
+   - "通信速度"
+
+#一括を表示する商品種別
+producttype_ex_sim_type_grp: 
+ - 3
+#初期費用を表示する商品種別
+producttype_ex_initinfo_type_grp: 
+ - 2
 productclass_payonce_type: 10
 
 #  simの注記表示対象外　UQmobile
