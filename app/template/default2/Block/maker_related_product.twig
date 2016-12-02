@@ -15,19 +15,18 @@
 
                                 {% if app.config.relatedex_maker_show_price == 'show_price' %}
 
-                             {% if reldat.product_type_id == app.config.producttype_ex_sim_type %}
-                            
-                            <dd class="item_price">
-                                月額 <span class="price-num">{{ reldat.min_price|number_format }}円/月</span> (税抜)
-                            </dd>
-                            {% else %}
-                            <dd class="item_price">
-                                月々 <span class="price-num">{{ reldat.min_price_pm|number_format }}円</span> (税抜) 
-                                分割24回
-                            </dd>
-                            {% endif %}
+                                {% set product_type = reldat.product_type_id %}
 
 
+                                <dd class="item_price">
+                                    {{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }} <span class="price-num">
+                                    {% if reldat.product_type_id == app.config.producttype_ex_sp_type %}
+                                    {{ reldat.min_price_pm|number_format }}
+                                    {% else %}
+                                    {{ reldat.min_price|number_format }}
+                                    {% endif %}
+                                    円</span> {% if product_type == app.config.producttype_ex_sp_type %}(税抜)<br>{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}{% else %}{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}(税抜){% endif %}
+                                </dd>
 
 
                                 {% endif %}
