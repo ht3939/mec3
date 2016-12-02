@@ -242,14 +242,13 @@ caption, th, td {
 		<h3>料金プラン</h3>
 		<table>
 			<tr>
-				<th>初期費用</th>
-				<td>パッケージ価格:{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}円 （税抜）</td>
+				<th>パッケージ価格</th>
+				<td>{{ sales_price_bulk|number_format }}円(税抜）</td>
 			</tr>
 		</table>
 		<table class="center-table">
 			<tr>
 				<th>プラン名</th>
-				<th>月額料金</th>
 				<th>データ量</th>
 				<th>通信速度</th>
 				<th>SMS対応</th>
@@ -257,7 +256,6 @@ caption, th, td {
 			</tr>
 			<tr>
 				<td>{{ Product.name }}</td>
-				<td>{{ sales_price_month }}円/月(税抜）</td>
 				<td>{{ __EX_PRODUCT[app.config.product_ex_s_data].valuetext }}</td>
 				<td>{{ __EX_PRODUCT[app.config.product_ex_s_speed_down].valuetext }}</td>
 				<td>{{ __EX_PRODUCT[app.config.product_ex_s_etc_sms].valuetext }}</td>
@@ -318,12 +316,8 @@ caption, th, td {
 		<table>
 			<caption>料金</caption>
 			<tr>
-				<th>初期費用</th>
-				<td>パッケージ価格：<span>{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext }}</span>円(税抜)</td>
-			</tr>
-			<tr>
-				<th>月額利用料</th>
-				<td><span>{{sales_price_month|number_format}}</span>円(税抜)</td>
+				<th>パッケージ価格</th>
+				<td><span>{{sales_price_bulk|number_format}}</span>円(税抜)</td>
 			</tr>
 		</table>
 
