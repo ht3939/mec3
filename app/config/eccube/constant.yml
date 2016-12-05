@@ -24,6 +24,13 @@ producttype_ex_monthly_type_grp_disp:
   1: "分割24回"
   2: "/月"
   3: ""
+ valuekey:
+  1: "min_price_pm"
+  2: "min_price"
+  3: "max_price"
+# valuekeyは、relatedproduct系の実装方法に依存
+# sqlで項目名を指定している部分
+
 #  1:
 #   - "月々"
 #   - "分割24回"
