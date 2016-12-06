@@ -168,9 +168,11 @@ function CheckLogic() {
 
                 }
                 var entrymnp = $('#shopping_cardno_cardno1').prop('value').length > 13 
+                                && $('#shopping_cardno_cardno1').prop('value').length <= 16
+                                && $('#shopping_cardno_cardsec').prop('value').length <= 4
                                 && $('#shopping_cardno_cardsec').prop('value').length > 2;
                 if(entrymnp==""){
-                    alert('カード番号、または、セキュリティコードの入力桁数が不足しています。AMEXの場合１４桁になります。');
+                    alert('カード番号、または、セキュリティコードの入力桁数が正しくありません。AMEXの場合１４桁になります。');
                     if ( $('#shopping_cardno_cardno1').prop('value').length > 13 ){
                         $('#shopping_cardno_cardsec').focus();
 
