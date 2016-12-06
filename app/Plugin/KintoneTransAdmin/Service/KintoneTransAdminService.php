@@ -134,6 +134,28 @@ class KintoneTransAdminService
         if(is_null($KintoneTransAdmin)){
             //転送対象なし
         }else{
+            if ($app['config']['kintoneadmin_disable_force']['enable']==true){
+                //強制無効設定をチェックする
+                $st = $app['config']['kintoneadmin_disable_force']['start'];
+                $ed = $app['config']['kintoneadmin_disable_force']['end'];
+
+                if($st && $ed){
+                    //期間指定
+                    $now = new \DateTime();
+                    $sdt = new \DateTime($st);
+                    $edt = new \DateTime($ed);
+
+                    if($sdt<$now && $now<$edt){
+                        log_info('期間指定でKINTONE連携が無効になりました。');
+                        return;
+                    }  
+                }else{
+                    //全無効
+                    log_info('全てのKINTONE連携が無効になりました。');
+                    return;
+                }
+
+            }
             // dump($KintoneTransAdmin);
             // dump($Order);
             // dump($route);

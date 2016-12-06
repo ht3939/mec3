@@ -223,14 +223,17 @@ $(function(){
 
                     <!-- ▼料金▼ -->
                     <div class="payment-price-box js-payment-price-switch">
-                        {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
-                        <p class="payment-price js-payment-price-switch-contents active">月々<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span>　分割24回</p>
 
-                        {% else %}
+                        {% if product_type in app.config.producttype_ex_initinfo_type_grp %}
                         <p class="payment-price js-payment-price-switch-contents active">初期費用<span class="strong">{{ __EX_PRODUCT[app.config.product_ex_s_init_price].valuetext|number_format }}</span>円<span class="number-payment"></span></p>
-                        <p class="payment-price js-payment-price-switch-contents active">月額　　<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span></p>
+                        {% endif %}
+
+                        {% if product_type in app.config.producttype_ex_monthly_type_grp %}
+ 
+                        <p class="payment-price js-payment-price-switch-contents active">{{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }}　　<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span> {{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}</p>
 
                         {% endif %}
+
                         {% if sales_price_bulk != null %}
                         <p class="payment-price js-payment-price-switch-contents">一括<span class="strong">{{ sales_price_bulk|number_format }}</span>円</p>
                         {% endif %}
