@@ -133,10 +133,22 @@ class ShoppingExEvent
         $hasSimOrder = false;
         $hasSimCount = 0;
         $hasExcludeSimMaker = false;
+        $excludepayments = array();
+        $excludemonthly = array();
+
         foreach($Order->getOrderDetails() as $od){
+            $excludepayment = $app['config']['shoppingex_exclude_payment']['products'][$od->getProduct()->getId()];
+dump($excludepayment);
             if($od->getProductClass()->getClassCategory2()->getId()
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
-                $this->hasPayMonthly = true;
+                //月額払い扱いを除外する場合
+                if($excludepayment['excludemonthly']){
+                    $excludemonthly[$od->getProduct()->getId()] = true;
+                }else{
+
+                    $this->hasPayMonthly = true;
+
+                }
             }
 
             if($od->getProduct()->getId()){
@@ -167,6 +179,14 @@ class ShoppingExEvent
                 }
             }
 
+            foreach($excludepayment['target'] as $ep){
+                if($ep){
+                    $excludepayments[$ep]=true;
+                }
+
+            }
+
+
         }
         //注記除外メーカのみの場合、表示をはずす
         if($hasExcludeSimMaker && $hasSimOrder && $hasSimCount == 1){
@@ -188,6 +208,7 @@ class ShoppingExEvent
             $currpayment = $paymentid;
         }
         $builder = $event->getArgument('builder');
+dump($this);
         // dump($builder->get('payment')->GetData());
         //postされなくなるのでコメント
         //$builder->get('payment')->setDisabled($this->hasPayMonthly);
@@ -196,7 +217,25 @@ class ShoppingExEvent
             foreach($builder->get('payment') as $g){
 
                 if($g->getName()==self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID){
+
                     $builder->get('payment')->remove(self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID);
+                }
+
+            }
+
+        }
+dump($excludepayments);
+        //除外する支払方法
+        if(count($excludepayments)>0){
+            $temppayment = null;
+            foreach($builder->get('payment') as $g){
+
+                if($excludepayments[$g->getName()]){
+                    $builder->get('payment')->remove($g->getName());
+
+
+                }else{
+                    $temppayment =     
                 }
 
             }
@@ -453,7 +492,7 @@ class ShoppingExEvent
             $data = $form->getData();
             $payment = $data['payment'];
             $message = $data['message'];
-
+dump($data);
             $Order->setPayment($payment);
             $Order->setPaymentMethod($payment->getMethod());
             $Order->setMessage($message);
