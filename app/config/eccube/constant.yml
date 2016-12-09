@@ -11,6 +11,22 @@ productclassex_sp_payment: '10,12'
 producttype_ex_sim_type: 2
 producttype_ex_psim_type: 3
 producttype_ex_sp_type: 1
+
+#detailのbread
+producttype_ex_detail_bread_disp:
+  1: 
+   cateid: 2
+   cate: "SIMフリースマホ一覧"
+   pagecatename: "SIMフリースマホ詳細"
+  2: 
+   cateid: 1
+   cate: "SIMカード一覧"
+   pagecatename: "SIMカード詳細"
+  3: 
+   cateid: 1
+   cate: "SIMカード一覧"
+   pagecatename: "SIMカード詳細"
+
 #月額、月々、分割を表示する商品種別
 producttype_ex_monthly_type_grp: 
  - 1
