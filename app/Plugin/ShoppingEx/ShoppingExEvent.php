@@ -193,12 +193,6 @@ dump($excludepayment);
             $hasSimOrder = false;
         }
 
-        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
-            'hasPayMonthly'=>$this->hasPayMonthly,
-            'hasSimOrder'=>$hasSimOrder,
-            'Order'=>$Order,
-            'OrderMaker'=>$OrderMaker
-            ));
 
 
         //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
@@ -228,19 +222,40 @@ dump($excludepayments);
         //除外する支払方法
         if(count($excludepayments)>0){
             $temppayment = null;
+            $py = $builder->get('payment');
+dump($py);
             foreach($builder->get('payment') as $g){
+dump($g);
 
                 if($excludepayments[$g->getName()]){
                     $builder->get('payment')->remove($g->getName());
 
 
                 }else{
-                    $temppayment =  '';   
+                    $currpayment =  $g->getName();   
+                    //$g->setData(true);
+                    //$g->setChecked(true);
                 }
+dump($g);
 
             }
-
+            $pydata = $builder->get('payment')->getAttributes()['choice_list_view']->choices[$currpayment]->data;
+            dump($pydata);
+            $builder->get('payment')->setData($pydata);
+            $Order->setPayment($pydata);
+            $Order->setPaymentMethod($pydata->getMethod());
         }
+
+        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
+            'hasPayMonthly'=>$this->hasPayMonthly,
+            'hasSimOrder'=>$hasSimOrder,
+            'Order'=>$Order,
+            'OrderMaker'=>$OrderMaker
+            ));
+dump($Order);
+        $event->setArgument('Order',$Order);
+dump($event);
+dump($currpayment);
         //クレカ決済を選択した場合
         if($currpayment==5){
             $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
