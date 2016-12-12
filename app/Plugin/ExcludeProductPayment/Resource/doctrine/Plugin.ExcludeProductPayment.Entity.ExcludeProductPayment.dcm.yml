@@ -1,0 +1,20 @@
+Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment:
+    type: entity
+    table: plg_exclude_product_payment
+    repositoryClass: Plugin\ExcludeProductPayment\Repository\ExcludeProductPaymentRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: product_id
+    fields:
+        excludemonthly:
+            type: integer
+            nullable: true
+        payment_id:
+            type: integer
+            nullable: true
+
+    lifecycleCallbacks: {  }

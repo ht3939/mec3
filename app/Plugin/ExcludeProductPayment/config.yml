@@ -1,0 +1,16 @@
+name: 商品別支払方法制限
+code: ExcludeProductPayment
+event: ExcludeProductPayment
+version: 1.0.0
+service:
+    - ExcludeProductPaymentServiceProvider
+orm.path:
+    - /Resource/doctrine
+const:
+    name: 商品別支払方法制限
+    code: ExcludeProductPayment
+    version: 1.0.0
+    redirect_non: 0 #指定無し
+    redirect_top: 1 #TOPページ
+    redirect_url: 2 #指定URL
+    redirect_id: 3  #商品
