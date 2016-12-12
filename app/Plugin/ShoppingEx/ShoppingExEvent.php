@@ -235,7 +235,7 @@ dump($excludepayments);
 
 
                 }else{
-                    $temppayment =     
+                    $temppayment =  '';   
                 }
 
             }
