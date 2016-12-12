@@ -92,11 +92,17 @@ class ProductController
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_INDEX_SEARCH, $event);
         $searchData = $event->getArgument('searchData');
 
-        $pagination = $app['paginator']()->paginate(
-            $qb,
-            !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
-            $searchData['disp_number']->getId()
-        );
+        //sort=xxがqueryに入るとシステムエラーになる回避用 doctrineのバグ
+        try{
+
+            $pagination = $app['paginator']()->paginate(
+                $qb,
+                !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
+                $searchData['disp_number']->getId()
+            );
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException();
+        }
 
         // addCart form
         $forms = array();
