@@ -19,7 +19,7 @@ class UtilService
     {
         $this->app   = $app;
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting     = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting     = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
     }
 
@@ -34,11 +34,11 @@ class UtilService
         $const = $this->const;
 
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $app['eccube.plugin.service.cpr.config'];
+        $Setting = $app['eccube.plugin.service.epp.config'];
 
         $arrRedirectIds = array();
         $redirect_id    = '';
-        $log_file       = $Setting->pluginPath . '/Log/redirect_product.log';
+        $log_file       = $Setting->pluginPath . '/Log/exclude_product_payment.log';
 
         // 商品IDチェック
         if (!empty($product_id)){
@@ -52,13 +52,11 @@ class UtilService
         while ((int)$product_id > 0){
             $qb = $ProductRepo->createQueryBuilder('p');
             $qb->select('pr.redirect_product_id')
-                ->leftJoin('Plugin\ExcludeProductPayment\Entity\CprProductRedirect', 'pr', 'WITH', 'p.id = pr.id')
+                ->leftJoin('Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment', 'pr', 'WITH', 'p.id = pr.id')
                 ->andWhere('p.id               = :product_id')
                 ->andWhere('p.Status           = 2')
                 ->andWhere('p.del_flg          = 0')
-                ->andWhere('pr.redirect_select = :redirect_select')
                 ->setParameter('product_id'       , $product_id)
-                ->setParameter('redirect_select' , $const['redirect_id'])
                 ->setMaxResults(1);
 
             try {

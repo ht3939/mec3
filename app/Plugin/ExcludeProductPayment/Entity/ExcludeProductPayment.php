@@ -28,6 +28,7 @@ class ExcludeProductPayment extends \Eccube\Entity\AbstractEntity
      */
     private $payment_id;
 
+    private $payment_ids;
 
     /**
      * Set id
@@ -72,7 +73,33 @@ class ExcludeProductPayment extends \Eccube\Entity\AbstractEntity
     {
         return $this->payment_id;
     }
+    /**
+     * Set redirect_product_id
+     *
+     * @param  integer $redirect_product_id
+     * @return Order
+     */
+    public function setPaymentIds($payment_ids)
+    {
+        $this->payment_ids = $payment_ids;
 
+        return $this;
+    }
+
+    /**
+     * Get redirect_product_id
+     *
+     * @return integer
+     */
+    public function getPaymentIds()
+    {
+        // if(is_array($this->payment_ids)){
+
+        // }else{
+        //     $this->payment_ids = unserialize($this->payment_ids);
+        // }
+        return $this->payment_ids;
+    }
     /**
      * Set excludemonthly
      *

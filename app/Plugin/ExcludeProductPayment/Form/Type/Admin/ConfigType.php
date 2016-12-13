@@ -23,7 +23,7 @@ class ConfigType extends AbstractType
         $this->app = $app;
 
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
     }
 
@@ -37,7 +37,7 @@ class ConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting = $this->app['eccube.plugin.service.epp.config'];
 
         $builder
             ->add('redirect_select', 'choice', array(
@@ -106,6 +106,6 @@ class ConfigType extends AbstractType
      */
     public function getName()
     {
-        return 'cpr_config';
+        return 'epp_config';
     }
 }

@@ -12,8 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Eccube\Form\DataTransformer;
+use Symfony\Component\Form\CallbackTransformer;
 
-class ProductRedirectType extends AbstractType
+class ExcludeProductPaymentType extends AbstractType
 {
     private $app;
     private $const;
@@ -23,7 +25,7 @@ class ProductRedirectType extends AbstractType
         $this->app = $app;
 
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
     }
 
@@ -37,43 +39,22 @@ class ProductRedirectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting = $this->app['eccube.plugin.service.epp.config'];
 
         $builder
-            ->add('redirect_select', 'choice', array(
-                'label' => 'リダイレクト先',
-                'choices' => $Setting->getRedirectPages(false),
+            ->add('excludemonthly', 'checkbox', array(
+                'label' => '月額払い対象外',
+                'required' => false,
+                //'choices' => $Setting->getRedirectPages(false),
+                //'expanded' => true,
+                //'multiple' => true,
+            ))
+            ->add('payment_ids', 'choice', array(
+                'label' => '除外する支払方法',
+                'choices' => $Setting->getExcludePayment(false),
                 'expanded' => true,
-                'multiple' => false,
-                'constraints' => array(
-                    new Assert\NotBlank(array('message' => 'リダイレクト先が選択されていません。')),
-                ),
-                'attr' => array(
-                    'onclick' => 'show()',
-                )
-            ))
-            ->add('redirect_url', 'text', array(
-                'label' => 'URL',
+                'multiple' => true,
                 'required' => false,
-                'constraints' => array(
-//                    new Assert\Url(),
-                    new Assert\Regex(array('pattern' => '/^[[:graph:][:space:]]+$/i', 'message' => '半角英数記号を入力してください。')),
-                    new Assert\Regex(array('pattern' => '@^https?://+($|[a-zA-Z0-9_~=:&\?\.\/-])+$@i', 'message' => 'URL形式を入力してください')),
-                    new Assert\Length(array(
-                        'max' => 1000,
-                    )),
-                ),
-            ))
-            ->add('redirect_product_id', 'number', array(
-                'label' => '商品ID',
-                'required' => false,
-                'constraints' => array(
-                    new Assert\Regex(array('pattern' => '/\A\d+\z/', 'message' => '半角数字を入力してください。')),
-                    new Assert\Length(array(
-                        'max' => 9,
-                    )),
-                    new Assert\GreaterThanOrEqual(array('value' => 1)),
-                ),
             ))
             ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
                 $form = $event->getForm();
@@ -87,6 +68,33 @@ class ProductRedirectType extends AbstractType
                 }
             })
             ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber());
+
+
+        $builder->get('excludemonthly')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
+
+        $builder->get('payment_ids')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return is_array($outval)?$outval:unserialize($outval);
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return is_array($inval)?serialize($inval):$inval;
+                }
+            ))
+        ;        
     }
 
     /**
@@ -95,7 +103,7 @@ class ProductRedirectType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Plugin\ExcludeProductPayment\Entity\CprProductRedirect',
+            'data_class' => 'Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment',
         ));
     }
 
@@ -104,6 +112,6 @@ class ProductRedirectType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_product_redirect';
+        return 'admin_exclude_product_payment';
     }
 }

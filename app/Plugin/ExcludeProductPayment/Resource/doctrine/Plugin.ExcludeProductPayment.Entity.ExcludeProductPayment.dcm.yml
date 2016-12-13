@@ -16,5 +16,8 @@ Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment:
         payment_id:
             type: integer
             nullable: true
+        payment_ids:
+            type: string
+            nullable: true
 
     lifecycleCallbacks: {  }

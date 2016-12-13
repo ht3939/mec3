@@ -32,19 +32,18 @@ class AdminProductPageService extends HookBaseService
         $product_id = $app['request']->attributes->get('id');
 
         /* @var $CprProductRedirectRepo \Plugin\ExcludeProductPayment\Repository\CprProductRedirectRepository */
-        $CprProductRedirectRepo = $app['eccube.plugin.repository.cpr.product_redirect'];
+        $ExcludeProductPaymentRepo = $app['eccube.plugin.repository.exclude_product_payment'];
 
         /* @var $CprProductRedirect \Plugin\ExcludeProductPayment\Entity\CprProductRedirect */
         if ($product_id > 0){
-            $CprProductRedirect = $CprProductRedirectRepo->find($product_id);
+            $ExcludeProductPayment = $ExcludeProductPaymentRepo->find($product_id);
         }
         //データなければ初期値を設定
-        if(!$CprProductRedirect){
-            $CprProductRedirect = new \Plugin\ExcludeProductPayment\Entity\CprProductRedirect;
-            $CprProductRedirect->setRedirectSelect(0);
+        if(!$ExcludeProductPayment){
+            $ExcludeProductPayment = new \Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment;
+            //$ExcludeProductPayments->setRedirectSelect(0);
 
         }
-
         if ($product_id > 0){
             /* @var $Product \Eccube\Entity\Product */
             $Product = $app['eccube.repository.product']->find($product_id);
@@ -61,28 +60,35 @@ class AdminProductPageService extends HookBaseService
         if ($has_class){
             $builder->remove('class');
         }
+dump($ExcludeProductPayment);
 
         // データの設定
         $form = $builder->getForm();
-        $form->get('ProductRedirect')->setData($CprProductRedirect);
+        $form->get('ExcludeProductPayment')->setData($ExcludeProductPayment);
 
         $form->handleRequest($request);
 
         $error_flg = 0;
         // POST時の処理
         if ('POST' === $request->getMethod()) {
-            if ($form->get('ProductRedirect')->isValid()) {
+            if ($form->get('ExcludeProductPayment')->isValid()) {
                 // 登録は商品登録画面が登録できるときに行う
                 // RedirectResponseかどうかで判定する.
+dump($form);
                 if ($response instanceof RedirectResponse) {
                     $product_id = $this->getTarget($event, 'admin_product_product_edit');
                     $em = $app['orm.em'];
                     $em->getConnection()->beginTransaction();
                     try {
-                        $CprProductRedirect = $form->get('ProductRedirect')->getData();
-                        $CprProductRedirect->setId($product_id);
+                        $ExcludeProductPayment = $form->get('ExcludeProductPayment')->getData();
+                        $ExcludeProductPayment->setId($product_id);
+                        $ExcludeProductPayment->setPaymentIds(serialize($ExcludeProductPayment->getPaymentIds())
+                                                            );
+                        //$form->setPaymentIds(serialize($data['payment_ids']));
 
-                        $em->persist($CprProductRedirect);
+dump($ExcludeProductPayment);
+
+                        $em->persist($ExcludeProductPayment);
                         $em->flush();
                         $em->getConnection()->commit();   // コミット
                         Cache::clear($app, false);

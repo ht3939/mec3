@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ProductTypeExtension extends AbstractTypeExtension
+class ExcludeProductPaymentTypeExtension extends AbstractTypeExtension
 {
     private $app;
     private $const;
@@ -22,7 +22,7 @@ class ProductTypeExtension extends AbstractTypeExtension
         $this->app = $app;
 
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
     }
 
@@ -36,7 +36,7 @@ class ProductTypeExtension extends AbstractTypeExtension
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ProductRedirect', 'admin_product_redirect', array(
+            ->add('ExcludeProductPayment', 'admin_exclude_product_payment', array(
                 'label' => $this->const['name'] . 'の設定',
                 'mapped' => false,
             ))

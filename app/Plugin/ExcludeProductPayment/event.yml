@@ -3,8 +3,8 @@
 #eccube.event.render.{ルーティング名}.before
 
 # front
-eccube.event.controller.product_detail.before:
-    - [onControllerBeforeProductDetail, NORMAL]
+# eccube.event.controller.product_detail.before:
+#    - [onControllerBeforeProductDetail, NORMAL]
 
 # admin
 eccube.event.render.admin_product_product_edit.before:

@@ -26,13 +26,13 @@ class ConfigController
     {
         $this->app   = $app;
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting     = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting     = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
 
         $tpl_subtitle = $Setting->pluginName . ' の設定';
         $subData = $Setting->getSetting();
 
-        $form = $this->app['form.factory']->createBuilder('cpr_config')->getForm();
+        $form = $this->app['form.factory']->createBuilder('epp_config')->getForm();
         $form->setData($subData);
 
         if ('POST' === $this->app['request']->getMethod()) {
@@ -65,7 +65,7 @@ class ConfigController
      */
     public function registerPagelayout()
     {
-        $url = "cpr_redirect_guide";
+        $url = "epp_redirect_guide";
         $DeviceType = $this->app['eccube.repository.master.device_type']->find(10);
         $PageLayout = $this->app['eccube.repository.page_layout']->findOneBy(array('url' => $url));
         if (is_null($PageLayout)) {

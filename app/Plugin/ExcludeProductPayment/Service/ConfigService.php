@@ -92,6 +92,41 @@ class ConfigService
     }
 
     /**
+     * 支払方法の取得
+     *
+     * @param bool $config_flg true 設定画面、false 一覧
+     * @return array リダイレクト先 => 名称
+     */
+    public function getExcludePayment($config_flg = true)
+    {
+        $app = $this->app;
+
+        $PaymentRepo = $app['eccube.repository.payment'];
+
+        $const = $this->const;
+        if ($config_flg) {
+            $pages = array(
+                $const['redirect_non'] => '指定無し',
+                $const['redirect_top'] => 'TOPページ',
+                $const['redirect_url'] => '指定URL',
+            );
+        }else{
+            $pages = array(
+                $const['redirect_id']  => '商品ID',
+                $const['redirect_url'] => 'URL',
+                $const['redirect_non'] => '指定無し',
+            );
+
+        }
+
+        $pages = array();
+        foreach($PaymentRepo->findAllArray() as $k=>$v){
+            $pages[$k] = $v['method'];
+        }
+
+        return $pages;
+    }
+    /**
      * ページ案内で表示する文言
      *
      * @return array
@@ -144,7 +179,7 @@ class ConfigService
         }
 
         /* @var $CprPlugin \Plugin\ExcludeProductPayment\Repository\CprPluginRepository */
-        $CprPlugin = $this->app['eccube.plugin.repository.cpr.plugin'];
+        $CprPlugin = $this->app['eccube.plugin.repository.epp.plugin'];
         $ret = $CprPlugin->getSubData($this->pluginCode);
 
         if (isset($ret)) {
@@ -165,11 +200,11 @@ class ConfigService
         $pluginCode = $this->pluginCode;
 
         /* @var $CprPlugin \Plugin\ExcludeProductPayment\Entity\CprPlugin */
-        $CprPlugin = $this->app['eccube.plugin.repository.cpr.plugin']->findOneBy(array('code' => $pluginCode));
+        $CppPlugin = $this->app['eccube.plugin.repository.epp.plugin']->findOneBy(array('code' => $pluginCode));
 
         $subData = serialize($formData);
 
-        if (!is_null($CprPlugin)) {
+        if (!is_null($CppPlugin)) {
             $CprPlugin->setSubData($subData);
             $this->app['orm.em']->persist($CprPlugin);
             $this->app['orm.em']->flush();

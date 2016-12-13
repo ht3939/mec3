@@ -29,7 +29,7 @@ class HookBaseService
     {
         $this->app = $app;
         /* @var $Setting \Plugin\ExcludeProductPayment\Service\ConfigService */
-        $Setting     = $this->app['eccube.plugin.service.cpr.config'];
+        $Setting     = $this->app['eccube.plugin.service.epp.config'];
         $this->const = $Setting->getConst();
     }
 

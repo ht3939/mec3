@@ -98,6 +98,9 @@ class Version20150929105237 extends AbstractMigration
         $table->addColumn('payment_id', 'integer', array(
             'notnull' => false,
         ));
+        $table->addColumn('payment_ids', 'text', array(
+            'notnull' => false,
+        ));
         $table->addColumn('excludemonthly', 'integer', array(
             'notnull' => false,
         ));
@@ -107,7 +110,7 @@ class Version20150929105237 extends AbstractMigration
 
     protected function deletePagelayout()
     {
-        $sql_delete = " DELETE FROM dtb_page_layout WHERE url = 'cpr_redirect_guide'";
+        $sql_delete = " DELETE FROM dtb_page_layout WHERE url = 'epp_redirect_guide'";
         $this->connection->executeUpdate($sql_delete);
 
     }
