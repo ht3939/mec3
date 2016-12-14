@@ -13,9 +13,6 @@ Plugin\ExcludeProductPayment\Entity\ExcludeProductPayment:
         excludemonthly:
             type: integer
             nullable: true
-        payment_id:
-            type: integer
-            nullable: true
         payment_ids:
             type: string
             nullable: true

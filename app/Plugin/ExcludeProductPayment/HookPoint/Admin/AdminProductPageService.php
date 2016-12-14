@@ -60,7 +60,7 @@ class AdminProductPageService extends HookBaseService
         if ($has_class){
             $builder->remove('class');
         }
-dump($ExcludeProductPayment);
+
 
         // データの設定
         $form = $builder->getForm();
@@ -74,7 +74,7 @@ dump($ExcludeProductPayment);
             if ($form->get('ExcludeProductPayment')->isValid()) {
                 // 登録は商品登録画面が登録できるときに行う
                 // RedirectResponseかどうかで判定する.
-dump($form);
+
                 if ($response instanceof RedirectResponse) {
                     $product_id = $this->getTarget($event, 'admin_product_product_edit');
                     $em = $app['orm.em'];
@@ -82,15 +82,17 @@ dump($form);
                     try {
                         $ExcludeProductPayment = $form->get('ExcludeProductPayment')->getData();
                         $ExcludeProductPayment->setId($product_id);
-                        $ExcludeProductPayment->setPaymentIds(serialize($ExcludeProductPayment->getPaymentIds())
-                                                            );
+                        //$ExcludeProductPayment->setPaymentIds(
+                        // serialize($ExcludeProductPayment->getPaymentIds())
+                        //                                    );
                         //$form->setPaymentIds(serialize($data['payment_ids']));
 
-dump($ExcludeProductPayment);
+
 
                         $em->persist($ExcludeProductPayment);
                         $em->flush();
                         $em->getConnection()->commit();   // コミット
+//die();
                         Cache::clear($app, false);
                     } catch (\Exception $e) {
                         $em->getConnection()->rollback(); // ロールバック

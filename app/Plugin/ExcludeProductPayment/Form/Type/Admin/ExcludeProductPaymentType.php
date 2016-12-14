@@ -86,12 +86,22 @@ class ExcludeProductPaymentType extends AbstractType
         $builder->get('payment_ids')
             ->addModelTransformer(new CallbackTransformer(
                 function ($outval) {
-                    // transform the string back to an array
-                    return is_array($outval)?$outval:unserialize($outval);
+
+                    $tmp = is_array($outval)?$outval:unserialize($outval);
+                    $tmp = is_array($tmp)?$tmp:unserialize($tmp);
+                    if($outval){
+                        // transform the string back to an array
+                        return $tmp;
+
+                    }else{
+                        return array();
+                    }
                 },
                 function ($inval) {
+
+                    $tmp = is_array($inval)?serialize($inval):$inval;
                     // transform the array to a string
-                    return is_array($inval)?serialize($inval):$inval;
+                    return $tmp;
                 }
             ))
         ;        

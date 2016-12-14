@@ -23,6 +23,29 @@ class UtilService
         $this->const = $Setting->getConst();
     }
 
+
+    public function getExcludePaymentSetting($id){
+        $ExcludeProductPaymentRepo = $this->app['eccube.plugin.repository.exclude_product_payment'];
+        if ($id > 0){
+            $ExcludeProductPayment = $ExcludeProductPaymentRepo->find($id);
+        }
+
+
+        //データなければ初期値を設定
+        if($ExcludeProductPayment){
+            $tmp = array(
+                    'excludemonthly'=>$ExcludeProductPayment->getExcludeMonthly(),
+                    'target'=>unserialize($ExcludeProductPayment->getPaymentIds())
+                );
+
+            return $tmp;
+        }else{
+            return array(
+                    'excludemonthly'=>0,
+                    'target'=>array()
+                );
+        }
+    }
     /**
      * リダイレクト先商品IDを取得
      *

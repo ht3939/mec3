@@ -24,10 +24,8 @@ class ExcludeProductPayment extends \Eccube\Entity\AbstractEntity
     private $excludemonthly;
 
     /**
-     * @var integer
+     * @var json array
      */
-    private $payment_id;
-
     private $payment_ids;
 
     /**
@@ -51,28 +49,6 @@ class ExcludeProductPayment extends \Eccube\Entity\AbstractEntity
         return $this->id;
     }
 
-    /**
-     * Set redirect_product_id
-     *
-     * @param  integer $redirect_product_id
-     * @return Order
-     */
-    public function setPaymentId($payment_id)
-    {
-        $this->payment_id = $payment_id;
-
-        return $this;
-    }
-
-    /**
-     * Get redirect_product_id
-     *
-     * @return integer
-     */
-    public function getPaymentId()
-    {
-        return $this->payment_id;
-    }
     /**
      * Set redirect_product_id
      *
