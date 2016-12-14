@@ -57,7 +57,7 @@ class PlgExpandProductColumnsValueRepository extends EntityRepository
             /**
              * 保存する値がなく、登録済なら削除
              */
-            else if (!is_null($entity) && ($avlue==="" && empty($value))) {
+            else if (!is_null($entity) && ($value==="" && empty($value))) {
                 $em->remove($entity);
             }
             /**
