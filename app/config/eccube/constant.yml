@@ -13,6 +13,16 @@ producttype_ex_psim_type: 3
 producttype_ex_sp_type: 1
 producttype_ex_router_type: 4
 
+#対応商品の組み合わせて
+# SIMが対応先になる端末
+matchproduct_ex_target_sim_type_grp:
+ - 1
+ - 4
+# 端末が対応先になるSIM
+matchproduct_ex_target_device_type_grp:
+ - 2
+ - 3
+
 #detailのbread
 producttype_ex_detail_bread_disp:
   1:
@@ -113,6 +123,7 @@ producttype_ex_sim_type_grp:
 producttype_ex_initinfo_type_grp:
  - 2
 productclass_payonce_type: 10
+
 
 #  simの注記表示対象外　UQmobile
 

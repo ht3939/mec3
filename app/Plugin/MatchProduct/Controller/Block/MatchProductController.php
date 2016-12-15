@@ -39,6 +39,8 @@ class MatchProductController
             $maker_repository = $app['eccube.plugin.maker.repository.product_maker'];
             $__ex_product = $this->getProductExt($id, $value_repository, $column_repository);
 
+            $product = $app['eccube.repository.product']->find($id);
+
             // ------------- 対応する端末 ------------- 
 
             $param = array();
@@ -108,14 +110,32 @@ class MatchProductController
             $matchs_product = array();
             $matchs_product = $query->getResult();
 
-
             // 商品タイプ（１：端末、２：SIMカード）が同じものは削除
             $this_product = $app['eccube.repository.product']->findOneBy(array('id' => $id));
             $this_product_type = $this_product['ProductClasses'][0]['ProductType']['id'];
 
 
+            $taggrp = array_merge($app['config']['matchproduct_ex_target_device_type_grp']
+                ,$app['config']['matchproduct_ex_target_sim_type_grp']);
+            if(in_array($this_product_type,$app['config']['matchproduct_ex_target_sim_type_grp']) ){
+                $deltag = $app['config']['matchproduct_ex_target_sim_type_grp'];
+
+            }
+            if(in_array($this_product_type,$app['config']['matchproduct_ex_target_device_type_grp']) ){
+                $deltag = $app['config']['matchproduct_ex_target_device_type_grp'];
+
+            }
             foreach ($matchs_product as $key => $val) {
-                if($this_product_type == $val['ProductClasses'][0]['ProductType']['id']){
+                //
+                if(
+                    in_array($val['ProductClasses'][0]['ProductType']['id'],$deltag)
+                    ){
+                    unset($matchs_product[$key]);
+                }
+                //対象外
+                if(
+                    !in_array($val['ProductClasses'][0]['ProductType']['id'],$taggrp)
+                    ){
                     unset($matchs_product[$key]);
                 }
             }
@@ -135,8 +155,8 @@ class MatchProductController
 
             // ------------- /対応する端末 ------------- 
 
-
             return $app['view']->render("Block/match_product.twig", array(
+                'Product' => $product,
                 'this_product_type' => $this_product_type,
                 'matchs_product' => $matchs_product,
                 'matchs_info' => $matchs_info,
