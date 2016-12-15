@@ -69,10 +69,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     margin-bottom: 5px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_name{
-    height: 60px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_name span{
-    height:15px;
 }
 #item_list.main_list .col-sm-3.col-xs-6 .item_price {
     font-size:13px;
@@ -201,6 +199,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         <span>{{ __EX_PRODUCT_LIST_MAKER[Product.id].name }}</span>
                                         {{ Product.name }}
                                     </dt>
+                                {% if Product.description_list %}
+                                    <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
+                                {% endif %}
                                     <ul class="tag-list">
                                     {% for ProductTag in Product.ProductTag %}
                                         <li id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</li>
@@ -212,41 +213,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     </ul>
                                     {% endif %}
                                 </div>
-                                {% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
-                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                    月々 <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> (税抜)<br>分割24回
-                                </dd>
-
-                                <div class="td-spec">
-                                    <dl>
-                                        <dt>O　　S</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].12.valuetext }}</dd>
-                                        <dt>液　　晶</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].17.valuetext }}</dd>
-                                        <dt>カ  メ  ラ</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].19.valuetext }}</dd>
-                                        <dt>電池容量</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id].21.valuetext }}</dd>
-                                    </dl>
-                                </div>
-
-                                {% else %}
+                                {% set product_type = Product.ProductClasses.0.ProductType.id %}
+                                {% if product_type in app.config.producttype_ex_initinfo_type_grp %}
                                 <dd id="result_list__price02init_inc_tax--{{ Product.id }}" class="item_price">
                                     初期費用 <span class="price-num">{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_init_price].valuetext|number_format }}円</span> (税抜)
-                                </dd>                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                    月額 <span class="price-num">{{ Product.getPrice02Min|number_format }}円/月</span> (税抜)
                                 </dd>
 
-                                <div class="td-spec">
-                                    <dl>
-                                        <dt>データ容量</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_data].valuetext }}</dd>
-                                        <dt>通信速度</dt>
-                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][app.config.product_ex_s_speed_down].valuetext }}</dd>
-                                    </dl>
-                                </div>
 
                                 {% endif %}
+
+
+                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                    {{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }} <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> {% if product_type == app.config.producttype_ex_sp_type %}(税抜)<br>{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}{% else %}{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}(税抜){% endif %}
+                                </dd>
+
+                                {% for exdisp in app.config.producttype_ex_list_extends_disp[product_type] %}
+                                <div class="td-spec">
+                                    <dl>
+                                        <dt>{{exdisp.1}}</dt>
+                                        <dd>{{ __EX_PRODUCT_LIST[Product.id][exdisp.0].valuetext }}</dd>
+                                    </dl>
+                                </div>                                
+                                {% endfor %}
 
                                 <a href="{{ url('product_detail', {'id': Product.id}) }}" class="btn-detail">詳細を見る</a>
                             </dl>

@@ -13,17 +13,9 @@
                             <dl>
                                 <dt class="item_name">{{reldat.maker_name}} {{reldat.name}}</dt>
                                 {% if show_price == 'show_price' %}
-                                 {% if reldat.product_type_id == app.config.producttype_ex_sim_type %}
-                                
-                                <dd class="item_price">
-                                    月額 <span class="price-num">{{ reldat.min_price|number_format }}円/月</span> (税抜)
-                                </dd>
-                                {% else %}
-                                <dd class="item_price">
-                                    月々 <span class="price-num">{{ reldat.min_price_pm|number_format }}円</span> (税抜) 
-                                    分割24回
-                                </dd>
-                                {% endif %}
+                                    {{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }} <span class="price-num">
+                                    {{ reldat[app.config.producttype_ex_monthly_type_grp_disp.valuekey[product_type]]|number_format }}
+                                    円</span> {% if product_type == app.config.producttype_ex_sp_type %}(税抜)<br>{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}{% else %}{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}(税抜){% endif %}
 
                                 {% endif %}
                             </dl>

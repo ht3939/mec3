@@ -1,0 +1,7 @@
+name: 対応する端末・SIMカード
+code: MatchProduct
+version: 1.0.0
+service:
+    - MatchProductServiceProvider
+orm.path:
+    - /Resource/doctrine

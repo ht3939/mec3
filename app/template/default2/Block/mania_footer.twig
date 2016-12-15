@@ -286,7 +286,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<p class="footer-privacy-image"><img src="{{ app.config.front_urlpath }}/img/sp/common/footer-privacy.png" alt="たいせつにしますプライバシー" width="40" height="40"></p>
 		<p class="footer-privacy-text">お客様の個人情報の保護に努めています。<br>フォームに入力していただく際も、カード番号などはSSLにて暗号化して送られますので、安心してご利用いただけます。</p>
 	</div>
-	<p class="footer-copyright"><small>© 2016 スマホマニア by モバレコ</small></p>
+	<p class="footer-copyright"><small>© 2016 {{ BaseInfo.shop_name }} by モバレコ</small></p>
 </div>
 
 
@@ -371,7 +371,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</dd>
 			</dl>
 			<dl class="footer-sitelist">
-				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text3.png" alt="スマホマニアトピック"></dt>
+				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text3.png" alt="{{ BaseInfo.shop_name }}トピック"></dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
 						<li><a href="{{ url('about-sim') }}#about-contents-outer1">格安スマホとは？</a></li>
@@ -396,8 +396,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</div>
 	<div class="footer-bottom">
 		<div class="inner">
-			<p class="logo"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="スマホマニアbyモバレコ"></a></p>
-			<p class="copy-text"><small>&copy; 2016 スマホマニア by モバレコ</small></p>
+			<p class="logo"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="{{ BaseInfo.shop_name }}byモバレコ"></a></p>
+			<p class="copy-text"><small>&copy; 2016 {{ BaseInfo.shop_name }} by モバレコ</small></p>
 			<ul class="footer-links">
         <li><a href="{{ url('help_privacy') }}">プライバシーポリシー</a></li>
         <li><a href="{{ url('help_tradelaw') }}">運営会社情報</a></li>

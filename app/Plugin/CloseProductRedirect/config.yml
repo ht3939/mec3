@@ -1,0 +1,16 @@
+name: 非公開商品リダイレクト
+code: CloseProductRedirect
+event: CloseProductRedirect
+version: 1.0.0
+service:
+    - CloseProductRedirectServiceProvider
+orm.path:
+    - /Resource/doctrine
+const:
+    name: 非公開商品リダイレクト
+    code: CloseProductRedirect
+    version: 1.0.0
+    redirect_non: 0 #指定無し
+    redirect_top: 1 #TOPページ
+    redirect_url: 2 #指定URL
+    redirect_id: 3  #商品

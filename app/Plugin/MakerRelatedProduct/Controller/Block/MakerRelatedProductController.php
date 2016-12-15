@@ -72,7 +72,7 @@ class MakerRelatedProductController
            where opm.maker_id in 
            (select pm.maker_id from dtb_product p 
            inner join plg_product_maker pm on p.product_id = pm.product_id where p.product_id ={$id})
-            and ecp.product_id <> {$id}
+            and ecp.product_id <> {$id} and ecp.status = 1 and ecp.del_flg = 0
 SQL;
 
             $stmt = $app['orm.em']->getConnection()->prepare($sql);
