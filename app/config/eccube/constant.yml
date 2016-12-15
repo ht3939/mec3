@@ -23,6 +23,21 @@ matchproduct_ex_target_device_type_grp:
  - 2
  - 3
 
+#選択の組合せパターン　対象のオプション：親オプション、対象選択値
+productoption_setpattern:
+ 10:
+  - 6
+  - 13
+ 11:
+  - 6
+  - 13
+ 12:
+  - 6
+  - 13
+ 13:
+  - 6
+  - 13
+
 #detailのbread
 producttype_ex_detail_bread_disp:
   1:
