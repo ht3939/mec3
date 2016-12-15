@@ -136,9 +136,12 @@ class ShoppingExEvent
         $excludepayments = array();
         $excludemonthly = array();
 
+        $eppsrv = $app['eccube.plugin.service.epp.util'];
+
         foreach($Order->getOrderDetails() as $od){
-            $excludepayment = $app['config']['shoppingex_exclude_payment']['products'][$od->getProduct()->getId()];
-dump($excludepayment);
+            $excludepayment = $eppsrv->getExcludePaymentSetting($od->getProduct()->getId());
+
+            //$excludepayment = $app['config']['shoppingex_exclude_payment']['products'][$od->getProduct()->getId()];
             if($od->getProductClass()->getClassCategory2()->getId()
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
                 //月額払い扱いを除外する場合
@@ -202,7 +205,6 @@ dump($excludepayment);
             $currpayment = $paymentid;
         }
         $builder = $event->getArgument('builder');
-dump($this);
         // dump($builder->get('payment')->GetData());
         //postされなくなるのでコメント
         //$builder->get('payment')->setDisabled($this->hasPayMonthly);
@@ -218,15 +220,12 @@ dump($this);
             }
 
         }
-dump($excludepayments);
+
         //除外する支払方法
         if(count($excludepayments)>0){
             $temppayment = null;
             $py = $builder->get('payment');
-dump($py);
             foreach($builder->get('payment') as $g){
-dump($g);
-
                 if($excludepayments[$g->getName()]){
                     $builder->get('payment')->remove($g->getName());
 
@@ -236,11 +235,10 @@ dump($g);
                     //$g->setData(true);
                     //$g->setChecked(true);
                 }
-dump($g);
 
             }
             $pydata = $builder->get('payment')->getAttributes()['choice_list_view']->choices[$currpayment]->data;
-            dump($pydata);
+
             $builder->get('payment')->setData($pydata);
             $Order->setPayment($pydata);
             $Order->setPaymentMethod($pydata->getMethod());
@@ -252,10 +250,10 @@ dump($g);
             'Order'=>$Order,
             'OrderMaker'=>$OrderMaker
             ));
-dump($Order);
+
         $event->setArgument('Order',$Order);
-dump($event);
-dump($currpayment);
+
+
         //クレカ決済を選択した場合
         if($currpayment==5){
             $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
@@ -507,7 +505,7 @@ dump($currpayment);
             $data = $form->getData();
             $payment = $data['payment'];
             $message = $data['message'];
-dump($data);
+
             $Order->setPayment($payment);
             $Order->setPaymentMethod($payment->getMethod());
             $Order->setMessage($message);
