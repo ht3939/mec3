@@ -215,6 +215,19 @@ class FrontProductDetail extends AbstractWorkPlace
                                     }elseif($Option->getType()->getId() == 3 || $Option->getType()->getId() == 4){
                                         if(strlen($value) == 0)$add = false;
                                     }
+
+                                    //オプションの組合せでチェック
+                                    
+                                    if(isset($app['config']['productoption_setpattern'][$option_id])){
+                                        $patterns = $app['config']['productoption_setpattern'][$option_id];
+                                        $add=false;
+                                        if($data['productoption'.$patterns[0]]==$patterns[1] ){
+                                            $add=true;
+
+                                        }
+
+
+                                    }
                                     if($add){
                                         $Options[$option_key] = (string)$value;
                                     }
