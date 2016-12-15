@@ -18,6 +18,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Eccube\Event\EventArgs;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Event
 {
@@ -525,12 +526,18 @@ EOD;
         );        
         $app['eccube.event.dispatcher']->dispatch('front.product.index.search', $event);
 
-        $pagination = $app['paginator']()->paginate(
-            $qb,
-            !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
-            $searchData['disp_number']->getId(),
-            array('wrap-queries' => true)
-        );
+        //sort=xxがqueryに入るとシステムエラーになる回避用
+        try {
+
+            $pagination = $app['paginator']()->paginate(
+                $qb,
+                !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
+                $searchData['disp_number']->getId(),
+                array('wrap-queries' => true)
+            );        
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException();
+        }
 
         return $pagination;
     }

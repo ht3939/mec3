@@ -3,21 +3,142 @@ cardno_len_min: 13
 cardsec_len: 4
 cardsec_len_min: 2
 cardtype: 'VISA,JCB,AmericanExpress,MASTER,DinersClub'
-cardlimit_mon: '01,02,03,04,05,06,07,08,09,11,12'
+cardlimit_mon: '01,02,03,04,05,06,07,08,09,10,11,12'
 cardlimit_year: '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028'
-kintoneapi_url: 'https://ac-system.cybozu.com/k/v1/record.json'
-kintoneapi_id: 'system_api'
-kintoneapi_pw: 's63mxAm$'
-kintoneapi_appid: 424
-webregist_url: hogehoge
-webregist_awskey: secretkey
-webregist_awspw: hogehogekey
 
 productclassex_sim_payment: '9,10'
 productclassex_sp_payment: '10,12'
 producttype_ex_sim_type: 2
+producttype_ex_psim_type: 3
 producttype_ex_sp_type: 1
+producttype_ex_router_type: 4
+
+#対応商品の組み合わせて
+# SIMが対応先になる端末
+matchproduct_ex_target_sim_type_grp:
+ - 1
+ - 4
+# 端末が対応先になるSIM
+matchproduct_ex_target_device_type_grp:
+ - 2
+ - 3
+
+#選択の組合せパターン　対象のオプション：親オプション、対象選択値
+productoption_setpattern:
+ 10:
+  - 6
+  - 13
+ 11:
+  - 6
+  - 13
+ 12:
+  - 6
+  - 13
+ 13:
+  - 6
+  - 13
+
+#detailのbread
+producttype_ex_detail_bread_disp:
+  1:
+   cateid: 2
+   cate: "SIMフリースマホ一覧"
+   pagecatename: "SIMフリースマホ詳細"
+  2:
+   cateid: 1
+   cate: "SIMカード一覧"
+   pagecatename: "SIMカード詳細"
+  3:
+   cateid: 1
+   cate: "SIMカード一覧"
+   pagecatename: "SIMカード詳細"
+  4:
+   cateid: 38
+   cate: "ルータ一覧"
+   pagecatename: "ルータ詳細"
+
+#月額、月々、分割を表示する商品種別
+producttype_ex_monthly_type_grp:
+ - 1
+ - 2
+ - 4
+producttype_ex_monthly_type_grp_disp:
+ front:
+  1: "月々"
+  2: "月額"
+  3: "一括"
+  4: "月々"
+ back:
+  1: "分割24回"
+  2: "/月"
+  3: ""
+  4: "分割24回"
+ valuekey:
+  1: "min_price_pm"
+  2: "min_price"
+  3: "max_price"
+  4: "min_price_pm"
+# valuekeyは、relatedproduct系の実装方法に依存
+# sqlで項目名を指定している部分
+
+#  1:
+#   - "月々"
+#   - "分割24回"
+#  2:
+#   - "月額"
+#   - "/月"
+
+#商品種別ごとに一覧の拡張項目の表示を設定する
+producttype_ex_list_extends_disp:
+ 1:
+  -
+   - 12
+   - "O　　S"
+  -
+   - 17
+   - "液　　晶"
+  -
+   - 19
+   - "カ  メ  ラ"
+  -
+   - 21
+   - "電池容量"
+ 2:
+  -
+   - 34
+   - "データ容量"
+  -
+   - 36
+   - "通信速度"
+ 3:
+  -
+   - 34
+   - "データ容量"
+  -
+   - 36
+   - "通信速度"
+ 4:
+  -
+   - 12
+   - "O　　S"
+  -
+   - 17
+   - "液　　晶"
+  -
+   - 19
+   - "カ  メ  ラ"
+  -
+   - 21
+   - "電池容量"
+
+#一括を表示する商品種別
+producttype_ex_sim_type_grp:
+ - 3
+#初期費用を表示する商品種別
+producttype_ex_initinfo_type_grp:
+ - 2
 productclass_payonce_type: 10
+
 
 #  simの注記表示対象外　UQmobile
 
@@ -37,42 +158,42 @@ stext_len: 300
 relatedex_maker_show_price: 'show_price'
 
 # ============= 拡張項目のID =============
-product_ex_img_01: 			1
-product_ex_img_02: 			2
-product_ex_img_03: 			8
-product_ex_infotitle_01: 		38
-product_ex_infotitle_02: 		39
-product_ex_infotitle_03: 		40
-product_ex_info_01: 		9
-product_ex_info_02: 		10
-product_ex_info_03: 		11
-product_ex_sim_size: 		4
-product_ex_carrier: 		41
-product_ex_sale_date: 		16
-product_ex_msg: 			6
-product_ex_p_os: 				12
-product_ex_p_body_size: 		14
-product_ex_p_weight: 			15
-product_ex_p_screen_size: 	17
-product_ex_p_screen_rezo: 	18
-product_ex_p_main_cam: 		19
-product_ex_p_sub_cam: 		20
-product_ex_p_battery: 		21
-product_ex_p_cpu: 			22
-product_ex_p_rom: 			23
-product_ex_p_ram: 			24
-product_ex_p_etc_waterproof: 	25
-product_ex_p_etc_tethering: 	26
-product_ex_p_etc_wifi: 		27
-product_ex_p_etc_bluetooth: 	28
-product_ex_p_etc_gps: 		29
-product_ex_p_etc_infrared: 	30
-product_ex_p_etc_pay: 		31
-product_ex_s_init_price: 		32
-product_ex_s_speed: 			33
-product_ex_s_data: 			34
-product_ex_s_speed_up: 		35
-product_ex_s_speed_down: 		36
-product_ex_s_etc_sms: 		42
-product_ex_s_etc_voice: 		43
+product_ex_img_01:                      1
+product_ex_img_02:                      2
+product_ex_img_03:                      8
+product_ex_infotitle_01:                38
+product_ex_infotitle_02:                39
+product_ex_infotitle_03:                40
+product_ex_info_01:             9
+product_ex_info_02:             10
+product_ex_info_03:             11
+product_ex_sim_size:            4
+product_ex_carrier:             41
+product_ex_sale_date:           16
+product_ex_msg:                         6
+product_ex_p_os:                                12
+product_ex_p_body_size:                 14
+product_ex_p_weight:                    15
+product_ex_p_screen_size:       17
+product_ex_p_screen_rezo:       18
+product_ex_p_main_cam:          19
+product_ex_p_sub_cam:           20
+product_ex_p_battery:           21
+product_ex_p_cpu:                       22
+product_ex_p_rom:                       23
+product_ex_p_ram:                       24
+product_ex_p_etc_waterproof:    25
+product_ex_p_etc_tethering:     26
+product_ex_p_etc_wifi:          27
+product_ex_p_etc_bluetooth:     28
+product_ex_p_etc_gps:           29
+product_ex_p_etc_infrared:      30
+product_ex_p_etc_pay:           31
+product_ex_s_init_price:                32
+product_ex_s_speed:                     33
+product_ex_s_data:                      34
+product_ex_s_speed_up:          35
+product_ex_s_speed_down:                36
+product_ex_s_etc_sms:           42
+product_ex_s_etc_voice:                 43
 # ============= /拡張項目のID =====

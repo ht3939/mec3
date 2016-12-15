@@ -1,0 +1,23 @@
+Plugin\CloseProductRedirect\Entity\CprProductRedirect:
+    type: entity
+    table: dtb_cpr_product_redirect
+    repositoryClass: Plugin\CloseProductRedirect\Repository\CprProductRedirectRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: product_id
+    fields:
+        redirect_product_id:
+            type: integer
+            nullable: true
+        redirect_url:
+            type: text
+            nullable: true
+        redirect_select:
+            type: integer
+            nullable: true
+
+    lifecycleCallbacks: {  }

@@ -185,11 +185,17 @@ class Event
             ->last();
         if ($oldElement->count() > 0) {
             $oldHtml = $oldElement->html();
-            $newHtml = $oldHtml.$twig;
-
+            //$newHtml = $oldHtml.$twig;
             $html = $this->getHtml($crawler);
+
+        $oldHtml2 = html_entity_decode($oldHtml, ENT_NOQUOTES, 'UTF-8');//dump($oldHtml2);
+            $newHtml = $oldHtml2.$twig;//dump($newHtml);
             $html = $html.$modal;
-            $html = str_replace($oldHtml, $newHtml, $html);
+            $html = str_replace($oldHtml2, $newHtml, $html);//dump($html);
+
+
+
+            //$html = str_replace($oldHtml, $newHtml, $html);
 
             $response->setContent($html);
             $event->setResponse($response);

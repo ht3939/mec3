@@ -133,10 +133,25 @@ class ShoppingExEvent
         $hasSimOrder = false;
         $hasSimCount = 0;
         $hasExcludeSimMaker = false;
+        $excludepayments = array();
+        $excludemonthly = array();
+
+        $eppsrv = $app['eccube.plugin.service.epp.util'];
+
         foreach($Order->getOrderDetails() as $od){
+            $excludepayment = $eppsrv->getExcludePaymentSetting($od->getProduct()->getId());
+
+            //$excludepayment = $app['config']['shoppingex_exclude_payment']['products'][$od->getProduct()->getId()];
             if($od->getProductClass()->getClassCategory2()->getId()
                 !=self::SHOPPINGEX_PAYONCE_PRODUCTCLASS_ID){
-                $this->hasPayMonthly = true;
+                //月額払い扱いを除外する場合
+                if($excludepayment['excludemonthly']){
+                    $excludemonthly[$od->getProduct()->getId()] = true;
+                }else{
+
+                    $this->hasPayMonthly = true;
+
+                }
             }
 
             if($od->getProduct()->getId()){
@@ -167,18 +182,20 @@ class ShoppingExEvent
                 }
             }
 
+            foreach($excludepayment['target'] as $ep){
+                if($ep){
+                    $excludepayments[$ep]=true;
+                }
+
+            }
+
+
         }
         //注記除外メーカのみの場合、表示をはずす
         if($hasExcludeSimMaker && $hasSimOrder && $hasSimCount == 1){
             $hasSimOrder = false;
         }
 
-        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
-            'hasPayMonthly'=>$this->hasPayMonthly,
-            'hasSimOrder'=>$hasSimOrder,
-            'Order'=>$Order,
-            'OrderMaker'=>$OrderMaker
-            ));
 
 
         //$Order = $app['eccube.productoption.service.shopping']->customOrder($Order);
@@ -196,12 +213,47 @@ class ShoppingExEvent
             foreach($builder->get('payment') as $g){
 
                 if($g->getName()==self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID){
+
                     $builder->get('payment')->remove(self::SHOPPINGEX_SELFPAY_ORDER_TYPE_ID);
                 }
 
             }
 
         }
+
+        //除外する支払方法
+        if(count($excludepayments)>0){
+            $temppayment = null;
+            $py = $builder->get('payment');
+            foreach($builder->get('payment') as $g){
+                if($excludepayments[$g->getName()]){
+                    $builder->get('payment')->remove($g->getName());
+
+
+                }else{
+                    $currpayment =  $g->getName();   
+                    //$g->setData(true);
+                    //$g->setChecked(true);
+                }
+
+            }
+            $pydata = $builder->get('payment')->getAttributes()['choice_list_view']->choices[$currpayment]->data;
+
+            $builder->get('payment')->setData($pydata);
+            $Order->setPayment($pydata);
+            $Order->setPaymentMethod($pydata->getMethod());
+        }
+
+        $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
+            'hasPayMonthly'=>$this->hasPayMonthly,
+            'hasSimOrder'=>$hasSimOrder,
+            'Order'=>$Order,
+            'OrderMaker'=>$OrderMaker
+            ));
+
+        $event->setArgument('Order',$Order);
+
+
         //クレカ決済を選択した場合
         if($currpayment==5){
             $ShoppingEx = $app['shoppingex.repository.shoppingex']->find($Order->getId());
@@ -241,7 +293,7 @@ class ShoppingExEvent
                             ->setCardno1($dat['cardno1'])
                             ->setHolder($dat['holder'])
                             ->setCardtype($dat['cardtype'])
-                            ->setCardlimit($dat['cardlimitmon'])
+                            ->setCardlimitmon($dat['cardlimitmon'])
                             ->setCardlimityear($dat['cardlimityear'])
                             ->setCardsec($dat['cardsec'])
                             ;
@@ -274,8 +326,6 @@ class ShoppingExEvent
 
         }
 
-dump('service call');
-        $app['eccube.plugin.shoppingex.service.shoppingex']->cleanupShoppingOrder($event);
 
     }
     public function onFrontShoppingIndexInitialize(EventArgs $event){
@@ -350,19 +400,36 @@ dump('service call');
             $ShoppingEx = new ShoppingEx();
 
         }
+        if(isset($dat['cardno1'])
+            ){
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1($dat['cardno1'])
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder($dat['holder'])
+                    ->setCardtype($dat['cardtype'])
+                    ->setCardlimitmon($dat['cardlimitmon'])
+                    ->setCardlimityear($dat['cardlimityear'])
+                    ->setCardsec($dat['cardsec'])
+                    ;
 
-        $ShoppingEx
-                ->setId($Order->getId())
-                ->setCardno1($dat['cardno1'])
-                // ->setCardno2($dat['cardno2'])
-                // ->setCardno3($dat['cardno3'])
-                // ->setCardno4($dat['cardno4'])
-                ->setHolder($dat['holder'])
-                ->setCardtype($dat['cardtype'])
-                ->setCardlimitmon($dat['cardlimitmon'])
-                ->setCardlimityear($dat['cardlimityear'])
-                ->setCardsec($dat['cardsec'])
-                ;
+        }else{
+            $ShoppingEx
+                    ->setId($Order->getId())
+                    ->setCardno1('')
+                    // ->setCardno2($dat['cardno2'])
+                    // ->setCardno3($dat['cardno3'])
+                    // ->setCardno4($dat['cardno4'])
+                    ->setHolder('')
+                    ->setCardtype(0)
+                    ->setCardlimitmon(0)
+                    ->setCardlimityear(0)
+                    ->setCardsec('')
+                    ;
+
+        }
         $app['orm.em']->persist($ShoppingEx);
         $app['orm.em']->flush();
 
@@ -400,6 +467,7 @@ dump('service call');
     }
 
     public function onFrontShoppingConfirmComplete(EventArgs $event){
+        $app = $this->app;
         //セッションから消す
         //$session->set(self::SHOPPINGEX_SESSION_REDIRECT_KEY,$request->request);
         $req = $event->getRequest();

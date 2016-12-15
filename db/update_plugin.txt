@@ -1,0 +1,12 @@
+cd app/Plugin/xxxx
+tar cfvz xxxx.tar.gz ./*
+mv xxxx.tar.gz ../../../app/Plugin/
+cd [root]
+php app/console plugin:develop update --code xxxx --path app/Plugin/xxxx.tar.gz
+
+手順
+１．プラグインフォルダに必要なものを全ていれておく。
+２．PluginManager.phpのupdateメソッドに更新処理の対象を記述しておく。
+３．tarでパッケージする
+４．アップデートを実行する
+　　※管理画面からでも可能
