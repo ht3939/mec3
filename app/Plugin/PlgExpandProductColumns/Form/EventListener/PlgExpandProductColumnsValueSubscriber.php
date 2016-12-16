@@ -177,11 +177,17 @@ class PlgExpandProductColumnsValueSubscriber implements EventSubscriberInterface
         $inserted_array = $this->app['plgExpandProductColumnsValue_inserted'];
         $inserted_array[] = $column_id;
         $this->app['plgExpandProductColumnsValue_inserted'] = $inserted_array;
-        
+
         // データのカスタム
         switch ($ex_column->getColumnType()) {
             case EX_TYPE_CHECKBOX :
+                if(is_array($entity->getValue())){
+                $entity->setValue($entity->getValue());
+
+                }else{
                 $entity->setValue(explode(',', $entity->getValue()));
+
+                }
                 $event->setData($entity);
                 break;
         }

@@ -27,12 +27,31 @@ class RedirectController
     {   
 
         $redirect = null;
-
+        //doctrineのバグ回避用
+        $queryparams = $request->query->all();
+        if(isset($queryparams['sort'])){
+            unset($queryparams['sort']);
+        }
         $redirectto = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
         if(isset( $redirectto[$request->getPathInfo()])){
             $redirect = $redirectto[$request->getPathInfo()];
-            $query = $request->getQueryString();
-            if($request->getQueryString()){
+            $query = "";
+            $querys = array();
+            foreach($queryparams as $k=>$v){
+                if(is_array($v)){
+                    foreach ($v as $value) {
+                        $querys[]= $k.'[]='.$value;
+                        
+                    }
+
+                }else{
+                    $querys[]= $k.'='.$v;
+
+                }
+
+            }
+            $query = implode('&',$querys);
+            if(count($queryparams)>0){
                 if(count(explode('?',$redirect))>1){
                 $redirect .= '&'.urldecode(($query));
 
