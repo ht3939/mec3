@@ -119,17 +119,17 @@ producttype_ex_list_extends_disp:
    - "通信速度"
  4:
   -
-   - 12
-   - "O　　S"
+   - 4
+   - "SIMサイズ"
   -
-   - 17
-   - "液　　晶"
+   - 16
+   - "発売時期"
   -
-   - 19
-   - "カ  メ  ラ"
+   - 46
+   - "基本サイズ"
   -
-   - 21
-   - "電池容量"
+   - 47
+   - "重さ（ｇ）"
 
 #一括を表示する商品種別
 producttype_ex_sim_type_grp:
@@ -196,4 +196,12 @@ product_ex_s_speed_up:          35
 product_ex_s_speed_down:                36
 product_ex_s_etc_sms:           42
 product_ex_s_etc_voice:                 43
+product_ex_r_productinfo:                45
+product_ex_r_stdsize:                     46
+product_ex_r_weight:                      47
+product_ex_r_etc_lte:          51
+product_ex_r_etc_wifi:                48
+product_ex_r_etc_bluetooth:           49
+product_ex_r_etc_gps:                 50
+
 # ============= /拡張項目のID =====
