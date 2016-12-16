@@ -231,7 +231,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <div class="td-spec">
                                     <dl>
                                         <dt>{{exdisp.1}}</dt>
+                                        {% if exdisp.0 != 4 %}
                                         <dd>{{ __EX_PRODUCT_LIST[Product.id][exdisp.0].valuetext }}</dd>
+
+                                        {% else %}
+                                            {% for key, card_size in __EX_PRODUCT_LIST[Product.id][exdisp.0].valuetext %}
+                                            <br>{{ card_size }}
+                                            {% if (loop.first) %}
+                                            {% else %}{% endif %}
+                                            {% endfor %}
+
+                                        {% endif %}
                                     </dl>
                                 </div>                                
                                 {% endfor %}
