@@ -244,6 +244,19 @@ class ShoppingExEvent
             $Order->setPaymentMethod($pydata->getMethod());
         }
 
+        //SIMの月額除外がある場合、hasPayMonthlyをtrueにする
+        //請求の表記調整のため。
+        foreach($Order->getOrderDetails() as $od){
+            if($od->getProductClass()->getProductType()->getId()
+                ==$app['config']['producttype_ex_sim_type']){
+                //月額払い対象外の設定か？
+
+                if($excludemonthly[$od->getProduct()->getId()]){
+                    $this->hasPayMonthly = true;
+                }
+
+            }
+        }        
         $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
             'hasPayMonthly'=>$this->hasPayMonthly,
             'hasSimOrder'=>$hasSimOrder,
