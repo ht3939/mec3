@@ -143,6 +143,14 @@ class ShoppingExService
 
         $route = $app['eccube.plugin.fdroute.service.fdroute']->getStoredFdRoute();
 
+        if($Contact['pref']){
+            $addr01 = $Contact['pref']->getName().$Contact['addr01'];
+
+        }else{
+            $addr01 = $Contact['addr01'];
+
+        }
+
         $data = array(
                     "_Route"             => $route['route_name'].$type,
                     "_MainProgress"      => "未処理",
@@ -151,7 +159,7 @@ class ShoppingExService
                     "_Year_Birth_Day"    => "",
                     "_Gender"            => "",
                     "_Zip"               => $Contact['zip01'].$Contact['zip02'],
-                    "_Add1"              => $Contact['pref']->getName().$Contact['addr01'],
+                    "_Add1"              => $addr01,
                     "_Add2"              => $Contact['addr02'],
                     "_Add3"              => "",
                     "_Tel"               => $Contact['tel01'].$Contact['tel02'].$Contact['tel03'],
