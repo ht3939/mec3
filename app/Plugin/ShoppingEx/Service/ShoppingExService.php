@@ -236,14 +236,21 @@ class ShoppingExService
             //$order = $this->app['eccube.repository.order']->find($order->getId());
             $orderid = $order->getId();
             $shoppingex = $this->app['shoppingex.repository.shoppingex']->find($orderid);
-            $this->cleanupOrderInfo($order,$shoppingex);
+            $shipping = $this->app['eccube.repository.shipping']
+                                ->createQueryBuilder('s')
+                                ->innerJoin('Eccube\Entity\Order', 'o', 'WITH', 'o.id = s.Order')
+                                ->where('o.id = (:order)')
+                                ->setParameter('order', $orderid)
+                                ->getQuery()
+                                ->getResult();            
+            $this->cleanupOrderInfo($order,$shoppingex,$shipping);
 
         }
 
 
 
     }
-    private function cleanupOrderInfo($Order,$ShoppingEx)
+    private function cleanupOrderInfo($Order,$ShoppingEx,$Shippings = null)
     {
         $app = $this->app;
 
@@ -311,7 +318,36 @@ class ShoppingExService
 //dump('add cleanup done');
             
         }
+        if($Shippings){
+            foreach($Shippings as $Shipping){
 
+                $Shipping
+                    ->setName01('***')
+                    ->setName02('***')
+                    ->setKana01('***')
+                    ->setKana02('***')
+                    ->setTel01('0000')
+                    ->setTel02('0000')
+                    ->setTel03('0000')
+                    ->setFax01('0000')
+                    ->setFax02('0000')
+                    ->setFax03('0000')
+                    ->setZip01('000')
+                    ->setZip02('0000')
+                    //->setZipCode('000'.'0000')
+                    //->setPref($Customer->getPref())
+                    ->setAddr01('****')
+                    ->setAddr02('***');
+
+                $app['orm.em']->persist($Shipping);
+                $app['orm.em']->flush();
+                
+            }
+
+            
+        }
+
+//die();
         //return $Order;
     }
 
