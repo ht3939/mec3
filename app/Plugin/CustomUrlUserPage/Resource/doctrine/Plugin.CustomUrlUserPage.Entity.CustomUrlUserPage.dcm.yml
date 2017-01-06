@@ -1,0 +1,58 @@
+Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
+    type: entity
+    table: plg_customurl_userpage
+    repositoryClass: Plugin\CustomUrlUserPage\Repository\CustomUrlUserPageRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: customurl_id
+            generator:
+                strategy: AUTO
+    fields:
+        customurl:
+            type: text
+            nullable: false
+        userpage:
+            type: text
+            nullable: true
+        bindname:
+            type: text
+            nullable: true
+        pageinfo:
+            type: text
+            nullable: true
+        pagecategorykey:
+            type: text
+            nullable: true
+        rank:
+            type: integer
+            nullable: false
+            default: '1'
+        index_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        PageLayout:
+            targetEntity: Eccube\Entity\PageLayout
+            inversedBy: CustomUrlUserPageProduct
+            joinColumn:
+                name: page_id
+                referencedColumnName: page_id
+    lifecycleCallbacks: {  }
+    

@@ -1,0 +1,7 @@
+name: カスタムURLユーザ定義ページ管理プラグイン
+code: CustomUrlUserPage
+version: 1.0.0
+service:
+    - CustomUrlUserPageServiceProvider
+orm.path:
+    - /Resource/doctrine
