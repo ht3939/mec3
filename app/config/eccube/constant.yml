@@ -54,6 +54,9 @@ productcate_ex_list_bread_disp:
   39:
    cate: "SIMセット端末一覧"
    pagecatename: "SIMセット端末詳細"
+  40:
+   cate: "タブレット一覧"
+   pagecatename: "タブレット詳細"
 
 #detailのbread
 producttype_ex_detail_bread_disp:
@@ -77,6 +80,11 @@ producttype_ex_detail_bread_disp:
    cateid: 39
    cate: "SIMセット端末一覧"
    pagecatename: "SIMセット端末詳細"
+  # 詳細ページのパンくずをカテゴリで表示するための例外設定
+  CategoryPart:
+   40:
+     cate: "タブレット一覧"
+     pagecatename: "タブレット端末詳細"
 
 #月額、月々、分割を表示する商品種別
 producttype_ex_monthly_type_grp:
