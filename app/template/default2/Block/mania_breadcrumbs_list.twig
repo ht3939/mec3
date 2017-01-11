@@ -79,7 +79,9 @@ p#breadcrumbs {
     {% set cateid = null %}
     {% if Category is not null %}
         {% for Path in Category.path %}
-            {% if Path.id == 1 or Path.id == 2 %}
+            {% set tmpcate = null %}
+            {% set tmpcate = app.config.productcate_ex_list_bread_disp[Path.id] %}
+            {% if tmpcate %}
                 {% set showcrumbs = 1 %}
                 {% set cateid = Path.id %}
             {% endif %}
@@ -89,11 +91,7 @@ p#breadcrumbs {
         <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
             <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
             {% if showcrumbs %}
-                {% if cateid == app.config.category_sumaho_id %}
-                <span class="children" typeof="v:Breadcrumb">SIMフリースマホ一覧</span>
-                {% elseif cateid == app.config.category_sim_id %}
-                <span class="children" typeof="v:Breadcrumb">SIMカード一覧</span>
-                {% endif %}
+                <span class="children" typeof="v:Breadcrumb">{{ app.config.productcate_ex_list_bread_disp[cateid].cate }}</span>
             
             {% else %}
                 <span class="children" typeof="v:Breadcrumb">商品一覧</span>
@@ -105,11 +103,7 @@ p#breadcrumbs {
     <div class="page-heading sp">
         <p><a href="{{url('homepage')}}" class="page-heading-back">戻る</a></p>
         {% if showcrumbs %}
-            {% if cateid == app.config.category_sumaho_id %}
-            <h1>SIMフリースマホ一覧</h1>
-            {% else %}
-            <h1>SIMカード一覧</h1>
-            {% endif %}
+            <h1>{{ app.config.productcate_ex_list_bread_disp[cateid].cate }}</h1>
         {% else %}
             <h1>商品一覧</h1>
         {% endif %}
