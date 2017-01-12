@@ -107,7 +107,7 @@ class ShoppingExService
                     "_Name"              => $Order->getName01().$Order->getName02(),
                     "_Kana"              => $Order->getKana01().$Order->getKana02(),
                     "_Year_Birth_Day"    => "",
-                    "_Gender"            => $Order->getSex()->getName(),
+                    "_Gender"            => $Order->getSex()?$Order->getSex()->getName():"",
                     "_Zip"               => $Order->getZip01().$Order->getZip02(),
                     "_Add1"              => $Order->getPref().$Order->getAddr01(),
                     "_Add2"              => $Order->getAddr02(),
