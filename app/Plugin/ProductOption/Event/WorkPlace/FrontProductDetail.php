@@ -164,6 +164,26 @@ class FrontProductDetail extends AbstractWorkPlace
         $app = $this->app;
         $request = $app['request'];
         $Product = $event->getArgument('Product');
+
+        //$app['']
+        //非公開をリダイレクトする
+        //dump($request->get('_route'));
+        //dump($request->getRequestURI());
+
+        /*
+        プラグインで対応可能になるので、取りやめ
+        $redirects = $app['eccube.plugin.shoppingex.service.shoppingex']->getRedirectTo();
+        //dump($redirects);
+        if(isset($redirects[$request->getRequestURI()])){
+
+            $event->setResponse(
+                $app->redirect($redirects[$request->getRequestURI()])
+            );
+            return;
+        }
+        */
+
+
         $ProductOption = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());        
         
         $builder = $app['form.factory']->createNamedBuilder('', 'add_cart', null, array(
@@ -194,6 +214,19 @@ class FrontProductDetail extends AbstractWorkPlace
                                         }
                                     }elseif($Option->getType()->getId() == 3 || $Option->getType()->getId() == 4){
                                         if(strlen($value) == 0)$add = false;
+                                    }
+
+                                    //オプションの組合せでチェック
+                                    
+                                    if(isset($app['config']['productoption_setpattern'][$option_id])){
+                                        $patterns = $app['config']['productoption_setpattern'][$option_id];
+                                        $add=false;
+                                        if($data['productoption'.$patterns[0]]==$patterns[1] ){
+                                            $add=true;
+
+                                        }
+
+
                                     }
                                     if($add){
                                         $Options[$option_key] = (string)$value;

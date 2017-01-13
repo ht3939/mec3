@@ -1,0 +1,567 @@
+{% if ProductEx[app.config.product_ex_sys_matchdisp].value==2 %}
+{% else %}
+
+
+{% block stylesheet %}
+<style type="text/css">
+/* ======== PC ==========*/
+.item-dtl {
+	width: 1000px;
+	margin-bottom: 65px;
+	background: #fff;
+}
+.item-dtl dt {
+	border-top: 5px solid #333;
+	border-bottom: 1px solid #ccc;
+	padding: 15px 20px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #232f3e;
+	line-height: 1;
+}
+.item-dtl dd {
+	padding: 25px 30px 30px;
+}
+.item-dtl dd p {
+	margin-bottom: 20px;
+}
+.item-dtl dd table {
+	width: 100%;
+	letter-spacing: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.item-dtl dd table thead th {
+	padding: 12px 0;
+	background: #333;
+	color: #fff;
+	border-left: 1px solid #fff;
+	font-size: 1.3rem;
+	text-align: center;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	font-size: 1.3rem;
+	vertical-align: middle;
+}
+.item-dtl dd table thead th.fit_btn {
+	width: 145px;
+}
+.item-dtl dd table tbody td.dtl-img {
+	width: 55px;
+	padding: 10px 0 10px 10px;
+}
+.item-dtl dd table tbody td {
+	text-align: center;
+	padding: 10px;
+}
+.item-dtl dd table tbody td.item-name-sim {
+	width: 370px;
+	text-align: left;
+}
+.item-dtl dd table tbody td.dtl-img img {
+	width: 100%;
+}
+.item-dtl dd table tbody td img {
+	float: left;
+	margin-right: 5px;
+}
+
+.item-dtl dd table tbody td span {
+	font-size: 11px;
+	display: block;
+	text-align: left;
+}
+.item-dtl dd table tbody td .btn-dtl-sim-outer {
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+	background-size: 100%;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff912e));
+	background-image: -moz-linear-gradient(#ffa51d,#ff912e);
+	background-image: -webkit-linear-gradient(#ffa51d,#ff912e);
+	background-image: linear-gradient(#ffa51d,#ff912e);
+	display: inline-block;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+.item-dtl dd table tbody .btn-detail {
+    display: block;
+    /* width: 98px; */
+    padding: 5px 0;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #df8900;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffa51d),color-stop(100%, #ff922d));
+    background: -moz-linear-gradient(#ffa51d,#ff922d);
+    background: -webkit-linear-gradient(#ffa51d,#ff922d);
+    background: linear-gradient(#ffa51d,#ff922d);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    transition: all 0.2s ease 0s;
+    text-decoration:none;
+}
+.item-dtl dd table tbody td .btn-dtl-sim {
+	width: 125px;
+	padding: 10px 0 10px 20px;
+	font-family: "メイリオ", sans-serif;
+	font-size: 12px;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	box-shadow: none;
+	line-height: 1;
+	cursor: pointer;
+	display: block;
+	background: transparent url({{ app.config.front_urlpath }}/img/product/icon-cart-sim.png?1468475547) no-repeat 9px center;
+}
+.item-dtl dd table tbody td a {
+	text-decoration: underline;
+	font-size: 11px;
+	color: #3243c2;
+}
+.item-dtl dd table tbody tr:nth-child(even) {
+	background: #fef5f4;
+}
+.item-dtl dd table thead th.btn_fit {
+    width: 145px;
+}
+.hide_tr{
+	display:none;
+}
+
+
+.pc .btn-show {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background-size: 100%;
+    width:76%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff),color-stop(100%, #eeeeee));
+    background-image: -moz-linear-gradient(#ffffff,#eeeeee);
+    background-image: -webkit-linear-gradient(#ffffff,#eeeeee);
+    background-image: linear-gradient(#ffffff,#eeeeee);
+    margin: 0 auto;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 40px;
+    position: relative;
+}
+.pc .btn-show:after {
+    position: absolute;
+    content: '';
+    position: absolute;
+    content: '';
+    border-top: 8px solid #1d2733;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid transparent;
+    right: 18px;
+    top: 50%;
+    margin-top: -4px;
+}
+
+
+/* ======== /PC ==========*/
+
+/* ======== SP ==========*/
+.item-inf .inf-content {
+	padding: 0 10px;
+	border-top: 2px solid #ccc;
+}
+.item-inf .inf-content h2 {
+	padding: 10px 0;
+	font-size: 1.5rem;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 10px;
+}
+.item-inf .num {
+	font-size: 1rem;
+	margin-bottom: 15px;
+}
+.item-inf .num span {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #da0d0d;
+}
+
+.item-inf .btn-show {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff),color-stop(100%, #eeeeee));
+    background-image: -moz-linear-gradient(#ffffff,#eeeeee);
+    background-image: -webkit-linear-gradient(#ffffff,#eeeeee);
+    background-image: linear-gradient(#ffffff,#eeeeee);
+    width: 76%;
+    margin: 0 auto;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 40px;
+    position: relative;
+}
+.item-inf .btn-show:after {
+    position: absolute;
+    content: '';
+    position: absolute;
+    content: '';
+    border-top: 8px solid #1d2733;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid transparent;
+    right: 18px;
+    top: 50%;
+    margin-top: -4px;
+}
+.item-inf .more {
+    display: none;
+}
+.item-inf .list>ul {
+	overflow: hidden;
+}
+.item-inf .list>ul>li {
+	float: left;
+	width: 50%;
+	padding-bottom: 20px;
+	font-size: 1rem;
+}
+.item-inf .list a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+.item-inf .list .image img {
+	width: 100%;
+	height: auto;
+}
+.item-inf .list .brand, .item-inf .list .ttl, .item-inf .list .capa, .item-inf .list .price {
+	padding-right: 15px;
+	margin:0px;
+}
+.item-inf .list .brand {
+	font-size:11px;
+	margin-bottom:5px;
+}
+.item-inf .list .ttl {
+    color: #525263;
+    font-size:16px;
+    font-weight: bold;
+	margin-bottom:10px;
+}
+.item-inf .list .capa {
+    color: #666;
+    font-size:11px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+.brand-item {
+	padding: 15px 10px 30px;
+	border-top: 1px solid #ccc;
+}
+.brand-item h2 {
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.brand-item .brand-item-list {
+	overflow-x: auto;
+}
+.brand-item .brand-item-list ul {
+	overflow: hidden;
+}
+.brand-item .brand-item-list li {
+	width: 120px;
+	margin-right: 20px;
+	float: left;
+	font-size: 10px;
+	padding-bottom: 20px;
+}
+.brand-item .brand-item-list li a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+.brand-item .brand-item-list li .image img {
+	width: 100%;
+	height: auto;
+}
+.brand-item .brand-item-list li .ttl {
+	color: #3243c2;
+	text-decoration: underline;
+	margin-bottom: 15px;
+	padding-top: 8px;
+}
+.brand-item .brand-item-list li:last-child {
+	margin-right: 0;
+}
+
+.item-inf #sim .list .price {
+    font-size:13px;
+}
+.item-inf #sim .list .tag-list li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #525263;
+    font-size: 11px;
+    border: solid 1px #D7DADD;
+    border-radius: 3px;
+    background-color: #F5F7F8;
+}
+.item-inf #sim .list .image img {
+    width: 100%;
+    height: auto;
+}
+.item-inf #sim .list .price span {
+	margin: 0px 3px;
+    color: #ed0505;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+
+/* ======== /SP ==========*/
+
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script>
+	$(function(){
+		$('.sp .js-more-handle').on('click',function(){
+			$(this).hide();
+			$('.more.js-more-target').show();
+		})
+
+		$('.pc .js-more-handle').on('click',function(){
+			$(this).hide();
+			$('.pc .hide_tr').show();
+		})
+	});
+
+</script>
+{% endblock %}
+
+
+
+
+
+{% set match_type = '商品' %}
+{% set match_type_alp = '' %}
+
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
+{% set match_type = 'SIMカード' %}
+{% set match_type_alp = 'sim' %}
+{% endif %}
+
+{% if (this_product_type in app.config.matchproduct_ex_target_device_type_grp) %}
+{% set match_type = '端末' %}
+{% set match_type_alp = 'sp' %}
+{% endif %}
+
+{% if match_type_alp != '' %}
+<!-- ============ PC ============ -->
+<dl class="item-dtl pc">
+	<dt>対応する{{ match_type }}</dt>
+	<dd>
+		<p>{{ __EX_PRODUCT_MAKER.name }} {{ Product.name }}に対応している{{ match_type }}一覧です。こちらで掲載している{{ match_type }}は周波数などの情報をもとにしています。そのため地域や端末の特性によっては使用できない場合もございます。当方で動作を保証するものではございませんのでご了承下さい。ご購入前には必ず販売元へご確認下さいますようお願い致します。</p>
+		<table>
+			<thead>
+				<tr>
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
+					<th colspan="2">製品名</th>
+					<th>月額料金<br>(税抜)</th>
+					<th>データ容量</th>
+					<th>通信速度(下り)</th>
+					<th>音声通話</th>
+					<th class="btn_fit">ご購入</th>
+{% else %}
+					<th colspan="2">製品名</th>
+					<th>キャリア</th>
+					<th>カードサイズ</th>
+					<th class="fit_btn">ご購入</th>
+{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for key,mProduct in matchs_product %}
+
+				{# 
+				「月額料金」と「一括料金」の一番安い「販売価格」を取得
+				 #}
+				{% set m_sales_price_bulk = null %}
+				{% set m_sales_price_month = null %}
+				{% for ProductClass in mProduct.ProductClasses %}
+				    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
+				        {#  一括払い #}
+				        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
+				        {% set m_sales_price_bulk = ProductClass.Price02 %}
+				        {% endif %}
+				    {% else %}
+				        {# 月額払い #}
+				        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+				        {% set m_sales_price_month = ProductClass.Price02 %}
+				        {% endif %}
+				    {% endif %}
+				{% endfor %}
+
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
+				<tr {% if(key>10) %}class="hide_tr"{% endif %}>
+					<td class="dtl-img">
+						<img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}" />
+					</td>
+					<td class="item-name">
+						<span>{{ matchs_info_maker[mProduct.id].name }}</span>
+						{{ mProduct.name }}
+					</td>
+					<td>{{ m_sales_price_month }}円</td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_data].valuetext }}/月</td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_speed_down].valuetext }}</td>
+					<td>{{ matchs_info[mProduct.id][app.config.product_ex_s_etc_voice].valuetext }}
+					</td>
+					<td>
+						<a class="btn-detail" href="{{ url('product_detail', {'id': mProduct.id}) }}">詳細を見る</a>
+					</td>
+				</tr>
+{% else %}
+				<tr {% if(key>10) %}class="hide_tr"{% endif %}>
+					<td class="dtl-img">
+						<img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}">
+					</td>
+					<td class="item-name-sim">
+						<span>{{ matchs_info_maker[mProduct.id].name }}</span>
+						{{ mProduct.name }}
+					</td>
+					<td>
+					{% for key, card_size in matchs_info[mProduct.id][app.config.product_ex_carrier].valuetext %}
+					{% if (loop.first) %}
+					{% else %}/{% endif %}
+					{{ card_size }}
+					{% endfor %}
+					</td>
+
+					<td>
+					{% for key, card_size in matchs_info[mProduct.id][app.config.product_ex_sim_size].valuetext %}
+					{% if (loop.first) %}
+					{% else %}<br>{% endif %}
+					{{ card_size }}
+					{% endfor %}
+					</td>
+					<td>
+						<a class="btn-detail" href="{{ url('product_detail', {'id': mProduct.id}) }}">詳細を見る</a>
+					</td>
+				</tr>
+{% endif %}
+
+
+			{% endfor %}
+			</tbody>
+		</table>
+		{% if(matchs_product|length>10) %}
+		<p class="btn-show js-more-handle">すべての製品を見る</p>
+		{% endif %}
+	</dd>
+</dl>
+<!-- ============ /PC ============ -->
+
+<!-- ============ SP ============ -->
+{% if matchs_product %}
+<div class="item-inf sp">
+	<div id="{{ match_type_alp }}" class="inf-content js-scroll-referer-for-follow-header-navigation">
+		<h2>対応{{ match_type }}</h2>
+		<p class="num">全<span>{{matchs_product|length}}</span>製品</p>
+		{% for key, mProduct in matchs_product %}
+		{% if (key == 0) %}
+		<div class="list">
+			<ul>
+		{% endif %}
+
+			{# 
+			「月額料金」と「一括料金」の一番安い「販売価格」を取得
+			 #}
+			{% set m_sales_price_bulk = null %}
+			{% set m_sales_price_month = null %}
+			{% for ProductClass in mProduct.ProductClasses %}
+			    {% if (ProductClass.ClassCategory2.id == app.config.productclass_payonce_type) %}
+			        {#  一括払い #}
+			        {% if (m_sales_price_bulk > ProductClass.Price02 or m_sales_price_bulk == null) %}
+			        {% set m_sales_price_bulk = ProductClass.Price02 %}
+			        {% endif %}
+			    {% else %}
+			        {# 月額払い #}
+			        {% if (m_sales_price_month > ProductClass.Price02 or m_sales_price_month == null) %}
+			        {% set m_sales_price_month = ProductClass.Price02 %}
+			        {% endif %}
+			    {% endif %}
+			{% endfor %}
+
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
+				<li class="">
+					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
+						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
+						<p class="brand js-available-product-brand">{{ matchs_info_maker[mProduct.id].name }}</p>
+						<p class="ttl js-available-product-product-name">{{ mProduct.name }}</p>
+						<ul class="tag-list">
+                            <li class="product_tag_list">{% if matchs_info[mProduct.id][app.config.product_ex_s_etc_voice].value == 'value1' %}音声通話{% else %}データ専用{% endif %}</li>
+
+						</ul>
+						<p class="capa js-available-product-product-capacity">容量｜{{ matchs_info[mProduct.id][app.config.product_ex_s_data].valuetext }}</p>
+						<p class="price js-available-product-product-price">月額<span>{{ m_sales_price_month|number_format }}円/月</span>(税抜)</p>
+					</a>
+				</li>
+{% else %}
+				<li>
+					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
+						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
+						<p class="brand js-available-product-brand">{{ matchs_info_maker[mProduct.id].name }}</p>
+						<p class="ttl js-available-product-product-name">{{ mProduct.name }}</p>
+						<p class="capa js-available-product-product-capacity">カードサイズ：<br>
+					{% for key, card_size in matchs_info[mProduct.id][app.config.product_ex_sim_size].valuetext %}
+					{% if (loop.first) %}
+					{% else %}<br>{% endif %}
+					{{ card_size }}
+					{% endfor %}
+						</p>
+					</a>
+				</li>
+{% endif %}
+
+
+		{% if (key%2 != 0) %}
+		<div style="height: 1px;float: left;width: 100%;"></div>
+		{% endif %}
+
+		{% if (key+1 == matchs_product|length) %}
+			</ul>
+		</div>
+		{% elseif (key == 3) %}
+			</ul>
+		</div>
+		<p class="btn-show js-more-handle">すべての製品を見る</p>
+		<div class="list more js-more-target">
+			<ul>
+		{% endif %}
+
+		{% endfor %}
+
+	</div>
+</div>
+{% endif %}
+
+<!-- ============ /SP ============ -->
+{% endif %}
+
+{% endif %}

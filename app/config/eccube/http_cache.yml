@@ -1,0 +1,21 @@
+http_cache:
+    enabled: true
+    age: 7200
+    # フロントでキャッシュを適用させる画面のrouteを設定
+    route:
+        - homepage
+        - product_list
+        - product_detail
+        - block_recommend_product_block
+        - block_recommendsumahoranking_product_block
+        - block_recommendsimranking_product_block
+        - block_maker_related_product
+#        - block_hsd_same_category
+#        - block_category
+#        - block_news
+#        - block_search_product
+#        - help_about
+        - help_guide
+        - help_privacy
+        - help_tradelaw
+#        - help_agreement
