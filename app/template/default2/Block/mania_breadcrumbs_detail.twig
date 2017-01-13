@@ -76,23 +76,25 @@ p#breadcrumbs {
 }
 </style>
 
-{% set cate = null %}
-{% set catename = null %}
-{% set pagecatename = null %}
-{% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sim_type %}
-{% set cate = app.config.category_sim_id %}
-{% set catename = 'SIMカード一覧' %}
-{% set pagecatename = 'SIMカード詳細' %}
-{% endif %}
-{% if Product.ProductClasses.0.ProductType.id == app.config.producttype_ex_sp_type %}
-{% set cate = app.config.category_sumaho_id %}
-{% set catename = 'SIMフリースマホ一覧' %}
-{% set pagecatename = 'SIMフリースマホ詳細' %}
-{% endif %}
+{% set cate = app.config.producttype_ex_detail_bread_disp[Product.ProductClasses.0.ProductType.id].cateid %}
+{% set catename = app.config.producttype_ex_detail_bread_disp[Product.ProductClasses.0.ProductType.id].cate %}
+{% set pagecatename = app.config.producttype_ex_detail_bread_disp[Product.ProductClasses.0.ProductType.id].pagecatename %}
+
+
+{% for ProductCategory in Product.ProductCategories %}
+{% for Category in ProductCategory.Category.path %}
+  {% if app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id] %}
+    {% set cate = Category.id %}
+    {% set catename = app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id].cate %}
+    {% set pagecatename = app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id].pagecatename %}
+    
+  {% endif %}
+{% endfor %}
+{% endfor %}
 
     <p id="breadcrumbs" class="pc">
         <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
-            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">スマホマニアトップ</a></span>
+            <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
             <span class="children" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('product_list',{'category_id':cate})}}">{{catename}}</a></span>
             <span class="children" typeof="v:Breadcrumb"><span property="v:title">{{ __EX_PRODUCT_MAKER.name }}</span>
                                         {{ Product.name }}</span></span>
@@ -102,4 +104,4 @@ p#breadcrumbs {
     <div class="page-heading sp">
         <p><a href="{{url('product_list',{'category_id':cate})}}" class="page-heading-back">戻る</a></p>
         <h1>{{pagecatename}}</h1>
-    </div>    
+    </div>

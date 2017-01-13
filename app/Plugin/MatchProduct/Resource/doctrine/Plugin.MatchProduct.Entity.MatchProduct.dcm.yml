@@ -1,0 +1,27 @@
+Plugin\MatchProduct\Entity\MatchProduct:
+    type: entity
+    table: plg_maker_related_product
+    repositoryClass: Plugin\MatchProduct\Repository\MatchProductRepository
+    id:
+        id:
+            type: string
+            length: 32
+            nullable: false
+            unsigned: false
+            id: true
+            column: id
+            generator:
+                strategy: NONE
+    fields:
+        from_id:
+            type: string
+            length: 32
+            nullable: false
+        to_id:
+            type: string
+            length: 32
+            nullable: false
+        updated_at:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }

@@ -92,11 +92,17 @@ class ProductController
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_INDEX_SEARCH, $event);
         $searchData = $event->getArgument('searchData');
 
-        $pagination = $app['paginator']()->paginate(
-            $qb,
-            !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
-            $searchData['disp_number']->getId()
-        );
+        //sort=xxがqueryに入るとシステムエラーになる回避用 doctrineのバグ
+        try{
+
+            $pagination = $app['paginator']()->paginate(
+                $qb,
+                !empty($searchData['pageno']) ? $searchData['pageno'] : 1,
+                $searchData['disp_number']->getId()
+            );
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException();
+        }
 
         // addCart form
         $forms = array();
@@ -158,7 +164,6 @@ class ProductController
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_INDEX_DISP, $event);
-
         $dispNumberForm = $builder->getForm();
 
         $dispNumberForm->handleRequest($request);
@@ -208,12 +213,14 @@ class ProductController
 
         /* @var $Product \Eccube\Entity\Product */
         $Product = $app['eccube.repository.product']->get($id);
+
         if (!$request->getSession()->has('_security_admin') && $Product->getStatus()->getId() !== 1) {
             throw new NotFoundHttpException();
         }
         if (count($Product->getProductClasses()) < 1) {
             throw new NotFoundHttpException();
         }
+
 
         /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
         $builder = $app['form.factory']->createNamedBuilder('', 'add_cart', null, array(

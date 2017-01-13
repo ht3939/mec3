@@ -1,0 +1,47 @@
+{#
+ Copyright(c) 2015 SystemFriend Inc. All rights reserved.
+ http://ec-cube.systemfriend.co.jp/
+#}
+{% extends  'default_frame.twig' %}
+
+{% block javascript %}
+    <script>
+        $(window).load(function(){
+            {% if out_app != 1 %}
+                mnt = {{ time }}; // 何秒後に移動するか？
+                url = "{{ url }}"; // 移動するアドレス
+                setTimeout("location.href = url",mnt*1000);
+
+                count = {{ time }}; //カウントの初期値
+                setInterval(function(){
+                    if (count > 0){
+                        count--;
+                        $('#counter').text(count);
+                    }
+                },1000);
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
+{% block main %}
+
+    <h2 class="title">{{ tpl_subtitle }}</h2>
+
+    <div id="redirect_page_guide_loading">
+        <div class="information">
+            <p>
+                {% if out_app != 1 %}
+                    ご指定のページはございませんので、{{ word }}に<span id="counter">{{ time }}</span>秒後に移動します。<br /><br />
+                    自動で移動しない場合は<a href="{{ url }}">こちら</a>から<br />
+                {% else %}
+                    ご指定のページはございません。<br />
+                    <br />
+                    外部サイトの関連ページは<a href="{{ url }}">こちら</a>から<br />
+                    <a href="{{ url }}">{{ url }}</a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
