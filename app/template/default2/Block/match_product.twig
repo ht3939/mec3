@@ -1,3 +1,7 @@
+{% if ProductEx[app.config.product_ex_sys_matchdisp].value==2 %}
+{% else %}
+
+
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -558,4 +562,6 @@ caption, th, td {
 {% endif %}
 
 <!-- ============ /SP ============ -->
+{% endif %}
+
 {% endif %}
