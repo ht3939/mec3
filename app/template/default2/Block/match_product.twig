@@ -1,3 +1,7 @@
+{% if ProductEx[app.config.product_ex_sys_matchdisp].value==2 %}
+{% else %}
+
+
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -356,7 +360,7 @@ caption, th, td {
 
 
 {% set match_type = '商品' %}
-{% set match_type_alp = 'sim' %}
+{% set match_type_alp = '' %}
 
 {% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
 {% set match_type = 'SIMカード' %}
@@ -368,6 +372,7 @@ caption, th, td {
 {% set match_type_alp = 'sp' %}
 {% endif %}
 
+{% if match_type_alp != '' %}
 <!-- ============ PC ============ -->
 <dl class="item-dtl pc">
 	<dt>対応する{{ match_type }}</dt>
@@ -557,3 +562,6 @@ caption, th, td {
 {% endif %}
 
 <!-- ============ /SP ============ -->
+{% endif %}
+
+{% endif %}

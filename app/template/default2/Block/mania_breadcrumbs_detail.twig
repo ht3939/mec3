@@ -80,6 +80,18 @@ p#breadcrumbs {
 {% set catename = app.config.producttype_ex_detail_bread_disp[Product.ProductClasses.0.ProductType.id].cate %}
 {% set pagecatename = app.config.producttype_ex_detail_bread_disp[Product.ProductClasses.0.ProductType.id].pagecatename %}
 
+
+{% for ProductCategory in Product.ProductCategories %}
+{% for Category in ProductCategory.Category.path %}
+  {% if app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id] %}
+    {% set cate = Category.id %}
+    {% set catename = app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id].cate %}
+    {% set pagecatename = app.config.producttype_ex_detail_bread_disp.CategoryPart[Category.id].pagecatename %}
+    
+  {% endif %}
+{% endfor %}
+{% endfor %}
+
     <p id="breadcrumbs" class="pc">
         <span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
             <span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
