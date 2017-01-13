@@ -1,3 +1,7 @@
+{% if ProductEx[app.config.product_ex_sys_matchdisp].value==2 %}
+{% else %}
+
+
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -355,15 +359,20 @@ caption, th, td {
 
 
 
+{% set match_type = '商品' %}
+{% set match_type_alp = '' %}
 
-{% if (this_product_type == 1) %}
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
 {% set match_type = 'SIMカード' %}
 {% set match_type_alp = 'sim' %}
-{% else %}
+{% endif %}
+
+{% if (this_product_type in app.config.matchproduct_ex_target_device_type_grp) %}
 {% set match_type = '端末' %}
 {% set match_type_alp = 'sp' %}
 {% endif %}
 
+{% if match_type_alp != '' %}
 <!-- ============ PC ============ -->
 <dl class="item-dtl pc">
 	<dt>対応する{{ match_type }}</dt>
@@ -372,7 +381,7 @@ caption, th, td {
 		<table>
 			<thead>
 				<tr>
-{% if (this_product_type == 1) %}
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
 					<th colspan="2">製品名</th>
 					<th>月額料金<br>(税抜)</th>
 					<th>データ容量</th>
@@ -409,7 +418,7 @@ caption, th, td {
 				    {% endif %}
 				{% endfor %}
 
-{% if (this_product_type == 1) %}
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
 				<tr {% if(key>10) %}class="hide_tr"{% endif %}>
 					<td class="dtl-img">
 						<img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}" />
@@ -499,7 +508,7 @@ caption, th, td {
 			    {% endif %}
 			{% endfor %}
 
-{% if (this_product_type == 1) %}
+{% if (this_product_type in app.config.matchproduct_ex_target_sim_type_grp) %}
 				<li class="">
 					<a href="{{ url('product_detail', {'id': mProduct.id}) }}">
 						<div class="image"><img src="{{ app.config.image_save_urlpath }}/{{ mProduct.ProductImage.0|no_image_product }}" alt="{{ matchs_info_maker[mProduct.id].name }} {{ mProduct.name }}"></div>
@@ -553,3 +562,6 @@ caption, th, td {
 {% endif %}
 
 <!-- ============ /SP ============ -->
+{% endif %}
+
+{% endif %}
