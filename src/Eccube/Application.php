@@ -1035,9 +1035,12 @@ class Application extends ApplicationTrait
         } else {
             $configAll = array_replace_recursive($configAll, $config_dist, $config);
         }
+        
+        $this->SwitchTemplate($config_name,$configAll);
 
         return $this;
     }
+
 
     /**
      * セッションが開始されているかどうか.

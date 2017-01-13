@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Eccube\Common\MobileDetect;
 
 /**
  * TODO Traitが使えるようになったら不要になる
@@ -76,6 +77,29 @@ class ApplicationTrait extends \Silex\Application
     public function isFrontRequest()
     {
         return $this['front'];
+    }
+
+    public function isSmartPhone(){
+        $detect = new MobileDetect;
+        // SPでかつPC表示OFFの場合
+        // TabletはPC扱い
+        return ($detect->isMobile() && !$detect->isTablet()); //&& !SC_SmartphoneUserAgent_Ex::getSmartphonePcFlag();
+        
+    }
+    public function SwitchTemplate($config_name,&$configAll){
+        if($config_name=='path'){
+        $isSP = $this->isSmartPhone();
+        if($isSP){
+        //    dump($configAll);
+        $configAll['template_code'] = 'default2';
+        $configAll['block_realdir'] = '/var/www/vhosts/ecq3-design.sample.jp/app/template/default2/Block';
+        $configAll['template_realdir'] = '/var/www/vhosts/ecq3-design.sample.jp/app/template/default2';
+        $configAll['template_html_realdir'] = '/var/www/vhosts/ecq3-design.sample.jp/html/template/default2';
+        $configAll['front_urlpath'] = '/template/default2';
+            
+        }
+
+        }        
     }
 
     /*
@@ -300,3 +324,4 @@ class ApplicationTrait extends \Silex\Application
         return $this['url_generator']->generate($route, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
     }
 }
+
