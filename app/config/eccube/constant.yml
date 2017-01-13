@@ -268,5 +268,6 @@ product_ex_r_etc_bluetooth:           49
 product_ex_r_etc_gps:                 50
 product_ex_sp_etc_total_price:        52
 product_ex_sp_etc_sim_price:        53
+product_ex_sys_matchdisp:        55
 
 # ============= /拡張項目のID =====
