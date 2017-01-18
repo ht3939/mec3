@@ -31,6 +31,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormEvents;
 use Eccube\Form\DataTransformer;
+use Symfony\Component\Form\CallbackTransformer;
 
 class CustomUrlUserPageType extends AbstractType
 {
@@ -66,50 +67,69 @@ class CustomUrlUserPageType extends AbstractType
                 'label' => 'バインド名',
                 'required' => false,
             ))
+            ->add('pagethumbnail', 'text', array(
+                'label' => 'ページサムネイル',
+                'required' => false,
+            ))
             ->add('pagecategorykey', 'text', array(
                 'label' => 'カテゴリキー',
                 'required' => false,
             ))
-            ->add('index_flg', 'boolean', array(
+            ->add('index_flg', 'checkbox', array(
                 'label' => '一覧ページフラグ',
                 'required' => false,
             ))
+            
             ->add('pagelayout', 'admin_search_pagelayout', array(
-                'label' => 'ユーザー定義ページ',
-                'required' => false,
+                 'label' => 'ユーザー定義ページ',
+                 'required' => false,
             ))
+            
             ->add('pageinfo', 'textarea', array(
                 'label' => '一覧ページコンテンツ',
-                'required' => true,
+                'required' => false,
                 'trim' => true,
-                'constraints' => array(
-                    new Assert\NotBlank(),
-                ),
+                // 'constraints' => array(
+                //     new Assert\NotBlank(),
+                // ),
             ));
-/*
-        $builder
-            ->add($builder->create('Product', 'hidden')
-                ->addModelTransformer(new DataTransformer\EntityToIdTransformer(
-                    $this->app['orm.em'],
-                    '\Eccube\Entity\Product'
-                )));
-*/
+
+        $builder->get('index_flg')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
+
+        // $builder
+        //     ->add($builder->create('PageLayout', 'hidden')
+        //         ->addModelTransformer(new DataTransformer\EntityToIdTransformer(
+        //             $this->app['orm.em'],
+        //             '\Eccube\Entity\PageLayout'
+        //         )));
+
         $builder
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($app) {
                 $form = $event->getForm();
                 $data = $form->getData();
 
-                $Product = $data['Product'];
+                $PageLayout = $data['PageLayout'];
 
-                if (empty($Product)) {
-                    $form['comment']->addError(new FormError('商品を追加してください。'));
+                if (empty($PageLayout)) {
+                    $form['pageinfo']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $CustomUrlUserPageProduct = $app['eccube.plugin.recommend.repository.recommend_product']->findBy(array('Product' => $Product));
+                    $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findBy(array('PageLayout' => $PageLayout));
 
-                    if ($CustomUrlUserPageProduct) {
-                        //check existing Product, except itself
-                        if (($CustomUrlUserPageProduct[0]->getId() != $data['id'])) {
-                            $form['comment']->addError(new FormError('既に商品が追加されています。'));
+                    if ($CustomUrlUserPage) {
+                        //check existing PageLayout, except itself
+                        if (($CustomUrlUserPage[0]->getId() != $data['id'])) {
+                            $form['pageinfo']->addError(new FormError('既に商品が追加されています。'));
                         }
                     }
                 }

@@ -38,23 +38,19 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     private $id;
 
-    /**
-     *
-     * @var string
-     */
-    private $comment;
+    private $customurl;
+    private $userpage;
+    private $bindname;
+    private $pagethumbnail;
+    private $pageinfo;
+    private $pagecategorykey;
+    private $index_flg;
 
     /**
      *
      * @var integer
      */
     private $rank;
-
-    /**
-     *
-     * @var integer
-     */
-    private $status;
 
     /**
      *
@@ -75,9 +71,9 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
     private $update_date;
 
     /**
-     * @var \Eccube\Entity\Product
+     * @var \Eccube\Entity\PageLayout
      */
-    private $Product;
+    private $PageLayout;
 
     /**
      * Constructor
@@ -95,42 +91,77 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
         return $this->id;
     }
 
-    /**
-     * Set recommend product id
-     *
-     * @param integer $recommend_product_id
-     * @return Module
-     */
-    public function setId($id)
+    public function setCustomUrl($v)
     {
-        $this->id = $id;
+        $this->customurl = $v;
 
         return $this;
     }
-
-    /**
-     * Get commend
-     *
-     * @return string
-     */
-    public function getComment()
+    public function getCustomUrl()
     {
-        return $this->comment;
+        return $this->customurl;
     }
-
-    /**
-     * Set comment
-     *
-     * @param
-     *            string
-     * @return Module
-     */
-    public function setComment($comment)
+    public function setUserPage($v)
     {
-        $this->comment = $comment;
+        $this->userpage = $v;
 
         return $this;
     }
+    public function getUserPage()
+    {
+        return $this->userpage;
+    }
+    public function setBindName($v)
+    {
+        $this->bindname = $v;
+
+        return $this;
+    }
+    public function getBindName()
+    {
+        return $this->bindname;
+    }
+    public function setPageThumbnail($v)
+    {
+        $this->pagethumbnail = $v;
+
+        return $this;
+    }
+    public function getPageThumbnail()
+    {
+        return $this->pagethumbnail;
+    }
+    public function setPageInfo($v)
+    {
+        $this->pageinfo = $v;
+
+        return $this;
+    }
+    public function getPageInfo()
+    {
+        return $this->pageinfo;
+    }
+    public function setPageCategoryKey($v)
+    {
+        $this->pagecategorykey = $v;
+
+        return $this;
+    }
+    public function getPageCategoryKey()
+    {
+        return $this->pagecategorykey;
+    }
+    public function setIndexFlg($v)
+    {
+        $this->index_flg = $v;
+
+        return $this;
+    }
+    public function getIndexFlg()
+    {
+        return $this->index_flg;
+    }
+
 
     /**
      * Get rank

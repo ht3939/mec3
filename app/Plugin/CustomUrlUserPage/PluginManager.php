@@ -30,6 +30,8 @@ use Eccube\Entity\PageLayout;
 use Eccube\Plugin\AbstractPluginManager;
 use Eccube\Util\Cache;
 use Symfony\Component\Filesystem\Filesystem;
+use Eccube\Util\Str;
+use Symfony\Component\Finder\Finder;
 
 class PluginManager extends AbstractPluginManager
 {
@@ -234,15 +236,19 @@ class PluginManager extends AbstractPluginManager
 
     }
 
-    public function createPage(Application $app,$url,$filename,$pagename,$id = null)
+    public function createPage($app,$url,$filename,$pagename,$id = null)
     {
         $DeviceType = $app['eccube.repository.master.device_type']
             ->find(DeviceType::DEVICE_TYPE_PC);
+        try {
 
-        $PageLayout = $app['eccube.repository.page_layout']
-            ->getByUrl($DeviceType,$url);
-        if($PageLayout){
-            return;
+            $PageLayout = $app['eccube.repository.page_layout']
+                ->getByUrl($DeviceType,$url);
+            if($PageLayout){
+                return;
+            }
+        } catch (\Exception $e) {
+            //
         }
 
         $PageLayout = $app['eccube.repository.page_layout']

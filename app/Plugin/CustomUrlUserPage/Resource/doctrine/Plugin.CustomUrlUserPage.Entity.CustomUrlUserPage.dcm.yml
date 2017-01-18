@@ -21,6 +21,9 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
         bindname:
             type: text
             nullable: true
+        pagethumbnail:
+            type: text
+            nullable: true
         pageinfo:
             type: text
             nullable: true
@@ -50,7 +53,7 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
     manyToOne:
         PageLayout:
             targetEntity: Eccube\Entity\PageLayout
-            inversedBy: CustomUrlUserPageProduct
+            inversedBy: CustomUrlUserPage
             joinColumn:
                 name: page_id
                 referencedColumnName: page_id

@@ -38,7 +38,7 @@ class Version201510211300 extends AbstractMigration
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->createCustomUrlUserPageProduct($schema);
+        $this->createCustomUrlUserPage($schema);
     }
 
     /**
@@ -55,7 +55,7 @@ class Version201510211300 extends AbstractMigration
      * テーブル作成
      * @param Schema $schema
      */
-    protected function createCustomUrlUserPageProduct(Schema $schema)
+    protected function createCustomUrlUserPage(Schema $schema)
     {
         $table = $schema->createTable("plg_customurl_userpage");
         $table->addColumn('customurl_id', 'integer', array(
@@ -73,7 +73,9 @@ class Version201510211300 extends AbstractMigration
         $table->addColumn('bindname', 'text', array(
             'notnull' => false,
         ));
-
+        $table->addColumn('pagethumbnail', 'text', array(
+            'notnull' => false,
+        ));
         $table->addColumn('pageinfo', 'text', array(
             'notnull' => false,
         ));
@@ -82,7 +84,7 @@ class Version201510211300 extends AbstractMigration
             'unsigned' => false,
         ));
         $table->addColumn('pagecategorykey', 'text', array(
-            'notnull' => false,
+            'notnull' => true,
         ));        
         $table->addColumn('rank', 'integer', array(
             'notnull' => true,

@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace Plugin\CustomUrlUserPage\Controller;
+namespace Plugin\CustomUrlUserPage\Controller\Admin;
 
 use Eccube\Application;
 use Eccube\Controller\AbstractController;
@@ -72,9 +72,10 @@ class CustomUrlUserPageController extends AbstractController
      */
     public function create(Application $app, Request $request, $id)
     {
-
+dump('1');
         $builder = $app['form.factory']->createBuilder('admin_customurluserpage');
         $form = $builder->getForm();
+dump('2');
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
 
@@ -92,19 +93,19 @@ class CustomUrlUserPageController extends AbstractController
                     $app->addSuccess('admin.plugin.customurluserpage.regist.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_customurluserpage_list'));
+                return $app->redirect($app->url('admin_customurluserpage'));
             }
 
-            if (!is_null($data['Product'])) {
-                $Product = $data['Product'];
+            if (!is_null($data['PageLayout'])) {
+                $Product = $data['PageLayout'];
             }
         }
-
+dump($form->createView());
         return $this->renderRegistView(
             $app,
             array(
                 'form' => $form->createView(),
-                'Product' => $Product
+                'PageLayout' => $Product
             )
         );
     }
@@ -248,7 +249,7 @@ class CustomUrlUserPageController extends AbstractController
 
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
@@ -257,7 +258,7 @@ class CustomUrlUserPageController extends AbstractController
         $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.recommend_product']->find($id);
         if (is_null($CustomUrlUserPage)) {
             $app->addError('admin.customurluserpage.notfound', 'admin');
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         // ランクアップ
@@ -265,7 +266,7 @@ class CustomUrlUserPageController extends AbstractController
 
         $app->addSuccess('admin.plugin.customurluserpage.complete.down', 'admin');
 
-        return $app->redirect($app->url('admin_customurluserpage_list'));
+        return $app->redirect($app->url('admin_customurluserpage'));
     }
 
     /**
@@ -276,10 +277,10 @@ class CustomUrlUserPageController extends AbstractController
     protected function renderRegistView($app, $parameters = array())
     {
         // 商品検索フォーム
-        //$searchProductModalForm = $app['form.factory']->createBuilder('admin_search_product')->getForm();
-        //$viewParameters = array(
-        //    'searchProductModalForm' => $searchProductModalForm->createView(),
-        //);
+        $searchModalForm = $app['form.factory']->createBuilder('admin_search_pagelayout')->getForm();
+        $viewParameters = array(
+            'searchPageLayoutModalForm' => $searchModalForm->createView(),
+        );
         $viewParameters += $parameters;
         return $app->render('CustomUrlUserPage/Resource/template/admin/regist.twig', $viewParameters);
     }

@@ -56,8 +56,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>おすすめ商品</th>
-                                    <th>コメント</th>
+                                    <th>カスタムURL</th>
+                                    <th>ユーザ定義ページ</th>
+                                    <th>バインド</th>
+                                    <th>カテゴリ</th>
+                                    <th>一覧ページ</th>
                                     <th>編集</th>
                                     <th>削除</th>
                                     <th>並び替え</th>
@@ -67,24 +70,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 {% for CustomUrlUserPageProduct in pagination %}
                                 <tr>
                                     <td class="recommend_product_id">{{ CustomUrlUserPageProduct.id }}</td>
-                                    <td class="product_id">
-                                        {{ CustomUrlUserPageProduct.Product.name }}
+                                    <td class="customurl">
+                                        {{ CustomUrlUserPageProduct.customurl }}
                                     </td>
-                                    <td class="comment">{{ CustomUrlUserPageProduct.comment|nl2br }}</td>
-                                    <td><a href="{{ url('admin_recommend_edit', { id : CustomUrlUserPageProduct.id }) }}" >編集</a></td>
-                                    <td><a href="{{ url('admin_recommend_delete', {'id' : CustomUrlUserPageProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="おすすめ情報を削除してもよろしいですか？">削除</a></td>
+                                    <td class="userpage">{{ CustomUrlUserPageProduct.userpage }}</td>
+                                    <td class="bindname">{{ CustomUrlUserPageProduct.bindname }}</td>
+                                    <td class="pagecategorykey">{{ CustomUrlUserPageProduct.pagecategorykey }}</td>
+                                    <td class="index_flg">{{ CustomUrlUserPageProduct.index_flg }}</td>
+                                    <td><a href="{{ url('admin_customurluserpage_edit', { id : CustomUrlUserPageProduct.id }) }}" >編集</a></td>
+                                    <td><a href="{{ url('admin_customurluserpage_delete', {'id' : CustomUrlUserPageProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="おすすめ情報を削除してもよろしいですか？">削除</a></td>
                                     <td class="icon_edit">
                                         <div class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown"><svg class="cb cb-ellipsis-h"> <use xlink:href="#cb-ellipsis-h" /></svg></a>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                             {% if loop.first == false %}
                                                 <li>
-                                                    <a href="{{ url('admin_recommend_rank_up', {id: CustomUrlUserPageProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">上へ</a>
+                                                    <a href="{{ url('admin_customurluserpage_rank_up', {id: CustomUrlUserPageProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">上へ</a>
                                                 </li>
                                             {% endif %}
                                             {% if loop.last == false %}
                                                 <li>
-                                                    <a href="{{ url('admin_recommend_rank_down', {id: CustomUrlUserPageProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">下へ</a>
+                                                    <a href="{{ url('admin_customurluserpage_rank_down', {id: CustomUrlUserPageProduct.id}) }}"  {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">下へ</a>
                                                 </li>
                                             {% endif %}
                                             </ul>
@@ -102,7 +108,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </div>
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
-        <a href="{{ url('admin_recommend_new') }}" class="btn btn-primary btn-block btn-lg">おすすめ商品を新規登録</a>
+        <a href="{{ url('admin_customurluserpage_new') }}" class="btn btn-primary btn-block btn-lg">おすすめ商品を新規登録</a>
     </div>
 </div>
 </form>

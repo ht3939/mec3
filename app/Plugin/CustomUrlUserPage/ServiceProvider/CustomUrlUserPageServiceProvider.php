@@ -40,7 +40,7 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         // おすすめ商品の一覧
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::index')
             ->value('id', null)->assert('id', '\d+|')
-            ->bind('admin_customurluserpage_list');
+            ->bind('admin_customurluserpage');
 
         // おすすめ商品の新規先
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/new', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::create')
@@ -82,7 +82,7 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
 
         // 型登録
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {
-            $types[] = new \Plugin\CustomUrlUserPage\Form\Type\CustomUrlUserPageProductType($app);
+            $types[] = new \Plugin\CustomUrlUserPage\Form\Type\CustomUrlUserPageType($app);
             $types[] = new \Plugin\CustomUrlUserPage\Form\Type\Admin\SearchPageLayoutType($app);
             return $types;
         }));
@@ -111,7 +111,7 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         $app['config'] = $app->share($app->extend('config', function ($config) {
             $addNavi['id'] = 'admin_customurluserpage';
             $addNavi['name'] = 'カスタムURL管理';
-            $addNavi['url'] = 'admin_customurluserpage_list';
+            $addNavi['url'] = 'admin_customurluserpage';
             $nav = $config['nav'];
             foreach ($nav as $key => $val) {
                 if ('content' == $val['id']) {
@@ -131,7 +131,7 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         if($Indexes){
             foreach($Indexes as $IndexPage){
                 $app->match($IndexPage->getCustomurl(), '\Plugin\CustomUrlUserPage\Controller\Front\CustomUrlUserPageController::index')
-                    ->value('indextype',$IndexPage->getPagecategorykey());
+                    ->value('indextype',$IndexPage->getPagecategorykey())
                     ->bind('customurluserpage_list_'.$IndexPage->getPagecategorykey());
 
 

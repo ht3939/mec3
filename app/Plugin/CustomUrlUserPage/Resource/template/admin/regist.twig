@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% block sub_title %}おすすめ商品内容設定{% endblock %}
 
 {% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
-{% form_theme searchProductModalForm 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+{# form_theme searchPageLayoutModalForm 'Form/bootstrap_3_horizontal_layout.html.twig' #}
 
 {% block javascript %}
 <script>
@@ -86,20 +86,20 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                     <div class="order_list form-horizontal">
                         {# おすすめ商品ID #}
                         <div class="form-group" style="display: none;">
-                            {{ form_label(form.id) }}
+                            {{ form_label(form.customurl) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.id) }}
-                                {{ form_errors(form.id) }}
+                                {{ form_widget(form.customurl) }}
+                                {{ form_errors(form.customurl) }}
                             </div>
                         </div>
                         {# 商品ID #}
                         <div class="form-group" style="display: block;">
-                            {{ form_label(form.id) }}
+                            {{ form_label(form.customurl) }}
                             <div class="col-sm-9 col-lg-10">
                                 <a id="showSearchProductModal" class="btn btn-default btn-block btn-sm" data-toggle="modal" data-target="#searchProductModal">商品の追加</a>
                                 <span id="product_name">
-                                    {% if Product is not null %}
-                                        {{ Product.name }}
+                                    {% if PageLayout is not null %}
+                                        {{ PageLayout.name }}
                                     {% endif %}
                                 </span>
                                 {#
@@ -108,7 +108,7 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 #}
                             </div>
                         </div>
-                        {# コメント #}
+                        {#  #}
                         <div class="form-group">
                             {{ form_label(form.customurl) }}
                             <div class="col-sm-9 col-lg-10">
@@ -116,11 +116,34 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.customurl) }}
                             </div>
                         </div>
+                        {#  #}
                         <div class="form-group">
-                            {{ form_label(form.customurl) }}
+                            {{ form_label(form.userpage) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.customurl) }}
-                                {{ form_errors(form.customurl) }}
+                                {{ form_widget(form.userpage) }}
+                                {{ form_errors(form.userpage) }}
+                            </div>
+                        </div>
+                        {# 対象のユーザー定義ページ #}
+                        <div class="form-group">
+                            {{ form_label(form.pagelayout) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.pagelayout) }}
+                                {{ form_errors(form.pagelayout) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.bindname) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.bindname) }}
+                                {{ form_errors(form.bindname) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.index_flg) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.index_flg) }}
+                                {{ form_errors(form.index_flg) }}
                             </div>
                         </div>
 
@@ -130,8 +153,8 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
             <div class="row hidden-xs hidden-sm">
                 <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
                     <button class="btn btn-primary btn-block btn-lg" onclick="return setModeAndSubmit('commit');">登録</button>
-                    {% if form.id is not null %}
-                        <p><a href="{{ url('admin_customurluserpage_list') }}">戻る</a></p>
+                    {% if form.customurl is not null %}
+                        <p><a href="{{ url('admin_customurluserpage') }}">戻る</a></p>
                     {% endif %}
                 </div>
             </div>
@@ -150,23 +173,6 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
 <div class="modal" id="searchProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-close" aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">商品検索</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    {{ form_widget(searchProductModalForm.id, { attr : { placeholder : '商品名' } } ) }}
-                </div>
-                <div class="form-group">
-                    {{ form_widget(searchProductModalForm.category_id) }}
-                </div>
-                <div class="form-group">
-                    <button type="button" id="searchProductModalButton" class="btn btn-primary" >検索</button>
-                </div>
-                <div class="form-group" id="searchProductModalList">
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomUrlUserPage\Controller;
+namespace Plugin\CustomUrlUserPage\Controller\Front;
 
 use Eccube\Application;
 use Symfony\Component\HttpFoundation\Request;

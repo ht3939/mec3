@@ -49,7 +49,7 @@ class CustomUrlUserPageRepository extends EntityRepository
 
         $qb = $this->createQueryBuilder('rp')
             ->select('rp, p')
-            ->innerJoin('rp.Product', 'p');
+            ->leftJoin('rp.PageLayout', 'p');
 
         $qb->addOrderBy('rp.rank', 'DESC');
 
@@ -130,10 +130,9 @@ class CustomUrlUserPageRepository extends EntityRepository
     {
 
         $query = $this->createQueryBuilder('rp')
-            ->innerJoin('Eccube\Entity\Product', 'p', 'WITH', 'p.id = rp.Product')
-            ->where('p.Status = :Disp')
+            ->innerJoin('Eccube\Entity\PageLayout', 'p', 'WITH', 'p.id = rp.PageLayout')
             ->orderBy('rp.rank', 'DESC')
-            ->setParameter('Disp', $Disp)
+            //->setParameter('Disp', $Disp)
             ->getQuery();
 
         return $query->getResult();

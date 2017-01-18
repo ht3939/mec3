@@ -22,7 +22,7 @@
  */
 
 
-namespace Plugin\CustomUrlUserPage\Controller;
+namespace Plugin\CustomUrlUserPage\Controller\Front;
 
 use Eccube\Application;
 use Eccube\Entity\Master\DeviceType;

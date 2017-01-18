@@ -24,10 +24,12 @@
 
 namespace Plugin\CustomUrlUserPage\Form\Type\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchPageLayoutType extends AbstractType
 {
@@ -44,7 +46,7 @@ class SearchPageLayoutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $app = $this->app;
-
+/*
         $builder
             ->add('id', 'text', array(
                 'label' => 'ページID',
@@ -64,26 +66,34 @@ class SearchPageLayoutType extends AbstractType
                 'required' => false,
             ))
         ;
+*/
     }
 
 
     /**
      * {@inheritdoc}
      */
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'class' => 'Eccube\Entity\PageLayout',
+            //'compound'=> true,
+            //'mapped'=>false,
+            //'class' => 'Eccube\Entity\PageLayout',
+            'class' => 'Plugin\CustomUrlUserPage\Entity\PageLayout',
             'multiple'=> false,
             'expanded' => false,
             'required' => false,
-            'empty_value' => false,
+            'empty_value' => '-',
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('m')
+                    ->Where('m.edit_flg=0')
                     ->orderBy('m.id', 'ASC');
             },
         ));
+    
     }
+    
     /**
      * {@inheritdoc}
      */
@@ -94,8 +104,10 @@ class SearchPageLayoutType extends AbstractType
     /**
      * {@inheritdoc}
      */
+    
     public function getParent()
     {
         return 'entity';
     }
+    
 }
