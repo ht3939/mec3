@@ -84,6 +84,8 @@ dump('2');
         if ('POST' === $request->getMethod()) {
             $form->handleRequest($request);
             $data = $form->getData();
+
+dump($data);
             if ($form->isValid()) {
                 $status = $service->createCustomUrlUserPage($data);
 
@@ -105,7 +107,7 @@ dump($form->createView());
             $app,
             array(
                 'form' => $form->createView(),
-                'PageLayout' => $Product
+                //'PageLayout' => $Product
             )
         );
     }
@@ -122,7 +124,7 @@ dump($form->createView());
 
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
@@ -132,7 +134,7 @@ dump($form->createView());
 
         if (is_null($CustomUrlUserPage)) {
             $app->addError('admin.customurluserpage.notfound', 'admin');
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         $CustomUrlUserPage = $CustomUrlUserPage[0];
@@ -143,7 +145,9 @@ dump($form->createView());
             ->getForm();
 
         if ('POST' === $request->getMethod()) {
+dump($request);
             $form->handleRequest($request);
+dump($form);//die();
             if ($form->isValid()) {
                 $status = $service->updateCustomUrlUserPage($form->getData());
 
@@ -153,7 +157,7 @@ dump($form->createView());
                     $app->addSuccess('admin.plugin.customurluserpage.update.success', 'admin');
                 }
 
-                return $app->redirect($app->url('admin_customurluserpage_list'));
+                return $app->redirect($app->url('admin_customurluserpage'));
             }
         }
 
@@ -161,7 +165,7 @@ dump($form->createView());
             $app,
             array(
                 'form' => $form->createView(),
-                'Product' => $CustomUrlUserPage->getProduct()
+                //'PageLayout' => $CustomUrlUserPage->getPageLayout()
             )
         );
     }
@@ -184,7 +188,7 @@ dump($form->createView());
         }
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
 
@@ -197,7 +201,7 @@ dump($form->createView());
             $app->addError('admin.customurluserpage.notfound', 'admin');
         }
 
-        return $app->redirect($app->url('admin_customurluserpage_list'));
+        return $app->redirect($app->url('admin_customurluserpage'));
 
     }
 
@@ -215,7 +219,7 @@ dump($form->createView());
 
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
@@ -224,7 +228,7 @@ dump($form->createView());
         $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($id);
         if (is_null($CustomUrlUserPage)) {
             $app->addError('admin.customurluserpage.notfound', 'admin');
-            return $app->redirect($app->url('admin_customurluserpage_list'));
+            return $app->redirect($app->url('admin_customurluserpage'));
         }
 
         // ランクアップ
@@ -232,7 +236,7 @@ dump($form->createView());
 
         $app->addSuccess('admin.plugin.customurluserpage.complete.up', 'admin');
 
-        return $app->redirect($app->url('admin_customurluserpage_list'));
+        return $app->redirect($app->url('admin_customurluserpage'));
     }
 
     /**
@@ -255,7 +259,7 @@ dump($form->createView());
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
 
         // IDからおすすめ商品情報を取得する
-        $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.recommend_product']->find($id);
+        $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($id);
         if (is_null($CustomUrlUserPage)) {
             $app->addError('admin.customurluserpage.notfound', 'admin');
             return $app->redirect($app->url('admin_customurluserpage'));

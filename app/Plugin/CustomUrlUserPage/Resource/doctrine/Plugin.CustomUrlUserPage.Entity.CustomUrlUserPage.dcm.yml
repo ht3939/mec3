@@ -52,7 +52,7 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
             nullable: false
     manyToOne:
         PageLayout:
-            targetEntity: Eccube\Entity\PageLayout
+            targetEntity: Plugin\CustomUrlUserPage\Entity\PageLayout
             inversedBy: CustomUrlUserPage
             joinColumn:
                 name: page_id

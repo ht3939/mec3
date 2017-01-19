@@ -119,7 +119,7 @@ class CustomUrlUserPageRepository extends EntityRepository
     {
         // 最大のランクを取得する.
         //change from MAX(m.id) to MAX(m.rank)
-        $sql = "SELECT MAX(m.rank) AS max_rank FROM Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageProduct m";
+        $sql = "SELECT MAX(m.rank) AS max_rank FROM Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage m";
         $q = $this->getEntityManager()->createQuery($sql);
 
         return $q->getSingleScalarResult();

@@ -257,29 +257,29 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * Set Product
+     * Set PageLayout
      *
-     * @param \Eccube\Entity\Product $product
-     * @return Prodcut
+     * @param \Eccube\Entity\PageLayout $product
+     * @return PageLayout
      */
-    public function setProduct(\Eccube\Entity\Product $product)
+    public function setPageLayout(\Plugin\CustomUrlUserPage\Entity\PageLayout $pagelayout)
     {
-        $this->Product = $product;
+        $this->PageLayout = $pagelayout;
 
         return $this;
     }
 
     /**
-     * Get Product
+     * Get PageLayout
      *
-     * @return \Eccube\Entity\Product 
+     * @return \Eccube\Entity\PageLayout 
      */
-    public function getProduct()
+    public function getPageLayout()
     {
-        if (EntityUtil::isEmpty($this->Product)) {
+        if (EntityUtil::isEmpty($this->PageLayout)) {
             return null;
         }
-        return $this->Product;
+        return $this->PageLayout;
     }
 
 }

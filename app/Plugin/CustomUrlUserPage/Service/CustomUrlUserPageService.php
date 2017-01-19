@@ -71,16 +71,21 @@ class CustomUrlUserPageService
 	public function updateCustomUrlUserPage($data) {
 		$dateTime = new \DateTime();
 		$em = $this->app['orm.em'];
-
+dump($data);//die();
 		// おすすめ商品情報を取得する
-		$CustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($data['id']);
+		$CustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($data['id']);
 		if(is_null($CustomUrlUserPage)) {
-			false;
+			return false;
 		}
+		$CustomUrlUserPage->setCustomUrl($data['customurl']);
+		$CustomUrlUserPage->setUserPage($data['userpage']);
+		$CustomUrlUserPage->setBindName($data['bindname']);
+		$CustomUrlUserPage->setPageThumbnail($data['pagethumbnail']);
+		$CustomUrlUserPage->setPageInfo($data['pageinfo']);
+		$CustomUrlUserPage->setPageCategoryKey($data['pagecategorykey']);
+		$CustomUrlUserPage->setIndexFlg($data['index_flg']);
+		$CustomUrlUserPage->setPageLayout($data['pagelayout']);
 
-		// おすすめ商品情報を書き換える
-		$CustomUrlUserPage->setComment($data['comment']);
-		$CustomUrlUserPage->setProduct($data['Product']);
 		$CustomUrlUserPage->setUpdateDate($dateTime);
 
 		// おすすめ商品情報を更新する
@@ -101,7 +106,7 @@ class CustomUrlUserPageService
 		$em = $this->app['orm.em'];
 
 		// おすすめ商品情報を取得する
-		$CustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+		$CustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($recommendId);
 		if(is_null($CustomUrlUserPage)) {
 			false;
 		}
@@ -127,12 +132,12 @@ class CustomUrlUserPageService
 		$em = $this->app['orm.em'];
 
 		// おすすめ商品情報を取得する
-		$CustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+		$CustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($recommendId);
 		if(is_null($CustomUrlUserPage)) {
 			false;
 		}
 		// 対象ランクの上に位置するおすすめ商品を取得する
-		$TargetCustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']
+		$TargetCustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']
 								->findByRankUp($CustomUrlUserPage->getRank());
 		if(is_null($TargetCustomUrlUserPage)) {
 			false;
@@ -166,12 +171,12 @@ class CustomUrlUserPageService
 		$em = $this->app['orm.em'];
 
 		// おすすめ商品情報を取得する
-		$CustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']->find($recommendId);
+		$CustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']->find($recommendId);
 		if(is_null($CustomUrlUserPage)) {
 			false;
 		}
 		// 対象ランクの上に位置するおすすめ商品を取得する
-		$TargetCustomUrlUserPage =$this->app['eccube.plugin.recommend.repository.recommend_product']
+		$TargetCustomUrlUserPage =$this->app['eccube.plugin.customurluserpage.repository.customurluserpage']
 								->findByRankDown($CustomUrlUserPage->getRank());
 		if(is_null($TargetCustomUrlUserPage)) {
 			false;
@@ -203,11 +208,19 @@ class CustomUrlUserPageService
 	protected function newCustomUrlUserPage($data) {
 		$dateTime = new \DateTime();
 
-		$rank = $this->app['eccube.plugin.recommend.repository.recommend_product']->getMaxRank();
+		$rank = $this->app['eccube.plugin.customurluserpage.repository.customurluserpage']->getMaxRank();
 
-		$CustomUrlUserPage = new \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageProduct();
-		$CustomUrlUserPage->setComment($data['comment']);
-		$CustomUrlUserPage->setProduct($data['Product']);
+		$CustomUrlUserPage = new \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage();
+		$CustomUrlUserPage->setCustomUrl($data['customurl']);
+		$CustomUrlUserPage->setUserPage($data['userpage']);
+		$CustomUrlUserPage->setBindName($data['bindname']);
+		$CustomUrlUserPage->setPageThumbnail($data['pagethumbnail']);
+		$CustomUrlUserPage->setPageInfo($data['pageinfo']);
+		$CustomUrlUserPage->setPageCategoryKey($data['pagecategorykey']);
+		$CustomUrlUserPage->setIndexFlg($data['index_flg']);
+
+		$CustomUrlUserPage->setPageLayout($data['pagelayout']);
+
 		$CustomUrlUserPage->setRank(($rank ? $rank : 0) + 1);
 		$CustomUrlUserPage->setDelFlg(Constant::DISABLED);
 		$CustomUrlUserPage->setCreateDate($dateTime);
@@ -227,119 +240,8 @@ class CustomUrlUserPageService
         }
     }
 
-    // テンプレートに商品の情報を渡す
-	public function getProductParam($product_list){
-		$app = $this->app;
-		$value_repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumnsValue');
-		$column_repository = $app['orm.em']->getRepository('\Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns');
-		$maker_repository = $app['eccube.plugin.maker.repository.product_maker'];
-
-		$__ex_product_list = array();
-		$__ex_product_list_maker = array();
-		foreach ($product_list as $Product) {
-			$__ex_product_list[$Product['Product']->getId()] = $this->getProductExt($Product['Product']->getId(), $value_repository, $column_repository);
-			if(!is_null($maker_repository->find($Product['Product']->getId()))){
-				$__ex_product_list_maker[$Product['Product']->getId()]['name'] = $maker_repository->find($Product['Product']->getId())->getMaker()->getName();
-				$__ex_product_list_maker[$Product['Product']->getId()]['url'] = $maker_repository->find($Product['Product']->getId())->getMakerUrl();
-			}
-		}
-
-		return array(
-			'__EX_PRODUCT_LIST' => $__ex_product_list,
-			'__EX_PRODUCT_LIST_MAKER' => $__ex_product_list_maker,
-			);
-	}
 
 
-	// Plugin\PlgExpandProductColumns\Event.php からコピペ
-	private function getProductExt($id, $value_repository, $column_repository)
-	{
-		$product_ex = array();
-		$columns = $column_repository->findAll();
-//dump("test");
-
-		/** @var \Plugin\PlgExpandProductColumns\Entity\PlgExpandProductColumns $column */
-		foreach ($columns as $column) {
-			$value = $value_repository->findOneBy(array(
-				'columnId' => $column->getColumnId(),
-				'productId' => $id));
-			/**
-			 * 配列系の値の場合、配列にしてから渡す
-			 */
-			switch ($column->getColumnType()) {
-				case EX_TYPE_IMAGE :
-				case EX_TYPE_CHECKBOX :
-					if (empty($value)) {
-						$value = '';
-					} else {
-						$value = explode(',', $value->getValue());
-					}
-					break;
-				default :
-					$value = empty($value) ? '' : $value->getValue();
-			}
-			$valuetext = '';
-			$valset = explode("\r\n",$column->getColumnSetting());
-			//dump($valset);
-			$vss = array();
-			foreach($valset as $vs){
-				if(!empty($vs)){
-
-					$vs =  explode(':',$vs);
-					if(isset($vs[0])){
-					$vss[$vs[0]] = $vs[1];
-					}
-				}
-			}
-			//dump($vss);
-			
-
-			switch ($column->getColumnType()) {
-				case EX_TYPE_CHECKBOX :
-					if (empty($value)) {
-						$valuetext = '';
-					} else {
-						foreach($value as $v){
-							$valuetext[] = $vss[$v];
-						}
-					}
-					break;
-
-				case EX_TYPE_SELECT :
-				case EX_TYPE_RADIO :
-					if (empty($value)) {
-						$valuetext = '';
-					} else {
-						$valuetext = $vss[$value];
-					}
-					break;
-				default :
-					$valuetext = $value;
-			}
-
-			$product_st[$column->getColumnName()] = array(
-				'id' => $column->getColumnId(),
-				'name' => $column->getColumnName(),
-				'value' => $value
-				,'valuetext'=> $valuetext
-			);
-
-			$product_ex[$column->getColumnId()] = array(
-				'id' => $column->getColumnId(),
-				'name' => $column->getColumnName(),
-				'value' => $value
-				,'valuetext'=> $valuetext
-			);
-		}
-		ksort($product_st);
-		$product_ex=array();
-		foreach($product_st as $ex){
-			$product_ex[$ex['id']] = $ex;
-		}
-
-//dump($product_st);
-		return $product_ex;
-	}
 
 
 }

@@ -119,7 +119,7 @@ class CustomUrlUserPageType extends AbstractType
                 $form = $event->getForm();
                 $data = $form->getData();
 
-                $PageLayout = $data['PageLayout'];
+                $PageLayout = $data['pagelayout'];
 
                 if (empty($PageLayout)) {
                     $form['pageinfo']->addError(new FormError('商品を追加してください。'));

@@ -80,35 +80,19 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
         <div class="col-md-9">
             <div class="box accordion">
                 <div class="box-header toggle active">
-                    <h3 class="box-title">おすすめ商品情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
+                    <h3 class="box-title">カスタムURL定義情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body accpanel" style="display: block;">
                     <div class="order_list form-horizontal">
+                        <div class="form-group">
+                            {{ form_label(form.index_flg) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.index_flg) }}
+                                {{ form_errors(form.index_flg) }}
+                            </div>
+                        </div>
+
                         {# おすすめ商品ID #}
-                        <div class="form-group" style="display: none;">
-                            {{ form_label(form.customurl) }}
-                            <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.customurl) }}
-                                {{ form_errors(form.customurl) }}
-                            </div>
-                        </div>
-                        {# 商品ID #}
-                        <div class="form-group" style="display: block;">
-                            {{ form_label(form.customurl) }}
-                            <div class="col-sm-9 col-lg-10">
-                                <a id="showSearchProductModal" class="btn btn-default btn-block btn-sm" data-toggle="modal" data-target="#searchProductModal">商品の追加</a>
-                                <span id="product_name">
-                                    {% if PageLayout is not null %}
-                                        {{ PageLayout.name }}
-                                    {% endif %}
-                                </span>
-                                {#
-                                {{ form_widget(form.Product) }}
-                                {{ form_errors(form.Product) }}
-                                #}
-                            </div>
-                        </div>
-                        {#  #}
                         <div class="form-group">
                             {{ form_label(form.customurl) }}
                             <div class="col-sm-9 col-lg-10">
@@ -116,12 +100,12 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.customurl) }}
                             </div>
                         </div>
+
                         {#  #}
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             {{ form_label(form.userpage) }}
                             <div class="col-sm-9 col-lg-10">
                                 {{ form_widget(form.userpage) }}
-                                {{ form_errors(form.userpage) }}
                             </div>
                         </div>
                         {# 対象のユーザー定義ページ #}
@@ -132,21 +116,33 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                 {{ form_errors(form.pagelayout) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             {{ form_label(form.bindname) }}
                             <div class="col-sm-9 col-lg-10">
                                 {{ form_widget(form.bindname) }}
-                                {{ form_errors(form.bindname) }}
                             </div>
                         </div>
                         <div class="form-group">
-                            {{ form_label(form.index_flg) }}
+                            {{ form_label(form.pagethumbnail) }}
                             <div class="col-sm-9 col-lg-10">
-                                {{ form_widget(form.index_flg) }}
-                                {{ form_errors(form.index_flg) }}
+                                {{ form_widget(form.pagethumbnail) }}
+                                {{ form_errors(form.pagethumbnail) }}
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            {{ form_label(form.pageinfo) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.pageinfo) }}
+                                {{ form_errors(form.pageinfo) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.pagecategorykey) }}
+                            <div class="col-sm-9 col-lg-10">
+                                {{ form_widget(form.pagecategorykey) }}
+                                {{ form_errors(form.pagecategorykey) }}
+                            </div>
+                        </div>
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
