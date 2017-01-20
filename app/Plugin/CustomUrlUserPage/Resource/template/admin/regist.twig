@@ -127,6 +127,39 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                             </div>
                         </div>
                         <div class="form-group">
+                        
+                        <td id="result_box__product_image--{{ product_class_form.vars.name }}">
+                            <div id="detail_box__image--{{ product_class_form.vars.name }}" class="form-group">
+                                <label class="col-sm-2 control-label" for="admin_productclassex_image">
+                                </label>
+                                <div id="detail_files_box--{{ product_class_form.vars.name }}" class="col-sm-9 col-lg-10">
+                                    <div class="photo_files" id="drag-drop-area--{{ product_class_form.vars.name }}">
+                                        <svg id="icon_no_image--{{ product_class_form.vars.name }}" class="cb cb-photo no-image"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-photo"></use></svg>
+                                        <ul id="thumb--{{ product_class_form.vars.name }}" class="clearfix"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group marB30">
+                                <div id="detail_box__file_upload--{{ product_class_form.vars.name }}" class="col-sm-offset-2 col-sm-9 col-lg-10 ">
+
+                                    <div id="progress--{{ product_class_form.vars.name }}" class="progress progress-striped active" style="display:none;">
+                                        <div class="progress-bar progress-bar-info"></div>
+                                    </div>
+
+                                    {{ form_widget(product_class_form.product_image, { attr : { accept : 'image/*', style : 'display:none;' } }) }}
+                                    <a id="file_upload--{{ product_class_form.vars.name }}" class="with-icon">
+                                        <svg class="cb cb-plus"> <use xlink:href="#cb-plus" /></svg>
+                                    </a>
+
+                                </div>
+                            </div>                                    
+                            {# form_widget(product_class_form.product_image) #}
+                            {# form_errors(product_class_form.product_image) #}
+                        </td>
+                        </div>
+
+
+                        <div class="form-group">
                             {{ form_label(form.pagethumbnail) }}
                             <div class="col-sm-9 col-lg-10">
                                 {{ form_widget(form.pagethumbnail) }}

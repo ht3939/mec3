@@ -39,6 +39,7 @@ class Version201510211300 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->createCustomUrlUserPage($schema);
+        $this->createCustomUrlUserPageImage($schema);
     }
 
     /**
@@ -49,6 +50,8 @@ class Version201510211300 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $schema->dropTable('plg_customurl_userpage');
         $schema->dropSequence('plg_customurl_userpage_customurl_id_seq');
+        $schema->dropTable('plg_customurl_userpage_images');
+        $schema->dropSequence('plg_customurl_userpage_images_customurl_image_id_seq');
     }
 
     /**
@@ -113,6 +116,45 @@ class Version201510211300 extends AbstractMigration
         ));
 
         $table->setPrimaryKey(array('customurl_id'));
+    }
+
+    protected function createCustomUrlUserPageImage(Schema $schema)
+    {
+        $table = $schema->createTable("plg_customurl_userpage_images");
+        $table->addColumn('customurl_image_id', 'integer', array(
+            'autoincrement' => true,
+            'notnull' => true,
+        ));
+
+        $table->addColumn('customurl_id', 'text', array(
+            'notnull' => true,
+        ));
+
+        $table->addColumn('filename', 'text', array(
+            'notnull' => true,
+        ));
+        $table->addColumn('rank', 'integer', array(
+            'notnull' => true,
+            'unsigned' => false,
+            'default' => 1,
+        ));
+        $table->addColumn('del_flg', 'smallint', array(
+            'notnull' => true,
+            'unsigned' => false,
+            'default' => 0,
+        ));
+
+        $table->addColumn('create_date', 'datetime', array(
+            'notnull' => true,
+            'unsigned' => false,
+        ));
+
+        $table->addColumn('update_date', 'datetime', array(
+            'notnull' => true,
+            'unsigned' => false,
+        ));
+
+        $table->setPrimaryKey(array('customurl_image_id'));
     }
 
 }

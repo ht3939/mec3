@@ -1,0 +1,41 @@
+Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage:
+    type: entity
+    table: plg_customurl_userpage_images
+    repositoryClass: Plugin\CustomUrlUserPage\Repository\CustomUrlUserPageImageRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: customurl_image_id
+            generator:
+                strategy: AUTO
+    fields:
+        filename:
+            type: text
+            nullable: true
+        rank:
+            type: integer
+            nullable: false
+            default: '1'
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        CustomUrlUserPage:
+            targetEntity: Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage
+            inversedBy: CustomUrlUserPage
+            joinColumn:
+                name: customurl_id
+                referencedColumnName: customurl_id
+    lifecycleCallbacks: {  }
+    

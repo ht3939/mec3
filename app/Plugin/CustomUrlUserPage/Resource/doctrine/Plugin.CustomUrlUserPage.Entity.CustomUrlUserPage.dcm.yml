@@ -57,5 +57,12 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
             joinColumn:
                 name: page_id
                 referencedColumnName: page_id
+    oneToMany:
+        CustomUrlUserPageImages:
+            targetEntity: Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage
+            inversedBy: CustomUrlUserPageImage
+            joinColumn:
+                name: customurl_id
+                referencedColumnName: customurl_id
     lifecycleCallbacks: {  }
     

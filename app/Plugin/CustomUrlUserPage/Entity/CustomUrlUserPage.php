@@ -75,11 +75,21 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     private $PageLayout;
 
+    private $CustomUrlUserPageImages;
+
+    private $images;
+
+    private $add_images;
+    private $delete_images;
+
     /**
      * Constructor
      */
     public function __construct()
-    {}
+    {
+        $this->CustomUrlUserPageImages = new ArrayCollection();
+
+    }
 
     /**
      * Get recommend product id
@@ -282,5 +292,122 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
         }
         return $this->PageLayout;
     }
+
+
+
+    /**
+     * Add ProductImage
+     *
+     * @param \Eccube\Entity\ProductImage $productImage
+     * @return Product
+     */
+    public function addCustomUrlUserPageImage(\Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage $image)
+    {
+        $this->CustomUrlUserPageImages[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove ProductImage
+     *
+     * @param \Eccube\Entity\ProductImage $productImage
+     */
+    public function removeCustomUrlUserPageImage(\Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage $image)
+    {
+        $this->CustomUrlUserPageImages->removeElement($image);
+    }
+
+
+    public function getMainFileName()
+    {
+        if (count($this->CustomUrlUserPageImages) > 0) {
+            return $this->CustomUrlUserPageImages[0];
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Get Product
+     *
+     * @return \Plugin\ProductClassEx\Entity\ProductClassExImage
+     */
+    public function getCustomUrlUserPageImages()
+    {
+        return $this->CustomUrlUserPageImages;
+    }
+
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setAddImages($images)
+    {
+        $this->add_images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getAddImages()
+    {
+        return $this->add_images;
+    }
+
+    /**
+     * Set images
+     *
+     * @param  string       $images
+     * @return ProductClassEx
+     */
+    public function setDeleteImages($images)
+    {
+        $this->delete_images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return string
+     */
+    public function getDeleteImages()
+    {
+        return $this->delete_images;
+    }
+
+
 
 }
