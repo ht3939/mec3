@@ -36,18 +36,18 @@ class UserDataController extends \Eccube\Controller\UserDataController
 {
     public function index(Application $app, Request $request, $route)
     {
-dump($route);
+
         $DeviceType = $app['orm.em']
             ->getRepository('Eccube\Entity\Master\DeviceType')
             ->find(DeviceType::DEVICE_TYPE_PC);
-dump($DeviceType);
+
 
         $PageLayout = $app['eccube.repository.page_layout']->findOneBy(array(
             'url' => $route,
             'DeviceType' => $DeviceType,
             'edit_flg' => PageLayout::EDIT_FLG_USER,
         ));
-dump($PageLayout);
+
         if (is_null($PageLayout)) {
             throw new NotFoundHttpException();
         }
@@ -55,7 +55,7 @@ dump($PageLayout);
         // user_dataディレクトリを探索パスに追加.
         $paths = array();
         $paths[] = $app['config']['user_data_realdir'];
-dump($paths);
+
 
         $app['twig.loader']->addLoader(new \Twig_Loader_Filesystem($paths));
 
@@ -70,7 +70,7 @@ dump($paths);
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_USER_DATA_INDEX_INITIALIZE, $event);
-dump($file);
+
 
         return $app->render($file);
     }

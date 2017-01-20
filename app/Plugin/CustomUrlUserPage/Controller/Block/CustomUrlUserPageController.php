@@ -33,15 +33,18 @@ class CustomUrlUserPageController
      */
     public function index(Application $app,$listtype)
     {
+
+    
         $Disp = $app['eccube.repository.master.disp']->find(Disp::DISPLAY_SHOW);
-        $CustomUrlUserPageProducts = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->getCustomUrlUserPageProduct($Disp);
 
-        $product_param = $app['eccube.customurluserpage.service.customurluserpage']->getProductParam($CustomUrlUserPageProducts);
+        $CustomUrlUserPageProducts = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findList($listtype);
 
-        return $app['view']->render('Block/customurl_userpage_'.$listtype.'_block.twig', array(
+        return $app->render('Block/customurl_userpage_'.$listtype.'_block.twig', 
+            array(
             'CustomUrlUserPageProducts' => array(
                 'ProductList'               => $CustomUrlUserPageProducts
             )
-        ));
+        )
+            );
     }
 }

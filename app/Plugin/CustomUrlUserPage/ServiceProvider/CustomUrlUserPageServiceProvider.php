@@ -32,42 +32,34 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
 
     public function register(BaseApplication $app)
     {
-        // おすすめ情報テーブルリポジトリ
         $app['eccube.plugin.customurluserpage.repository.customurluserpage'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage');
         });
 
-        // おすすめ商品の一覧
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::index')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage');
 
-        // おすすめ商品の新規先
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/new', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::create')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage_new');
 
-        // おすすめ商品の新規作成・編集確定
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/commit', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::commit')
         ->value('id', null)->assert('id', '\d+|')
         ->bind('admin_customurluserpage_commit');
 
-        // おすすめ商品の編集
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/edit/{id}', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::edit')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage_edit');
 
-        // おすすめ商品の削除
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/delete/{id}', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::delete')
         ->value('id', null)->assert('id', '\d+|')
         ->bind('admin_customurluserpage_delete');
 
-        // おすすめ商品のランク移動（上）
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/rank_up/{id}', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::rankUp')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage_rank_up');
 
-        // おすすめ商品のランク移動（下）
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/rank_down/{id}', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::rankDown')
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage_rank_down');
@@ -77,8 +69,13 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
             ->bind('admin_customurluserpage_search_userpage');
 
         // ブロック
-        $app->match('/block/customurluserpage_block/{listtype}', '\Plugin\CustomUrlUserPage\Controller\Block\CustomUrlUserPageController::index')
-            ->bind('block_customurluserpage_block');
+        $app->match('/block/customurluserpage_block/options', '\Plugin\CustomUrlUserPage\Controller\Block\CustomUrlUserPageController::index')
+            ->value('listtype','options')
+            ->bind('block_customurl_userpage_options_block');
+
+        $app->match('/block/customurluserpage_block/campaign', '\Plugin\CustomUrlUserPage\Controller\Block\CustomUrlUserPageController::index')
+            ->value('listtype','campaign')
+            ->bind('block_customurl_userpage_campaign_block');
 
         // 型登録
         $app['form.types'] = $app->share($app->extend('form.types', function ($types) use ($app) {
@@ -130,9 +127,17 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         $Indexes = $CustomUrlUserPageRepo->findBy(array('index_flg'=>1,'del_flg'=>0));
         if($Indexes){
             foreach($Indexes as $IndexPage){
-                $app->match($IndexPage->getCustomurl(), '\Plugin\CustomUrlUserPage\Controller\Front\CustomUrlUserPageController::index')
-                    ->value('indextype',$IndexPage->getPagecategorykey())
-                    ->bind('customurluserpage_list_'.$IndexPage->getPagecategorykey());
+                //dump($IndexPage);
+                $rt = $app->match($IndexPage->getCustomurl(), '\Plugin\CustomUrlUserPage\Controller\Front\CustomUrlUserPageController::index');
+
+                $rt->value('indextype',$IndexPage->getPagecategorykey());
+                if($IndexPage->getPageLayout()){
+                    $rt->bind($IndexPage->getPageLayout()->getUrl());
+
+                }else{
+                    $rt->bind('customurluserpage_list_'.$IndexPage->getPagecategorykey());
+
+                }
 
 
             }
@@ -142,7 +147,12 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         $CustomUrls = $CustomUrlUserPageRepo->findBy(array('index_flg'=>0,'del_flg'=>0));
         if($CustomUrls){
             foreach($CustomUrls as $CustomUrl){
-                $app->match($CustomUrl->getCustomurl(), 'Plugin\CustomUrlUserPage\Controller\UserDataController::index')->value('route', $CustomUrl->getUserpage())->bind($CustomUrl->getBindname());
+                //dump($CustomUrl);
+                //dump($CustomUrl->getPageLayout()->getUrl());
+                $app->match($CustomUrl->getCustomurl(), 'Plugin\CustomUrlUserPage\Controller\Front\UserDataController::index')
+                ->value('route', $CustomUrl->getPageLayout()->getUrl())
+                ->bind($CustomUrl->getPageLayout()->getUrl());
+                //dump($CustomUrl);
 
             }
         }

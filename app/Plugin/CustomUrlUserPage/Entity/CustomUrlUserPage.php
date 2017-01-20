@@ -262,8 +262,9 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      * @param \Eccube\Entity\PageLayout $product
      * @return PageLayout
      */
-    public function setPageLayout(\Plugin\CustomUrlUserPage\Entity\PageLayout $pagelayout)
-    {
+    public function setPageLayout( $pagelayout)
+    {//\Plugin\CustomUrlUserPage\Entity\PageLayout
+        
         $this->PageLayout = $pagelayout;
 
         return $this;

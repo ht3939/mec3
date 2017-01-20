@@ -43,7 +43,6 @@ class CustomUrlUserPageController extends AbstractController
     }
 
     /**
-     * おすすめ商品一覧
      * @param Application $app
      * @param Request     $request
      * @param unknown     $id
@@ -63,7 +62,6 @@ class CustomUrlUserPageController extends AbstractController
     }
 
     /**
-     * おすすめ商品の新規作成
      * @param Application $app
      * @param Request     $request
      * @param unknown     $id
@@ -72,10 +70,10 @@ class CustomUrlUserPageController extends AbstractController
      */
     public function create(Application $app, Request $request, $id)
     {
-dump('1');
+
         $builder = $app['form.factory']->createBuilder('admin_customurluserpage');
         $form = $builder->getForm();
-dump('2');
+
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
 
@@ -84,9 +82,8 @@ dump('2');
         if ('POST' === $request->getMethod()) {
             $form->handleRequest($request);
             $data = $form->getData();
-
-dump($data);
             if ($form->isValid()) {
+
                 $status = $service->createCustomUrlUserPage($data);
 
                 if (!$status) {
@@ -102,7 +99,7 @@ dump($data);
                 $Product = $data['PageLayout'];
             }
         }
-dump($form->createView());
+
         return $this->renderRegistView(
             $app,
             array(
@@ -129,7 +126,6 @@ dump($form->createView());
 
         $service = $app['eccube.plugin.customurluserpage.service.customurluserpage'];
 
-        // IDからおすすめ商品情報を取得する
         $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findById($id);
 
         if (is_null($CustomUrlUserPage)) {
@@ -145,9 +141,9 @@ dump($form->createView());
             ->getForm();
 
         if ('POST' === $request->getMethod()) {
-dump($request);
+
             $form->handleRequest($request);
-dump($form);//die();
+
             if ($form->isValid()) {
                 $status = $service->updateCustomUrlUserPage($form->getData());
 
@@ -171,7 +167,6 @@ dump($form);//die();
     }
 
     /**
-     * おすすめ商品の削除
      * @param Application $app
      * @param Request     $request
      * @param unknown     $id

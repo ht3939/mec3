@@ -54,9 +54,15 @@ class CustomUrlUserPageController extends AbstractController
     {
         $pagination = null;
 
-        $pagination = $app['eccube.plugin.recommend.repository.recommend_product']->findList();
+        $pagination = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findList($indextype);
+        $index = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findList($indextype,1);
 
-        return $app->render('CustomUrlUserPage/Resource/template/admin/index.twig', array(
+        if($index[0]->getPageLayout()){
+            $twig = $index[0]->getPageLayout()->getFileName().'.twig';
+        }else{
+            $twig = 'CustomUrlUserPage/index.twig';
+        }
+        return $app->render($twig, array(
             'pagination' => $pagination,
             'totalItemCount' => count($pagination)
         ));

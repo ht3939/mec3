@@ -58,9 +58,12 @@ class CustomUrlUserPageType extends AbstractType
             ->add('customurl', 'text', array(
                 'label' => 'カスタムURL',
                 'required' => true,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                ),                
             ))
             ->add('userpage', 'text', array(
-                'label' => 'ユーザー定義ページ',
+                'label' => 'カスタムテンプレート',
                 'required' => false,
             ))
             ->add('bindname', 'text', array(
@@ -73,7 +76,10 @@ class CustomUrlUserPageType extends AbstractType
             ))
             ->add('pagecategorykey', 'text', array(
                 'label' => 'カテゴリキー',
-                'required' => false,
+                'required' => true,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                ), 
             ))
             ->add('index_flg', 'checkbox', array(
                 'label' => '一覧ページフラグ',
@@ -118,22 +124,21 @@ class CustomUrlUserPageType extends AbstractType
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($app) {
                 $form = $event->getForm();
                 $data = $form->getData();
-
+                
                 $PageLayout = $data['pagelayout'];
-
                 if (empty($PageLayout)) {
-                    $form['pageinfo']->addError(new FormError('商品を追加してください。'));
+                    //$form['pageinfo']->addError(new FormError('商品を追加してください。'));
                 } else {
-                    $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findBy(array('PageLayout' => $PageLayout));
+                    $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findBy(array('PageLayout' => $PageLayout,'index_flg'=>0));
 
                     if ($CustomUrlUserPage) {
                         //check existing PageLayout, except itself
                         if (($CustomUrlUserPage[0]->getId() != $data['id'])) {
-                            $form['pageinfo']->addError(new FormError('既に商品が追加されています。'));
+                            $form['pagelayout']->addError(new FormError('既にユーザー定義ページが割当されています。'));
                         }
                     }
                 }
-
+                
             });
 
         $builder->addEventSubscriber(new \Eccube\Event\FormEventSubscriber());

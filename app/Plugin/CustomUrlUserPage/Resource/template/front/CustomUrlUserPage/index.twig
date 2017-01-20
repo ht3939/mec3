@@ -19,30 +19,30 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-{#
-[コンテンツ]-[おすすめ商品]-[一覧・検索]画面
-#}
-
 {% extends 'default_frame.twig' %}
 
-{% set menus = ['content', 'admin_recommend'] %}
-
-{% block title %}おすすめ商品管理{% endblock %}
-{% block sub_title %}おすすめ商品内容設定{% endblock %}
+{% set body_class = 'cart_page' %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ app.config.admin_urlpath }}/assets/css/bootstrap-datetimepicker.min.css">
-{% endblock stylesheet %}
+<style type="text/css">
+/* ======== SP ==========*/
+.sp #cart_item_list__product_image{
+    display: inline-block;
+}
 
-{% block javascript %}
-<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/moment.min.js"></script>
-<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/moment-ja.js"></script>
-<script src="{{ app.config.admin_urlpath }}/assets/js/vendor/bootstrap-datetimepicker.min.js"></script>
+.sp #cart_item_list__quantity{
+    width: 100px;
+    display: inline-block;
+}
+/* ======== /SP ==========*/
+</style>
+{% endblock %}
 
-{% endblock javascript %}
 
 {% block main %}
-<form name="search_form" id="search_form" method="post" action="">
+    <h1 class="page-heading">ショッピングカート</h1>
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -61,7 +61,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <th>バインド</th>
                                     <th>カテゴリ</th>
                                     <th>一覧ページ</th>
-                                    <th>カスタムテンプレートパス</th>
                                     <th>編集</th>
                                     <th>削除</th>
                                     <th>並び替え</th>
@@ -78,7 +77,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <td class="bindname">{{ CustomUrlUserPageProduct.PageLayout.url }}</td>
                                     <td class="pagecategorykey">{{ CustomUrlUserPageProduct.pagecategorykey }}</td>
                                     <td class="index_flg">{{ CustomUrlUserPageProduct.index_flg }}</td>
-                                    <td class="userpage">{{ CustomUrlUserPageProduct.username }}</td>                                    
                                     <td><a href="{{ url('admin_customurluserpage_edit', { id : CustomUrlUserPageProduct.id }) }}" >編集</a></td>
                                     <td><a href="{{ url('admin_customurluserpage_delete', {'id' : CustomUrlUserPageProduct.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="カスタムURL情報を削除してもよろしいですか？">削除</a></td>
                                     <td class="icon_edit">
@@ -108,16 +106,5 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div>
-<div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
-        <a href="{{ url('admin_customurluserpage_new') }}" class="btn btn-primary btn-block btn-lg">カスタムURLを新規登録</a>
-    </div>
-</div>
-</form>
-<p>
-    ・カスタムテンプレートパスは、テンプレートフォルダ以下のパスを記述します。<br>「.twig」はつけずに登録します。</br>
-    ・カスタムテンプレートパスの指定がない場合は、ユーザー定義ページのファイルを参照します。</br>
-    ・カテゴリキーは一覧ページの集約用になります。</br>
-    ・同じページの割当が別プラグイン等で行われいる場合、システムエラーになります。
-</p>
+
 {% endblock %}

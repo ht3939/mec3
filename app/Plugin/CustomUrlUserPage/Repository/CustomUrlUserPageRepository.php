@@ -44,16 +44,26 @@ class CustomUrlUserPageRepository extends EntityRepository
      * find list
      * @return mixed
      */
-    public function findList()
+    public function findList($pagecategorykey = null,$index_flg=0)
     {
 
         $qb = $this->createQueryBuilder('rp')
             ->select('rp, p')
             ->leftJoin('rp.PageLayout', 'p');
 
+        if($pagecategorykey){
+            $qb->Where('rp.pagecategorykey=:pagecategorykey');
+            $qb->AndWhere('rp.index_flg=:index_flg');
+            $qb->AndWhere('rp.del_flg=0');
+            $qb->SetParameter('pagecategorykey',$pagecategorykey)
+                ->SetParameter('index_flg',$index_flg);
+            
+        }
+
         $qb->addOrderBy('rp.rank', 'DESC');
 
-        return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        //return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $qb->getQuery()->getResult();
 
     }
 
@@ -130,7 +140,7 @@ class CustomUrlUserPageRepository extends EntityRepository
     {
 
         $query = $this->createQueryBuilder('rp')
-            ->innerJoin('Eccube\Entity\PageLayout', 'p', 'WITH', 'p.id = rp.PageLayout')
+            ->innerJoin('Plugin\CustomUrlUserPage\Entity\PageLayout', 'p', 'WITH', 'p.id = rp.PageLayout')
             ->orderBy('rp.rank', 'DESC')
             //->setParameter('Disp', $Disp)
             ->getQuery();

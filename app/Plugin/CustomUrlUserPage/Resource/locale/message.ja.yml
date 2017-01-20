@@ -1,7 +1,7 @@
-admin.customurluserpage.notfound: おすすめ商品が存在しません。
-admin.customurluserpage.recommend_id.notexists: おすすめ商品IDがありません。
-admin.plugin.customurluserpage.regist.success: おすすめ商品を登録しました。
-admin.plugin.customurluserpage.update.success: おすすめ商品を修正しました。
-admin.plugin.customurluserpage.delete.success: おすすめ商品を削除しました。
-admin.plugin.customurluserpage.complete.up: おすすめ商品を上へ移動しました。
-admin.plugin.customurluserpage.complete.down: おすすめ商品を下へ移動しました。
+admin.customurluserpage.notfound: カスタムURL定義が存在しません。
+admin.customurluserpage.recommend_id.notexists: カスタムURL定義IDがありません。
+admin.plugin.customurluserpage.regist.success: カスタムURL定義を登録しました。
+admin.plugin.customurluserpage.update.success: カスタムURL定義を修正しました。
+admin.plugin.customurluserpage.delete.success: カスタムURL定義を削除しました。
+admin.plugin.customurluserpage.complete.up: カスタムURL定義を上へ移動しました。
+admin.plugin.customurluserpage.complete.down: カスタムURL定義を下へ移動しました。
