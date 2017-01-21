@@ -33,9 +33,10 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage:
     manyToOne:
         CustomUrlUserPage:
             targetEntity: Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage
-            inversedBy: CustomUrlUserPage
+            inversedBy: CustomUrlUserPageImage
             joinColumn:
                 name: customurl_id
                 referencedColumnName: customurl_id
+                nullable: false
     lifecycleCallbacks: {  }
     

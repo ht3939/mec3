@@ -198,31 +198,6 @@ class CustomUrlUserPageImage extends \Eccube\Entity\AbstractEntity
         return $this->update_date;
     }
 
-    /**
-     * Set PageLayout
-     *
-     * @param \Eccube\Entity\PageLayout $product
-     * @return PageLayout
-     */
-    public function setPageLayout( $pagelayout)
-    {//\Plugin\CustomUrlUserPage\Entity\PageLayout
-        
-        $this->PageLayout = $pagelayout;
 
-        return $this;
-    }
-
-    /**
-     * Get PageLayout
-     *
-     * @return \Eccube\Entity\PageLayout 
-     */
-    public function getPageLayout()
-    {
-        if (EntityUtil::isEmpty($this->PageLayout)) {
-            return null;
-        }
-        return $this->PageLayout;
-    }
 
 }

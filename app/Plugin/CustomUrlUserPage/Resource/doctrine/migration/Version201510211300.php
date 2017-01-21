@@ -138,12 +138,9 @@ class Version201510211300 extends AbstractMigration
             'unsigned' => false,
             'default' => 1,
         ));
-        $table->addColumn('del_flg', 'smallint', array(
-            'notnull' => true,
-            'unsigned' => false,
-            'default' => 0,
+        $table->addColumn('dlfilename', 'text', array(
+            'notnull' => false,
         ));
-
         $table->addColumn('create_date', 'datetime', array(
             'notnull' => true,
             'unsigned' => false,

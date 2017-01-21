@@ -60,7 +60,7 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
     oneToMany:
         CustomUrlUserPageImages:
             targetEntity: Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage
-            inversedBy: CustomUrlUserPageImage
+            mappedBy: CustomUrlUserPageImage
             joinColumn:
                 name: customurl_id
                 referencedColumnName: customurl_id

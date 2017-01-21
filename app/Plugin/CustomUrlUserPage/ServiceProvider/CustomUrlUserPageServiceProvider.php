@@ -64,6 +64,10 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
             ->value('id', null)->assert('id', '\d+|')
             ->bind('admin_customurluserpage_rank_down');
 
+        $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage/addimage/{id}', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::addImage')
+            ->value('id', null)->assert('id', '\d+|')
+            ->bind('admin_customurluserpage_image_add');
+
         // 商品検索画面表示
         $app->post('/' . $app["config"]["admin_route"] . '/customurluserpage/search/userpage', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageSearchModelController::searchUserPage')
             ->bind('admin_customurluserpage_search_userpage');

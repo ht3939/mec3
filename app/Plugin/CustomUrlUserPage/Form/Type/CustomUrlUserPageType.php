@@ -62,6 +62,34 @@ class CustomUrlUserPageType extends AbstractType
                     new Assert\NotBlank(),
                 ),                
             ))
+            ->add('customurluserpageimage', 'file', array(
+                'label' => '商品画像',
+                'multiple' => true,
+                'required' => false,
+                'mapped' => false,
+            ))
+            // 画像
+            ->add('images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('add_images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('delete_images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))            
             ->add('userpage', 'text', array(
                 'label' => 'カスタムテンプレート',
                 'required' => false,

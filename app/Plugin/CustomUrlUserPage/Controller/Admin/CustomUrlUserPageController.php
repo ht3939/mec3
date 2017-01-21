@@ -108,6 +108,35 @@ class CustomUrlUserPageController extends AbstractController
             )
         );
     }
+    public function addImage(Application $app, Request $request)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new BadRequestHttpException('リクエストが不正です');
+        }
+
+        $images = $request->files->get('admin_customurluserpage');
+
+        $files = array();
+        if (count($images) > 0) {
+            foreach ($images as $img) {
+                foreach ($img as $image) {
+                    //ファイルフォーマット検証
+                    $mimeType = $image->getMimeType();
+                    if (0 !== strpos($mimeType, 'image')) {
+                        throw new UnsupportedMediaTypeHttpException('ファイル形式が不正です');
+                    }
+
+                    $extension = $image->getClientOriginalExtension();
+                    $filename = date('mdHis') . uniqid('_') . '.' . $extension;
+                    $image->move($app['config']['image_temp_realdir'], $filename);
+                    $files[] = $filename;
+                }
+            }
+        }
+
+
+        return $app->json(array('files' => $files), 200);
+    }
 
     /**
      * 編集
@@ -139,6 +168,15 @@ class CustomUrlUserPageController extends AbstractController
         $form = $app['form.factory']
             ->createBuilder('admin_customurluserpage', $CustomUrlUserPage)
             ->getForm();
+
+        // ファイルの登録
+        $images = array();
+        $CustomUrlUserPageImages = $CustomUrlUserPage->getCustomUrlUserPageImage();
+        foreach ($CustomUrlUserPageImages as $CustomUrlUserPageImage) {
+            $images[] = $CustomUrlUserPageImage->getFileName();
+        }
+        $form['images']->setData($images);
+
 
         if ('POST' === $request->getMethod()) {
 
