@@ -151,12 +151,11 @@ class MatchProductController
                     $matchs_info_maker[$match_id]['url'] = $maker_repository->find($match_id)->getMakerUrl();
                 }
             }
-
-
             // ------------- /対応する端末 ------------- 
 
             return $app['view']->render("Block/match_product.twig", array(
                 'Product' => $product,
+                'ProductEx' => $__ex_product,
                 'this_product_type' => $this_product_type,
                 'matchs_product' => $matchs_product,
                 'matchs_info' => $matchs_info,
