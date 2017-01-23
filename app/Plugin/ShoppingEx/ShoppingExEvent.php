@@ -256,7 +256,20 @@ class ShoppingExEvent
                 }
 
             }
-        }        
+        }
+
+        $setproduct_service = $app['eccube.plugin.setproduct.service.setproduct'];
+        $setproduct_maker_arr = $setproduct_service->GetShopingProductSetProductSimMaker($event);
+
+        if($setproduct_maker_arr){
+            $hasSimOrder = true;
+            foreach ($setproduct_maker_arr as $key => $val) {
+                if(array_search($val,$OrderMaker)===false){
+                    $OrderMaker[] = $val;
+                }
+            }
+        }
+
         $sec->set(self::SHOPPINGEX_SESSON_ORDER_KEY,array(
             'hasPayMonthly'=>$this->hasPayMonthly,
             'hasSimOrder'=>$hasSimOrder,
