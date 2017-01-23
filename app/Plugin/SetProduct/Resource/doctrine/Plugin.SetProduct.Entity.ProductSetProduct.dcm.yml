@@ -1,0 +1,35 @@
+Plugin\SetProduct\Entity\ProductSetProduct:
+    type: entity
+    table: plg_product_setproduct_maker
+    repositoryClass: Plugin\SetProduct\Repository\ProductSetProductRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: product_id
+    fields:
+        setproduct_sim_flg:
+            type: integer
+            nullable: true
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            options:
+                default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    oneToOne:
+        Maker:
+            targetEntity: Plugin\Maker\Entity\Maker
+            joinColumn:
+                name: maker_id
+                referencedColumnName: maker_id
+
+    lifecycleCallbacks: {  }
