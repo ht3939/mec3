@@ -30,13 +30,25 @@ class OptionController extends \Eccube\Controller\AbstractController
             $TargetOption = new \Plugin\ProductOption\Entity\Option();
         }
 
+        if(is_null($TargetOption->getExtension())){
+            $ExtensionEntity = new \Plugin\ProductOption\Entity\Extension();
+
+            $ExtensionEntity
+                 ->setId($TargetOption->getId())
+                 ->setDescdispFlg(0)
+                 ->setOption($TargetOption);
+            $TargetOption->setExtension($ExtensionEntity);
+        }
+
         $form = $app['form.factory']
                 ->createBuilder('admin_product_option', $TargetOption)
                 ->getForm();
 
+
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
+
                 $status = $app['eccube.productoption.repository.option']->save($TargetOption);
 
                 if ($status) {
