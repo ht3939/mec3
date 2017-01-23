@@ -21,7 +21,6 @@ class Version20150706204400 extends AbstractMigration
     {
         $table = $schema->createTable("plg_productoption_dtb_extension");
         $table->addColumn('option_id', 'integer', array(
-            'autoincrement' => true,
             'notnull' => true,
         ));
         $table->addColumn('descdisp_flg', 'smallint', array(
