@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Eccube\Form\DataTransformer;
+use Symfony\Component\Form\CallbackTransformer;
 
 class OptionType extends AbstractType
 {
@@ -65,8 +67,28 @@ class OptionType extends AbstractType
                 ->add('is_required', 'checkbox', array(
                     'label' => '必須チェック',
                 ))
+
+                ->add('descdisp_flg', 'checkbox', array(
+                    'label' => '説明文表示',
+                    'required' => false,
+                    'property_path' => 'Extension.descdisp_flg',
+                ))
                 ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber())
         ;
+
+        $builder->get('descdisp_flg')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
+
     }
 
     /**
@@ -74,7 +96,9 @@ class OptionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
+        $resolver->setDefaults(array(
+            'data_class' => 'Plugin\ProductOption\Entity\Option',
+        ));
     }
 
     /**

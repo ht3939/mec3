@@ -37,6 +37,7 @@ class Option extends \Eccube\Entity\AbstractEntity
     private $Creator;
     private $defaultCategory;
     private $disableCategory;
+    private $Extension;
 
     public function __construct()
     {
@@ -111,6 +112,12 @@ class Option extends \Eccube\Entity\AbstractEntity
         return $this->disableCategory;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     public function getId()
     {
         return $this->id;
@@ -293,5 +300,18 @@ class Option extends \Eccube\Entity\AbstractEntity
     {
         return $this->Creator;
     }
+
+    public function setExtension(\Plugin\ProductOption\Entity\Extension $extension)
+    {
+        $this->Extension = $extension;
+
+        return $this;
+    }
+
+    public function getExtension()
+    {
+        return $this->Extension;
+    }
+
 
 }

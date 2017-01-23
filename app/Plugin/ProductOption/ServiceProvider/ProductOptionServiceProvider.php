@@ -63,6 +63,7 @@ class ProductOptionServiceProvider implements ServiceProviderInterface
             $types[] = new \Plugin\ProductOption\Form\Type\Admin\ConfigType($app);
             $types[] = new \Plugin\ProductOption\Form\Type\ShippingMultipleType($app);
             $types[] = new \Plugin\ProductOption\Form\Type\ShippingMultipleItemType($app);
+            $types[] = new \Plugin\ProductOption\Form\Type\Admin\ExtensionType($app);
             return $types;
         }));
 
@@ -94,6 +95,9 @@ class ProductOptionServiceProvider implements ServiceProviderInterface
         });
         $app['eccube.productoption.repository.master.type'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\ProductOption\Entity\Master\Type');
+        });
+        $app['eccube.productoption.repository.extension'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Plugin\ProductOption\Entity\Extension');
         });
 
         // Service
