@@ -51,7 +51,6 @@ class OptionRepository extends EntityRepository
         try {
             $rank = $Option->getRank();
 
-            //
             $Option2 = $this->findOneBy(array('rank' => $rank + 1));
             if (!$Option2) {
                 throw new \Exception();
@@ -81,7 +80,6 @@ class OptionRepository extends EntityRepository
         try {
             $rank = $Option->getRank();
 
-            //
             $Option2 = $this->findOneBy(array('rank' => $rank - 1));
             if (!$Option2) {
                 throw new \Exception();
@@ -109,6 +107,9 @@ class OptionRepository extends EntityRepository
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();
         try {
+            $ExtensionEntity = $Option->getExtension();
+
+            // 新規登録
             if (!$Option->getId()) {
                 $rank = $this->createQueryBuilder('o')
                         ->select('MAX(o.rank)')
@@ -119,10 +120,24 @@ class OptionRepository extends EntityRepository
                 }
                 $Option->setRank($rank + 1);
                 $Option->setDelFlg(0);
+
+                // ExtensionのIDが無い場合persistでエラーになるので一旦IDに0を入れる
+                $ExtensionEntity->setId(0);
+                $Option->setExtension($ExtensionEntity);
             }
 
             $em->persist($Option);
+            // persistのあとでもIDはNULL　persistの前にデータに不備があるとエラー
+
             $em->flush();
+            // flushの後ならインクリメントしたID取得出来る flushではエンティティに反映されるだけで保存されない
+
+            if($ExtensionEntity->getId() === 0){
+                $ExtensionEntity->setId($Option->getId());
+                $Option->setExtension($ExtensionEntity);
+
+                $em->flush();
+            }
 
             $em->getConnection()->commit();
         } catch (\Exception $e) {
@@ -172,6 +187,11 @@ class OptionRepository extends EntityRepository
             $Option->setDelFlg(1);
             $em->persist($Option);
             $em->flush();
+
+            if(!is_null($Option->getExtension())){
+                $em->getRepository('Plugin\ProductOption\Entity\Extension')
+                                ->delete($Option->getExtension());
+            }
 
             $em->getConnection()->commit();
         } catch (\Exception $e) {
