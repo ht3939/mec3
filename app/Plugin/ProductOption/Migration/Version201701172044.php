@@ -9,7 +9,7 @@ class Version201701172044 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->createPlgProductOptionDescDisp($schema);
+        $this->createPlgProductOptionExtension($schema);
     }
 
     public function down(Schema $schema)
