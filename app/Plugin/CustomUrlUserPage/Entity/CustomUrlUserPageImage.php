@@ -40,6 +40,7 @@ class CustomUrlUserPageImage extends \Eccube\Entity\AbstractEntity
 
     private $CustomUrlUserPage;
     private $filename;
+    private $dlfilename;
 
     /**
      *
@@ -47,11 +48,11 @@ class CustomUrlUserPageImage extends \Eccube\Entity\AbstractEntity
      */
     private $rank;
 
-    /**
-     *
-     * @var integer
-     */
-    private $del_flg;
+    // *
+    //  *
+    //  * @var integer
+     
+    // private $del_flg;
 
     /**
      *
@@ -104,6 +105,16 @@ class CustomUrlUserPageImage extends \Eccube\Entity\AbstractEntity
         return $this->filename;
     }
 
+    public function setDlFileName($v)
+    {
+        $this->dlfilename = $v;
+
+        return $this;
+    }
+    public function getDlFileName()
+    {
+        return $this->dlfilename;
+    }
 
     /**
      * Get rank
@@ -129,28 +140,28 @@ class CustomUrlUserPageImage extends \Eccube\Entity\AbstractEntity
         return $this;
     }
 
-    /**
-     * Set del_flg
-     *
-     * @param integer $delFlg
-     * @return Order
-     */
-    public function setDelFlg($delFlg)
-    {
-        $this->del_flg = $delFlg;
+    // /**
+    //  * Set del_flg
+    //  *
+    //  * @param integer $delFlg
+    //  * @return Order
+    //  */
+    // public function setDelFlg($delFlg)
+    // {
+    //     $this->del_flg = $delFlg;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    /**
-     * Get del_flg
-     *
-     * @return integer
-     */
-    public function getDelFlg()
-    {
-        return $this->del_flg;
-    }
+    // /**
+    //  * Get del_flg
+    //  *
+    //  * @return integer
+    //  */
+    // public function getDelFlg()
+    // {
+    //     return $this->del_flg;
+    // }
 
     /**
      * Set create_date

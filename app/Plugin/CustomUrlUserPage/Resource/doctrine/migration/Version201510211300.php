@@ -50,8 +50,8 @@ class Version201510211300 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $schema->dropTable('plg_customurl_userpage');
         $schema->dropSequence('plg_customurl_userpage_customurl_id_seq');
-        $schema->dropTable('plg_customurl_userpage_images');
-        $schema->dropSequence('plg_customurl_userpage_images_customurl_image_id_seq');
+        //$schema->dropTable('plg_customurl_userpage_images');
+        //$schema->dropSequence('plg_customurl_userpage_images_customurl_image_id_seq');
     }
 
     /**

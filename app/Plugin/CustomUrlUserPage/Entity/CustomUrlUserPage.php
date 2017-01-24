@@ -25,6 +25,7 @@ namespace Plugin\CustomUrlUserPage\Entity;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Eccube\Util\EntityUtil;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * CustomUrlUserPage
@@ -75,7 +76,7 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     private $PageLayout;
 
-    private $CustomUrlUserPageImages;
+    private $CustomUrlUserPageImage;
 
     private $images;
 
@@ -87,7 +88,7 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     public function __construct()
     {
-        $this->CustomUrlUserPageImages = new ArrayCollection();
+        $this->CustomUrlUserPageImage = new ArrayCollection();
 
     }
 
@@ -303,7 +304,7 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     public function addCustomUrlUserPageImage(\Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage $image)
     {
-        $this->CustomUrlUserPageImages[] = $image;
+        $this->CustomUrlUserPageImage[] = $image;
 
         return $this;
     }
@@ -315,14 +316,14 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      */
     public function removeCustomUrlUserPageImage(\Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage $image)
     {
-        $this->CustomUrlUserPageImages->removeElement($image);
+        $this->CustomUrlUserPageImage->removeElement($image);
     }
 
 
     public function getMainFileName()
     {
-        if (count($this->CustomUrlUserPageImages) > 0) {
-            return $this->CustomUrlUserPageImages[0];
+        if (count($this->CustomUrlUserPageImage) > 0) {
+            return $this->CustomUrlUserPageImage[0];
         } else {
             return null;
         }
@@ -334,9 +335,9 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
      *
      * @return \Plugin\ProductClassEx\Entity\ProductClassExImage
      */
-    public function getCustomUrlUserPageImages()
+    public function getCustomUrlUserPageImage()
     {
-        return $this->CustomUrlUserPageImages;
+        return $this->CustomUrlUserPageImage;
     }
 
     /**

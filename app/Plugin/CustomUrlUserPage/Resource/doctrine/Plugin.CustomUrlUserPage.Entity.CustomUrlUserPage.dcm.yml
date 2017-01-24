@@ -58,11 +58,10 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage:
                 name: page_id
                 referencedColumnName: page_id
     oneToMany:
-        CustomUrlUserPageImages:
+        CustomUrlUserPageImage:
             targetEntity: Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage
-            mappedBy: CustomUrlUserPageImage
-            joinColumn:
-                name: customurl_id
-                referencedColumnName: customurl_id
+            orderBy: { 'rank': 'ASC' }
+            cascade: ["persist"]
+            mappedBy: CustomUrlUserPage
     lifecycleCallbacks: {  }
     

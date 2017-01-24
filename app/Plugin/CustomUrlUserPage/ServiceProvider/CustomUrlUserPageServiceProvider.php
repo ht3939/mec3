@@ -35,6 +35,9 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
         $app['eccube.plugin.customurluserpage.repository.customurluserpage'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Plugin\CustomUrlUserPage\Entity\CustomUrlUserPage');
         });
+        $app['eccube.plugin.customurluserpage.repository.customurluserpageimage'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage');
+        });
 
         $app->match('/' . $app["config"]["admin_route"] . '/customurluserpage', '\Plugin\CustomUrlUserPage\Controller\Admin\CustomUrlUserPageController::index')
             ->value('id', null)->assert('id', '\d+|')

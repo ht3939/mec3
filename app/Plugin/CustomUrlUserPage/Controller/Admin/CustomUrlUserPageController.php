@@ -30,6 +30,8 @@ use Symfony\Component\HttpKernel\Exception as HttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CustomUrlUserPageController extends AbstractController
 {
@@ -122,13 +124,21 @@ class CustomUrlUserPageController extends AbstractController
                 foreach ($img as $image) {
                     //ファイルフォーマット検証
                     $mimeType = $image->getMimeType();
-                    if (0 !== strpos($mimeType, 'image')) {
-                        throw new UnsupportedMediaTypeHttpException('ファイル形式が不正です');
-                    }
+                    if (strpos($mimeType, 'image')>0) {
 
+                        //throw new UnsupportedMediaTypeHttpException('ファイル形式が不正です');
+                    }elseif (strpos($mimeType, 'pdf')>9) {
+
+                    }else{
+                        //throw new UnsupportedMediaTypeHttpException('ファイル形式が不正です');                        
+                    }
                     $extension = $image->getClientOriginalExtension();
-                    $filename = date('mdHis') . uniqid('_') . '.' . $extension;
-                    $image->move($app['config']['image_temp_realdir'], $filename);
+                    $filename = array(
+                        'name'=>date('mdHis') . uniqid('_') . '.' . $extension,
+                        'dlname'=>$image->getClientOriginalName(),
+
+                        );
+                    $image->move($app['config']['image_temp_realdir'], $filename['name']);
                     $files[] = $filename;
                 }
             }
@@ -147,6 +157,7 @@ class CustomUrlUserPageController extends AbstractController
      */
     public function edit(Application $app, Request $request, $id)
     {
+
 
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
@@ -175,6 +186,7 @@ class CustomUrlUserPageController extends AbstractController
         foreach ($CustomUrlUserPageImages as $CustomUrlUserPageImage) {
             $images[] = $CustomUrlUserPageImage->getFileName();
         }
+        $CustomUrlUserPage->setImages($images);
         $form['images']->setData($images);
 
 
@@ -183,6 +195,7 @@ class CustomUrlUserPageController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+
                 $status = $service->updateCustomUrlUserPage($form->getData());
 
                 if (!$status) {
@@ -190,6 +203,66 @@ class CustomUrlUserPageController extends AbstractController
                 } else {
                     $app->addSuccess('admin.plugin.customurluserpage.update.success', 'admin');
                 }
+
+
+                // 画像の登録
+                $add_images = $form->get('add_images')->getData();
+                foreach ($add_images as $add_image) {
+
+                    $CustomUrlUserPageImage = new \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage();
+                    $CustomUrlUserPageImage
+                        ->setFileName($add_image)
+                        ->setCustomUrlUserPage($CustomUrlUserPage)
+                        ->setRank(1);
+                    $CustomUrlUserPage->addCustomUrlUserPageImage($CustomUrlUserPageImage);
+                    $app['orm.em']->persist($CustomUrlUserPageImage);
+                    $app['orm.em']->flush();
+
+                    // 移動
+                    $file = new File($app['config']['image_temp_realdir'] . '/' . $add_image);
+                    $file->move($app['config']['image_save_realdir']);
+                }
+
+
+
+                // 画像の削除
+                $delete_images = $form->get('delete_images')->getData();
+                foreach ($delete_images as $delete_image) {
+                    $CustomUrlUserPageImage = $app['eccube.plugin.customurluserpage.repository.customurluserpageimage']
+                        ->findOneBy(array('filename' => $delete_image));
+
+                    // 追加してすぐに削除した画像は、Entityに追加されない
+                    if ($CustomUrlUserPageImage instanceof \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage) {
+                        $CustomUrlUserPage->removeCustomUrlUserPageImage($CustomUrlUserPageImage);
+                        $app['orm.em']->remove($CustomUrlUserPageImage);
+
+                    }
+                    $app['orm.em']->persist($CustomUrlUserPage);
+
+                    // 削除
+                    $fs = new Filesystem();
+                    $fs->remove($app['config']['image_save_realdir'] . '/' . $delete_image);
+                }
+                $app['orm.em']->persist($CustomUrlUserPage);
+                $app['orm.em']->flush();
+
+
+                $ranks = $request->get('rank_images');
+                if ($ranks) {
+                    foreach ($ranks as $rank) {
+                        list($filename, $rank_val) = explode('//', $rank);
+                        $CustomUrlUserPageImage = $app['eccube.plugin.customurluserpage.repository.customurluserpageimage']
+                            ->findOneBy(array(
+                                'filename' => $filename,
+                                'CustomUrlUserPage' => $CustomUrlUserPage,
+                            ));
+                        $CustomUrlUserPageImage->setRank($rank_val);
+                        $app['orm.em']->persist($CustomUrlUserPageImage);
+                    }
+                }
+                $app['orm.em']->flush();
+
+
 
                 return $app->redirect($app->url('admin_customurluserpage'));
             }

@@ -15,15 +15,13 @@ Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage:
         filename:
             type: text
             nullable: true
+        dlfilename:
+            type: text
+            nullable: true
         rank:
             type: integer
             nullable: false
             default: '1'
-        del_flg:
-            type: smallint
-            nullable: false
-            unsigned: false
-            default: '0'
         create_date:
             type: datetime
             nullable: false

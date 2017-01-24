@@ -57,6 +57,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 <tr>
                                     <th>ID</th>
                                     <th>カスタムURL</th>
+                                    <th>サムネイル</th>
                                     <th>ユーザ定義ページ</th>
                                     <th>バインド</th>
                                     <th>カテゴリ</th>
@@ -74,6 +75,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     <td class="customurl">
                                         {{ CustomUrlUserPageProduct.customurl }}
                                     </td>
+                                    <td class="customurl">
+                                        {% if CustomUrlUserPageProduct.CustomUrlUserPageImage|length %}
+                                        <img src="{{ app.config.image_save_urlpath }}/{{ CustomUrlUserPageProduct.CustomUrlUserPageImage[CustomUrlUserPageProduct.pagethumbnail].filename }}" height="60px" ></img>
+                                        {% endif %}
+                                    </td>
+
                                     <td class="userpage">{{ CustomUrlUserPageProduct.PageLayout.name }}</td>
                                     <td class="bindname">{{ CustomUrlUserPageProduct.PageLayout.url }}</td>
                                     <td class="pagecategorykey">{{ CustomUrlUserPageProduct.pagecategorykey }}</td>

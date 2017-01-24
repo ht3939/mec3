@@ -102,7 +102,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         });
         var proto_img = ''
                 + '<li class="ui-state-default">'
-                + '<img src="__path__" />'
+                + '<img src="__path__">__FILENAME__</img>'
                 + '<a class="delete-image">'
                 + '<svg class="cb cb-close">'
                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cb-close"></use>'
@@ -112,9 +112,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         var proto_add = '{{ form_widget(form.add_images.vars.prototype) }}';
         var proto_del = '{{ form_widget(form.delete_images.vars.prototype) }}';
 
-        {% for image in form.customurluserpageimage %}
+        {% for image in form.images %}
         //image}}
-        var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}'));
+        var $img = $(proto_img.replace(/__path__/g, '{{ app.config.image_save_urlpath }}/{{ image.vars.value }}').replace(/__FILENAME__/g,'{{image.vars.value}}'));
         var $widget = $('{{ form_widget(image) }}');
         $widget.val('{{ image.vars.value }}');
         $("#thumb").append($img.append($widget));
@@ -171,8 +171,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             done: function (e, data) {
                 $('#progress').hide();
                 $.each(data.result.files, function (index, file) {
-                    var path = '{{ app.config.image_temp_urlpath }}/' + file;
-                    var $img = $(proto_img.replace(/__path__/g, path));
+                    var path = '{{ app.config.image_temp_urlpath }}/' + file.name;
+                    var $img = $(proto_img.replace(/__path__/g, path).replace(/__FILENAME__/g,file.dlname));
                     var $new_img = $(proto_add.replace(/__name__/g, count_add));
                     $new_img.val(file);
                     $child = $img.append($new_img);
@@ -190,11 +190,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 $('#progress .progress-bar').width('0%');
             },
             start: function (e, data) {
+                console.log(data);
                 $('#progress').show();
             },
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|zip)$/i,
             maxFileSize: 10000000,
-            maxNumberOfFiles: 10,
+            maxNumberOfFiles: 1,
             progressall: function (e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .progress-bar').css(
