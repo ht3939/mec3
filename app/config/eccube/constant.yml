@@ -126,9 +126,10 @@ producttype_ex_monthly_type_grp_extra_disp:
   5:
    -
     id: 52
-    front: "セット合計"
+    front: "セット料金"
     back: " /月"
     valuekey: 52
+    brflg: true
    -
     id: 53
     front: "ＳＩＭ月額"
