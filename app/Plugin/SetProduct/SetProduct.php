@@ -9,20 +9,27 @@
 * file that was distributed with this source code.
 */
 
-namespace Plugin\Maker;
+namespace Plugin\SetProduct;
 
 use Eccube\Common\Constant;
+use Eccube\Event\EventArgs;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
-class Maker
+class SetProduct
 {
     private $app;
 
     public function __construct($app)
     {
         $this->app = $app;
+    }
+
+    public function onFrontShoppingIndexInitialize(EventArgs $event){
+        $service = $this->app['eccube.plugin.setproduct.service.setproduct'];
+        $service->SetShopingProductSetProduct($event);
+
     }
 
     public function onRenderAdminProductNewBefore(FilterResponseEvent $event)
@@ -52,28 +59,28 @@ class Maker
                 $id = $diffs[0];
             }
 
-            if ($form->get('maker')->isValid()) {
+            if ($form->get('setproduct_maker')->isValid()) {
                 // 登録
                 $data = $form->getData();
 
                 $Makers = $this->app['eccube.plugin.maker.repository.maker']->findAll();
 
-                $Maker = $form->get('maker')->getData();
-                $makerUrl = $form->get('maker_url')->getData();
+                $Maker = $form->get('setproduct_maker')->getData();
+                $setproductSimFlg = $form->get('setproduct_sim_flg')->getData();
 
                 if (count($Makers) > 0 && !empty($Maker)) {
 
-                    $ProductMaker = new \Plugin\Maker\Entity\ProductMaker();
+                    $ProductSetProduct = new \Plugin\SetProduct\Entity\ProductSetProduct();
 
-                    $ProductMaker
+                    $ProductSetProduct
                         ->setId($id)
-                        ->setMakerUrl($makerUrl)
+                        ->setSetProductSimFlg($setproductSimFlg)
                         ->setDelFlg(Constant::DISABLED)
                         ->setMaker($Maker);
 
-                    $app['orm.em']->persist($ProductMaker);
+                    $app['orm.em']->persist($ProductSetProduct);
 
-                    $app['orm.em']->flush($ProductMaker);
+                    $app['orm.em']->flush($ProductSetProduct);
                 }
             }
         }
@@ -112,39 +119,40 @@ class Maker
             ->createBuilder('admin_product')
             ->getForm();
 
-        $ProductMaker = $app['eccube.plugin.maker.repository.product_maker']->find($id);
+        $ProductSetProduct = $app['eccube.plugin.setproduct.repository.product_setproduct']->find($id);
 
-        if (is_null($ProductMaker)) {
-            $ProductMaker = new \Plugin\Maker\Entity\ProductMaker();
+        if (is_null($ProductSetProduct)) {
+            $ProductSetProduct = new \Plugin\SetProduct\Entity\ProductSetProduct();
         }
 
-        $form->get('maker')->setData($ProductMaker->getMaker());
+        $form->get('setproduct_maker')->setData($ProductSetProduct->getMaker());
 
         $form->handleRequest($app['request']);
 
         if ('POST' === $app['request']->getMethod()) {
 
-            if ($form->get('maker')->isValid()) {
+            if ($form->get('setproduct_maker')->isValid()) {
 
-                $maker_id = $form->get('maker')->getData();
+                $maker_id = $form->get('setproduct_maker')->getData();
                 if ($maker_id) {
                 // 登録・更新
+                    // $SetProduct = $app['eccube.plugin.setproduct.repository.setproduct']->find($setproduct_id);
                     $Maker = $app['eccube.plugin.maker.repository.maker']->find($maker_id);
                 // ※setIdはなんだか違う気がする
                     if ($id) {
-                        $ProductMaker->setId($id);
+                        $ProductSetProduct->setId($id);
                     }
 
-                    $ProductMaker
-                        ->setMakerUrl($form->get('maker_url')->getData())
+                    $ProductSetProduct
+                        ->setSetProductSimFlg($form->get('setproduct_sim_flg')->getData())
                         ->setDelFlg(0)
                         ->setMaker($Maker);
-                        $app['orm.em']->persist($ProductMaker);
+                        $app['orm.em']->persist($ProductSetProduct);
                 } else {
                 // 削除
                 // ※setIdはなんだか違う気がする
-                    $ProductMaker->setId($id);
-                    $app['orm.em']->remove($ProductMaker);
+                    $ProductSetProduct->setId($id);
+                    $app['orm.em']->remove($ProductSetProduct);
                 }
 
                 $app['orm.em']->flush();
@@ -154,19 +162,23 @@ class Maker
 
     private function getHtml($request, $response, $id)
     {
+        // dump($this->app);
+        // exit;
 
         // メーカーマスタから有効なメーカー情報を取得
         $Makers = $this->app['eccube.plugin.maker.repository.maker']->findAll();
+        // $SetProducts = $this->app['eccube.plugin.setproduct.repository.product_setproduct']->findAll();
 
         if (is_null($Makers)) {
             $Makers = new \Plugin\Maker\Entity\Maker();
+            // $SetProducts = new \Plugin\SetProduct\Entity\SetProduct();
         }
 
-        $ProductMaker = null;
+        $ProductSetProduct = null;
 
         if ($id) {
             // 商品メーカーマスタから設定されているなメーカー情報を取得
-            $ProductMaker = $this->app['eccube.plugin.maker.repository.product_maker']->find($id);
+            $ProductSetProduct = $this->app['eccube.plugin.setproduct.repository.product_setproduct']->find($id);
         }
 
         // 商品登録・編集画面のHTMLを取得し、DOM化
@@ -176,16 +188,16 @@ class Maker
             ->createBuilder('admin_product')
             ->getForm();
 
-        if ($ProductMaker) {
+        if ($ProductSetProduct) {
             // 既に登録されている商品メーカー情報が設定されている場合、初期選択
-            $form->get('maker')->setData($ProductMaker->getMaker());
-            $form->get('maker_url')->setData($ProductMaker->getMakerUrl());
+            $form->get('setproduct_maker')->setData($ProductSetProduct->getMaker());
+            $form->get('setproduct_sim_flg')->setData($ProductSetProduct->getSetProductSimFlg());
         }
 
         $form->handleRequest($request);
 
         $parts = $this->app->renderView(
-            'Maker/View/admin/product_maker.twig',
+            'SetProduct/View/admin/product_setproduct.twig',
             array('form' => $form->createView())
         );
 
@@ -213,19 +225,19 @@ class Maker
         $response = $event->getResponse();
         $id = $request->attributes->get('id');
 
-        $ProductMaker = null;
+        $ProductSetProduct = null;
 
         if ($id) {
             // 商品メーカーマスタから設定されているなメーカー情報を取得
-            $ProductMaker = $this->app['eccube.plugin.maker.repository.product_maker']->find($id);
+            $ProductSetProduct = $this->app['eccube.plugin.setproduct.repository.product_setproduct']->find($id);
         }
-        if (!$ProductMaker) {
+        if (!$ProductSetProduct) {
             return;
         }
 
-        $Maker = $ProductMaker->getMaker();
+        $Maker = $ProductSetProduct->getMaker();
 
-        if (is_null($Maker)) {
+        if (is_null($SetMaker)) {
             // 商品メーカーマスタにデータが存在しないまたは削除されていれば無視する
             return;
         }
@@ -234,12 +246,12 @@ class Maker
         $crawler = new Crawler($response->getContent());
         $html = $this->getHtmlFromCrawler($crawler);
 
-        if ($ProductMaker) {
+        if ($ProductSetProduct) {
             $parts = $this->app->renderView(
-                'Maker/View/default/maker.twig',
+                'SetProduct/View/default/setproduct.twig',
                 array(
-                    'maker_name' => $ProductMaker->getMaker()->getName(),
-                    'maker_url' => $ProductMaker->getMakerUrl(),
+                    'setproduct_name' => $ProductSetProduct->getMaker()->getName(),
+                    'setproduct_sim_flg' => $ProductSetProduct->getSetProductSimFlg(),
                 )
             );
 

@@ -229,6 +229,9 @@ $(function(){
                         {% if app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
                         {% for exdisp in app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
                         <p class="payment-price js-payment-price-switch-contents active">{{ exdisp.front }}<span class="strong">{{ __EX_PRODUCT[exdisp.valuekey].valuetext|number_format }}</span>円<span class="number-payment"></span> {{ exdisp.back }}</p>
+                        {% if exdisp.brflg %}
+                        <div style="height:15px;"></div>
+                        {% endif %}                            
                         {% endfor %}
                         {% endif %}                            
                         {% if product_type in app.config.producttype_ex_monthly_type_grp %}
