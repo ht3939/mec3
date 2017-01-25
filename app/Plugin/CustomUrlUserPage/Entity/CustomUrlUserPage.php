@@ -79,8 +79,10 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
     private $CustomUrlUserPageImage;
 
     private $images;
+    private $dlfilenames;
 
     private $add_images;
+    private $add_dlfilenames;
     private $delete_images;
 
     /**
@@ -363,6 +365,20 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
         return $this->images;
     }
 
+
+    public function setDlFilenames($images)
+    {
+        $this->dlfilenames = $images;
+
+        return $this;
+    }
+
+    public function getDlFilenames()
+    {
+        return $this->dlfilenames;
+    }
+
+
     /**
      * Set images
      *
@@ -385,6 +401,20 @@ class CustomUrlUserPage extends \Eccube\Entity\AbstractEntity
     {
         return $this->add_images;
     }
+
+    public function setAddDlFilenames($images)
+    {
+        $this->add_dlfilenames = $images;
+
+        return $this;
+    }
+
+    public function getAddDlFilenames()
+    {
+        return $this->add_dlfilenames;
+    }
+
+
 
     /**
      * Set images

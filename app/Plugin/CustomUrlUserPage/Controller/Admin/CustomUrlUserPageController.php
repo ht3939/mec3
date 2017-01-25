@@ -72,7 +72,6 @@ class CustomUrlUserPageController extends AbstractController
      */
     public function create(Application $app, Request $request, $id)
     {
-
         $builder = $app['form.factory']->createBuilder('admin_customurluserpage');
         $form = $builder->getForm();
 
@@ -91,8 +90,48 @@ class CustomUrlUserPageController extends AbstractController
                 if (!$status) {
                     $app->addError('admin.customurluserpage.notfound', 'admin');
                 } else {
+                    // 画像の登録
+                    $add_images = $form->get('add_images')->getData();
+                    $add_dlfilenames = $form->get('add_dlfilenames')->getData();
+                    foreach ($add_images as $k=>$add_image) {
+                        $add_dlfilename=$add_dlfilenames[$k];
+
+                        $CustomUrlUserPageImage = new \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage();
+                        $CustomUrlUserPageImage
+                            ->setFileName($add_image)
+                            ->setDlFileName($add_dlfilename)
+
+                            ->setCustomUrlUserPage($CustomUrlUserPage)
+                            ->setRank(1);
+                        $CustomUrlUserPage->addCustomUrlUserPageImage($CustomUrlUserPageImage);
+                        $app['orm.em']->persist($CustomUrlUserPageImage);
+                        $app['orm.em']->flush();
+
+                        // 移動
+                        $file = new File($app['config']['image_temp_realdir'] . '/' . $add_image);
+                        $file->move($app['config']['image_save_realdir']);
+                    }
+
+                    $ranks = $request->get('rank_images');
+                    if ($ranks) {
+                        foreach ($ranks as $rank) {
+                            list($filename, $rank_val) = explode('//', $rank);
+                            $CustomUrlUserPageImage = $app['eccube.plugin.customurluserpage.repository.customurluserpageimage']
+                                ->findOneBy(array(
+                                    'filename' => $filename,
+                                    'CustomUrlUserPage' => $CustomUrlUserPage,
+                                ));
+                            $CustomUrlUserPageImage->setRank($rank_val);
+                            $app['orm.em']->persist($CustomUrlUserPageImage);
+                        }
+                    }
+                    $app['orm.em']->flush();
+
+
                     $app->addSuccess('admin.plugin.customurluserpage.regist.success', 'admin');
                 }
+
+
 
                 return $app->redirect($app->url('admin_customurluserpage'));
             }
@@ -158,7 +197,6 @@ class CustomUrlUserPageController extends AbstractController
     public function edit(Application $app, Request $request, $id)
     {
 
-
         if (is_null($id) || strlen($id) == 0) {
             $app->addError("admin.customurluserpage.customurl_id.notexists", "admin");
             return $app->redirect($app->url('admin_customurluserpage'));
@@ -182,13 +220,18 @@ class CustomUrlUserPageController extends AbstractController
 
         // ファイルの登録
         $images = array();
+        $dlfilenames = array();
         $CustomUrlUserPageImages = $CustomUrlUserPage->getCustomUrlUserPageImage();
         foreach ($CustomUrlUserPageImages as $CustomUrlUserPageImage) {
             $images[] = $CustomUrlUserPageImage->getFileName();
+            $dlfilenames[] = $CustomUrlUserPageImage->getDlFileName();
+
         }
         $CustomUrlUserPage->setImages($images);
         $form['images']->setData($images);
 
+        $CustomUrlUserPage->setDlFileNames($dlfilenames);
+        $form['dlfilenames']->setData($dlfilenames);
 
         if ('POST' === $request->getMethod()) {
 
@@ -207,11 +250,15 @@ class CustomUrlUserPageController extends AbstractController
 
                 // 画像の登録
                 $add_images = $form->get('add_images')->getData();
-                foreach ($add_images as $add_image) {
+                $add_dlfilenames = $form->get('add_dlfilenames')->getData();
+                foreach ($add_images as $k=>$add_image) {
+                    $add_dlfilename=$add_dlfilenames[$k];
 
                     $CustomUrlUserPageImage = new \Plugin\CustomUrlUserPage\Entity\CustomUrlUserPageImage();
                     $CustomUrlUserPageImage
                         ->setFileName($add_image)
+                        ->setDlFileName($add_dlfilename)
+
                         ->setCustomUrlUserPage($CustomUrlUserPage)
                         ->setRank(1);
                     $CustomUrlUserPage->addCustomUrlUserPageImage($CustomUrlUserPageImage);

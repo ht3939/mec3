@@ -76,7 +76,21 @@ class CustomUrlUserPageType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
             ))
+            ->add('dlfilenames', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
             ->add('add_images', 'collection', array(
+                'type' => 'hidden',
+                'prototype' => true,
+                'mapped' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('add_dlfilenames', 'collection', array(
                 'type' => 'hidden',
                 'prototype' => true,
                 'mapped' => false,

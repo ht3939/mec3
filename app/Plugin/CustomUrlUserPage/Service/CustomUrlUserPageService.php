@@ -60,7 +60,7 @@ class CustomUrlUserPageService
 
 		$em->flush();
 
-		return true;
+		return $CustomUrlUserPage;
 	}
 
 	/**
