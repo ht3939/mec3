@@ -212,7 +212,7 @@ class SEO3Event
 
                     }
 
-                    $desc = str_replace('スマホマニア',$this->BaseInfo['shop_name'],$desc);
+                    $desc = str_replace('スマホマニア by モバレコ',$this->BaseInfo['shop_name'],$desc);
 
                     $pname = $Product->getName();
 
