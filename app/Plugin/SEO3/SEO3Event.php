@@ -21,10 +21,13 @@ class SEO3Event
 
     /** @var  \Eccube\Application $app */
     private $app;
+    private $BaseInfo;
 
     public function __construct($app)
     {
         $this->app = $app;
+        $this->BaseInfo=$app['eccube.repository.base_info']->get();
+
     }
 
 
@@ -150,10 +153,29 @@ class SEO3Event
             
             try{
                 $Product = $this->app['eccube.repository.product']->get($request->attributes->get('id'));
+                $Maker = $this->app['eccube.plugin.maker.repository.product_maker']
+                                ->find($Product->getId());
                 $meta = $this->app['eccube.plugin.seo3.repository.seo']->findOneByProductId($id);
                 if($meta){
                     if (!empty($meta['title'])) {
                         $meta->setTitle($meta['title'].' - '.$BaseInfo['shop_name']);
+                        // $desc = str_replace($Product->getName()."の","",$meta['description']);
+                        // $desc = str_replace($Product->getName(),"",$desc);
+                        // if($Maker){
+                        // $desc = str_replace("(".$Maker->getMaker()->getName().")の","",$desc);
+                        // $desc = str_replace("(".$Maker->getMaker()->getName().")","",$desc);
+
+                        // }
+
+                        // $desc = str_replace('スマホマニア',$this->BaseInfo['shop_name'],$desc);
+
+                        // $pname = $Product->getName();
+
+                        // if($Maker){
+                        //     $pname = $pname."(".$Maker->getMaker()->getName().")";
+                        // }
+
+                        // $meta->setDescription($pname."の".$desc);
                     }else{
                         if(empty($meta['title'])){
                         $meta->setTitle($Product->getName()." - ".$BaseInfo['shop_name']);
@@ -161,9 +183,46 @@ class SEO3Event
                         $meta->setTitle($meta['title']." - ".$BaseInfo['shop_name']);
 
                         }
-                        $meta->setDescription($Product->getName()."の".$meta['description']);
+                        // $desc = str_replace($Product->getName()."の","",$meta['description']);
+                        // $desc = str_replace($Product->getName(),"",$desc);
+                        // if($Maker){
+                        // $desc = str_replace("(".$Maker->getMaker()->getName().")の","",$desc);
+                        // $desc = str_replace("(".$Maker->getMaker()->getName().")","",$desc);
+
+                        // }
+
+
+                        // $desc = str_replace('スマホマニア',$this->BaseInfo['shop_name'],$desc);
+
+                        // $pname = $Product->getName();
+
+                        // if($Maker){
+                        //     $pname = $pname."(".$Maker->getMaker()->getName().")";
+                        // }
+
+                        // $meta->setDescription($pname."の".$desc);
+
 
                     }
+                    $desc = str_replace($Product->getName()."の","",$meta['description']);
+                    $desc = str_replace($Product->getName(),"",$desc);
+                    if($Maker){
+                    $desc = str_replace("(".$Maker->getMaker()->getName().")の","",$desc);
+                    $desc = str_replace("(".$Maker->getMaker()->getName().")","",$desc);
+
+                    }
+
+                    $desc = str_replace('スマホマニア',$this->BaseInfo['shop_name'],$desc);
+
+                    $pname = $Product->getName();
+
+                    if($Maker){
+                        $pname = $pname."(".$Maker->getMaker()->getName().")";
+                    }
+
+                    $meta->setDescription($pname."の".$desc);
+
+
                 }
 
             }catch(Exception $e){
