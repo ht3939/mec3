@@ -51,26 +51,12 @@ $(function(){
 /*    height: 100%;*/
     margin: 0 auto;
 }
-.pc.mainv-section ._container .sumako {
-    float: left;
-    width: 34%;
-/*    margin-left: 26px;*/
-    margin-top:0px;
-    margin-bottom:0px;
-}
 .pc.mainv-section ._container .mainv-text {
     float: bottom;
     /*width: 100%;*/
 /*    height: 445px;*/
     padding-top: 0px;
     margin-left: 0px;
-    margin-top:0px;
-    margin-bottom:0px;
-}
-.pc.mainv-section ._container .sumao {
-    float: left;
-    width: 34%;
-    margin-left: -130px;
     margin-top:0px;
     margin-bottom:0px;
 }
@@ -104,15 +90,6 @@ $(function(){
     margin: 0 auto;
     padding: 30px 0 43px;
 }
-.sp.mainv-section .mainv-bg-left .mainv-bg-right ._container .mainv-sumako {
-    position: absolute;
-    width: 320px;
-    bottom: 0;
-    margin-bottom:0px;
-}
-.sp.mainv-section .mainv-bg-left .mainv-bg-right ._container .mainv-sumako img {
-    width: 100%;
-}
 
 </style>
 {% endblock %}
@@ -120,34 +97,19 @@ $(function(){
 {% block main %}
 
 <div class="row">
-   <div class="col-sm-12">
+    <div class="col-sm-12">
 
 		<div class="mainv-section sp">
             <img class="_img-w" src="{{ app.config.front_urlpath }}/img/sp/top/main_sp.png" alt="スマホ販売・比較総合サイト">
 		</div>
 
-
 		<div class="mainv-section pc">
 			<div class="_container">
-				<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-pc.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト SIMフリースマホってどうして安いの？格安スマホって何？ スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></h1>
+				<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-pc.png" alt="モバレコバリューストアは、安くお得にスマホ・格安SIMが買える通販サイトです。どこよりも安い、最安商品を多く取り揃えていますので、スマホ・格安SIMを買うなら当サイトをチェックしてみてください"></h1>
 			</div>
 		</div>
 
     </div>
 </div>
-
-{#
-    
-<div class="mainv-section">
-	<div class="_container">
-		<p class="sumako"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumako.png" alt="SIMフリースマホってどうして安いの？格安スマホって何？"></p>
-		<h1 class="mainv-text"><img class="" src="{{ app.config.front_urlpath }}/img/top/mainv-text.png" alt="いま話題の格安スマホって？ スマホ販売・比較 総合サイト"></h1>
-		<p class="sumao"><img src="{{ app.config.front_urlpath }}/img/top/mainv-sumao.png" alt="スマホマニアなら！仕組みが分かる！人気商品がそのまま帰るよ！"></p>
-	</div>
-</div>
-#}
-
-
-
 
 {% endblock %}
