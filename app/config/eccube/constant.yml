@@ -176,15 +176,6 @@ producttype_ex_list_extends_disp:
    - 47
    - "重さ（ｇ）"
  5:
-  -
-   - 12
-   - "O　　S"
-  -
-   - 34
-   - "データ容量"
-  -
-   - 36
-   - "通信速度"
 
 #一括を表示する商品種別
 producttype_ex_sim_type_grp:
