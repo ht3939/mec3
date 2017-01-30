@@ -312,7 +312,9 @@ $(function(){
                                 {# カートボタン #}
                                 <div id="detail_cart_box__button_area" class="btn_area">
                                     <ul id="detail_cart_box__insert_button" class="row">
-                                        <li class="col-xs-12 col-sm-8"><button type="submit" id="add-cart" class="btn btn-primary btn-block prevention-btn prevention-mask">カートに入れる</button></li>
+                                        <li class="col-xs-12 col-sm-8">
+                                            {% if pel_ProductMaker.disabled %}
+                                            <button type="submit" id="add-cart" class="btn btn-primary btn-block prevention-btn prevention-mask">カートに入れる</button>{% endif %}</li>
                                     </ul>
                                     {% if BaseInfo.option_favorite_product == 1 %}
                                     <ul id="detail_cart_box__favorite_button" class="row">
@@ -336,6 +338,11 @@ $(function(){
                         <!--▲買い物かご-->
                         {{ form_rest(form) }}
                     </form>
+                    <ul class="row">
+                    <li class="col-xs-12 col-sm-8">
+                        <!--# pel-plugin-other-url-tag #-->
+                    </li>
+                    </ul>
 
                     <!--★商品説明★-->
                     <p id="detail_not_stock_box__description_detail" class="item_comment">{{ Product.description_detail|raw|nl2br }}</p>
