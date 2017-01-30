@@ -139,6 +139,9 @@ $(function(){
     color: #666;
 }
 
+#detail_description_box__body .item_code {
+    display: none;
+}
 
 </style>
 {% endblock %}
@@ -229,6 +232,10 @@ $(function(){
                         {% if app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
                         {% for exdisp in app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
                         <p class="payment-price js-payment-price-switch-contents active">{{ exdisp.front }}<span class="strong">{{ __EX_PRODUCT[exdisp.valuekey].valuetext|number_format }}</span>円<span class="number-payment"></span> {{ exdisp.back }}</p>
+                        {% if exdisp.brflg %}
+                        <hr style="margin:20px 0 10px 0;">
+                        <span>セット料金内訳：</span>
+                        {% endif %}                            
                         {% endfor %}
                         {% endif %}                            
                         {% if product_type in app.config.producttype_ex_monthly_type_grp %}
