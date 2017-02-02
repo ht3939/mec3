@@ -85,9 +85,9 @@ class CustomUrlUserPageController extends AbstractController
             $data = $form->getData();
             if ($form->isValid()) {
 
-                $status = $service->createCustomUrlUserPage($data);
+                $CustomUrlUserPage = $service->createCustomUrlUserPage($data);
 
-                if (!$status) {
+                if (!$CustomUrlUserPage) {
                     $app->addError('admin.customurluserpage.notfound', 'admin');
                 } else {
                     // 画像の登録
@@ -206,7 +206,7 @@ class CustomUrlUserPageController extends AbstractController
 
         $CustomUrlUserPage = $app['eccube.plugin.customurluserpage.repository.customurluserpage']->findById($id);
 
-        if (is_null($CustomUrlUserPage)) {
+        if (!$CustomUrlUserPage) {
             $app->addError('admin.customurluserpage.notfound', 'admin');
             return $app->redirect($app->url('admin_customurluserpage'));
         }
