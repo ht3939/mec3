@@ -1,0 +1,12 @@
+name: DSContentsプラグイン
+code: DSContents
+version: 1.0.0
+event: DSContentsEvent
+service:
+  - DSContentsServiceProvider
+orm.path:
+  - /Resource/doctrine
+
+const:
+  setting:
+

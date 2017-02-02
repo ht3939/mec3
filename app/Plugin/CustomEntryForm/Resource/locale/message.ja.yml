@@ -1,0 +1,10 @@
+admin.plugin.customentryform.save.complete: 基本情報を保存しました。
+admin.plugin.customentryform.save.error: 基本情報の保存に失敗しました。
+admin.plugin.customentryform.validate.zero.error: 0は設定できません。
+admin.plugin.customentryform.notfound: が存在しません。
+admin.plugin.customentryform.recommend_id.notexists: IDがありません。
+admin.plugin.customentryform.regist.success: を登録しました。
+admin.plugin.customentryform.update.success: を修正しました。
+admin.plugin.customentryform.delete.success: を削除しました。
+admin.plugin.customentryform.complete.up: を上へ移動しました。
+admin.plugin.customentryform.complete.down: を下へ移動しました。

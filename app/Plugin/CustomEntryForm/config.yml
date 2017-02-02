@@ -1,0 +1,12 @@
+name: CustomEntryFormプラグイン
+code: CustomEntryForm
+version: 1.0.0
+event: CustomEntryFormEvent
+service:
+  - CustomEntryFormServiceProvider
+orm.path:
+  - /Resource/doctrine
+
+const:
+  setting:
+
