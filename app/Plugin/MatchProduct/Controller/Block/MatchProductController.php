@@ -84,7 +84,7 @@ class MatchProductController
                 $carrier_where .= ($key > 0)?' OR':'';
                 $carrier_where .= ' pepcv2.value LIKE :CarrierValue'.$key;
             }
-            if(count($this_carrier)>1){
+            if(count($this_carrier)>=1){
                 $carrier_where .= ' )';
 
             }
