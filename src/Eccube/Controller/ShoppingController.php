@@ -948,15 +948,20 @@ class ShoppingController extends AbstractController
 
         $builder = $app['form.factory']->createBuilder('nonmember');
 
+        //初期値表示用
+        $form = $builder->getForm();
+
         $event = new EventArgs(
             array(
                 'builder' => $builder,
+                'form'=>$form,
             ),
             $request
         );
         $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_INITIALIZE, $event);
-
-        $form = $builder->getForm();
+        if($event->getArgument('form')){
+            $form = $event->getArgument('form');
+        }
 
         $form->handleRequest($request);
 
