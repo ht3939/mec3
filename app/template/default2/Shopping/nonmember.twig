@@ -23,6 +23,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set body_class = 'cart_page' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/form/common.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
+{% endblock %}
+
 {% block javascript %}
 <script src="//ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <script>
@@ -110,11 +114,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <div class="form-group {% if form.email.second.vars.errors is not empty %}has-error{% endif %}">{{ form_widget(form.email.second, {attr: {placeholder: '確認のためもう一度入力してください'}}) }}
                                 {{ form_errors(form.email.first) }}
                                 {{ form_errors(form.email.second) }}
+                                <p class="mini"><span class="attention">※お手続きのご案内のメールをお送りします。メールの指定受信や拒否設定を行っている方は、＜@sumaho-mania.com＞を受信できるようご設定下さい。</span></p>
                             </div>
                         </dd>
                     </dl>
-               </div>
-                <p>※お手続きのご案内のメールをお送りします。メールの指定受信や拒否設定を行っている方は、＜@sumaho-mania.com＞を受信できるようご設定下さい。</p>
+                </div>
+                <div class="important-descriptive-matter">
+                   {{include('Block/mania_form_agreement.twig')}}
+                </div>
                 {% for f in form %}
                     {% if f.vars.name matches '[^plg*]' %}
                         <div class="extra-form dl_table">
