@@ -4,7 +4,7 @@
         {% set l_producttype = cc.ProductType.id %}
     {% endif %}
 {% endfor %}
-{% if (l_producttype == app.config.producttype_ex_sim_type) %}
+{% if (l_producttype == app.config.producttype_ex_sim_type or l_producttype == app.config.producttype_ex_simset_type) %}
 {% block stylesheet %}
 <style type="text/css">
 /* ======== PC ==========*/
@@ -150,7 +150,7 @@ caption, th, td {
     text-decoration: none;
     color: #333;
 }
-.item-inf #plan, .item-inf #spec {
+.item-inf #sim_plan, .item-inf #sim_spec {
     padding-bottom: 20px;
 }
 .item-inf .inf-content {
@@ -164,31 +164,31 @@ caption, th, td {
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
 }
-.item-inf #plan table, .item-inf #spec table {
+.item-inf #sim_plan table, .item-inf #sim_spec table {
     width: 100%;
     margin-bottom: 15px;
 }
-.item-inf #plan caption, .item-inf #spec caption {
+.item-inf #sim_plan caption, .item-inf #sim_spec caption {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 4px;
 }
-.item-inf #plan th, .item-inf #spec th {
+.item-inf #sim_plan th, .item-inf #sim_spec th {
     background: #f7f7f7;
     font-weight: bold;
     width: 33%;
 }
-.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+.item-inf #sim_plan th, .item-inf #sim_plan td, .item-inf #sim_spec th, .item-inf #sim_spec td {
     border: 1px solid #ccc;
     padding: 8px 5px;
     font-size: 1rem;
 }
-.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+.item-inf #sim_plan th, .item-inf #sim_plan td, .item-inf #sim_spec th, .item-inf #sim_spec td {
     border: 1px solid #ccc;
     padding: 8px 5px;
     font-size: 1rem;
 }
-.item-inf #plan, .item-inf #spec {
+.item-inf #sim_plan, .item-inf #sim_spec {
     padding-bottom: 20px;
 }
 .item-inf .inf-content {
@@ -202,26 +202,26 @@ caption, th, td {
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
 }
-.item-inf #plan table, .item-inf #spec table {
+.item-inf #sim_plan table, .item-inf #sim_spec table {
     width: 100%;
     margin-bottom: 15px;
 }
-.item-inf #plan caption, .item-inf #spec caption {
+.item-inf #sim_plan caption, .item-inf #sim_spec caption {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 4px;
 }
-.item-inf #plan th, .item-inf #spec th {
+.item-inf #sim_plan th, .item-inf #sim_spec th {
     background: #f7f7f7;
     font-weight: bold;
     width: 33%;
 }
-.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+.item-inf #sim_plan th, .item-inf #sim_plan td, .item-inf #sim_spec th, .item-inf #sim_spec td {
     border: 1px solid #ccc;
     padding: 8px 5px;
     font-size: 1rem;
 }
-.item-inf #plan th, .item-inf #plan td, .item-inf #spec th, .item-inf #spec td {
+.item-inf #sim_plan th, .item-inf #sim_plan td, .item-inf #sim_spec th, .item-inf #sim_spec td {
     border: 1px solid #ccc;
     padding: 8px 5px;
     font-size: 1rem;
@@ -236,7 +236,11 @@ caption, th, td {
 
 <!-- ============ PC ============ -->
 <div id="fee_spec" class="item-dtl-tab-cont pc" style="display: block;">
+{% if (l_producttype == app.config.producttype_ex_simset_type) %}
+	<h2>SIM 料金・SIM スペック詳細</h2>
+{% else %}
 	<h2>料金・スペック詳細</h2>
+{% endif %}
 
 	<div class="item-dtl-spec">
 		<h3>料金プラン</h3>
@@ -308,13 +312,27 @@ caption, th, td {
 
 <!-- ============ SP ============ -->
 <div class="item-inf sp">
+{% if (l_producttype == app.config.producttype_ex_simset_type) %}
 	<ul id="js-scroll-referer-for-follow-header" class="tab-list">
-		<li><a href="#plan" class="js-scroll" data-scroll-offset="-50">料金プラン</a></li>
-		<li><a href="#spec" class="js-scroll" data-scroll-offset="-50">スペック</a></li>
+		<li><a href="#sim_plan" class="js-scroll" data-scroll-offset="-50">SIM 料金プラン</a></li>
+		<li><a href="#sim_spec" class="js-scroll" data-scroll-offset="-50">SIM スペック</a></li>
+		<li><a></a></li>
+	</ul>
+{% else %}
+	<ul id="js-scroll-referer-for-follow-header" class="tab-list">
+		<li><a href="#sim_plan" class="js-scroll" data-scroll-offset="-50">料金プラン</a></li>
+		<li><a href="#sim_spec" class="js-scroll" data-scroll-offset="-50">スペック</a></li>
 		<li><a href="#sp" class="js-scroll" data-scroll-offset="-50">対応端末</a></li>
 	</ul>
-	<div id="plan" class="inf-content js-scroll-referer-for-follow-header-navigation">
+{% endif %}
+
+	<div id="sim_plan" class="inf-content js-scroll-referer-for-follow-header-navigation">
+{% if (l_producttype == app.config.producttype_ex_simset_type) %}
+		<h2>SIM 料金プラン</h2>
+{% else %}
 		<h2>料金プラン</h2>
+{% endif %}
+
 		<table>
 			<caption>料金</caption>
 			<tr>
@@ -352,8 +370,12 @@ caption, th, td {
 		</table>
 	</div>
 
-	<div id="spec" class="inf-content js-scroll-referer-for-follow-header-navigation">
+	<div id="sim_spec" class="inf-content js-scroll-referer-for-follow-header-navigation">
+{% if (l_producttype == app.config.producttype_ex_simset_type) %}
+		<h2>SIM スペック</h2>
+{% else %}
 		<h2>スペック</h2>
+{% endif %}
 		<table>
 			<caption>詳細</caption>
 			<tr>

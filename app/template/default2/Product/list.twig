@@ -221,8 +221,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
                                 {% endif %}
-
-
+                                {% if app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
+                                {% for exdisp in app.config.producttype_ex_monthly_type_grp_extra_disp[product_type] %}
+                                <dd id="result_list__extra{{exdisp.id}}--{{ Product.id }}" class="item_price">{{ exdisp.front }}<span class="price-num">{{ __EX_PRODUCT_LIST[Product.id][exdisp.valuekey].valuetext|number_format }}</span>円(税抜){{ exdisp.back }}
+                                </dd>
+                                {% endfor %}
+                                {% endif %}
                                 <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
                                     {{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }} <span class="price-num">{{ Product.getPrice02Min|number_format }}円</span> {% if product_type == app.config.producttype_ex_sp_type %}(税抜)<br>{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}{% else %}{{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}(税抜){% endif %}
                                 </dd>

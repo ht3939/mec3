@@ -52,7 +52,7 @@ class Maker
                 $id = $diffs[0];
             }
 
-            if ($form->isValid()) {
+            if ($form->get('maker')->isValid()) {
                 // 登録
                 $data = $form->getData();
 

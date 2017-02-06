@@ -1,4 +1,10 @@
 <style>
+#genaral-page-header .pc.inner {
+	margin-bottom: 10px;
+}
+#genaral-page-header .sp.inner {
+	margin-bottom: 5px;
+}
 #genaral-page-header h1{
 	margin:0 0 0 0;
 }
@@ -7,30 +13,21 @@
 {% set currentPath = path(app.request.attributes.get('_route'),
                            app.request.attributes.get('_route_params')) %}
 <div id="genaral-page-header">
+
 	<div class="inner pc">
-
 {% if currentPath=='/' %}
-
-
-		<h1 class="logo pc"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="スマホマニアbyモバレコ"></a></h1>
-		<p class="sub-introduce-text pc"><img src="{{ app.config.front_urlpath }}/img/common/header-sub-text.png" alt="スマホマニアならどこよりも安く、お得に、SIMフリースマホとSIMカードがゲットできる"></p>
-
+		<h1 class="logo pc"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="{{ BaseInfo.shop_name }}"></a></h1>
 {% else %}
-		<p class="logo pc"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="スマホマニアbyモバレコ"></a></p>
-
-		<p class="sub-introduce-text pc"><img src="{{ app.config.front_urlpath }}/img/common/header-sub-text.png" alt="スマホマニアならどこよりも安く、お得に、SIMフリースマホとSIMカードがゲットできる"></p>
-
+		<p class="logo pc"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="{{ BaseInfo.shop_name }}"></a></p>
 {% endif %}
 	</div>
 
 	<div class="inner sp">
-
 {% if currentPath=='/' %}
-
-		<h1 class="logo sp"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/sp/common/logo.png" alt="スマホマニアbyモバレコ" width="129" height="20"></a></h1>
-
+		<h1 class="logo sp"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/sp/common/logo.png" alt="{{ BaseInfo.shop_name }}" width="100" height="25"></a></h1>
 {% else %}
-		<p class="logo sp"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/sp/common/logo.png" alt="スマホマニアbyモバレコ" width="129" height="20"></a></p>
+		<p class="logo sp"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/sp/common/logo.png" alt="{{ BaseInfo.shop_name }}" width="100" height="25"></a></p>
 {% endif %}
-	</div>	
+	</div>
+
 </div>
