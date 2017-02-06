@@ -121,7 +121,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 </div>
                 <div class="important-descriptive-matter">
                    {{include('Block/mania_form_agreement.twig')}}
+                   <!-- ## customnonmember ## -->
                 </div>
+
                 {% for f in form %}
                     {% if f.vars.name matches '[^plg*]' %}
                         <div class="extra-form dl_table">
