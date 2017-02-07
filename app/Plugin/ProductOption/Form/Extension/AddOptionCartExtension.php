@@ -44,6 +44,7 @@ class AddOptionCartExtension extends AbstractTypeExtension
             $ProductOptions = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());
         }
 
+dump($ProductOptions);
         if (is_array($ProductOptions)) {
             foreach ($ProductOptions as $ProductOption) {
                 $Option = $ProductOption->getOption();
@@ -107,6 +108,7 @@ class AddOptionCartExtension extends AbstractTypeExtension
     {
         $resolver->setDefaults(array(
             'product_option' => null,
+            // 'csrf_protection' => false,
         ));
     }
 

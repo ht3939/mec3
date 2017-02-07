@@ -184,20 +184,31 @@ class FrontProductDetail extends AbstractWorkPlace
         */
 
 
-        $ProductOption = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());        
-        
+        $ProductOption = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());
+
+        // if($ProductOption === null){
+        //     $ProductOption = false;
+        // }
+
         $builder = $app['form.factory']->createNamedBuilder('', 'add_cart', null, array(
             'product' => $Product,
             'id_add_product_id' => false,
             'product_option' => $ProductOption,
+            // 'csrf_protection' => false,
         ));
         $form = $builder->getForm();
         
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
             $data = $form->getData();
+
+dump($ProductOption);
+dump($form);
+dump($data);
+dump($form->isValid());
             if ($data['mode'] !== 'add_favorite') {
                 if ($form->isValid()) {
+exit;
                     try {
                         $Options = array();
                         foreach($data as $option_key => $value){
