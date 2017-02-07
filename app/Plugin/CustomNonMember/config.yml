@@ -1,0 +1,11 @@
+name: CustomNonMemberプラグイン
+code: CustomNonMember
+version: 1.0.0
+event: CustomNonMemberEvent
+service:
+  - CustomNonMemberServiceProvider
+orm.path:
+  - /Resource/doctrine
+
+const:
+  setting: null
