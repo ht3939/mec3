@@ -23,7 +23,11 @@
 }
 
 #detail_free_box__freearea.freearea .note{
-    width: 1000px;
     font-size: 12px;
     color: #888;
+}
+@media only screen and (min-width: 768px) {
+    #detail_free_box__freearea.freearea .note{
+      width: 1000px;
+    }
 }
