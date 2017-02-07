@@ -117,6 +117,7 @@ class CustomNonMemberEvent
                 }else{
                     $customeraddress=null;
                 }
+                $sec->set('customnonmember_nonmember',null);
                 //会員情報を登録
                 //$this->createNonMemberCustomerOrder($Order,$nonmember,$customeraddress);
 
@@ -357,8 +358,7 @@ class CustomNonMemberEvent
         $form = $event->getArgument('form');
         $email = $form['email']->getData();
 
-        // 次回フォーム入力時に、デフォルトで入力されていないように
-        $sec->set('customnonmember_nonmember',null);
+        $sec->set('customnonmember_nonmember',array($form->getData()));
 
 
         $customer = $form->getData();
