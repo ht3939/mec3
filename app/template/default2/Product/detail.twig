@@ -21,6 +21,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
 {% extends 'default_frame.twig' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/general/product/detail.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
+{% endblock %}
+
 {% set body_class = 'product_page' %}
 
 {% block meta_og_image %}
@@ -117,37 +121,9 @@ $(function(){
 -->
 {% endblock %}
 
-{% block stylesheet %}
-<style type="text/css">
-#detail_description_box__body .payment-price {
-    margin-bottom: 2px;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 0;
-}
-#detail_description_box__body .payment-price .number-payment {
-    font-size: 14px;
-    font-weight: normal;
-}
-#detail_description_box__body .payment-price .strong {
-    padding-left: 5px;
-    color: #e9193a;
-    font-size: 26px;
-}
-#detail_description_box__body .caution {
-    font-size: 10px;
-    color: #666;
-}
-
-#detail_description_box__body .item_code {
-    display: none;
-}
-
-</style>
-{% endblock %}
 
 
-{# 
+{#
 「月額料金」と「一括料金」の一番安い「販売価格」を取得
  #}
 {% set sales_price_bulk = null %}
@@ -235,9 +211,9 @@ $(function(){
                         {% if exdisp.brflg %}
                         <hr style="margin:20px 0 10px 0;">
                         <span>セット料金内訳：</span>
-                        {% endif %}                            
+                        {% endif %}
                         {% endfor %}
-                        {% endif %}                            
+                        {% endif %}
                         {% if product_type in app.config.producttype_ex_monthly_type_grp %}
                         <p class="payment-price js-payment-price-switch-contents active">{{ app.config.producttype_ex_monthly_type_grp_disp.front[product_type] }}<span class="strong">{{ sales_price_month|number_format }}</span>円<span class="number-payment"></span> {{ app.config.producttype_ex_monthly_type_grp_disp.back[product_type] }}</p>{% endif %}
                         {% if sales_price_bulk != null %}
@@ -352,7 +328,7 @@ $(function(){
         {# フリーエリア #}
         {% if Product.freearea %}
         <div id="sub_area" class="row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-10">
                 <div id="detail_free_box__freearea" class="freearea">{{ include(template_from_string(Product.freearea)) }}</div>
             </div>
         </div>
