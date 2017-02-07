@@ -1,0 +1,45 @@
+Plugin\ProductExternalLink\Entity\ProductMaker:
+    type: entity
+    table: plg_pel_product_maker
+    repositoryClass: Plugin\ProductExternalLink\Repository\ProductMakerRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: product_id
+    fields:
+        maker_url:
+            type: text
+            nullable: true
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            options:
+                default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+        other_url:
+            type: text
+            nullable: true
+        other_url_target:
+            type: text
+            nullable: true
+        disabled:
+            type: smallint
+            options:
+                default: '0'
+    manyToOne:
+        Maker:
+            targetEntity: Plugin\ProductExternalLink\Entity\Maker
+            joinColumn:
+                name: maker_id
+                referencedColumnName: maker_id
+
+    lifecycleCallbacks: {  }
