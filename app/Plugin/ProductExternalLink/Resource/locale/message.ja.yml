@@ -1,0 +1,8 @@
+admin.plugin.pel.save.complete: メーカーを保存しました。
+admin.plugin.pel.save.error: メーカーを保存できませんでした。
+admin.plugin.pel.delete.complete: メーカーを削除しました。
+admin.plugin.pel.delete.error: メーカーを削除できませんでした。
+admin.plugin.pel.blank.error: メーカー名が入力されていません。
+admin.plugin.pel.not_found: メーカーが見つかりません。
+admin.plugin.pel.placeholder.url: メーカーの商品ページのURL。
+admin.plugin.pel.delete.confirm: メーカー情報を削除してもよろしいですか？
