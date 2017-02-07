@@ -324,6 +324,8 @@ class CustomNonMemberEvent
 
             ));
 
+            dump($formdata);
+
         if($formdata){
             $form = $builder->getForm();
 
@@ -357,7 +359,8 @@ class CustomNonMemberEvent
         $form = $event->getArgument('form');
         $email = $form['email']->getData();
 
-        $sec->set('customnonmember_nonmember',array($form->getData()));
+        // 次回フォーム入力時に、デフォルトで入力されていないように
+        $sec->set('customnonmember_nonmember',null);
 
 
         $customer = $form->getData();
