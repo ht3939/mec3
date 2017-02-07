@@ -324,8 +324,6 @@ class CustomNonMemberEvent
 
             ));
 
-            dump($formdata);
-
         if($formdata){
             $form = $builder->getForm();
 
