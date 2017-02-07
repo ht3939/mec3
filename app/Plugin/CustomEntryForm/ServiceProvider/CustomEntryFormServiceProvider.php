@@ -34,6 +34,8 @@ class CustomEntryFormServiceProvider implements ServiceProviderInterface
      */
     public function register(BaseApplication $app)
     {
+        $cd = 'customentryform';
+
         /**
          * ルーティング登録
          * 管理画面 > 設定 > 基本情報設定 > ＤＳコンテンツ商品基本情報設定画面
@@ -41,7 +43,7 @@ class CustomEntryFormServiceProvider implements ServiceProviderInterface
         $app->match(
             '/'.$app['config']['admin_route'].'/CustomEntryForm/setting',
             'Plugin\CustomEntryForm\Controller\AdminCustomEntryFormController::index'
-        )->bind('CustomEntryForm_info');
+        )->bind('plugin_{$cd}_info');
 
 
         /**
@@ -60,6 +62,12 @@ class CustomEntryFormServiceProvider implements ServiceProviderInterface
          * ルーティング登録
          * Mypage >　注文履歴 >  ＤＳコンテンツ商品リンク
          */
+        $app->match("/form-entry/", 'Plugin\CustomEntryForm\Controller\Front\CustomEntryFormController::index')
+            ->bind("plugin_{$cd}_formentry")
+            ;
+        $app->post("/form-entry/bystep", 'Plugin\CustomEntryForm\Controller\Front\CustomEntryFormController::index')
+            ->bind("plugin_{$cd}_bystep")
+            ;
 
  
 
@@ -135,6 +143,41 @@ class CustomEntryFormServiceProvider implements ServiceProviderInterface
 
         // ログファイル管理画面用設定
         $app['monolog.CustomEntryForm.admin'] = $this->initLogger($app, 'CustomEntryForm_admin');
+
+
+        // フロント or 管理画面ごとにtwigの探索パスを切り替える.
+        // $app['twig'] = $app->share($app->extend('twig', function (\Twig_Environment $twig, \Silex\Application $app) {
+        //     $paths = array();
+
+        //     // 互換性がないのでprofiler とproduction 時のcacheを分離する
+        //     if (isset($app['profiler'])) {
+        //         $cacheBaseDir = __DIR__.'/../../app/cache/twig/profiler/';
+        //     } else {
+        //         $cacheBaseDir = __DIR__.'/../../app/cache/twig/production/';
+        //     }
+
+        //     if ($app->isAdminRequest()) {
+        //         if (file_exists(__DIR__.'/../../app/template/admin')) {
+        //             $paths[] = __DIR__.'/../../app/template/admin';
+        //         }
+        //         $paths[] = $app['config']['template_admin_realdir'];
+        //         $paths[] = __DIR__.'/../../app/Plugin';
+        //         $cache = $cacheBaseDir.'admin';
+
+        //     } else {
+        //         if (file_exists($app['config']['template_realdir'])) {
+        //             $paths[] = $app['config']['template_realdir'];
+        //         }
+        //         $paths[] = $app['config']['template_default_realdir'];
+        //         $paths[] = __DIR__.'/../../app/Plugin';
+        //         $cache = $cacheBaseDir.$app['config']['template_code'];
+        //         $app['front'] = true;
+        //     }
+        //     $twig->setCache($cache);
+        //     $app['twig.loader']->addLoader(new \Twig_Loader_Filesystem($paths));
+
+        //     return $twig;
+        // }));
 
     }
 
