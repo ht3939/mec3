@@ -156,10 +156,13 @@ class CustomUrlUserPageServiceProvider implements ServiceProviderInterface
             foreach($CustomUrls as $CustomUrl){
                 //dump($CustomUrl);
                 //dump($CustomUrl->getPageLayout()->getUrl());
-                $app->match($CustomUrl->getCustomurl(), 'Plugin\CustomUrlUserPage\Controller\Front\UserDataController::index')
-                ->value('route', $CustomUrl->getPageLayout()->getUrl())
-                ->bind($CustomUrl->getPageLayout()->getUrl());
-                //dump($CustomUrl);
+                if($CustomUrl->getPageLayout()){
+                    $app->match($CustomUrl->getCustomurl(), 'Plugin\CustomUrlUserPage\Controller\Front\UserDataController::index')
+                    ->value('route', $CustomUrl->getPageLayout()->getUrl())
+                    ->bind($CustomUrl->getPageLayout()->getUrl());
+                    //dump($CustomUrl);
+
+                }
 
             }
         }
