@@ -71,6 +71,7 @@ class MakerLegacy extends CommonEvent
 
                 if (!$ProductMaker) {
                     $ProductMaker = new ProductMaker();
+                    $ProductMaker->setDisabled(1);
                 }
 
                 // Get product id after add new
