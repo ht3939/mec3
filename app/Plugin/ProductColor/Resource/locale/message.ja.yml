@@ -1,0 +1,8 @@
+admin.productcolor.up.complete: 商品カラーを上へ移動しました。
+admin.productcolor.up.error: 商品カラーを上へ移動できませんでした。
+admin.productcolor.down.complete: 商品カラーを下へ移動しました。
+admin.productcolor.down.error: 商品カラーを下へ移動できませんでした。
+admin.productcolor.save.complete: 商品カラーを保存しました。
+admin.productcolor.save.error: 商品カラーを保存できませんでした。
+admin.productcolor.delete.complete: 商品カラーを削除しました。
+admin.productcolor.delete.error: 商品カラーを削除できませんでした。

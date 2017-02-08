@@ -1,0 +1,33 @@
+Plugin\ProductColor\Entity\ProductProductColor:
+    type: entity
+    table: plg_product_productcolor
+    repositoryClass: Plugin\ProductColor\Repository\ProductProductColorRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: product_productcolor_id
+            generator:
+                strategy: AUTO
+    fields:
+        create_date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        Product:
+            targetEntity: Eccube\Entity\Product
+            inversedBy: ProductColor
+            joinColumn:
+                name: product_id
+                referencedColumnName: product_id
+                nullable: false
+        ProductColor:
+            targetEntity: Plugin\ProductColor\Entity\ProductColor
+            inversedBy: ProductProductColor
+            joinColumn:
+                name: productcolor_id
+                referencedColumnName: productcolor_id
+                nullable: false
+    lifecycleCallbacks: {  }
