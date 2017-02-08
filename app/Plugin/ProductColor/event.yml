@@ -1,21 +1,3 @@
-# eccube.event.render.admin_customer_new.before:
-#     - [onRenderAdminCustomerNewBefore, NORMAL]
-# eccube.event.render.admin_customer_edit.before:
-#     - [onRenderAdminCustomerEditBefore, NORMAL]
-# eccube.event.controller.admin_customer_edit.after:
-#     - [onAdminCustomerEditAfter, NORMAL]
-
-eccube.event.render.admin_product_product_new.before:
-    - [onRenderAdminProductNewBefore, NORMAL]
-eccube.event.render.admin_product_product_edit.before:
-    - [onRenderAdminProductEditBefore, NORMAL]
-eccube.event.controller.admin_product_product_edit.after:
-    - [onAdminProductEditAfter, NORMAL]
-
-eccube.event.render.product_detail.before:
-    - [onRenderProductsDetailBefore, NORMAL]
-
-
 Admin/Product/product.twig:
     - [onRenderAdminProduct, NORMAL]
 
