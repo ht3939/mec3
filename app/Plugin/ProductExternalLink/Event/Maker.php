@@ -128,6 +128,7 @@ class Maker extends CommonEvent
         }
 
         if (!$ProductMaker) {
+            $builder->get('plg_disabled')->setData(1);
             log_info('Event: Product maker not found!', array('Product id' => $id));
 
             return;
@@ -170,6 +171,8 @@ class Maker extends CommonEvent
         $ProductMaker = $repository->find($Product);
         if (!$ProductMaker) {
             $ProductMaker = new ProductMaker();
+            $ProductMaker->setDisabled(1);
+
         }
 
         $maker = $form->get('plg_pel_maker')->getData();
