@@ -111,19 +111,19 @@ class CustomEntryFormController extends AbstractController
 
 
         $cartService = $app['eccube.service.cart'];
-/*
-        // カートチェック
-        if (!$cartService->isLocked()) {
-            // カートが存在しない、カートがロックされていない時はエラー
-            log_info('カートが存在しません');
-            return $app->redirect($app->url('cart'));
-        }
+        /*
+                // カートチェック
+                if (!$cartService->isLocked()) {
+                    // カートが存在しない、カートがロックされていない時はエラー
+                    log_info('カートが存在しません');
+                    return $app->redirect($app->url('cart'));
+                }
 
-        // ログイン済みの場合は, 購入画面へリダイレクト.
-        if ($app->isGranted('ROLE_USER')) {
-            return $app->redirect($app->url('shopping'));
-        }
-*/
+                // ログイン済みの場合は, 購入画面へリダイレクト.
+                if ($app->isGranted('ROLE_USER')) {
+                    return $app->redirect($app->url('shopping'));
+                }
+        */
         // カートチェック
         if (count($cartService->getCart()->getCartItems()) <= 0) {
             // カートが存在しない時はエラー
@@ -295,7 +295,7 @@ class CustomEntryFormController extends AbstractController
     public function shopping_index(Application $app, Request $request)
     {
         $cartService = $app['eccube.service.cart'];
-//dump($app);
+
         // カートチェック
         if (!$cartService->isLocked()) {
             log_info('カートが存在しません');
