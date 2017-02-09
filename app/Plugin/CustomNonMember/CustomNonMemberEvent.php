@@ -117,6 +117,7 @@ class CustomNonMemberEvent
                 }else{
                     $customeraddress=null;
                 }
+                $sec->set('customnonmember_nonmember',null);
                 //会員情報を登録
                 //$this->createNonMemberCustomerOrder($Order,$nonmember,$customeraddress);
 
@@ -151,6 +152,7 @@ class CustomNonMemberEvent
             ->setZip02($_Customer->getZip02())
             ->setZipcode($_Customer->getZip01() . $_Customer->getZip02())
             ->setPref($Pref)
+            ->setSex($_Customer->getSex())
             ->setAddr01($_Customer->getAddr01())
             ->setAddr02($_Customer->getAddr02())
             ->setTel01($_Customer->getTel01())
@@ -333,9 +335,14 @@ class CustomNonMemberEvent
             $prefid = $formdata[0]['pref']['id'];
             $pref = $this->app['eccube.repository.master.pref']->find($prefid);
             $formdata[0]['pref']= $pref;
-            $sexid = $formdata[0]['sex']['id'];
-            $sex = $this->app['eccube.repository.master.sex']->find($sexid);
-            $formdata[0]['sex']= $sex;
+            if($formdata[0]['sex']){
+                $sexid = $formdata[0]['sex']['id'];
+                $sex = $this->app['eccube.repository.master.sex']->find($sexid);
+                $formdata[0]['sex']= $sex;
+
+            }else{
+
+            }
 
             $form->setData($formdata[0]);
             $event->setArgument('form',$form);
