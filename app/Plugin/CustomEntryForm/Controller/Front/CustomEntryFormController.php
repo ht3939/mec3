@@ -67,11 +67,11 @@ class CustomEntryFormController extends AbstractController
         $Cart = $app['eccube.service.cart']->getCart();
 
         // FRONT_CART_INDEX_INITIALIZE
-        $event = new EventArgs(
-            array(),
-            $request
-        );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_INITIALIZE, $event);
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_INITIALIZE, $event);
 
         /* @var $BaseInfo \Eccube\Entity\BaseInfo */
         /* @var $Cart \Eccube\Entity\Cart */
@@ -99,15 +99,15 @@ class CustomEntryFormController extends AbstractController
         }
 
         // FRONT_CART_INDEX_COMPLETE
-        $event = new EventArgs(
-            array(),
-            $request
-        );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_COMPLETE, $event);
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_COMPLETE, $event);
 
-        if ($event->hasResponse()) {
-            return $event->getResponse();
-        }
+        // if ($event->hasResponse()) {
+        //     return $event->getResponse();
+        // }
 
 
         $cartService = $app['eccube.service.cart'];
@@ -132,6 +132,17 @@ class CustomEntryFormController extends AbstractController
         }
 
         $builder = $app['form.factory']->createBuilder('nonmember');
+dump($builder);
+        $builder
+            ->remove('name.name02')
+            ->remove('name.kana02')
+            ->remove('sex')
+            ->remove('company_name')
+            ->remove('zip')
+            ->remove('address')
+            ->remove('addr')
+        ;
+dump($builder);
 
         //初期値表示用
         $form = $builder->getForm();
@@ -143,10 +154,10 @@ class CustomEntryFormController extends AbstractController
             ),
             $request
         );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_INITIALIZE, $event);
-        if($event->getArgument('form')){
-            $form = $event->getArgument('form');
-        }
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_INITIALIZE, $event);
+        // if($event->getArgument('form')){
+        //     $form = $event->getArgument('form');
+        // }
 
         $form->handleRequest($request);
 
@@ -158,41 +169,42 @@ class CustomEntryFormController extends AbstractController
             $Customer = new Customer();
             $Customer
                 ->setName01($data['name01'])
-                ->setName02($data['name02'])
+                // ->setName02($data['name02'])
                 ->setKana01($data['kana01'])
-                ->setKana02($data['kana02'])
-                ->setSex($data['sex'])
+                // ->setKana02($data['kana02'])
+                // ->setSex($data['sex'])
 
-                ->setCompanyName($data['company_name'])
+                // ->setCompanyName($data['company_name'])
                 ->setEmail($data['email'])
                 ->setTel01($data['tel01'])
                 ->setTel02($data['tel02'])
                 ->setTel03($data['tel03'])
-                ->setZip01($data['zip01'])
-                ->setZip02($data['zip02'])
-                ->setZipCode($data['zip01'].$data['zip02'])
-                ->setPref($data['pref'])
-                ->setAddr01($data['addr01'])
-                ->setAddr02($data['addr02']);
+                // ->setZip01($data['zip01'])
+                // ->setZip02($data['zip02'])
+                // ->setZipCode($data['zip01'].$data['zip02'])
+                // ->setPref($data['pref'])
+                // ->setAddr01($data['addr01'])
+                // ->setAddr02($data['addr02'])
+                ;
 
             // 非会員複数配送用
             $CustomerAddress = new CustomerAddress();
             $CustomerAddress
                 ->setCustomer($Customer)
                 ->setName01($data['name01'])
-                ->setName02($data['name02'])
+                // ->setName02($data['name02'])
                 ->setKana01($data['kana01'])
-                ->setKana02($data['kana02'])
-                ->setCompanyName($data['company_name'])
+                // ->setKana02($data['kana02'])
+                // ->setCompanyName($data['company_name'])
                 ->setTel01($data['tel01'])
                 ->setTel02($data['tel02'])
                 ->setTel03($data['tel03'])
-                ->setZip01($data['zip01'])
-                ->setZip02($data['zip02'])
-                ->setZipCode($data['zip01'].$data['zip02'])
-                ->setPref($data['pref'])
-                ->setAddr01($data['addr01'])
-                ->setAddr02($data['addr02'])
+                // ->setZip01($data['zip01'])
+                // ->setZip02($data['zip02'])
+                // ->setZipCode($data['zip01'].$data['zip02'])
+                // ->setPref($data['pref'])
+                // ->setAddr01($data['addr01'])
+                // ->setAddr02($data['addr02'])
                 ->setDelFlg(Constant::DISABLED);
             $Customer->addCustomerAddress($CustomerAddress);
 
@@ -207,37 +219,37 @@ class CustomEntryFormController extends AbstractController
                     $Order = $app['eccube.service.shopping']->createOrder($Customer);
                 } catch (CartException $e) {
                     $app->addRequestError($e->getMessage());
-                    return $app->redirect($app->url('cart'));
+                    return $app->redirect($app->url('homepage'));
                 }
             }
 
             // 非会員用セッションを作成
             $nonMember = array();
             $nonMember['customer'] = $Customer;
-            $nonMember['pref'] = $Customer->getPref()->getId();
-            $nonMember['sex'] = $Customer->getSex();
+            // $nonMember['pref'] = $Customer->getPref()->getId();
+            // $nonMember['sex'] = $Customer->getSex();
             $app['session']->set($this->sessionKey, $nonMember);
 
             $customerAddresses = array();
             $customerAddresses[] = $CustomerAddress;
             $app['session']->set($this->sessionCustomerAddressKey, serialize($customerAddresses));
 
-            $event = new EventArgs(
-                array(
-                    'form' => $form,
-                    'Order' => $Order,
-                ),
-                $request
-            );
-            $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_COMPLETE, $event);
+            // $event = new EventArgs(
+            //     array(
+            //         'form' => $form,
+            //         'Order' => $Order,
+            //     ),
+            //     $request
+            // );
+            // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_COMPLETE, $event);
 
-            if ($event->getResponse() !== null) {
-                return $event->getResponse();
-            }
+            // if ($event->getResponse() !== null) {
+            //     return $event->getResponse();
+            // }
 
             log_info('非会員お客様情報登録完了', array($Order->getId()));
 
-            return $app->redirect($app->url('shopping'));
+            return $app->redirect($app->url('plugin_customentryform_formentry_confirm'));
         }
 
         return $app->render(
@@ -252,6 +264,118 @@ class CustomEntryFormController extends AbstractController
             )
         );
     }
+    public function form_confirm(Application $app, Request $request,$id=null)
+    {
+        $Cart = $app['eccube.service.cart']->getCart();
+
+        // FRONT_CART_INDEX_INITIALIZE
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_INITIALIZE, $event);
+
+        /* @var $BaseInfo \Eccube\Entity\BaseInfo */
+        /* @var $Cart \Eccube\Entity\Cart */
+        $BaseInfo = $app['eccube.repository.base_info']->get();
+
+        $isDeliveryFree = false;
+        $least = 0;
+        $quantity = 0;
+        if ($BaseInfo->getDeliveryFreeAmount()) {
+            if ($BaseInfo->getDeliveryFreeAmount() <= $Cart->getTotalPrice()) {
+                // 送料無料（金額）を超えている
+                $isDeliveryFree = true;
+            } else {
+                $least = $BaseInfo->getDeliveryFreeAmount() - $Cart->getTotalPrice();
+            }
+        }
+
+        if ($BaseInfo->getDeliveryFreeQuantity()) {
+            if ($BaseInfo->getDeliveryFreeQuantity() <= $Cart->getTotalQuantity()) {
+                // 送料無料（個数）を超えている
+                $isDeliveryFree = true;
+            } else {
+                $quantity = $BaseInfo->getDeliveryFreeQuantity() - $Cart->getTotalQuantity();
+            }
+        }
+
+        // FRONT_CART_INDEX_COMPLETE
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_INDEX_COMPLETE, $event);
+
+        // if ($event->hasResponse()) {
+        //     return $event->getResponse();
+        // }
+
+
+        $cartService = $app['eccube.service.cart'];
+        /*
+                // カートチェック
+                if (!$cartService->isLocked()) {
+                    // カートが存在しない、カートがロックされていない時はエラー
+                    log_info('カートが存在しません');
+                    return $app->redirect($app->url('cart'));
+                }
+
+                // ログイン済みの場合は, 購入画面へリダイレクト.
+                if ($app->isGranted('ROLE_USER')) {
+                    return $app->redirect($app->url('shopping'));
+                }
+        */
+        // カートチェック
+        if (count($cartService->getCart()->getCartItems()) <= 0) {
+            // カートが存在しない時はエラー
+            log_info('カートに商品が入っていないためショッピングカート画面にリダイレクト');
+            return $app->redirect($app->url('homepage'));
+        }
+
+        $builder = $app['form.factory']->createBuilder('nonmember');
+dump($builder);
+        $builder
+            ->remove('name.name02')
+            ->remove('name.kana02')
+            ->remove('sex')
+            ->remove('company_name')
+            ->remove('zip')
+            ->remove('address')
+            ->remove('addr')
+        ;
+dump($builder);
+
+        //初期値表示用
+        $form = $builder->getForm();
+
+        $event = new EventArgs(
+            array(
+                'builder' => $builder,
+                'form'=>$form,
+            ),
+            $request
+        );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_SHOPPING_NONMEMBER_INITIALIZE, $event);
+        // if($event->getArgument('form')){
+        //     $form = $event->getArgument('form');
+        // }
+
+
+
+        return $app->render(
+            'CustomEntryForm/Resource/template/default/CustomEntryForm/index.twig',
+            array(
+                'Cart' => $Cart,
+                'least' => $least,
+                'quantity' => $quantity,
+                'is_delivery_free' => $isDeliveryFree,
+                'form' => $form->createView(),
+
+            )
+        );
+    }
+
     /**
      * カートをロック状態に設定し、購入確認画面へ遷移する.
      *
@@ -262,28 +386,107 @@ class CustomEntryFormController extends AbstractController
     public function buystep(Application $app, Request $request)
     {
         // FRONT_CART_BUYSTEP_INITIALIZE
-        $event = new EventArgs(
-            array(),
-            $request
-        );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_BUYSTEP_INITIALIZE, $event);
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_BUYSTEP_INITIALIZE, $event);
 
         $app['eccube.service.cart']->lock();
         $app['eccube.service.cart']->save();
 
         // FRONT_CART_BUYSTEP_COMPLETE
-        $event = new EventArgs(
-            array(),
-            $request
-        );
-        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_BUYSTEP_COMPLETE, $event);
+        // $event = new EventArgs(
+        //     array(),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_CART_BUYSTEP_COMPLETE, $event);
 
-        if ($event->hasResponse()) {
-            return $event->getResponse();
-        }
+        // if ($event->hasResponse()) {
+        //     return $event->getResponse();
+        // }
 
         return $app->redirect($app->url('plugin_customentryform_formentry'));
     }
+
+    public function detail(Application $app, Request $request, $id)
+    {
+        $BaseInfo = $app['eccube.repository.base_info']->get();
+        if ($BaseInfo->getNostockHidden() === Constant::ENABLED) {
+            $app['orm.em']->getFilters()->enable('nostock_hidden');
+        }
+
+        /* @var $Product \Eccube\Entity\Product */
+        $Product = $app['eccube.repository.product']->get($id);
+
+        if (!$request->getSession()->has('_security_admin') && $Product->getStatus()->getId() !== 1) {
+            throw new NotFoundHttpException();
+        }
+        if (count($Product->getProductClasses()) < 1) {
+            throw new NotFoundHttpException();
+        }
+
+
+        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        $builder = $app['form.factory']->createNamedBuilder('', 'add_cart', null, array(
+            'product' => $Product,
+            'id_add_product_id' => false,
+        ));
+
+        // $event = new EventArgs(
+        //     array(
+        //         'builder' => $builder,
+        //         'Product' => $Product,
+        //     ),
+        //     $request
+        // );
+        // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_DETAIL_INITIALIZE, $event);
+
+        /* @var $form \Symfony\Component\Form\FormInterface */
+        $form = $builder->getForm();
+
+        if ($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $addCartData = $form->getData();
+                if ($addCartData['mode'] === 'add_cart') {
+
+                    log_info('カート追加処理開始', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => $addCartData['quantity']));
+
+                    try {
+                        $app['eccube.service.cart']->addProduct($addCartData['product_class_id'], $addCartData['quantity'])->save();
+                    } catch (CartException $e) {
+                        log_info('カート追加エラー', array($e->getMessage()));
+                        $app->addRequestError($e->getMessage());
+                    }
+
+                    log_info('カート追加処理完了', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => $addCartData['quantity']));
+
+                    // $event = new EventArgs(
+                    //     array(
+                    //         'form' => $form,
+                    //         'Product' => $Product,
+                    //     ),
+                    //     $request
+                    // );
+                    // $app['eccube.event.dispatcher']->dispatch(EccubeEvents::FRONT_PRODUCT_DETAIL_COMPLETE, $event);
+
+                    // if ($event->getResponse() !== null) {
+                    //     return $event->getResponse();
+                    // }
+
+                    return $app->redirect($app->url('plugin_customentryform_formentry'));
+                }
+            }
+        } else {
+            throw new NotFoundHttpException();
+
+        }
+
+
+    }
+
 
     /**
      * 購入画面表示
@@ -300,14 +503,14 @@ class CustomEntryFormController extends AbstractController
         if (!$cartService->isLocked()) {
             log_info('カートが存在しません');
             // カートが存在しない、カートがロックされていない時はエラー
-            return $app->redirect($app->url('cart'));
+            return $app->redirect($app->url('homepage'));
         }
 
         // カートチェック
         if (count($cartService->getCart()->getCartItems()) <= 0) {
             log_info('カートに商品が入っていないためショッピングカート画面にリダイレクト');
             // カートが存在しない時はエラー
-            return $app->redirect($app->url('cart'));
+            return $app->redirect($app->url('homepage'));
         }
 
         // 登録済みの受注情報を取得
