@@ -1,6 +1,8 @@
 # フロント画面 > 非会員
 Contact/index.twig:
     - [onRenderContactIndex, NORMAL]
+Contact/confirm.twig:
+    - [onRenderContactConfirm, NORMAL]
 
 # フロント画面 > 非会員
 Shopping/nonmember.twig:
