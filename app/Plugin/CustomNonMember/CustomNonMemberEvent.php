@@ -290,9 +290,6 @@ class CustomNonMemberEvent
                 'mapped' => false,
                 'invalid_message' => '「個人情報の取扱についての同意」は必須項目です。',
                 'constraints' => array(
-                    new Assert\NotNull(array(
-            'message' => '「個人情報の取扱についての同意」は必須項目です。',
-            )),
                     new Assert\NotBlank(array(
             'message' => '「個人情報の取扱についての同意」は必須項目です。',
             )),
@@ -467,6 +464,17 @@ class CustomNonMemberEvent
 
     }
 
+
+    public function onRenderContactConfirm(TemplateEvent $event){
+
+        $helper = new Event\WorkPlace\FrontContactConfirm();
+        $helper->createTwig($event);
+
+
+        $sec = $this->app['session'];
+
+
+    }
 
     public function onRenderContactIndex(TemplateEvent $event){
 
