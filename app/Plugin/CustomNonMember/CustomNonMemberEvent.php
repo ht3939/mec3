@@ -286,7 +286,7 @@ class CustomNonMemberEvent
         $builder
             ->add('plg_privacy_check', 'checkbox', array(
                 'label' => '同意する',
-                'required' => false,
+                'required' => true,
                 'mapped' => false,
                 'invalid_message' => '「個人情報の取扱についての同意」は必須項目です。',
                 'constraints' => array(
