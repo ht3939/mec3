@@ -1,0 +1,58 @@
+# フロント画面 > 非会員
+Contact/index.twig:
+    - [onRenderContactIndex, NORMAL]
+Contact/confirm.twig:
+    - [onRenderContactConfirm, NORMAL]
+
+# フロント画面 > 非会員
+Shopping/nonmember.twig:
+    - [onRenderShoppingNonMember, NORMAL]
+
+## フロント画面 > カート
+# Cart/index.twig:
+#     - [onRenderCart, NORMAL]
+
+front.shopping.index.initialize:
+    - [onFrontShoppingIndexInitialize, NORMAL]
+front.shopping.confirm.initialize:
+    - [onFrontShoppingConfirmInitialize, NORMAL]
+front.shopping.confirm.processing:
+    - [onFrontShoppingConfirmProcessing, NORMAL]
+front.shopping.confirm.complete:
+    - [onFrontShoppingConfirmComplete, NORMAL]
+front.shopping.complete.initialize:
+    - [onFrontShoppingCompleteInitialize, NORMAL]
+
+#    // nonmember
+#    const FRONT_SHOPPING_NONMEMBER_INITIALIZE = 'front.shopping.nonmember.initialize';
+#    const FRONT_SHOPPING_NONMEMBER_COMPLETE = 'front.shopping.nonmember.complete';
+front.shopping.nonmember.initialize:
+    - [onFrontShoppingNonmemberInitialize, NORMAL]
+front.shopping.nonmember.complete:
+    - [onFrontShoppingNonmemberComplete, NORMAL]
+
+
+mail.order:
+    - [onMailServiceMailOrder, NORMAL]
+
+front.contact.index.initialize:
+    - [onFrontContactInitialize, NORMAL]
+
+front.contact.index.complete:
+    - [onFrontContactIndexComplete, NORMAL]
+
+
+
+# /**
+#  * CartController
+#  */
+# // index
+# const FRONT_CART_INDEX_INITIALIZE = 'front.cart.index.initialize';
+# const FRONT_CART_INDEX_COMPLETE = 'front.cart.index.complete';
+
+front.cart.index.initialize:
+    - [onFrontCartIndexInitialize, NORMAL]
+front.cart.index.complete:
+    - [onFrontCartIndexComplete, NORMAL]
+front.cart.buystep.complete:
+    - [onFrontCartBuyStepComplete, NORMAL]

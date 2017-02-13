@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+/* --------------------------------
+    Common style
+-------------------------------- */
+
+.agree .agree_ttl{
+    margin: 30px 0 20px;
+}
+.agree .agree_box{
+    overflow: scroll;
+    height: 135px;
+    border: 1px solid #ccc;
+    margin: 10px auto 10px;
+    padding: 10px;
+    color: #333;
+}
+.agree .checkbox{
+    margin: 25px 0;
+    text-align: center;
+    font-size: 18px;
+}
+.agree input[type="checkbox"]{
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.agree .agree_box h2{
+    margin: 20px 0 15px;
+    padding: 10px;
+    background-color: #eee;
+    font-size: 100%;
+    font-weight: bold;
+}
+.agree .agree_box .text{
+    margin-top: 25px;
+    line-height: 1.8;
+}
+.agree .agree_box ol{
+    padding-left: 20px;
+    margin: 10px 0;
+    list-style-type: decimal;
+}
+.agree .agree_box li{
+    line-height: 1.8;
+}
