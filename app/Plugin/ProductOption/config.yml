@@ -9,5 +9,5 @@ orm.path:
 form:
 const:
 # 小計から場外する規格
-  exclude_product_class: 4
+  exclude_product_class: 9
   exclude_product_msg: ※提供事業者からの請求になります。

@@ -30,7 +30,7 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                 if($ProductClass->getId() == $cartItemOption->getClassId() && !in_array($cartNo,$arrCheck)){
                     $arrCheck[] = $cartNo;
                     $price = 0;
-                    if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==4){
+                    if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
 
                     }else{
 
@@ -87,7 +87,7 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                             $arrCheck[] = $cartNo;
 
                             $price = 0;
-                            if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==4){
+                            if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
 
                             }else{
 
