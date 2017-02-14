@@ -75,6 +75,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 .pc#genaral-page-footer .footer-sitelist-heading {
     min-height: 20px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 .pc#genaral-page-footer .site-list li {
     padding: 5px 0 4px;
@@ -128,11 +129,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     margin-right: 20px;
 }
 .pc#genaral-page-footer .footer-bottom .copy-text {
+    margin-top: 35px;
     font-size: 10px;
     color: #666;
     float: left;
     overflow: hidden;
-    padding-top: 15px;
 }
 .pc#genaral-page-footer .footer-bottom .footer-links {
     margin-top: 13px;
@@ -152,11 +153,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     bottom: 0;
     font-size: 10px;
     color: #666;
-    background: url({{ app.config.front_urlpath }}/img/common/p-mark.png) no-repeat 0 0;
     width: 330px;
     min-height: 58px;
-    padding-left: 70px;
-    padding-top: 10px;
+    overflow: hidden;
+}
+.pc#genaral-page-footer .p-mark .p-mark_logo{
+    float: left;
+    width: 68px;
+    padding-right: 10px;
+}
+.pc#genaral-page-footer .p-mark .p-mark_text{
+    float: left;
+    width: 262px;
 }
 
 /* ========== SP =========== */
@@ -218,6 +226,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     left: 10px;
     height: 40px;
     margin: auto 0;
+}
+.sp#footer_wrap .footer-privacy-image a{
+    display: block;
 }
 .sp#footer_wrap .footer-copyright {
     padding: 15px 10px;
@@ -283,10 +294,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <li class="footer-nav2-item"><a href="{{ url('contact') }}">お問い合わせ</a></li>
 	</ul>
 	<div class="footer-privacy">
-		<p class="footer-privacy-image"><img src="{{ app.config.front_urlpath }}/img/sp/common/footer-privacy.png" alt="たいせつにしますプライバシー" width="40" height="40"></p>
+		<p class="footer-privacy-image"><a href="https://privacymark.jp/" target="_blank"><img src="{{ app.config.front_urlpath }}/img/sp/common/footer-privacy.png" alt="たいせつにしますプライバシー" width="40" height="40"></a></p>
 		<p class="footer-privacy-text">お客様の個人情報の保護に努めています。<br>フォームに入力していただく際も、カード番号などはSSLにて暗号化して送られますので、安心してご利用いただけます。</p>
 	</div>
-	<p class="footer-copyright"><small>© 2016 {{ BaseInfo.shop_name }} by モバレコ</small></p>
+	<p class="footer-copyright"><small>© 2016 {{ BaseInfo.shop_name }}</small></p>
 </div>
 
 
@@ -334,7 +345,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<div class="footer-middle">
 		<div class="inner">
 			<dl class="footer-sitelist">
-				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text1.png" alt="SIMフリースマホを探す"></dt>
+				<dt class="footer-sitelist-heading">SIMフリースマホを探す</dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
 						<li><a href="{{url('product_list',{'category_id':12})}}">Apple</a></li>
@@ -351,14 +362,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</dd>
 			</dl>
 			<dl class="footer-sitelist">
-				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text2.png" alt="SIMカードを探す"></dt>
+				<dt class="footer-sitelist-heading">SIMカードを探す</dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
 						<li><a href="{{url('product_list',{'category_id':14})}}">FREETEL</a></li>
 						<li><a href="{{url('product_list',{'category_id':21})}}">IIJmio</a></li>
 						<li><a href="{{url('product_list',{'category_id':23})}}">NifMo</a></li>
 						<li><a href="{{url('product_list',{'category_id':24})}}">OCN モバイル ONE</a></li>
-						<li><a href="{{url('product_list',{'category_id':25})}}">オンリーサービス</a></li>
+						<li><a href="{{url('product_list',{'category_id':42})}}">mineo</a></li>
 						<li><a href="{{url('product_list',{'category_id':26})}}">楽天モバイル</a></li>
 						<li><a href="{{url('product_list',{'category_id':27})}}">So-net</a></li>
 						<li><a href="{{url('product_list',{'category_id':34})}}">TJC</a></li>
@@ -371,7 +382,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</dd>
 			</dl>
 			<dl class="footer-sitelist">
-				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text3.png" alt="{{ BaseInfo.shop_name }}トピック"></dt>
+				<dt class="footer-sitelist-heading">格安スマホについて</dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
 						<li><a href="{{ url('about-sim') }}#about-contents-outer1">格安スマホとは？</a></li>
@@ -381,7 +392,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</dd>
 			</dl>
 			<dl class="footer-sitelist">
-				<dt class="footer-sitelist-heading"><img src="{{ app.config.front_urlpath }}/img/common/footer-text4.png" alt="ご利用ガイド"></dt>
+				<dt class="footer-sitelist-heading">ご利用ガイド</dt>
 				<dd class="footer-sitelist-contents">
 					<ul class="site-list">
 						<li><a href="{{ url('help_guide') }}#guide-sectio-box1">お支払い方法</a></li>
@@ -391,13 +402,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 					</ul>
 				</dd>
 			</dl>
-			<p class="p-mark">お客様の個人情報の保護に努めています。<br>フォームに入力していただく際も、カード番号などはSSLにて暗号化して送られますので、安心してご利用いただけます。</p>
+			<div class="p-mark">
+                <p class="p-mark_logo"><a href="https://privacymark.jp/" target="_blank"><img src="{{ app.config.front_urlpath }}/img/common/p-mark.png" alt="プライバシ－マーク"></a></p>
+                <p class="p-mark_text">お客様の個人情報の保護に努めています。<br>フォームに入力していただく際も、カード番号などはSSLにて暗号化して送られますので、安心してご利用いただけます。</p>
+            </div>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="inner">
-			<p class="logo"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="{{ BaseInfo.shop_name }}byモバレコ"></a></p>
-			<p class="copy-text"><small>&copy; 2016 {{ BaseInfo.shop_name }} by モバレコ</small></p>
+			<p class="logo"><a href="{{ url('homepage') }}"><img src="{{ app.config.front_urlpath }}/img/common/logo.png" alt="{{ BaseInfo.shop_name }}"></a></p>
+			<p class="copy-text"><small>&copy; 2016 {{ BaseInfo.shop_name }}</small></p>
 			<ul class="footer-links">
         <li><a href="{{ url('help_privacy') }}">プライバシーポリシー</a></li>
         <li><a href="{{ url('help_tradelaw') }}">運営会社情報</a></li>
@@ -407,7 +421,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</div>
 </div>
 
-<!-- 
+<!--
 <div class="container-fluid inner">
     <ul>
         <li><a href="{{ url('help_about') }}">当サイトについて</a></li>

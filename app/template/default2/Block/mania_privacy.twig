@@ -11,61 +11,61 @@
 
 
 .subpage-heading {
-    position: relative;
-    margin-bottom: 25px;
-    padding: 12px 10px 12px 28px;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    box-shadow: 0 1px 2px 1px #ccc;
-    font-size: 18px;
-    font-weight: bold;
+	position: relative;
+	margin-bottom: 25px;
+	padding: 12px 10px 12px 28px;
+	border-radius: 4px;
+	background-color: #f1f1f1;
+	box-shadow: 0 1px 2px 1px #ccc;
+	font-size: 18px;
+	font-weight: bold;
 }
 .subpage-heading:before {
-    content: '';
-    position: absolute;
-    margin: 6px 0;
-    top: 0;
-    bottom: 0;
-    left: 8px;
-    right: 0;
-    width: 8px;
-    max-height: 100%;
-    background-color: #da0d0d;
-    border-radius: 3px 0 0 3px;
+	content: '';
+	position: absolute;
+	margin: 6px 0;
+	top: 0;
+	bottom: 0;
+	left: 8px;
+	right: 0;
+	width: 8px;
+	max-height: 100%;
+	background-color: #da0d0d;
+	border-radius: 3px 0 0 3px;
 }
 
 #contents{
 	padding-top:0px;
 }
 #breadcrumbs.bg-grey {
-    background: #f4f4f4;
+	background: #f4f4f4;
 }
 #breadcrumbs {
-    margin-bottom: 0;
-    margin-top: 0px;
+	margin-bottom: 0;
+	margin-top: 0px;
 }
 #breadcrumbs .parent {
-    overflow: hidden;
-    display: block;
-    width: 1000px;
-    margin: 0 auto;
-    padding: 11px 0;
-    color: #666;
+	overflow: hidden;
+	display: block;
+	width: 1000px;
+	margin: 0 auto;
+	padding: 11px 0;
+	color: #666;
 }
 #breadcrumbs .children {
-    float: left;
-    font-size: 10px;
-    position: relative;
+	float: left;
+	font-size: 10px;
+	position: relative;
 }
 #breadcrumbs a {
-    color: #666;
-    margin-right: 20px;
+	color: #666;
+	margin-right: 20px;
 }
 #breadcrumbs a:after {
-    content: ">";
-    position: absolute;
-    top: -1px;
-    right: 5px;
+	content: ">";
+	position: absolute;
+	top: -1px;
+	right: 5px;
 }
 /* ==================== PC ==================== */
 
@@ -73,45 +73,45 @@
 .clearfix{overflow:hidden}#privacy,#other-privacy{margin:0 10px;font-size:100%;line-height:1.6}#privacy h2,#other-privacy h2{margin:20px 0 15px;padding:10px;background-color:#eee;font-size:100%;font-weight:bold}#privacy h3,#other-privacy h3{margin:10px 0 2px}#privacy ol,#privacy ul,#other-privacy ol,#other-privacy ul{margin:10px 0;padding-left:20px}#privacy ol,#other-privacy ol{list-style-type:decimal}#privacy ul,#other-privacy ul{list-style-type:disc}#privacy{margin-top:20px}#privacy .company-inquiry{margin-top:10px;padding:10px;border:1px solid #ccc}#other-privacy{margin-top:20px;margin-bottom:30px}
 
 .page-heading {
-    display: block;
-    position: relative;
-    padding: 10px 40px;
-    background-color: #333;
-    text-align: center;
-    font-size: 0.7rem;
-    text-decoration: none;
-    color: #fff;
+	display: block;
+	position: relative;
+	padding: 10px 40px;
+	background-color: #333;
+	text-align: center;
+	font-size: 0.7rem;
+	text-decoration: none;
+	color: #fff;
 }
 .page-heading .page-heading-back {
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 5px;
-    margin: auto 0;
-    width: 30px;
-    height: 30px;
-    text-align: left;
-    text-indent: 100%;
-    line-height: 30px;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 5px;
+	margin: auto 0;
+	width: 30px;
+	height: 30px;
+	text-align: left;
+	text-indent: 100%;
+	line-height: 30px;
 }
 .page-heading .page-heading-back:before {
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    width: 8px;
-    height: 8px;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	width: 8px;
+	height: 8px;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
 }
 
 </style>
@@ -130,8 +130,140 @@
 		</p>
 		<h1 class="subpage-heading">プライバシーポリシー</h1>
 
-        {# カスタムのtwigエクステンションを追加した部分 remote_content#}
-		{{ get_remote_content('http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html')|raw}}
+		{# カスタムのtwigエクステンションを追加した部分 remote_content#}
+		<div id="privacy">
+			<p>株式会社 ALL CONNECT<br>代表取締役 岩井 宏太<br>制定日　2014年1月9日<br>最終改定日　2016年5月1日</p>
+
+			<h2>個人情報保護方針</h2>
+			<div class="text">
+				株式会社ALL CONNECT は、インフラプラットフォーム事業・VNO 事業を実施する上で、お客様および従業者の個人情報がプライバシーを構成する重要な情報であることを深く認識し、業務において個人情報を取り扱う場合には、個人情報に関する法令及び個人情報保護のために必要な社内規定を定め、また、 織体制を整備し、個人情報の適切な保護に努めることにより、お客様および従業者を尊重し、当社に対する期待と信頼に応えていきます。<br>
+			</div>
+			<h3>■法令・規範の遵守</h3>
+			<div class="text">
+				私たちは、個人情報保護に関する法令、国が定める指針その他の規範を遵守し、個人情報の適切な保護に努めます。
+			</div>
+			<h3>■個人情報の取得、利用、提供</h3>
+			<div class="text">
+				私たちは、事業活動の範囲内で個人情報の利用目的を特定し、その目的達成のために必要な限度で公正かつ適正に個人情報の取得、利用及び提供を行います。また、取得した個人情報の目的外利用をしないよう処置を講じます。
+			</div>
+			<h3>■個人情報の適切な管理</h3>
+			<div class="text">
+				私たちは、私たちが取り扱う個人情報について、不正アクセス、紛失、破壊、改ざん、漏えいなどの危険を十分に認識し、合理的な安全対策を実施するとともに、問題が発生した場合は適切な是正措置を講じます。
+			</div>
+			<h3>■継続的改善</h3>
+			<div class="text">
+				私たちは、個人情報保護に関する管理規定及び管理体制を整備し、全社員で徹底して運用するとともに定期的な見直しを行い、継続的な改善に努めます。
+			</div>
+			<h3>■問い合わせへの対応</h3>
+			<div class="text">
+				私たちは、私たちが取り扱う個人情報について、本人から開示、訂正、利用停止及び苦情相談等のお問い合わせがあった場合は適正に対応します。
+			</div>
+
+			<h2>個人情報の取扱について</h2>
+			<div class="text">本サイトにて取得した個人情報の利用目的は、以下の通りです。</div>
+				<ol>
+					<li>当社経由で格安スマホや格安SIMの通知・購入・商品の配送・役務の提供・代金決済・お客さまからのお問い合わせへの対応・業務委託先からお客さまへのお問い合わせ・関連するアフターサービス・その他取引遂行にあたって必要な業務</li>
+					<li>各事業における商品・サービス料金の計算及び請求、これらに関するお客様へのご連絡のため</li>
+					<li>各事業に関するアンケート調査、お客様からのお問い合わせへの回答のため</li>
+					<li>各事業における商品・サービスのお知らせ及び斡旋のため</li>
+					<li>各事業におけるキャンペーン等の実施のため</li>
+					<li>当社及び第三者の商品等の販売、販売の勧誘、発送、サービス提供のために電子メールその他の広告宣伝物を送信するため</li>
+					<li>新卒・中途採用に関するお客様からのご応募やお問い合わせへの回答のため</li>
+					<li>各事業における応対品質の向上のため</li>
+				</ol>
+
+			<div class="text">クレジットカード情報を含む個人情報の取り扱いについて</div>
+			<div class="text">お客様のクレジットカード情報(カード名義・カード番号・有効期限)の利用目的、クレジットカード情報の取得者名、提供先名、保存期間は次の通りです。</div>
+				<ol>
+					<li>利用目的　ご購入された商品およびサービスの代金をクレジットカード決済するため</li>
+					<li>情報の取得者名　株式会社ALL CONNECT</li>
+					<li>情報の提供先名　クレジットカード決済代行会社（ＧＭＯペイメントゲートウェイ(株)）</li>
+					<li>保存期間　お客様からのご注文時よりよりクレジットカード決済を行う時まで</li>
+				</ol>
+				<div class="text">当社では、以下に定める範囲内において、お客様の個人情報を第三者に提供することがあります。</div>
+				<ol>
+					<li>お客様の同意がある場合</li>
+					<li>裁判所、検察庁、警察、税務署、弁護士会またはこれらに準じた権限を有する機関から開示を求められた場合</li>
+					<li>お客様が当社に対し支払うべき料金その他の決済を行うために、金融機関、クレジットカード会社、回収代行業者その他の決済またはその代行を行う事業者に開示する場合</li>
+					<li>当社が行う業務の全部または一部を第三者に委託する場合</li>
+					<li>当社に対して秘密保持義務を負う者に対して開示する場合</li>
+					<li>当社の権利行使に必要な場合</li>
+					<li>合併、営業譲渡その他の事由による事業の承継の際に、事業を承継する者に対して開示する場合</li>
+					<li>個人情報保護法その他の法令により認められた場合</li>
+					<li>第三者の広告又は宣伝等のために電子メールその他の広告宣伝物を送信する場合</li>
+				</ol>
+				<div class="text">お客様の個人情報を委託先、及び第三者に提供する場合、下記の規定に従います。</div>
+				<ol>
+					<li>
+						委託先、及び第三者に提供する個人情報項目<br>
+						氏名、住所、電話番号、生年月日、メールアドレス<br>
+						ご請求金額、お支払方法等のご利用料金に関する情報等<br>
+						金融機関の口座番号、口座名義、クレジットカード番号等<br>
+						個人情報の利用目的に必要な情報等の項目以外は提供致しません。
+					</li>
+					<li>
+						委託先、及び第三者への提供の手段または方法<br>
+						郵便物、電話、ファックス、インターネット、電子メール、書面、により行います。
+					</li>
+					<li>
+						委託先、及び第三者への提供の停止<br>
+						お客様ご本人からのお申出がありましたら、提供は取りやめさせて頂きます。<br>
+						ただし、業務運営上必要なご案内の送付等は除きます。
+					</li>
+				</ol>
+
+			<h2>個人情報の取扱いに関するご意見等の受付窓口</h2>
+			<div class="text">
+				個人情報の取り扱いに関するご相談、ご意見等については、下記窓口で承ります。<br>
+				また、当社の保有個人データの開示等、個人情報保護法・第24条等に基づくご請求についても、下記窓口へご連絡ください。
+			</div>
+				<p class="company-inquiry">
+					《個人情報に関するお問い合せ先》<br>
+					株式会社 ALL CONNECT<br>
+					〒910-2178　福井県福井市栂野町第15号1番地2<br>
+					TEL：0776-31-2100
+				</p>
+				<p class="company-inquiry">
+					《認定個人情報保護団体》<br>
+					認定個人情報保護団体の名称：一般財団法人日本情報経済社会推進協会<br>
+					苦情の解決の申出先：個人情報保護苦情相談室<br>
+					住 所：〒106-0032　東京都港区六本木 1-9-9　六本木ファーストビル 12F<br>
+					電話番号：03-5860-7565<br>
+					フリーダイヤル：0120-700-779<br>
+					※当社の商品・サービスに関する問合せ先ではございません。
+				</p>
+
+			<h2>クッキーについて</h2>
+			<h3>■クッキーとは？</h3>
+			<div class="text">
+				クッキーとは、ウェブページを利用したときに、ブラウザとサーバーとの間で送受信した利用履歴や入力内容などを、お客様のコンピュータにファイルとして保存しておく仕組みです。次回、同じページにアクセスすると、クッキーの情報を使って、ページの運営者はお客様ごとに表示を変えたりすることができます。お客様がブラウザの設定でクッキーの送受信を許可している場合、ウェブサイトは、ユーザーのブラウザからクッキーを取得できます。なお、お客様のブラウザは、プライバシー保護のため、そのウェブサイトのサーバーが送受信したクッキーのみを送信します。
+			</div>
+
+			<h3>■クッキーの設定について</h3>
+				<ul>
+					<li>お客様は、クッキーの送受信に関する設定を「すべてのクッキーを許可する」、「すべてのクッキーを拒否する」、「クッキーを受信したらユーザーに通知する」などから選択できます。設定方法は、ブラウザにより異なります。クッキーに関する設定方法は、お使いのブラウザの「ヘルプ」メニューでご確認ください。</li>
+					<li>すべてのクッキーを拒否する設定を選択されますと、認証が必要なサービスを受けられなくなる等、インターネット上の各種サービスの利用上、制約を受ける場合がありますのでご注意ください。</li>
+				</ul>
+
+			<h3>■当サイトがクッキーを使用して行っていること</h3>
+			<div class="text">以下の目的のため、当サイトはクッキーを利用しています。</div>
+				<ul>
+					<li>お客様が認証サービスにログインされるとき、保存されているお客様の登録情報を参照して、お客様ごとにカスタマイズされたサービスを提供できるようにするため</li>
+					<li>お客様が興味を持っている内容や、当サイトのサイト上での利用状況をもとに、最も適切な広告を他社サイト上で表示するため</li>
+					<li>当サイトのサイトの利用者数やトラフィックを調査するため</li>
+					<li>当サイトのサービスを改善するため</li>
+					<li>セキュリティー保持のため、ご利用から一定の時間が経過したお客様に対してパスワードの再入力（再認証）を促すため</li>
+				</ul>
+			<div class="text">なお、当サイトは、当サイトの広告の配信を委託するYahoo! JAPANへの委託に基づき、Yahoo! JAPANを経由して、当サイトのクッキーを保存し、参照する場合があります。</div>
+
+			<h2>クッキーのオプトアウトについて</h2>
+			<div class="text">クッキーによる行動ターゲティング広告の無効化をご希望の場合は、下記の各社リンクより無効化（オプトアウト）を行ってください。</div>
+			<ul>
+				<li>グーグル株式会社：<a href="https://support.google.com/ads/answer/2662922" target="_blank">https://support.google.com/ads/answer/2662922</a></li>
+				<li>ヤフー株式会社：<a href="http://btoptout.yahoo.co.jp/optout/preferences.html" target="_blank">http://btoptout.yahoo.co.jp/optout/preferences.html</a></li>
+				<li>facebook：<a href="https://www.facebook.com/settings/?tab=ads" target="_blank">https://www.facebook.com/settings/?tab=ads</a></li>
+			</ul>
+		</div>
 		<div id="other-privacy">
 			<h2>ご契約について</h2>
 			<p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
@@ -140,17 +272,153 @@
 </div>
 
 <div id="contents" class="sp">
-    <div class="page-heading">
-        <p><a href="{{ url('homepage') }}" class="page-heading-back">戻る</a></p>
-        <h1>プライバシーポリシー</h1>
-    </div>
-    {# カスタムのtwigエクステンションを追加した部分 remote_content#}
-        {{ get_remote_content('http://acwb-cmn-rsc.s3-website-ap-northeast-1.amazonaws.com/all-connect/privacy.html')|raw}}
+	<div class="page-heading">
+		<p><a href="{{ url('homepage') }}" class="page-heading-back">戻る</a></p>
+		<h1>プライバシーポリシー</h1>
+	</div>
+	{# カスタムのtwigエクステンションを追加した部分 remote_content#}
+	<div id="privacy">
+		<p>株式会社 ALL CONNECT<br>代表取締役 岩井 宏太<br>制定日　2014年1月9日<br>最終改訂日　2016年5月1日</p>
 
-    <div id="other-privacy">
-        <h2>ご契約について</h2>
-        <p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
-    </div>
+		<h2>個人情報保護方針</h2>
+		<div class="text">
+			株式会社ALL CONNECT は、インフラプラットフォーム事業・VNO 事業を実施する上で、お客様および従業者の個人情報がプライバシーを構成する重要な情報であることを深く認識し、業務において個人情報を取り扱う場合には、個人情報に関する法令及び個人情報保護のために必要な社内規定を定め、また、 織体制を整備し、個人情報の適切な保護に努めることにより、お客様および従業者を尊重し、当社に対する期待と信頼に応えていきます。<br>
+		</div>
+		<h3>■法令・規範の遵守</h3>
+		<div class="text">
+			私たちは、個人情報保護に関する法令、国が定める指針その他の規範を遵守し、個人情報の適切な保護に努めます。
+		</div>
+		<h3>■個人情報の取得、利用、提供</h3>
+		<div class="text">
+			私たちは、事業活動の範囲内で個人情報の利用目的を特定し、その目的達成のために必要な限度で公正かつ適正に個人情報の取得、利用及び提供を行います。また、取得した個人情報の目的外利用をしないよう処置を講じます。
+		</div>
+		<h3>■個人情報の適切な管理</h3>
+		<div class="text">
+			私たちは、私たちが取り扱う個人情報について、不正アクセス、紛失、破壊、改ざん、漏えいなどの危険を十分に認識し、合理的な安全対策を実施するとともに、問題が発生した場合は適切な是正措置を講じます。
+		</div>
+		<h3>■継続的改善</h3>
+		<div class="text">
+			私たちは、個人情報保護に関する管理規定及び管理体制を整備し、全社員で徹底して運用するとともに定期的な見直しを行い、継続的な改善に努めます。
+		</div>
+		<h3>■問い合わせへの対応</h3>
+		<div class="text">
+			私たちは、私たちが取り扱う個人情報について、本人から開示、訂正、利用停止及び苦情相談等のお問い合わせがあった場合は適正に対応します。
+		</div>
+
+		<h2>個人情報の取扱について</h2>
+		<div class="text">本サイトにて取得した個人情報の利用目的は、以下の通りです。</div>
+			<ol>
+				<li>当社経由で格安スマホや格安SIMの通知・購入・商品の配送・役務の提供・代金決済・お客さまからのお問い合わせへの対応・業務委託先からお客さまへのお問い合わせ・関連するアフターサービス・その他取引遂行にあたって必要な業務</li>
+				<li>各事業における商品・サービス料金の計算及び請求、これらに関するお客様へのご連絡のため</li>
+				<li>各事業に関するアンケート調査、お客様からのお問い合わせへの回答のため</li>
+				<li>各事業における商品・サービスのお知らせ及び斡旋のため</li>
+				<li>各事業におけるキャンペーン等の実施のため</li>
+				<li>当社及び第三者の商品等の販売、販売の勧誘、発送、サービス提供のために電子メールその他の広告宣伝物を送信するため</li>
+				<li>新卒・中途採用に関するお客様からのご応募やお問い合わせへの回答のため</li>
+				<li>各事業における応対品質の向上のため</li>
+			</ol>
+
+		<h2>クレジットカード情報を含む個人情報の取り扱いについて</h2>
+		<div class="text">お客様のクレジットカード情報(カード名義・カード番号・有効期限)の利用目的、クレジットカード情報の取得者名、提供先名、保存期間は次の通りです。</div>
+			<ol>
+				<li>利用目的　ご購入された商品およびサービスの代金をクレジットカード決済するため</li>
+				<li>情報の取得者名　株式会社ALL CONNECT</li>
+				<li>情報の提供先名　クレジットカード決済代行会社（ＧＭＯペイメントゲートウェイ(株)）</li>
+				<li>保存期間　お客様からのご注文時よりよりクレジットカード決済を行う時まで</li>
+			</ol>
+			<div class="text">当社では、以下に定める範囲内において、お客様の個人情報を第三者に提供することがあります。</div>
+			<ol>
+				<li>お客様の同意がある場合</li>
+				<li>裁判所、検察庁、警察、税務署、弁護士会またはこれらに準じた権限を有する機関から開示を求められた場合</li>
+				<li>お客様が当社に対し支払うべき料金その他の決済を行うために、金融機関、クレジットカード会社、回収代行業者その他の決済またはその代行を行う事業者に開示する場合</li>
+				<li>当社が行う業務の全部または一部を第三者に委託する場合</li>
+				<li>当社に対して秘密保持義務を負う者に対して開示する場合</li>
+				<li>当社の権利行使に必要な場合</li>
+				<li>合併、営業譲渡その他の事由による事業の承継の際に、事業を承継する者に対して開示する場合</li>
+				<li>個人情報保護法その他の法令により認められた場合</li>
+				<li>第三者の広告又は宣伝等のために電子メールその他の広告宣伝物を送信する場合</li>
+			</ol>
+			<div class="text">お客様の個人情報を委託先、及び第三者に提供する場合、下記の規定に従います。</div>
+			<ol>
+				<li>
+					委託先、及び第三者に提供する個人情報項目<br>
+					氏名、住所、電話番号、生年月日、メールアドレス<br>
+					ご請求金額、お支払方法等のご利用料金に関する情報等<br>
+					金融機関の口座番号、口座名義、クレジットカード番号等<br>
+					個人情報の利用目的に必要な情報等の項目以外は提供致しません。
+				</li>
+				<li>
+					委託先、及び第三者への提供の手段または方法<br>
+					郵便物、電話、ファックス、インターネット、電子メール、書面、により行います。
+				</li>
+				<li>
+					委託先、及び第三者への提供の停止<br>
+					お客様ご本人からのお申出がありましたら、提供は取りやめさせて頂きます。<br>
+					ただし、業務運営上必要なご案内の送付等は除きます。
+				</li>
+			</ol>
+
+		<h2>個人情報の取扱いに関するご意見等の受付窓口</h2>
+		<div class="text">
+			個人情報の取り扱いに関するご相談、ご意見等については、下記窓口で承ります。<br>
+			また、当社の保有個人データの開示等、個人情報保護法・第24条等に基づくご請求についても、下記窓口へご連絡ください。
+		</div>
+			<p class="company-inquiry">
+				《個人情報に関するお問い合せ先》<br>
+				株式会社 ALL CONNECT<br>
+				〒910-2178　福井県福井市栂野町第15号1番地2<br>
+				TEL：0776-31-2100
+			</p>
+			<p class="company-inquiry">
+				《認定個人情報保護団体》<br>
+				認定個人情報保護団体の名称：一般財団法人日本情報経済社会推進協会<br>
+				苦情の解決の申出先：個人情報保護苦情相談室<br>
+				住 所：〒106-0032　東京都港区六本木 1-9-9　六本木ファーストビル 12F<br>
+				電話番号：03-5860-7565<br>
+				フリーダイヤル：0120-700-779<br>
+				※当社の商品・サービスに関する問合せ先ではございません。
+			</p>
+
+		<h2>クッキーについて</h2>
+		<h3>■クッキーとは？</h3>
+		<div class="text">
+			クッキーとは、ウェブページを利用したときに、ブラウザとサーバーとの間で送受信した利用履歴や入力内容などを、お客様のコンピュータにファイルとして保存しておく仕組みです。次回、同じページにアクセスすると、クッキーの情報を使って、ページの運営者はお客様ごとに表示を変えたりすることができます。お客様がブラウザの設定でクッキーの送受信を許可している場合、ウェブサイトは、ユーザーのブラウザからクッキーを取得できます。なお、お客様のブラウザは、プライバシー保護のため、そのウェブサイトのサーバーが送受信したクッキーのみを送信します。
+		</div>
+
+		<h3>■クッキーの設定について</h3>
+			<ul>
+				<li>お客様は、クッキーの送受信に関する設定を「すべてのクッキーを許可する」、「すべてのクッキーを拒否する」、「クッキーを受信したらユーザーに通知する」などから選択できます。設定方法は、ブラウザにより異なります。クッキーに関する設定方法は、お使いのブラウザの「ヘルプ」メニューでご確認ください。</li>
+				<li>すべてのクッキーを拒否する設定を選択されますと、認証が必要なサービスを受けられなくなる等、インターネット上の各種サービスの利用上、制約を受ける場合がありますのでご注意ください。</li>
+			</ul>
+
+		<h3>■当サイトがクッキーを使用して行っていること</h3>
+		<div class="text">以下の目的のため、当サイトはクッキーを利用しています。</div>
+			<ul>
+				<li>お客様が認証サービスにログインされるとき、保存されているお客様の登録情報を参照して、お客様ごとにカスタマイズされたサービスを提供できるようにするため</li>
+				<li>お客様が興味を持っている内容や、当サイトのサイト上での利用状況をもとに、最も適切な広告を他社サイト上で表示するため</li>
+				<li>当サイトのサイトの利用者数やトラフィックを調査するため</li>
+				<li>当サイトのサービスを改善するため</li>
+				<li>セキュリティー保持のため、ご利用から一定の時間が経過したお客様に対してパスワードの再入力（再認証）を促すため</li>
+			</ul>
+		<div class="text">なお、当サイトは、当サイトの広告の配信を委託するYahoo! JAPANへの委託に基づき、Yahoo! JAPANを経由して、当サイトのクッキーを保存し、参照する場合があります。</div>
+
+		<h2>クッキーのオプトアウトについて</h2>
+		<div class="text">クッキーによる行動ターゲティング広告の無効化をご希望の場合は、下記の各社リンクより無効化（オプトアウト）を行ってください。</div>
+		<ul>
+			<li>グーグル株式会社：<a href="https://support.google.com/ads/answer/2662922" target="_blank">https://support.google.com/ads/answer/2662922</a></li>
+			<li>ヤフー株式会社：<a href="http://btoptout.yahoo.co.jp/optout/preferences.html" target="_blank">http://btoptout.yahoo.co.jp/optout/preferences.html</a></li>
+			<li>facebook：<a href="https://www.facebook.com/settings/?tab=ads" target="_blank">https://www.facebook.com/settings/?tab=ads</a></li>
+		</ul>
+	</div>
+	<div id="other-privacy">
+		<h2>ご契約について</h2>
+		<p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
+	</div>
+
+	<div id="other-privacy">
+		<h2>ご契約について</h2>
+		<p class="text">当サイトより「U-mobile」をお申し込みされた場合、株式会社U-NEXTにお客様の情報を提供致します。</p>
+	</div>
 </div>
 
 

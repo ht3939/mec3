@@ -27,12 +27,42 @@ textarea.form-control {
 {% if ProductOptions is defined %}
     <ul class="classcategory_list">
         {% for ProductOption in ProductOptions %}
+
             {% set value = 'productoption' ~ ProductOption.Option.id %}
             <li>{{ form_label(form[value]) }}
                 {% if ProductOption.Option.description_flg == 1 %}
                     &nbsp;<a href="?" id="option_description_link_{{ ProductOption.Option.id }}">詳細説明</a>
                 {% endif %}
             </li>
+
+            {% if ProductOption.Option.Extension.descdisp_flg %}
+                {% set Option = ProductOption.Option %}
+
+                {% if Option.description_flg == 1 %}
+                    <div>
+                        <div class="header">
+                            <p>{{ Option.description|raw|nl2br }}</p>
+                        </div>
+
+                        {% if Option.OptionCategories|length > 0%}
+                        <div class="body">
+                                {% for optionCategory in Option.OptionCategories %}
+                                    {% if optionCategory.disable_flg != 1 %}
+                                        <div>
+                                            {% if optionCategory.option_image %}
+                                                <img src="{{ app.config.image_save_urlpath }}/{{ optionCategory.option_image }}"/>
+                                            {% endif %}
+                                            <p>{{ optionCategory.description|raw|nl2br }}</p>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
             <li>
                 {{ form_widget(form[value] ,{ attr : { onChange : 'onOptionChange()' }} ) }}
                 {{ form_errors(form[value]) }}

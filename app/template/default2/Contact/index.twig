@@ -21,6 +21,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
 {% extends 'default_frame.twig' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ app.config.front_urlpath }}/css/form/common.css?v={{ constant('Eccube\\Common\\Constant::VERSION') }}">
+{% endblock %}
+
 {% block javascript %}
 <script src="//ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <script>
@@ -103,6 +107,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                         </div>
                                     </dd>
                                 </dl>
+                            </div>
+                            <div class="important-descriptive-matter">
+                               {{include('Block/mania_form_agreement.twig')}}
+                               <!-- ## customnonmember ## -->
                             </div>
                             <input id="top_box__hidden_mode" type="hidden" name="mode" value="confirm">
                             {% for f in form %}

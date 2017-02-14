@@ -1,0 +1,22 @@
+Plugin\ProductOption\Entity\Extension:
+    type: entity
+    table: plg_productoption_dtb_extension
+    repositoryClass: Plugin\ProductOption\Repository\ExtensionRepository
+    id:
+        option_id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+    fields:
+        descdisp_flg:
+            type: smallint
+            nullable: true
+    oneToOne:
+        Option:
+            targetEntity: Plugin\ProductOption\Entity\Option
+            inversedBy: Extension
+            joinColumn:
+                name: option_id
+                referencedColumnName: option_id
+    lifecycleCallbacks: {  }

@@ -1,0 +1,8 @@
+name: SetProduct
+event: SetProduct
+code: SetProduct
+version: 1.0.0
+service: 
+    - SetProductServiceProvider
+orm.path:
+    - /Resource/doctrine

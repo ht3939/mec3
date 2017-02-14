@@ -68,4 +68,12 @@ Plugin\ProductOption\Entity\Option:
             mappedBy: Product
             orderBy:
                 rank: ASC
+    oneToOne:
+        Extension:
+            targetEntity: Plugin\ProductOption\Entity\Extension
+            cascade: ["persist", "remove"]
+            mappedBy: Option
+            joinColumn:
+                name: option_id
+                referencedColumnName: option_id
     lifecycleCallbacks: {  }

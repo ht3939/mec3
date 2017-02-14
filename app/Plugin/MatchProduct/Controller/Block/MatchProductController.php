@@ -79,9 +79,14 @@ class MatchProductController
             $this_carrier = ($__ex_product[$param['CarrierColumn']]['value'])?$__ex_product[$param['CarrierColumn']]['value']:array();
             $carrier_where = 'pepcv2.columnId = :CarrierColumn AND ';
             foreach ($this_carrier as $key => $val) {
+                $carrier_where .= ($key == 0)?' ( ':'';
                 $param['CarrierValue'.$key] = '%'.$val.'%';
                 $carrier_where .= ($key > 0)?' OR':'';
                 $carrier_where .= ' pepcv2.value LIKE :CarrierValue'.$key;
+            }
+            if(count($this_carrier)>=1){
+                $carrier_where .= ' )';
+
             }
             // キャリアが設定されていない場合、絶対一致しない条件を入れる
             if(empty($this_carrier))$carrier_where .= '1 = 2';
@@ -105,7 +110,6 @@ class MatchProductController
                 ->groupBy('p.id')
                 ->setParameters($param)
                 ->getQuery();
-
 
             $matchs_product = array();
             $matchs_product = $query->getResult();

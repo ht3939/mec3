@@ -17,8 +17,6 @@
 #breadcrumbs .parent {
     overflow: hidden;
     display: block;
-    width: 1000px;
-    margin: 0 auto;
     padding: 11px 0;
     color: #666;
 }
@@ -90,12 +88,13 @@
 {% endblock %}
 
 <div class="pc">
-<p id="breadcrumbs" class="bg-grey">
+<p id="breadcrumbs">
 	<span class="parent" prefix="v:http://rdf.data-vocabulary.org/#">
-		<span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{ url('homepage') }}">スマホマニアトップ</a></span>
-		<span class="children" typeof="v:Breadcrumb">格安スマホって？格安SIMって？SIMフリースマホって？</span>
+		<span class="children first" typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{{url('homepage')}}">{{ BaseInfo.shop_name }}トップ</a></span>
+		<span class="children" typeof="v:Breadcrumb"><span property="v:title">格安スマホって？格安SIMって？SIMフリースマホって？</span></span>
 	</span>
 </p>
+
 <div id="mainv">
 	<div class="mainv-inner">
 		<h1><img src="{{ app.config.front_urlpath }}/img/about-sim/mainv.png" alt="格安SIMって？SIMフリースマホって？"></h1>

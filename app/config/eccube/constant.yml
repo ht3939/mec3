@@ -126,9 +126,10 @@ producttype_ex_monthly_type_grp_extra_disp:
   5:
    -
     id: 52
-    front: "セット合計"
+    front: "セット料金"
     back: " /月"
     valuekey: 52
+    brflg: true
    -
     id: 53
     front: "ＳＩＭ月額"
@@ -175,15 +176,6 @@ producttype_ex_list_extends_disp:
    - 47
    - "重さ（ｇ）"
  5:
-  -
-   - 12
-   - "O　　S"
-  -
-   - 34
-   - "データ容量"
-  -
-   - 36
-   - "通信速度"
 
 #一括を表示する商品種別
 producttype_ex_sim_type_grp:

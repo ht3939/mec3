@@ -1,0 +1,14 @@
+admin.customnonmember.save.complete: 商品基本情報を保存しました。
+admin.customnonmember.save.error: 商品基本情報の保存に失敗しました。
+admin.customnonmember.display.usecustomnonmember.error: 商品が不正です。
+admin.customnonmember.validate.zero.error: 0は設定できません。
+admin.customnonmember.customer.csv_import.save.complete: 会員CSV登録が完了しました。
+admin.customnonmember.order.csv_import.save.complete: 受注CSV登録が完了しました。
+admin.customnonmember.notfound: 商品が存在しません。
+admin.customnonmember.recommend_id.notexists: 商品IDがありません。
+admin.plugin.customnonmember.regist.success: 商品を登録しました。
+admin.plugin.customnonmember.update.success: 商品を修正しました。
+admin.plugin.customnonmember.delete.success: 商品を削除しました。
+admin.plugin.customnonmember.complete.up: 商品を上へ移動しました。
+admin.plugin.customnonmember.complete.down: 商品を下へ移動しました。
+admin.plugin.customnonmember.privacycheck.error: 同意するにチェックを入れてください。
