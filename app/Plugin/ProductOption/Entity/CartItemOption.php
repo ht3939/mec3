@@ -21,6 +21,7 @@ class CartItemOption extends \Eccube\Entity\AbstractEntity
     private $price;    
     private $quantity;
     private $option;
+    private $option_extension;
     private $label;
     private $labelprice;
     private $delivery_free_flg;
@@ -101,6 +102,19 @@ class CartItemOption extends \Eccube\Entity\AbstractEntity
     {
         return $this->option;
     }
+
+    public function setOptionExtension($extension)
+    {
+        $this->option_extension = $extension;
+
+        return $this;
+    }
+    
+    public function getOptionExtension()
+    {
+        return $this->option_extension;
+    }
+
     
     public function setLabel($label)
     {

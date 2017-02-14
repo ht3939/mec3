@@ -12,6 +12,9 @@ Plugin\ProductOption\Entity\Extension:
         descdisp_flg:
             type: smallint
             nullable: true
+        exclude_payment_flg:
+            type: smallint
+            nullable: true
     oneToOne:
         Option:
             targetEntity: Plugin\ProductOption\Entity\Option

@@ -26,7 +26,7 @@ class FrontCart extends AbstractWorkPlace
         $parameters = $event->getParameters();
 
         $CartOption = $app['eccube.productoption.service.cart']->getCartOption();
-        
+
         $source = $event->getSource();
         
         if(preg_match('/<.*id="cart_item_list__item_price"/',$source, $result)){
@@ -63,7 +63,7 @@ class FrontCart extends AbstractWorkPlace
             $replace = $snipet;
             $source = str_replace($search, $replace, $source);
         }
-//dump($CartOption->getCartOptions());
+
         $event->setSource($source);
         $parameters['CartOptions'] = $CartOption->getCartOptions();
         $event->setParameters($parameters);

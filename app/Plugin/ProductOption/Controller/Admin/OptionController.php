@@ -36,6 +36,7 @@ class OptionController extends \Eccube\Controller\AbstractController
             $ExtensionEntity
                  ->setId($TargetOption->getId())
                  ->setDescdispFlg(0)
+                 ->setExcludePaymentFlg(0)
                  ->setOption($TargetOption);
             $TargetOption->setExtension($ExtensionEntity);
         }
@@ -43,7 +44,6 @@ class OptionController extends \Eccube\Controller\AbstractController
         $form = $app['form.factory']
                 ->createBuilder('admin_product_option', $TargetOption)
                 ->getForm();
-
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);

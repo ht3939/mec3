@@ -1,9 +1,13 @@
 name: 商品オプションプラグイン
 event: ProductOptionEvent
 code: ProductOption
-version: 2.3.0
+version: 2.3.1
 service:
     - ProductOptionServiceProvider
 orm.path:
     - /Resource/doctrine
 form:
+const:
+# 小計から場外する規格
+  exclude_product_class: 4
+  exclude_product_msg: ※提供事業者からの請求になります。

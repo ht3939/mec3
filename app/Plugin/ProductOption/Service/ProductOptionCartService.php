@@ -46,7 +46,7 @@ class ProductOptionCartService
         $this->BaseInfo = $app['eccube.repository.base_info']->get();
     }
     
-    public function addProductOption($productClassId, $Options, $quantity = 1)
+    public function addProductOption($productClassId, $Options, $quantity = 1,$OptionsExtension = null)
     {
 
         $cartItems = $this->cart->getCartItems();
@@ -98,6 +98,7 @@ class ProductOptionCartService
                     ->setClassId((string) $productClassId)
                     ->setQuantity($quantity)
                     ->setOption($Options)
+                    ->setOptionExtension($OptionsExtension)
                     ->setLabel($arrLabel)
                     ->setLabelPrice($arrLabelPrice)
                     ->setPrice($ProductClass->getPrice02IncTax() + $option_price_inctax)

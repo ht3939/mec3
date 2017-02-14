@@ -21,6 +21,7 @@ class Extension extends \Eccube\Entity\AbstractEntity
 
     private $option_id;
     private $descdisp_flg;
+    private $exclude_payment_flg;
     private $Option;
 
     public function __construct()
@@ -52,6 +53,18 @@ class Extension extends \Eccube\Entity\AbstractEntity
     public function getDescdispFlg()
     {
         return $this->descdisp_flg;
+    }
+
+    public function setExcludePaymentFlg($flg)
+    {
+        $this->exclude_payment_flg = $flg;
+
+        return $this;
+    }
+
+    public function getExcludePaymentFlg()
+    {
+        return $this->exclude_payment_flg;
     }
 
     public function setOption(\Plugin\ProductOption\Entity\Option $option)
