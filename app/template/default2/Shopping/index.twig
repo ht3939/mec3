@@ -259,6 +259,10 @@ function CheckLogic() {
                                             {% endif %}
                                             {% if orderDetail.productClass.classCategory2 %}
                                                 <br>{{ orderDetail.productClass.classCategory2.className }}：{{ orderDetail.productClass.classCategory2 }} {{ orderDetail.productClass.price02|number_format }}円（＋税）
+                                                    {#注記の表示#}
+                                                      {% if orderDetail.productClass.classCategory2.id == app.config.ProductOption.const.exclude_product_class %}
+                                                      <br>{{ app.config.ProductOption.const.exclude_product_msg }}
+                                                      {% endif %}
                                             {% endif %}
                                         </dd>
                                         <dd id="cart_box_list__price--{{ loop.index }}" class="item_price">{{ orderDetail.priceIncTax|price }} × {{ orderDetail.quantity|number_format }}</dd>

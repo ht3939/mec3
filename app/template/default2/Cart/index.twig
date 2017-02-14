@@ -154,6 +154,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                                 {% endif %}
                                                 {% if ProductClass.ClassCategory2 and ProductClass.ClassCategory2.id %}
                                                     <br>{{ ProductClass.ClassCategory2.ClassName }}：{{ ProductClass.ClassCategory2 }} {{ ProductClass.price02|number_format }}円（＋税）
+                                                    {#注記の表示#}
+                                                      {% if ProductClass.ClassCategory2.id == app.config.ProductOption.const.exclude_product_class %}
+                                                      <br>{{ app.config.ProductOption.const.exclude_product_msg }}
+                                                      {% endif %}
                                                 {% endif %}
                                             </dd>
                                             <dd id="cart_item_list__item_price" class="item_price">￥{{ CartItem.price|number_format }}</dd>

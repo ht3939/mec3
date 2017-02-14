@@ -231,10 +231,19 @@ class FrontProductDetail extends AbstractWorkPlace
                                     }
                                     if($add){
                                         $Options[$option_key] = (string)$value;
-                                        $OptionsExtension[$option_key] = array(
-                                                                    'descdisp_flg'=>$Option->getExtension()->getDescdispFlg(),
-                                                                    'exclude_payment_flg'=>$Option->getExtension()->getExcludePaymentFlg(),
-                                                                            );
+                                        if($Option->getExtension()){
+                                            $OptionsExtension[$option_key] = array(
+                                                                        'descdisp_flg'=>$Option->getExtension()->getDescdispFlg(),
+                                                                        'exclude_payment_flg'=>$Option->getExtension()->getExcludePaymentFlg(),
+                                                                                );
+
+                                        }else{
+                                            $OptionsExtension[$option_key] = array(
+                                                                        'descdisp_flg'=>0,
+                                                                        'exclude_payment_flg'=>0,
+                                                                                );
+
+                                        }
                                     }
                                 }
                             }

@@ -89,7 +89,7 @@ class UtilService
                 $Option = $this->app['eccube.productoption.repository.option']->find($option_id);
                 if($Option){
                     if($Option->getType()->getId() == 1 || $Option->getType()->getId() == 2){
-                        if($Option->getExtension()->getExcludePaymentFlg()){
+                        if($Option->getExtension() && $Option->getExtension()->getExcludePaymentFlg()){
                             //除外する
 
                         }else{
