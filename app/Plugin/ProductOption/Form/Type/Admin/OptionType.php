@@ -73,6 +73,11 @@ class OptionType extends AbstractType
                     'required' => false,
                     'property_path' => 'Extension.descdisp_flg',
                 ))
+                ->add('exclude_payment_flg', 'checkbox', array(
+                    'label' => '小計除外',
+                    'required' => false,
+                    'property_path' => 'Extension.exclude_payment_flg',
+                ))
                 ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber())
         ;
 
@@ -88,7 +93,18 @@ class OptionType extends AbstractType
                 }
             ))
         ;
-
+        $builder->get('exclude_payment_flg')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($outval) {
+                    // transform the string back to an array
+                    return $outval?true:false;
+                },
+                function ($inval) {
+                    // transform the array to a string
+                    return $inval?1:0;
+                }
+            ))
+        ;
     }
 
     /**
