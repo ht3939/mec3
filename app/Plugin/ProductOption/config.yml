@@ -10,4 +10,7 @@ form:
 const:
 # 小計から場外する規格
   exclude_product_class: 9
-  exclude_product_msg: ※SIM月額費用は提供事業者からの請求になります。
+  exclude_product_msg: ※月額はMVNO事業者からの請求となります。
+  exclude_product_option_msg: ※月額はMVNO事業者からの請求となります。
+  exclude_shopping_msg: ※分割購入の際は翌月以降はカード会社より請求がございます。
+  exclude_shopping_option_msg: ※SIMの月額料金はMVNO事業者からの請求となり、上記に含みません。

@@ -43,7 +43,9 @@
 {% endif %}
 {% if plgOrderDetails[OrderDetail.id] is defined %}
 {% for label in plgOrderDetails[OrderDetail.id].label %}
-	{% if loop.index0 != 0%}{{"\r\n"}}{% endif %}{{ label }}　{% if plgOrderDetails[OrderDetail.id].labelprice[loop.index0] > 0%}{{plgOrderDetails[OrderDetail.id].labelprice[loop.index0]|number_format}}円（＋税）{{"\r\n"}}{% endif %}
+	{% if loop.index0 != 0%}{{"\r\n"}}{% endif %}{{ label }}　{% if plgOrderDetails[OrderDetail.id].labelprice[loop.index0] > 0%}{{plgOrderDetails[OrderDetail.id].labelprice[loop.index0]|number_format}}円（＋税）{{"\r\n"}}
+	{% if plgOrderDetails[OrderDetail.id].option[loop.index0].Option.Extension.exclude_payment_flg %}{{ app.config.ProductOption.const.exclude_product_option_msg }}{{"\r\n"}}{% endif %}
+	{% endif %}
 {% endfor %}
 {% endif %}
 単価： {{ calc_inc_tax(OrderDetail.price, OrderDetail.tax_rate, OrderDetail.tax_rule)|price }}

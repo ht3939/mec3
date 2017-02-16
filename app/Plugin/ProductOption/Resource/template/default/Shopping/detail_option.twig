@@ -15,7 +15,7 @@
 
         {% set optkey = plgOrderDetails[orderDetail.id].option|keys %}
         {#CartOptions[key].option[optkey[loop.index0]]}}{{key}}#}
-    {% if plgOrderDetails[orderDetail.id].option[loop.index0].Option.Extension.exclude_payment_flg %}<br/>※小計から除外する{% endif %}
+    {% if plgOrderDetails[orderDetail.id].option[loop.index0].Option.Extension.exclude_payment_flg %}<br/><p class="_note">{{ app.config.ProductOption.const.exclude_product_option_msg }}<p>{% endif %}
 
         {% endfor %}
     {% endif %}
