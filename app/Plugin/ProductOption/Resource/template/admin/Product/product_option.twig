@@ -73,6 +73,7 @@
                                                     <th>オプション表示名</th>
                                                     <th>タイプ</th>
                                                     <th>説明画面</th>
+                                                    <th>小計除外</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -93,6 +94,9 @@
                                                         </td>
                                                         <td>
                                                             {% if productOption.vars.value.Option.description_flg == 1 %}○{% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if productOption.vars.value.Option.Extension.exclude_payment_flg == 1 %}○{% endif %}
                                                         </td>
                                                     </tr>
                                                 {% endfor %}

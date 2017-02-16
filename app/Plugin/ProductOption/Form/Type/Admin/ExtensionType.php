@@ -48,7 +48,13 @@ class ExtensionType extends AbstractType
                 // 'value' => 1,
                 'mapped' => false,
             ))
-                // ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber())
+            ->add('exclude_payment_flg', 'checkbox', array(
+                'label' => '金額除外',
+                'required' => false,
+                'trim' => true,
+                'mapped' => false,
+            ))
+                            // ->addEventSubscriber(new \Eccube\Event\FormEventSubscriber())
             ;
 
         // $builder->get('descdisp_flg')
