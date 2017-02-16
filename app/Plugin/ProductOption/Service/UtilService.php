@@ -89,7 +89,13 @@ class UtilService
                 $Option = $this->app['eccube.productoption.repository.option']->find($option_id);
                 if($Option){
                     if($Option->getType()->getId() == 1 || $Option->getType()->getId() == 2){
+                        if($Option->getExtension() && $Option->getExtension()->getExcludePaymentFlg()){
+                            //除外する
+
+                        }else{
                         $option_price += intval($this->app['eccube.productoption.repository.option_category']->find($option_value)->getValue());
+
+                        }
                     }
                 }
             }
@@ -132,9 +138,15 @@ class UtilService
                 $plgOrderDetails[$orderDetail->getId()]["label"] = $labelarr;
                 $plgOrderDetails[$orderDetail->getId()]["labelprice"] = $labelpricearr;
                 $plgOrderDetails[$orderDetail->getId()]["option_price"] = $plgOrderDetail->getOrderOption()->getPrice();
+                $oop = array();
+                foreach($plgOrderDetail->getOrderOption()->getOrderOptionItems() as $item){
+                    $oop[] = $item;
+                }
+                $plgOrderDetails[$orderDetail->getId()]["option"] = $oop;
 
             }
         }
+
         return $plgOrderDetails;
     }
     

@@ -12,6 +12,11 @@
     {% if plgOrderDetails[orderDetail.id] is defined %}
         {% for label in plgOrderDetails[orderDetail.id].label %}
             {% if loop.index0 != 0%}<br />{% endif %}{{ label }}　{% if plgOrderDetails[orderDetail.id].labelprice[loop.index0] > 0%}{{plgOrderDetails[orderDetail.id].labelprice[loop.index0]|number_format}}円（＋税）{% endif %}
+
+        {% set optkey = plgOrderDetails[orderDetail.id].option|keys %}
+        {#CartOptions[key].option[optkey[loop.index0]]}}{{key}}#}
+    {% if plgOrderDetails[orderDetail.id].option[loop.index0].Option.Extension.exclude_payment_flg %}<br/><p class="_note">{{ app.config.ProductOption.const.exclude_product_option_msg }}<p>{% endif %}
+
         {% endfor %}
     {% endif %}
 </dd>

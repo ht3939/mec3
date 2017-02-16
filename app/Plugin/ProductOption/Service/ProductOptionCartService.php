@@ -46,7 +46,7 @@ class ProductOptionCartService
         $this->BaseInfo = $app['eccube.repository.base_info']->get();
     }
     
-    public function addProductOption($productClassId, $Options, $quantity = 1)
+    public function addProductOption($productClassId, $Options, $quantity = 1,$OptionsExtension = null)
     {
 
         $cartItems = $this->cart->getCartItems();
@@ -79,11 +79,21 @@ class ProductOptionCartService
         //オプション情報を追加
         if($add_option){
             $ProductClass = $this->app['eccube.repository.product_class']->find($productClassId);
+
+            $price = 0;
+            if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
+
+            }else{
+                $price = $ProductClass->getPrice02IncTax();
+
+            }                
+
             if(isset($copy_index)){
                 $CartItem = clone $cartItems[$copy_index];
                 $ProductClassId = $cartItems[$copy_index]->getClassId();
                 $ProductClass = $this->app['eccube.repository.product_class']->find($productClassId);
-                $CartItem->setPrice($ProductClass->getPrice02IncTax());
+
+                $CartItem->setPrice($price);
                 $CartItem->setQuantity($quantity);
                 $this->cart->addCartItem($CartItem);
             }            
@@ -98,9 +108,10 @@ class ProductOptionCartService
                     ->setClassId((string) $productClassId)
                     ->setQuantity($quantity)
                     ->setOption($Options)
+                    ->setOptionExtension($OptionsExtension)
                     ->setLabel($arrLabel)
                     ->setLabelPrice($arrLabelPrice)
-                    ->setPrice($ProductClass->getPrice02IncTax() + $option_price_inctax)
+                    ->setPrice($price + $option_price_inctax)
                     ->setOptionPrice($option_price)
                     ->setOptionPriceIncTax($option_price_inctax)
                     ->setDeliveryFreeFlg($delivery_free_flg);

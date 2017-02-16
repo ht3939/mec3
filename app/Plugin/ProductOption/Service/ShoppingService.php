@@ -29,7 +29,14 @@ class ShoppingService extends \Eccube\Service\ShoppingService
             foreach($cartItemOptions as $cartNo => $cartItemOption){
                 if($ProductClass->getId() == $cartItemOption->getClassId() && !in_array($cartNo,$arrCheck)){
                     $arrCheck[] = $cartNo;
-                    $price = $ProductClass->getPrice02();
+                    $price = 0;
+                    if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
+
+                    }else{
+
+                        $price = $ProductClass->getPrice02();
+
+                    }
                     $price += $cartItemOption->getOptionPrice();
                     if(!$deliv_free_flg){
                         if($cartItemOption->getDeliveryFreeFlg())$deliv_free_flg = true;
@@ -78,7 +85,16 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                     foreach($cartItemOptions as $cartNo => $cartItemOption){
                         if($ProductClass->getId() == $cartItemOption->getClassId() && !in_array($cartNo,$arrCheck)){
                             $arrCheck[] = $cartNo;
-                            $price = $ProductClass->getPrice02();
+
+                            $price = 0;
+                            if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
+
+                            }else{
+
+                                $price = $ProductClass->getPrice02();
+                                
+                            }
+
                             $price += $cartItemOption->getOptionPrice();
 
                             $shipmentItem->setPrice($price);

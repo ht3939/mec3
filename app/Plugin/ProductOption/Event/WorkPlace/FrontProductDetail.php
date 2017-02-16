@@ -200,6 +200,7 @@ class FrontProductDetail extends AbstractWorkPlace
                 if ($form->isValid()) {
                     try {
                         $Options = array();
+                        $OptionsExtension = array();
                         foreach($data as $option_key => $value){
                             if(strpos($option_key,'productoption') !== false){
                                 $option_id = str_replace('productoption', '', $option_key);
@@ -230,12 +231,25 @@ class FrontProductDetail extends AbstractWorkPlace
                                     }
                                     if($add){
                                         $Options[$option_key] = (string)$value;
+                                        if($Option->getExtension()){
+                                            $OptionsExtension[$option_key] = array(
+                                                                        'descdisp_flg'=>$Option->getExtension()->getDescdispFlg(),
+                                                                        'exclude_payment_flg'=>$Option->getExtension()->getExcludePaymentFlg(),
+                                                                                );
+
+                                        }else{
+                                            $OptionsExtension[$option_key] = array(
+                                                                        'descdisp_flg'=>0,
+                                                                        'exclude_payment_flg'=>0,
+                                                                                );
+
+                                        }
                                     }
                                 }
                             }
                         }
                         $app['eccube.service.cart']->addProduct($data['product_class_id'], $data['quantity'])->save();
-                        $app['eccube.productoption.service.cart']->addProductOption($data['product_class_id'], $Options, $data['quantity']);
+                        $app['eccube.productoption.service.cart']->addProductOption($data['product_class_id'], $Options, $data['quantity'],$OptionsExtension);
                     } catch (CartException $e) {
                         $app->addRequestError($e->getMessage());
                     }
