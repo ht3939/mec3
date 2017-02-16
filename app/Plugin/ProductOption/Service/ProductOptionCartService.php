@@ -81,7 +81,7 @@ class ProductOptionCartService
             $ProductClass = $this->app['eccube.repository.product_class']->find($productClassId);
 
             $price = 0;
-            if($ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
+            if($ProductClass->getClassCategory2() && $ProductClass->getClassCategory2()->getId()==$this->app['config']['ProductOption']['const']['exclude_product_class']){
 
             }else{
                 $price = $ProductClass->getPrice02IncTax();
