@@ -9,9 +9,20 @@
 #}
 
 {% if CartOptions[key] is defined %}
+<style>
+._note {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #999;
+}
+</style>
 <dd>
     {% for label in CartOptions[key].label %}
         {% if loop.index0 != 0%}<br />{% endif %}{{ label }}　{% if CartOptions[key].labelprice[loop.index0] > 0%}{{CartOptions[key].labelprice[loop.index0]|number_format}}円（＋税）{% endif %}
+        {% set optkey = CartOptions[key].option|keys %}
+        {#CartOptions[key].option[optkey[loop.index0]]}}{{key}}#}
+    {% if CartOptions[key].option_extension[optkey[loop.index0]].exclude_payment_flg %}<br><p class="_note">{{ app.config.ProductOption.const.exclude_product_option_msg }}<p>{% endif %}
+
     {% endfor %}
 </dd>
 {% endif %}
