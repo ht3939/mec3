@@ -443,10 +443,9 @@ function CheckLogic() {
                                 {% if hasPayMonthly %}初回請求金額{% else %}請求金額{% endif %} <strong class="text-primary">{{ Order.total|price }}<span class="small">（税込）</span></strong></p>
                             <p id="summary_box__confirm_button"><button id="order-button" type="submit" class="btn btn-primary btn-block prevention-btn prevention-mask">注文する</button></p>
                         </div>
-                        <p class='_note'>※分割購入の際は翌月以降はカード会社より請求がございます。<br>
-                        {% if hasPayMonthly %}
-                        ※SIMの月額料金はMVNO事業者からの請求となり、上記に含みません。
-                        {% endif %}
+                        <p class='_note'>{% if hasPayMonthly %}{{app.config.ProductOption.const.exclude_shopping_msg}}<br>{% endif %}
+                        {% if hasSimOrder %}
+                        {{app.config.ProductOption.const.exclude_shopping_option_msg}}{% endif %}
                         </p>                            
                     </div>
                 </div>
