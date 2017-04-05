@@ -169,6 +169,7 @@ $(function(){
     <div id="item_detail">
         <div id="detail_wrap" class="row">
             <!--★画像★-->
+            <!--
             <div id="item_photo_area" class="col-sm-6">
                 <div id="detail_image_box__slides" class="slides">
                     {% if Product.ProductImage|length > 0 %}
@@ -180,6 +181,59 @@ $(function(){
                     {% endif %}
                 </div>
             </div>
+            -->
+
+
+<!-- test -->
+
+            <div id="item_photo_area" class="col-sm-6">
+            {% for ProductImageArr in ProductTmp.ProductImage %}
+            <div class="item_photo_area color_{{ loop.index }}">
+                <div id="detail_image_box__slides" class="slides">
+                    {% for ProductImage in  ProductImageArr %}
+                    <div id="detail_image_box__item--{{ loop.index }}"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}"/></div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+
+<script>
+    $(function(){
+
+        if($("#color_chenge_wrap input:checked").length < 1) $("#color_chenge_wrap input:eq(0)").prop("checked",true);
+
+        // すぐ実行すると画像の横幅が取得されない為
+        $(window).load(function(){
+            setTimeout(function(){
+                chengeImg($("#color_chenge_wrap input:checked").val());
+            },100);
+        });
+
+        $('#color_chenge_wrap input').on('click',function(){
+            if($(this).prop('checked')){
+                chengeImg($(this).val());
+            }
+        });
+
+        function chengeImg(color_id){
+            console.log(color_id);
+            $(".item_photo_area").css('display','none');
+            $(".item_photo_area.color_"+color_id).css('display','');
+
+        }
+
+    });
+</script>
+
+<!-- test -->
+
+
+
+
+
+
+
 
             <section id="item_detail_area" class="col-sm-6">
 
@@ -242,6 +296,68 @@ $(function(){
                         {% endfor %}
                     </div>
                     <!-- ▲関連カテゴリ▲ -->
+
+
+<!-- test -->
+<div id="color_chenge_wrap">
+    <p>カラー</p>
+    <label for="white">ホワイト</label><input type="radio" name="i_color" id="white" value="1">
+    <label for="black">ブラック</label><input type="radio" name="i_color" id="black" value="2">
+</div>
+
+<dl class="side-item-color">
+    <dd>
+        <ul>
+            <li class="js-color"><span class="color_prev_1"></span></li>
+            <li class="js-color"><span class="color_prev_2"></span></li>
+        </ul>
+    </dd>
+</dl>
+
+<style>
+.side-item-color {
+    padding: 15px 20px 5px;
+}
+.side-item-color dd {
+    overflow: hidden;
+}
+.side-item-color dd li {
+    float: left;
+    display: block;
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+.side-item-color dd li span {
+    display: block;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #eee;
+}
+.side-item-color dd li.active {
+    border: 1px solid #3243c2;
+}
+.side-item-color dd li .color_prev_1 {
+    background-color:#fff;
+}
+.side-item-color dd li .color_prev_2 {
+    background-color:#000;
+}
+
+</style>
+<!-- test -->
+
+
+
+
+
+
+
+
+
 
                     <form action="?" method="post" id="form1" name="form1">
                         <!--▼買い物かご-->

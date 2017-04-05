@@ -28,6 +28,22 @@ class FrontProductDetail extends AbstractWorkPlace
         $source = $event->getSource();
         
         $Product = $parameters['Product'];
+
+
+// ============== test ============== 
+        $ProductTmp = array();
+        foreach ($Product['ProductImage'] as $key => $value) {
+            if($key < 5){
+                $ProductTmp['ProductImage']['1'][] = $value;
+            }else{
+                $ProductTmp['ProductImage']['2'][] = $value;
+            }
+        }
+        $parameters['ProductTmp'] = $ProductTmp;
+// ============== test ============== 
+
+
+
         $ProductOptions = $app['eccube.productoption.repository.product_option']->getListByProductId($Product->getId());
         
         $isActive = false;
