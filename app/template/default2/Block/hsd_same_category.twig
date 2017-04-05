@@ -9,7 +9,6 @@
                     <div class="pickup_item">
                         <a href="{{ url('product_detail', {'id': reldat.product_id}) }}">
                             <div class="item_photo"><img src="{{ app.config.image_save_urlpath }}/{{ reldat.file_name | no_image_product }}"></div>
-                            <dd class="item_comment">{{reldat.description_detail[:30] ~ '...' }}</dd>
                             <dl>
                                 <dt class="item_name">{{reldat.maker_name}} {{reldat.name}}</dt>
                                 {% set product_type = reldat.product_type_id %}
