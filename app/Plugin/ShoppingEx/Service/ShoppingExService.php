@@ -243,6 +243,9 @@ class ShoppingExService
                                 ->setParameter('order', $orderid)
                                 ->getQuery()
                                 ->getResult();            
+
+            $mailhistory = $this->app['eccube.repository.mail_history'];
+
             $this->cleanupOrderInfo($order,$shoppingex,$shipping);
 
         }
@@ -253,7 +256,9 @@ class ShoppingExService
     private function cleanupOrderInfo($Order,$ShoppingEx,$Shippings = null)
     {
         $app = $this->app;
-
+        $q = $app['orm.em']->createQuery('delete Eccube\Entity\MailHistory c');
+        $q->execute();
+        
         if($ShoppingEx){
 //dump('shopping cleanup');
             $ShoppingEx
